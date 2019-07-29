@@ -1,0 +1,148 @@
+\section{UAV dynamics}
+A suitable model of the UAV dynamics has to be derived in order to calculate an efficient route. The UAV uses the $L_1$ control law presented in \cite{l1_controller}. This control law navigates from the origin to a goal coordinate by steering towards a reference point $P$ along the line from the origin to the goal which is at distance $L_1$ from the UAV in each time step. Based on this control law, some initial assumptions are made and the UAV state and control vectors are defined.
+
+\begin{assumption}
+The UAV will always hold a constant altitude, which means that the route optimization can be performed in two dimensions without taking altitude into account.
+\end{assumption}
+
+\begin{assumption}
+The UAV is able to hold a constant velocity $V$ relative to the surrounding air. Any internal dynamics related to velocity are neglected.
+\end{assumption}
+
+\begin{definition}[UAV state]
+The UAV state vector is defined as
+\begin{equation}\label{eq:ss_first}
+\vec{x}=(\lambda,\phi,\theta)    
+\end{equation}
+where $(\lambda,\phi)$ is the latitude and longitude coordinate and $\theta$ is the current heading, defined to be zero in the north direction.
+\end{definition}
+
+\begin{definition}[UAV control]
+The UAV control vector is defined as
+\begin{equation}
+    \vec{u}=(\lambda_g,\phi_g,V)
+\end{equation}
+where $(\lambda_g,\phi_g)$ is the latitude and longitude of the desired goal position and $V$ is the desired velocity.
+\end{definition}
+
+To derive the state-space model, the following variables are defined:
+\begin{equation}\label{eq:ss_variabels}
+    \left\{
+    \begin{aligned}
+        \vec{v}=&V(\sin\theta, \cos\theta)\\
+        \vec{r}=&(\lambda, \phi)\\
+        \vec{g}=&(\lambda_g, \phi_g)\\
+        \theta_g=&\mathrm{atan2}(\lambda_g, \phi_g)\\
+        d=&(\vec{r}\times\vec{g}/|\vec{g}|)\cdot\uvec{z}=-\lambda\sin\theta_g + \phi\cos\theta_g 
+    \end{aligned}
+    \right.
+\end{equation}
+where $\vec{v}$ is the UAV velocity vector, $\vec{r}$ is the UAV position, $\vec{g}$ is the goal position, $\theta_g$ is the goal heading and $d$ is the cross track error. All the defined variables are shown in Figure~\ref{fig:ss_defs}.
+
+\begin{figure}[htb]
+    \begin{center}
+    \tikzstyle{point} = [
+        circle,
+        minimum width=3.5pt,
+        inner sep=0,
+        fill=black
+    ]
+    \tikzstyle{my_v} = [
+        ->,
+        line width = 1.2pt
+    ]
+    \begin{tikzpicture}[scale=0.85]
+        %\draw[help lines](0,0) grid (10,10);
+        \coordinate (origin) at (1,1);
+        \coordinate (drone) at (2,6);
+        \coordinate (goal) at (9,9);
+        \coordinate (ref) at (7,7);
+        
+        \node[anchor=east] at (drone) {$(\lambda, \phi)$};
+        \draw[my_v] (drone) -- node[above, near end, anchor=south east]{$\vec{v}$} ++ ({atan(2)}:2.5);
+        \draw[dashed] (drone) --++ (45:2);
+        \draw[->] ([yshift=0.7cm]drone) arc(90:{atan(2)}:0.7) node[above,midway]{$\theta$};
+        \draw[dashed] (drone) --++ (0,1);
+        \draw[->] (drone) ++ (0.5,1) arc({atan(2)}:45:{sqrt(1.25)}) node[midway,anchor=223]{$\eta_2$};
+        \draw[->] (drone) ++ (45:0.7) arc(45:{atan(0.2)}:0.7) node[midway, anchor=190]{$\eta_1$};
+        \draw (drone) -- node[below, anchor=north east]{$d$} ++ (2, -2);
+        
+        \node[anchor=north west] at (goal) {$(\lambda_g, \phi_g)$};
+        
+        \draw (drone) -- node[above,sloped]{$L_1$} (ref);
+        \node[point] at (ref) {};
+        \node[anchor=north west] at (ref) {$P$};
+        
+        \draw[my_v] (origin) -- node[above, at end]{$\vec{g}$} (goal);
+        \draw[my_v] (origin) -- node[left]{$\vec{r}$} (drone);
+        \draw[->] (origin) ++ (1,0) arc(0:45:1) node[midway,anchor=west]{$\theta_g$};
+        \draw[dashed] (origin) --++ (2,0);
+    \end{tikzpicture}
+        
+    \caption{Definition of UAV State Space variables}
+    \label{fig:ss_defs}
+    \end{center}
+\end{figure}
+
+In the ArduPilot implementation, the distance $L_1$ is calculated as
+\begin{equation}\label{eq:ardu_l1}
+    L_1=\begin{cases}
+        \frac{1}{\pi}\zeta\Delta TV & \mbox{if}\quad |\frac{1}{\pi}\zeta\Delta TV|>|\vec{r}-\vec{g}| \\
+        |\vec{r}-\vec{g}| & \mbox{otherwise}
+    \end{cases}
+\end{equation}
+where $\zeta$ is the damping factor and $\Delta T$ is the update period of the controller \cite{arduplane_l1}.
+
+ In each time step, the control law corresponds to following a circular segment with radius
+ \begin{equation}
+    R=\frac{L_1}{2\sin\eta}
+ \end{equation}
+ which is tangent to $\vec{v}$ in $(\lambda,\phi)$.
+ $\eta$ is defined as the angle between the UAV velocity vector $\vec{v}$ and the line from the UAV to $P$. The centripetal acceleration is then 
+\begin{equation}
+    a_s=2\frac{V^2}{L_1}\sin\eta
+\end{equation}
+By introducing a line dividing $\eta$ which is parallel to $\vec{g}$ it can be written as $\eta=\eta_1+\eta_2$ where $\eta_1$ is the angle between this line and the line between the UAV and $P$, and $\eta_2$ is the angle between $\vec{v}$ and this line. From the definition of $\theta$
+\begin{equation}\label{eq:eta_first}
+    \eta_2=\frac{\pi}{2} - (\theta+\theta_g)
+\end{equation}
+If the magnitude of $\eta$ is small
+\begin{equation}
+    \sin\eta\approx\eta=\eta_1+\eta_2
+\end{equation} 
+and
+\begin{equation}\label{eq:eta_last}
+    \eta_1\approx \frac{d}{L_1}
+\end{equation}
+By combining equations \eqref{eq:eta_first}-\eqref{eq:eta_last}
+\begin{equation}
+    \sin\eta\approx\left(\frac{d}
+    {L_1} + \frac{\pi}{2} - (\theta+\theta_g)\right)
+\end{equation}
+The centripetal acceleration can then be approximated as
+\begin{equation}
+    a_s\approx2\frac{V^2}{L_1}\left(\frac{d}{L_1} + \frac{\pi}{2} - (\theta+\theta_g)\right)
+\end{equation}
+From the laws of circular motion the angular velocity is given by
+\begin{equation}\label{eq:ss_last}
+    \dot{\theta}=\frac{a_s}{V}
+\end{equation}
+The UAV state-space model can now be defined by combining equations \eqref{eq:ss_first}-\eqref{eq:ss_last}.
+
+\begin{definition}[UAV State-Space model]
+The UAV state-space model is defined as 
+\begin{equation}
+    \dot{\vec{x}} = f(\vec{x}, \vec{u})
+\end{equation}
+where
+\begin{equation}
+    f(\mathbf{x}, \mathbf{u}) = \begin{bmatrix}
+    V\sin\theta \\
+    V\cos\theta \\
+    2\frac{V}{L_1}\left(\frac{d}{L_1} + \frac{\pi}{2} - (\theta +\theta_g)\right)
+    \end{bmatrix}
+\end{equation}
+with $d$ and $\theta_g$ as defined in \eqref{eq:ss_variabels} and $L_1$ as defined in \eqref{eq:ardu_l1}.
+\end{definition}
+
+

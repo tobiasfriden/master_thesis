@@ -1,0 +1,141 @@
+\section{Wind}\label{sec:wind}
+Wind can have large effects on mission execution duration and energy consumption, and as such a reliable wind model is necessary to calculate an efficient route.
+
+Many authors have studied wind modeling in UAV as well as general airspace applications. A method for online wind field features such as shear and gust is presented in \cite{wind_estimation}. Uncertainty in wind can be handled by choosing the worst case scenario for energy consumption, creating a robust model \cite{wind_blackbox}. Meteorological forecast data can be represented by a continuous function by creating regression models for the north-south and east-west components. This approach is used in route optimization for commercial aircraft \cite{aircraft_trajectory_thesis}.
+
+Since the route optimization is performed offline in this thesis, the focus is on methods to predict the wind field using the current meteorological forecast and data collected from previous flights in the same geographical area.
+
+\subsection{Spatial interpolation}
+Spatially distributed phenomena sampled on a grid can be interpolated using \textit{spatial interpolation} methods~\cite{spatial_interpolation}.
+
+\begin{definition}[Spatial interpolation]
+    Given $N$ values of a studied phenomenon $z_1,\ldots,z_N$ measured at discrete points $\vec{r}_j=(x_{1,j}, \ldots, x_{d,j}$, $j=1,\ldots,N$ on a $d$-dimensional grid, the spatial interpolation $F(\vec{r})$ fulfills
+    \begin{equation}
+        F(\vec{r}_j)=z_j,\quad j=1,\ldots,N
+    \end{equation}
+\end{definition}
+
+This approach can further be divided into three categories, \textit{local neighbourhood}, \textit{geostatistical} and \textit{variational} methods.
+
+Local neighbourhood methods interpolate the value in a given point by calculating a weighted average of all or a fixed subset of the sample points. One commonly used such method is \textit{Inverse Distance Weighted Interpolation} (IDW). Such methods are easily implemented but has some well known shortcomings.
+
+Geostatistical methods represent the sampled values as one realisation of a random function with a certain spatial covariance. One commonly used method is \textit{Kriging}. This approach is often successful when the statistical properties of the observed phenomenon is of important value. It has shown to be less efficient when local geometry and smoothness are important.
+
+Variational methods aim to find a function which passes through or close to the points $z_i$ while being as smooth as possible. The resulting function can be represented as
+\begin{equation}
+    F(\vec{r})=T(\vec{r})+\sum_{j=1}^{N}\lambda_jR(\vec{r},\vec{r}_j)
+\end{equation}
+where $T(\vec{r})$ is a linear trend function and $R(\vec{r},\vec{r}_j)$ is a radial function depending on the choice of smoothness norm. As long as the radial function is smooth, $F(\vec{r})$ is also smooth which is often a requirement for usage in optimization problems.
+\subsection{Thin Plate Splines}
+\abbrTPS is a commonly used method for variational spatial interpolation. In two dimensions, this method has the physical interpretation of fitting a thin metal sheet at all data points while minimizing the bending energy. A thorough presentation of \abbrTPS and the underlying theory is given in \cite{tps}. The necessary results for the application in this thesis are presented below.
+
+The 3-dimensional \abbrTPS interpolator minimizes
+\begin{equation}\label{eq:tps_loss}
+    \frac{1}{N}\sum_{j=1}^N(z_i-f(\vec{r}_i))^2 + \lambda J(f)
+\end{equation}
+where $\lambda$ is a smoothing parameter and
+\begin{equation}
+    J(f)=\int\limits_{-\infty}^{\infty}\int\limits_{-\infty}^{\infty}\int\limits_{-\infty}^{\infty}(f^2_{x_1x_1} + f^2_{x_2x_2}+f^2_{x_3x_3}+2[f^2_{x_1x_2} + f^2_{x_2x_3} + f^2_{x_1x_3}])dx_1dx_2dx_3
+\end{equation}
+is the \abbrTPS smoothness penalty functional.
+
+The solution that minimizes \eqref{eq:tps_loss} is given by the system of equations
+\begin{equation}\label{eq:tps}
+    z_j = f(\vec{r}_j) =   \left( b_0 + \sum_{k=1}^3 b_kx_{k,j} \right) +\sum_{i=1}^Nw_iG(\vec{r}_i,\vec{r}_j)+ \lambda w_j, \quad j=1,\ldots,N
+\end{equation}
+where $G(\vec{r}_i,\vec{r}_j)$ is a Green's function depending on the data dimension. In the 3-dimensional case, it is given by
+\begin{equation}
+    G(\vec{r}_i,\vec{r}_j)=-\frac{1}{8\pi}|\vec{r}_i-\vec{r}_j|
+\end{equation}
+Define $\vec{z}=(z_1,\ldots,z_N)^T$, $\vec{b}=(b_0 \ldots b_d)^T$, $\vec{w}=(w_1 \ldots w_N)^T$ and the matrices $K$ and $L$ where $K_{i,j}=G(\vec{r}_i,\vec{r}_j)$ and the $i$-th row of $L=(1\quad \vec{r}_i^T)$. The linear term in \eqref{eq:tps} lies in the null space of $J(f)$ so 
+\begin{equation}\label{eq:tps_null}
+    L^T\vec{w}=0
+\end{equation}
+Equations \eqref{eq:tps} and \eqref{eq:tps_null} can be written on matrix form as
+\begin{equation}\label{eq:tps_closed_form}
+    \begin{pmatrix}
+        K+\lambda I & L \\
+        L^T & 0
+    \end{pmatrix}
+    \begin{pmatrix}
+        \vec{w} \\
+        \vec{b}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        \vec{z} \\
+        0
+    \end{pmatrix}
+\end{equation}
+which has a closed form solution if $L$ is of full rank.
+\subsection{Wind Modeling using \abbrTPS}
+The Swedish Meteorology and Hydrology Institute (SMHI) use Numerical Weather Prediction (NWP) to forecast weather conditions four times a day on a $2.5\times2.5$ km grid with 65 altitude levels. However, this model does not capture wind variations on a scale smaller than 2.5 km which might be relevant for UAV route optimization.
+
+The actual wind vector in an arbitrary coordinate $(\lambda,\phi)$ and altitude $h$ is decomposed as 
+\begin{equation}
+    \vec{w}(\lambda,\phi,h)=\vec{w}_F + \vec{w}_B
+\end{equation}
+where $\vec{w}_F$ is the forecasted wind vector for this grid cell and $\vec{w}_B$ is the wind bias in the given coordinate.
+
+To derive the wind model, the following assumptions are made.
+
+\begin{assumption}
+The UAV altitude is constant during the entire route, which implies that wind variations depending on altitude can be excluded from the wind model.
+\end{assumption}
+
+\begin{assumption}
+The wind magnitude $W=|\vec{w}|$ and direction $\theta_w=\Arg{\vec{w}}$ are uncorrelated.
+\end{assumption}
+
+\begin{assumption}
+The wind bias vector is dependent on the coordinate $(\lambda,\phi)$ and wind forecast $\vec{w}_F$, i.e.
+\begin{equation}
+    \vec{w}_B=f(\lambda,\phi,\vec{w}_F)
+\end{equation}
+\end{assumption}
+
+Given these assumptions, the wind model can be defined.
+
+\begin{definition}[Wind model]
+    The wind vector $\vec{w}(\lambda,\phi)$ is modelled as
+    \begin{equation}
+        \vec{w}=W(\cos\theta_w,\sin\theta_w)
+    \end{equation}
+    where
+    \begin{equation}
+        \left\{
+        \begin{aligned}
+            W &= |\vec{w}_F| + f_W(\lambda,\phi,|\vec{w}_F|) \\
+            \theta_w &= \Arg{\vec{w}_F} + f_\theta(\lambda,\phi,\Arg{\vec{w}_F}) 
+        \end{aligned}
+        \right.
+    \end{equation}
+    in which $f_W$ and $f_\theta$ are \abbrTPS interpolators for the bias in wind magnitude and direction.
+\end{definition}
+
+\subsection{Data collection and model evaluation}
+To create and evaluate the wind model, real flight data has to be collected. By equipping the UAV with a \textit{pitot probe}, the actual wind can be measured as
+\begin{equation}
+    \vec{w}=\vec{v} + \vec{v}_a
+\end{equation}
+where $\vec{v}$ is the ground speed measured by GPS and $\vec{v}_a$ is the airspeed \cite{spline_trajectory}. The current wind forecast $\vec{v}_F$ is obtained from SMHI \cite{smhi}. By collecting $N$ measurements from different coordinates and wind conditions, the interpolation points are
+\begin{equation}
+    \left\{
+    \begin{aligned}
+        z_{j}&=|\vec{w}_j| - |\vec{w}_F| \\
+        \vec{r}_{j}&=(\lambda_j,\phi_j,|\vec{w}_F|)
+    \end{aligned}
+    \right.
+    \quad j=1,\ldots,N
+\end{equation}
+for the magnitude bias and
+\begin{equation}
+    \left\{
+    \begin{aligned}
+        z_{j}&=\Arg{\vec{w}_j} - \Arg{\vec{w}_F} \\
+        \vec{r}_{j}&=(\lambda_j,\phi_j,\Arg{\vec{w}_F})
+    \end{aligned}
+    \right.
+    \quad j=1,\ldots,N
+\end{equation}
+for the direction bias. Using these data points, $f_W$ and $f_\theta$ can be calculated as defined in \eqref{eq:tps_closed_form}.

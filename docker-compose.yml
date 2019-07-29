@@ -1,0 +1,9 @@
+version: "3.3"
+services:
+
+  notebook:
+    build: .
+    volumes:
+      - "./:/home/jovyan/thesis"
+    ports:
+      - "8888:8888"
