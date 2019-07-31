@@ -102,26 +102,28 @@ where $\zeta$ is the damping factor and $\Delta T$ is the update period of the c
 \begin{equation}
     a_s=2\frac{V^2}{L_1}\sin\eta
 \end{equation}
-By introducing a line dividing $\eta$ which is parallel to $\vec{g}$ it can be written as $\eta=\eta_1+\eta_2$ where $\eta_1$ is the angle between this line and the line between the UAV and $P$, and $\eta_2$ is the angle between $\vec{v}$ and this line. From the definition of $\theta$
-\begin{equation}\label{eq:eta_first}
-    \eta_2=\frac{\pi}{2} - (\theta+\theta_g)
-\end{equation}
+By introducing a line dividing $\eta$ which is parallel to $\vec{g}$ it can be written as $\eta=\eta_1+\eta_2$ 
+where $\eta_1$ is the angle between this line and the line between the UAV 
+and $P$, and $\eta_2$ is the angle between $\vec{v}$ and this line.
 If the magnitude of $\eta$ is small
-\begin{equation}
+\begin{equation}\label{eq:eta_first}
     \sin\eta\approx\eta=\eta_1+\eta_2
 \end{equation} 
-and
-\begin{equation}\label{eq:eta_last}
+where
+\begin{equation}
     \eta_1\approx \frac{d}{L_1}
 \end{equation}
-By combining equations \eqref{eq:eta_first}-\eqref{eq:eta_last}
-\begin{equation}
-    \sin\eta\approx\left(\frac{d}
-    {L_1} + \frac{\pi}{2} - (\theta+\theta_g)\right)
+and
+\begin{equation}\label{eq:eta_last}
+    \eta_2\approx \frac{\dot{d}}{V}
 \end{equation}
-The centripetal acceleration can then be approximated as
+From the definition of $d$,
+\begin{equation}\label{eq:d_dot}
+    \dot{d} = -\dot{\lambda}\sin\theta_g + \dot{\phi}\cos\theta_g = V(-\sin\theta\sin\theta_g + \cos\theta\cos\theta_g)
+\end{equation}
+By combining equations \eqref{eq:eta_first}-\eqref{eq:eta_last}, the centripetal acceleration can then be approximated as
 \begin{equation}
-    a_s\approx2\frac{V^2}{L_1}\left(\frac{d}{L_1} + \frac{\pi}{2} - (\theta+\theta_g)\right)
+    a_s\approx2\frac{V}{L_1}\left(\dot{d} + \frac{V}{L_1}d\right)
 \end{equation}
 From the laws of circular motion the angular velocity is given by
 \begin{equation}\label{eq:ss_last}
@@ -139,10 +141,10 @@ where
     f(\mathbf{x}, \mathbf{u}) = \begin{bmatrix}
     V\sin\theta \\
     V\cos\theta \\
-    2\frac{V}{L_1}\left(\frac{d}{L_1} + \frac{\pi}{2} - (\theta +\theta_g)\right)
+    \frac{2}{L_1}\left(\dot{d} + \frac{V}{L_1}d\right)
     \end{bmatrix}
 \end{equation}
-with $d$ and $\theta_g$ as defined in \eqref{eq:ss_variabels} and $L_1$ as defined in \eqref{eq:ardu_l1}.
+with $d$ and $\theta_g$ as defined in \eqref{eq:ss_variabels}, $\dot{d}$ as defined in \eqref{eq:d_dot} and $L_1$ as defined in \eqref{eq:ardu_l1}.
 \end{definition}
 
 
