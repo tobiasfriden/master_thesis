@@ -2,8 +2,19 @@ version: "3.3"
 services:
 
   notebook:
-    build: .
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-notebook
     volumes:
       - "./:/home/jovyan/thesis"
     ports:
       - "8888:8888"
+
+  route:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-route
+    volumes:
+      - "./route:/code"
+    command: bash
+    privileged: true

@@ -1,0 +1,31 @@
+FROM ubuntu:18.04
+
+RUN apt-get update && apt-get install -y \
+            cmake \
+            libgflags-dev \
+            libgoogle-glog-dev \
+            libgtest-dev \
+            libssl-dev \
+            git \
+            g++ \
+            build-essential \
+            curl
+
+RUN git clone https://github.com/google/s2geometry.git
+
+WORKDIR /s2geometry
+
+RUN cmake -DCMAKE_INSTALL_PREFIX=/code/third_party -DBUILD_SHARED_LIBS=OFF . && make && make install
+
+RUN mkdir /mason
+WORKDIR /mason
+RUN curl -sSfL https://github.com/mapbox/mason/archive/v0.20.0.tar.gz | tar -z --extract --strip-components=1 --exclude="*md" --exclude="test*" --directory=/mason
+
+WORKDIR /code
+
+RUN /mason/mason install geojson 0.4.3
+RUN /mason/mason install geometry 1.0.0
+RUN /mason/mason install variant 1.1.4
+RUN /mason/mason install rapidjson 1.1.0
+
+
