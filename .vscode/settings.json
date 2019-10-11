@@ -75,7 +75,16 @@
         "stack": "cpp",
         "thread": "cpp",
         "typeindex": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "clocale": "cpp",
+        "random": "cpp",
+        "strstream": "cpp",
+        "unordered_set": "cpp",
+        "bit": "cpp",
+        "*.tcc": "cpp",
+        "memory_resource": "cpp",
+        "cfenv": "cpp",
+        "cinttypes": "cpp"
     },
     "git.ignoreLimitWarning": true
 }

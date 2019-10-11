@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/mp.dir/mp.cpp.o  -o mp -Wl,-rpath,/code/build:/code/build/s2geometry:/nomad/builds/release/lib libmotion_primitive.so libopt.so libsimulation.so s2geometry/libs2.so -lssl -lcrypto -lpthread /nomad/builds/release/lib/libnomad.so 

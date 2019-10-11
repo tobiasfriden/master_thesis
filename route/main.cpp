@@ -19,65 +19,117 @@
 #include <iostream>
 #include <vector>
 
-#include <astar.h>
+#include "astar.h"
+#include "simulation.h"
+#include "motion_primitive.h"
 
 using namespace mapbox::geojson;
 
-geojson readGeoJSON(const std::string &path, bool use_convert) {
-    std::ifstream t(path.c_str());
-    std::stringstream buffer;
-    buffer << t.rdbuf();
-    return parse(buffer.str());
-}
- 
-void buildIndex(geojson geo, MutableS2ShapeIndex& index) {
-    const auto& features = geo.get<feature_collection>();
-    std::vector<S2Point> pVector;
-    for(const auto& f: features) {
-        pVector.clear();
-        const auto& p = f.geometry.get<polygon>();
-        const auto& ring = p.at(0);
-        for (auto coord: ring) {
-            pVector.push_back(S2LatLng::FromDegrees(coord.y, coord.x).ToPoint().Normalize()); 
-        }
-        pVector.pop_back();
-        index.Add(absl::make_unique<S2Loop::Shape>(new S2Loop(pVector)));
-    }
-}
+int main(int argc, char**argv){
+    Simulator sim(14, 7.5, 0, 0.25);
+    // S2LatLng start = offset(S2LatLng::FromDegrees(57.6432, 11.8630), 400, 0);
+    // std::vector<S2LatLng> mission{
+    //     start,
+    //     offset(start, 161, 101),
+    //     offset(start, 282, 300)
+    // };
+    // auto traj = sim.simulate_mission(mission);
+    // sim.save_trajectory(traj, "../sim.txt");
+    MotionPrimitiveSet primitives(0);
+    primitives.load_from_file("../primitives.txt");
 
-int main(int argc, char* argv[]) {
-    const auto& geo = readGeoJSON(argv[1], false);
-    MutableS2ShapeIndex index;
+    //S2LatLng start = offset(S2LatLng::FromDegrees(57.6432, 11.8630), 400, 0);
+    S2LatLng start = offset(S2LatLng::FromDegrees(0, 0), 300, 0);
+    S2LatLng goal = offset(start, atoi(argv[1]), atoi(argv[2]));
 
-    buildIndex(geo, index);
-    
-    std::cout << "Create crossing edge q" << std::endl;
-    auto query = new S2CrossingEdgeQuery(&index);
-    std::cout << "Done!" << std::endl;
+    auto path = astar(sim, primitives, start, goal, atof(argv[3]));
+    //if(path.size() > 2) path = filter_solution(path);
 
-    std::cout << "Create closest edge q" << std::endl;
-    auto dquery = new S2ClosestEdgeQuery(&index);
-    std::cout << "Done!" << std::endl;
-
-    Grid grid(query, dquery, 25);
-    std::cout << "Calculate path!" << std::endl;
-    auto path = astar(
-        &grid,
-        S2LatLng::FromDegrees(57.60311775383921, 11.820602416992188),
-        S2LatLng::FromDegrees(57.571281208449136, 11.714344024658203)
-    );
-    std::cout << path.size() << std::endl;
+    std::ofstream out;
+    out.open("../sol.txt");
 
     feature_collection points;
     for(auto p : path) {
         feature f;
-        auto ll = p.latLng();
+        auto ll = p.waypoint();
         f.geometry = point(ll.lng().degrees(), ll.lat().degrees());
         points.push_back(f);
     }
-    std::cout << stringify(points) << std::endl;
+    out << stringify(points) << std::endl;
+    out.close();
+
+    std::cout << "transform" << std::endl;
+    std::vector<S2LatLng> mission;
+    std::transform(
+        path.begin(),
+        path.end(),
+        std::back_inserter(mission),
+        [](Coordinate c) -> S2LatLng {
+            return c.waypoint();
+        }
+    );
+    std::cout << "sim mission: " << mission.size() << std::endl;
+    auto trajectory = sim.simulate_mission(mission);
+    std::cout << "done" << std::endl;
+    sim.save_trajectory(trajectory, "../sim.txt");
 
 }
+
+// geojson readGeoJSON(const std::string &path, bool use_convert) {
+//     std::ifstream t(path.c_str());
+//     std::stringstream buffer;
+//     buffer << t.rdbuf();
+//     return parse(buffer.str());
+// }
+ 
+// void buildIndex(geojson geo, MutableS2ShapeIndex& index) {
+//     const auto& features = geo.get<feature_collection>();
+//     std::vector<S2Point> pVector;
+//     for(const auto& f: features) {
+//         pVector.clear();
+//         const auto& p = f.geometry.get<polygon>();
+//         const auto& ring = p.at(0);
+//         for (auto coord: ring) {
+//             pVector.push_back(S2LatLng::FromDegrees(coord.y, coord.x).ToPoint().Normalize()); 
+//         }
+//         pVector.pop_back();
+//         index.Add(absl::make_unique<S2Loop::Shape>(new S2Loop(pVector)));
+//     }
+// }
+
+// int main(int argc, char* argv[]) {
+//     const auto& geo = readGeoJSON(argv[1], false);
+//     MutableS2ShapeIndex index;
+
+//     buildIndex(geo, index);
+    
+//     std::cout << "Create crossing edge q" << std::endl;
+//     auto query = new S2CrossingEdgeQuery(&index);
+//     std::cout << "Done!" << std::endl;
+
+//     std::cout << "Create closest edge q" << std::endl;
+//     auto dquery = new S2ClosestEdgeQuery(&index);
+//     std::cout << "Done!" << std::endl;
+
+//     Grid grid(query, dquery, 25);
+//     std::cout << "Calculate path!" << std::endl;
+//     auto path = astar(
+//         &grid,
+//         S2LatLng::FromDegrees(57.60311775383921, 11.820602416992188),
+//         S2LatLng::FromDegrees(57.571281208449136, 11.714344024658203)
+//     );
+//     std::cout << path.size() << std::endl;
+
+//     feature_collection points;
+//     for(auto p : path) {
+//         feature f;
+//         auto ll = p.latLng();
+//         f.geometry = point(ll.lng().degrees(), ll.lat().degrees());
+//         points.push_back(f);
+//     }
+//     std::cout << stringify(points) << std::endl;
+
+// }
 
 
 /* 

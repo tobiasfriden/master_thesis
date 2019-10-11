@@ -1,0 +1,86 @@
+\chapter{Motion planning}\label{cha:motion_planning}
+In this chapter the necessary background regarding motion planning is 
+introduced. In this thesis, motion planning is defined as the task of finding a
+path from a starting state to a goal state which fulfills a given set of constraints.
+These constraints might include differential constraints of the system and obstacle avoidance among others.
+
+\section{Motion planning with differential constraints}
+\subsection{General definitions and terminology}
+We begin with introducing general definitions and terminology that are used to
+describe motion planning in this thesis.
+\subsubsection{Motion planning terminology}
+First we shall define some common terms used in motion planning.
+
+\begin{definition}[State and action spaces]
+    We define the \textit{state space} $\mathcal{X}$ and \textit{action space}
+    $\mathcal{U}$ as the set of obtainable states $x$ and available actions $u$ for the
+    studied system.
+    $\mathcal{X}$ can be further divided into
+    \begin{equation}
+        \mathcal{X} = \mathcal{X}_{free} + \mathcal{X}_{obs}
+    \end{equation}
+    where $\mathcal{X}_{obs}$ are states which contain some kind of obstacle. 
+\end{definition}
+
+\begin{definition}[Motion plan]
+    A motion plan is defined as a sequence of states
+    \begin{equation}
+        \{x(t_1),\hdots, x(t_n)\}\in\mathcal{X}_{free}
+    \end{equation}
+    and actions
+    \begin{equation}
+        \{u(t_1),\hdots,u(t_n)\}\in\mathcal{U}
+    \end{equation}
+    which takes the system from a specified initial state $x(t_1)=x_S$ to a 
+    goal state $x(t_n)=x_G$ while fulfilling
+    \begin{equation}
+        x(t_{i+1})=x(t_i) + \int_{t_i}^{t_{i+1}} f(x, u) dt
+    \end{equation}
+    where $f(x, u)$ is the \textit{transition function}.
+\end{definition}
+
+\subsubsection{Differential constraints}
+Differential constraints restrict the set of possible actions and states that 
+the system can obtain. An important class of systems under differential constraints 
+are \textit{non-holonomic} systems.
+
+\begin{definition}[Non-holonomic system]
+    In a \textit{non-holonomic} system, the current state $x(t)$ is dependent 
+    on in which order the actions $u(t_i),\quad t_i<t$ where performed.
+\end{definition}
+
+A formal definition and extensive discussion of non-holonomic systems is given 
+in \cite[Chapter~15]{planning_algorithms}. Systems only capable of motion in a direction 
+dependent on the current state, such as cars and fixed-wing UAVs belong to this class of systems.
+
+\subsection{Sampling based motion planning}
+Both $\mathcal{X}$ and $\mathcal{U}$ are generally continous, and need to be sampled 
+in some way. This means that the resulting path will only be \textit{resolution complete}, i. e. 
+the optimality of the plan will depend on the sampling resolution $d$. In sampling based
+motion planning a \textit{reachability graph} is commonly used.
+
+\begin{definition}[Reachability graph]
+    Given a starting state $x_0(t_0)\in\mathcal{X}_d$, we define the \textit{reachable set} 
+    $R(x_0, \mathcal{U}_d)$ as the set of states which are reached by applying any action $u\in\mathcal{U}_d$.
+    By incrementally calculating the reachable set for each $x\in R(x_0, \mathcal{U}_d)$ we create the \textit{reachability tree} $\mathcal{T}_r(x_0, \mathcal{U}_d)$.
+    The reachability tree is a directed graph where each vertex consists of a state $x$ which is reachable from $x_0$ by applying some action sequence 
+    $\{u_1,\hdots,u_n\}\in\mathcal{U}_d$. By pruning any duplicate states from $\mathcal{T}_r$ we finally reach the \textit{reachability graph} $\mathcal{G}_r(x_0, \mathcal{U}_d)$
+\end{definition}
+
+\subsubsection{Forward simulation}
+The next state in $G_r$ given a specified input action $u$ is obtained by 
+integrating the transition function $f(x, u)$ on $[0, \Delta t]$. In practice this 
+integral is calculated using some numerical approximation method. A common choice is the 
+fourth-order \textit{Runge-Kutta integration method}
+\begin{equation}
+    x(\Delta t)\approx x(0) + \frac{\Delta t}{6}(w_1 + 2w_2 + 2w_3 + w_4)
+\end{equation}
+where
+\begin{align}
+\begin{split}
+    w_1 &= f(x(0), u) \\
+    w_2 &= f(x(0) + \frac{1}{2}\Delta t w_1, u) \\
+    w_3 &= f(x(0) + \frac{1}{2}\Delta t w_2, u) \\
+    w_3 &= f(x(0) + \Delta t w_3, u)
+\end{split}
+\end{align}

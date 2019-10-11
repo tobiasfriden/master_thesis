@@ -1,0 +1,1 @@
+cmd='/code/nomad.3.9.1/configure'

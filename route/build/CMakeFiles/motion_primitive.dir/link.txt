@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC   -shared -Wl,-soname,libmotion_primitive.so -o libmotion_primitive.so CMakeFiles/motion_primitive.dir/motion_primitive.cpp.o -Wl,-rpath,/code/build:/nomad/builds/release/lib:/code/build/s2geometry libopt.so /nomad/builds/release/lib/libnomad.so libsimulation.so s2geometry/libs2.so -lssl -lcrypto -lpthread 

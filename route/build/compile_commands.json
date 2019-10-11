@@ -1,0 +1,567 @@
+[
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -I/s2geometry/src    -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2testing.dir/src/s2/s2builderutil_testing.cc.o -c /s2geometry/src/s2/s2builderutil_testing.cc",
+  "file": "/s2geometry/src/s2/s2builderutil_testing.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -I/s2geometry/src    -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2testing.dir/src/s2/s2shapeutil_testing.cc.o -c /s2geometry/src/s2/s2shapeutil_testing.cc",
+  "file": "/s2geometry/src/s2/s2shapeutil_testing.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -I/s2geometry/src    -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2testing.dir/src/s2/s2testing.cc.o -c /s2geometry/src/s2/s2testing.cc",
+  "file": "/s2geometry/src/s2/s2testing.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/base/stringprintf.cc.o -c /s2geometry/src/s2/base/stringprintf.cc",
+  "file": "/s2geometry/src/s2/base/stringprintf.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/base/strtoint.cc.o -c /s2geometry/src/s2/base/strtoint.cc",
+  "file": "/s2geometry/src/s2/base/strtoint.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/encoded_s2cell_id_vector.cc.o -c /s2geometry/src/s2/encoded_s2cell_id_vector.cc",
+  "file": "/s2geometry/src/s2/encoded_s2cell_id_vector.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/encoded_s2point_vector.cc.o -c /s2geometry/src/s2/encoded_s2point_vector.cc",
+  "file": "/s2geometry/src/s2/encoded_s2point_vector.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/encoded_s2shape_index.cc.o -c /s2geometry/src/s2/encoded_s2shape_index.cc",
+  "file": "/s2geometry/src/s2/encoded_s2shape_index.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/encoded_string_vector.cc.o -c /s2geometry/src/s2/encoded_string_vector.cc",
+  "file": "/s2geometry/src/s2/encoded_string_vector.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/id_set_lexicon.cc.o -c /s2geometry/src/s2/id_set_lexicon.cc",
+  "file": "/s2geometry/src/s2/id_set_lexicon.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/mutable_s2shape_index.cc.o -c /s2geometry/src/s2/mutable_s2shape_index.cc",
+  "file": "/s2geometry/src/s2/mutable_s2shape_index.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/r2rect.cc.o -c /s2geometry/src/s2/r2rect.cc",
+  "file": "/s2geometry/src/s2/r2rect.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s1angle.cc.o -c /s2geometry/src/s2/s1angle.cc",
+  "file": "/s2geometry/src/s2/s1angle.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s1chord_angle.cc.o -c /s2geometry/src/s2/s1chord_angle.cc",
+  "file": "/s2geometry/src/s2/s1chord_angle.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s1interval.cc.o -c /s2geometry/src/s2/s1interval.cc",
+  "file": "/s2geometry/src/s2/s1interval.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2boolean_operation.cc.o -c /s2geometry/src/s2/s2boolean_operation.cc",
+  "file": "/s2geometry/src/s2/s2boolean_operation.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2builder.cc.o -c /s2geometry/src/s2/s2builder.cc",
+  "file": "/s2geometry/src/s2/s2builder.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2builder_graph.cc.o -c /s2geometry/src/s2/s2builder_graph.cc",
+  "file": "/s2geometry/src/s2/s2builder_graph.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2builderutil_closed_set_normalizer.cc.o -c /s2geometry/src/s2/s2builderutil_closed_set_normalizer.cc",
+  "file": "/s2geometry/src/s2/s2builderutil_closed_set_normalizer.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2builderutil_find_polygon_degeneracies.cc.o -c /s2geometry/src/s2/s2builderutil_find_polygon_degeneracies.cc",
+  "file": "/s2geometry/src/s2/s2builderutil_find_polygon_degeneracies.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2builderutil_lax_polygon_layer.cc.o -c /s2geometry/src/s2/s2builderutil_lax_polygon_layer.cc",
+  "file": "/s2geometry/src/s2/s2builderutil_lax_polygon_layer.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2builderutil_s2point_vector_layer.cc.o -c /s2geometry/src/s2/s2builderutil_s2point_vector_layer.cc",
+  "file": "/s2geometry/src/s2/s2builderutil_s2point_vector_layer.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2builderutil_s2polygon_layer.cc.o -c /s2geometry/src/s2/s2builderutil_s2polygon_layer.cc",
+  "file": "/s2geometry/src/s2/s2builderutil_s2polygon_layer.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2builderutil_s2polyline_layer.cc.o -c /s2geometry/src/s2/s2builderutil_s2polyline_layer.cc",
+  "file": "/s2geometry/src/s2/s2builderutil_s2polyline_layer.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2builderutil_s2polyline_vector_layer.cc.o -c /s2geometry/src/s2/s2builderutil_s2polyline_vector_layer.cc",
+  "file": "/s2geometry/src/s2/s2builderutil_s2polyline_vector_layer.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2builderutil_snap_functions.cc.o -c /s2geometry/src/s2/s2builderutil_snap_functions.cc",
+  "file": "/s2geometry/src/s2/s2builderutil_snap_functions.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2cap.cc.o -c /s2geometry/src/s2/s2cap.cc",
+  "file": "/s2geometry/src/s2/s2cap.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2cell.cc.o -c /s2geometry/src/s2/s2cell.cc",
+  "file": "/s2geometry/src/s2/s2cell.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2cell_id.cc.o -c /s2geometry/src/s2/s2cell_id.cc",
+  "file": "/s2geometry/src/s2/s2cell_id.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2cell_index.cc.o -c /s2geometry/src/s2/s2cell_index.cc",
+  "file": "/s2geometry/src/s2/s2cell_index.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2cell_union.cc.o -c /s2geometry/src/s2/s2cell_union.cc",
+  "file": "/s2geometry/src/s2/s2cell_union.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2centroids.cc.o -c /s2geometry/src/s2/s2centroids.cc",
+  "file": "/s2geometry/src/s2/s2centroids.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2closest_cell_query.cc.o -c /s2geometry/src/s2/s2closest_cell_query.cc",
+  "file": "/s2geometry/src/s2/s2closest_cell_query.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2closest_edge_query.cc.o -c /s2geometry/src/s2/s2closest_edge_query.cc",
+  "file": "/s2geometry/src/s2/s2closest_edge_query.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2closest_point_query.cc.o -c /s2geometry/src/s2/s2closest_point_query.cc",
+  "file": "/s2geometry/src/s2/s2closest_point_query.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2contains_vertex_query.cc.o -c /s2geometry/src/s2/s2contains_vertex_query.cc",
+  "file": "/s2geometry/src/s2/s2contains_vertex_query.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2convex_hull_query.cc.o -c /s2geometry/src/s2/s2convex_hull_query.cc",
+  "file": "/s2geometry/src/s2/s2convex_hull_query.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2coords.cc.o -c /s2geometry/src/s2/s2coords.cc",
+  "file": "/s2geometry/src/s2/s2coords.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2crossing_edge_query.cc.o -c /s2geometry/src/s2/s2crossing_edge_query.cc",
+  "file": "/s2geometry/src/s2/s2crossing_edge_query.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2debug.cc.o -c /s2geometry/src/s2/s2debug.cc",
+  "file": "/s2geometry/src/s2/s2debug.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2earth.cc.o -c /s2geometry/src/s2/s2earth.cc",
+  "file": "/s2geometry/src/s2/s2earth.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2edge_clipping.cc.o -c /s2geometry/src/s2/s2edge_clipping.cc",
+  "file": "/s2geometry/src/s2/s2edge_clipping.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2edge_crosser.cc.o -c /s2geometry/src/s2/s2edge_crosser.cc",
+  "file": "/s2geometry/src/s2/s2edge_crosser.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2edge_crossings.cc.o -c /s2geometry/src/s2/s2edge_crossings.cc",
+  "file": "/s2geometry/src/s2/s2edge_crossings.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2edge_distances.cc.o -c /s2geometry/src/s2/s2edge_distances.cc",
+  "file": "/s2geometry/src/s2/s2edge_distances.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2edge_tessellator.cc.o -c /s2geometry/src/s2/s2edge_tessellator.cc",
+  "file": "/s2geometry/src/s2/s2edge_tessellator.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2error.cc.o -c /s2geometry/src/s2/s2error.cc",
+  "file": "/s2geometry/src/s2/s2error.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2furthest_edge_query.cc.o -c /s2geometry/src/s2/s2furthest_edge_query.cc",
+  "file": "/s2geometry/src/s2/s2furthest_edge_query.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2latlng.cc.o -c /s2geometry/src/s2/s2latlng.cc",
+  "file": "/s2geometry/src/s2/s2latlng.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2latlng_rect.cc.o -c /s2geometry/src/s2/s2latlng_rect.cc",
+  "file": "/s2geometry/src/s2/s2latlng_rect.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2latlng_rect_bounder.cc.o -c /s2geometry/src/s2/s2latlng_rect_bounder.cc",
+  "file": "/s2geometry/src/s2/s2latlng_rect_bounder.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2lax_loop_shape.cc.o -c /s2geometry/src/s2/s2lax_loop_shape.cc",
+  "file": "/s2geometry/src/s2/s2lax_loop_shape.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2lax_polygon_shape.cc.o -c /s2geometry/src/s2/s2lax_polygon_shape.cc",
+  "file": "/s2geometry/src/s2/s2lax_polygon_shape.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2lax_polyline_shape.cc.o -c /s2geometry/src/s2/s2lax_polyline_shape.cc",
+  "file": "/s2geometry/src/s2/s2lax_polyline_shape.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2loop.cc.o -c /s2geometry/src/s2/s2loop.cc",
+  "file": "/s2geometry/src/s2/s2loop.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2loop_measures.cc.o -c /s2geometry/src/s2/s2loop_measures.cc",
+  "file": "/s2geometry/src/s2/s2loop_measures.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2measures.cc.o -c /s2geometry/src/s2/s2measures.cc",
+  "file": "/s2geometry/src/s2/s2measures.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2metrics.cc.o -c /s2geometry/src/s2/s2metrics.cc",
+  "file": "/s2geometry/src/s2/s2metrics.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2max_distance_targets.cc.o -c /s2geometry/src/s2/s2max_distance_targets.cc",
+  "file": "/s2geometry/src/s2/s2max_distance_targets.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2min_distance_targets.cc.o -c /s2geometry/src/s2/s2min_distance_targets.cc",
+  "file": "/s2geometry/src/s2/s2min_distance_targets.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2padded_cell.cc.o -c /s2geometry/src/s2/s2padded_cell.cc",
+  "file": "/s2geometry/src/s2/s2padded_cell.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2point_compression.cc.o -c /s2geometry/src/s2/s2point_compression.cc",
+  "file": "/s2geometry/src/s2/s2point_compression.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2point_region.cc.o -c /s2geometry/src/s2/s2point_region.cc",
+  "file": "/s2geometry/src/s2/s2point_region.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2pointutil.cc.o -c /s2geometry/src/s2/s2pointutil.cc",
+  "file": "/s2geometry/src/s2/s2pointutil.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2polygon.cc.o -c /s2geometry/src/s2/s2polygon.cc",
+  "file": "/s2geometry/src/s2/s2polygon.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2polyline.cc.o -c /s2geometry/src/s2/s2polyline.cc",
+  "file": "/s2geometry/src/s2/s2polyline.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2polyline_alignment.cc.o -c /s2geometry/src/s2/s2polyline_alignment.cc",
+  "file": "/s2geometry/src/s2/s2polyline_alignment.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2polyline_measures.cc.o -c /s2geometry/src/s2/s2polyline_measures.cc",
+  "file": "/s2geometry/src/s2/s2polyline_measures.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2polyline_simplifier.cc.o -c /s2geometry/src/s2/s2polyline_simplifier.cc",
+  "file": "/s2geometry/src/s2/s2polyline_simplifier.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2predicates.cc.o -c /s2geometry/src/s2/s2predicates.cc",
+  "file": "/s2geometry/src/s2/s2predicates.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2projections.cc.o -c /s2geometry/src/s2/s2projections.cc",
+  "file": "/s2geometry/src/s2/s2projections.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2r2rect.cc.o -c /s2geometry/src/s2/s2r2rect.cc",
+  "file": "/s2geometry/src/s2/s2r2rect.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2region.cc.o -c /s2geometry/src/s2/s2region.cc",
+  "file": "/s2geometry/src/s2/s2region.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2region_term_indexer.cc.o -c /s2geometry/src/s2/s2region_term_indexer.cc",
+  "file": "/s2geometry/src/s2/s2region_term_indexer.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2region_coverer.cc.o -c /s2geometry/src/s2/s2region_coverer.cc",
+  "file": "/s2geometry/src/s2/s2region_coverer.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2region_intersection.cc.o -c /s2geometry/src/s2/s2region_intersection.cc",
+  "file": "/s2geometry/src/s2/s2region_intersection.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2region_union.cc.o -c /s2geometry/src/s2/s2region_union.cc",
+  "file": "/s2geometry/src/s2/s2region_union.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2shape_index.cc.o -c /s2geometry/src/s2/s2shape_index.cc",
+  "file": "/s2geometry/src/s2/s2shape_index.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2shape_index_buffered_region.cc.o -c /s2geometry/src/s2/s2shape_index_buffered_region.cc",
+  "file": "/s2geometry/src/s2/s2shape_index_buffered_region.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2shape_index_measures.cc.o -c /s2geometry/src/s2/s2shape_index_measures.cc",
+  "file": "/s2geometry/src/s2/s2shape_index_measures.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2shape_measures.cc.o -c /s2geometry/src/s2/s2shape_measures.cc",
+  "file": "/s2geometry/src/s2/s2shape_measures.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2shapeutil_build_polygon_boundaries.cc.o -c /s2geometry/src/s2/s2shapeutil_build_polygon_boundaries.cc",
+  "file": "/s2geometry/src/s2/s2shapeutil_build_polygon_boundaries.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2shapeutil_coding.cc.o -c /s2geometry/src/s2/s2shapeutil_coding.cc",
+  "file": "/s2geometry/src/s2/s2shapeutil_coding.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2shapeutil_contains_brute_force.cc.o -c /s2geometry/src/s2/s2shapeutil_contains_brute_force.cc",
+  "file": "/s2geometry/src/s2/s2shapeutil_contains_brute_force.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2shapeutil_edge_iterator.cc.o -c /s2geometry/src/s2/s2shapeutil_edge_iterator.cc",
+  "file": "/s2geometry/src/s2/s2shapeutil_edge_iterator.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2shapeutil_get_reference_point.cc.o -c /s2geometry/src/s2/s2shapeutil_get_reference_point.cc",
+  "file": "/s2geometry/src/s2/s2shapeutil_get_reference_point.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2shapeutil_range_iterator.cc.o -c /s2geometry/src/s2/s2shapeutil_range_iterator.cc",
+  "file": "/s2geometry/src/s2/s2shapeutil_range_iterator.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2shapeutil_visit_crossing_edge_pairs.cc.o -c /s2geometry/src/s2/s2shapeutil_visit_crossing_edge_pairs.cc",
+  "file": "/s2geometry/src/s2/s2shapeutil_visit_crossing_edge_pairs.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2text_format.cc.o -c /s2geometry/src/s2/s2text_format.cc",
+  "file": "/s2geometry/src/s2/s2text_format.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/s2wedge_relations.cc.o -c /s2geometry/src/s2/s2wedge_relations.cc",
+  "file": "/s2geometry/src/s2/s2wedge_relations.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/strings/ostringstream.cc.o -c /s2geometry/src/s2/strings/ostringstream.cc",
+  "file": "/s2geometry/src/s2/strings/ostringstream.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/strings/serialize.cc.o -c /s2geometry/src/s2/strings/serialize.cc",
+  "file": "/s2geometry/src/s2/strings/serialize.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/third_party/absl/base/dynamic_annotations.cc.o -c /s2geometry/src/s2/third_party/absl/base/dynamic_annotations.cc",
+  "file": "/s2geometry/src/s2/third_party/absl/base/dynamic_annotations.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/third_party/absl/base/internal/raw_logging.cc.o -c /s2geometry/src/s2/third_party/absl/base/internal/raw_logging.cc",
+  "file": "/s2geometry/src/s2/third_party/absl/base/internal/raw_logging.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/third_party/absl/base/internal/throw_delegate.cc.o -c /s2geometry/src/s2/third_party/absl/base/internal/throw_delegate.cc",
+  "file": "/s2geometry/src/s2/third_party/absl/base/internal/throw_delegate.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/third_party/absl/numeric/int128.cc.o -c /s2geometry/src/s2/third_party/absl/numeric/int128.cc",
+  "file": "/s2geometry/src/s2/third_party/absl/numeric/int128.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/third_party/absl/strings/ascii.cc.o -c /s2geometry/src/s2/third_party/absl/strings/ascii.cc",
+  "file": "/s2geometry/src/s2/third_party/absl/strings/ascii.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/third_party/absl/strings/match.cc.o -c /s2geometry/src/s2/third_party/absl/strings/match.cc",
+  "file": "/s2geometry/src/s2/third_party/absl/strings/match.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/third_party/absl/strings/numbers.cc.o -c /s2geometry/src/s2/third_party/absl/strings/numbers.cc",
+  "file": "/s2geometry/src/s2/third_party/absl/strings/numbers.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/third_party/absl/strings/str_cat.cc.o -c /s2geometry/src/s2/third_party/absl/strings/str_cat.cc",
+  "file": "/s2geometry/src/s2/third_party/absl/strings/str_cat.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/third_party/absl/strings/str_split.cc.o -c /s2geometry/src/s2/third_party/absl/strings/str_split.cc",
+  "file": "/s2geometry/src/s2/third_party/absl/strings/str_split.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/third_party/absl/strings/string_view.cc.o -c /s2geometry/src/s2/third_party/absl/strings/string_view.cc",
+  "file": "/s2geometry/src/s2/third_party/absl/strings/string_view.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/third_party/absl/strings/strip.cc.o -c /s2geometry/src/s2/third_party/absl/strings/strip.cc",
+  "file": "/s2geometry/src/s2/third_party/absl/strings/strip.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/third_party/absl/strings/internal/memutil.cc.o -c /s2geometry/src/s2/third_party/absl/strings/internal/memutil.cc",
+  "file": "/s2geometry/src/s2/third_party/absl/strings/internal/memutil.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/util/bits/bit-interleave.cc.o -c /s2geometry/src/s2/util/bits/bit-interleave.cc",
+  "file": "/s2geometry/src/s2/util/bits/bit-interleave.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/util/bits/bits.cc.o -c /s2geometry/src/s2/util/bits/bits.cc",
+  "file": "/s2geometry/src/s2/util/bits/bits.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/util/coding/coder.cc.o -c /s2geometry/src/s2/util/coding/coder.cc",
+  "file": "/s2geometry/src/s2/util/coding/coder.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/util/coding/varint.cc.o -c /s2geometry/src/s2/util/coding/varint.cc",
+  "file": "/s2geometry/src/s2/util/coding/varint.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/util/math/exactfloat/exactfloat.cc.o -c /s2geometry/src/s2/util/math/exactfloat/exactfloat.cc",
+  "file": "/s2geometry/src/s2/util/math/exactfloat/exactfloat.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/util/math/mathutil.cc.o -c /s2geometry/src/s2/util/math/mathutil.cc",
+  "file": "/s2geometry/src/s2/util/math/mathutil.cc"
+},
+{
+  "directory": "/code/build/s2geometry",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -Ds2_EXPORTS -I/s2geometry/src  -fPIC   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/s2.dir/src/s2/util/units/length-units.cc.o -c /s2geometry/src/s2/util/units/length-units.cc",
+  "file": "/s2geometry/src/s2/util/units/length-units.cc"
+},
+{
+  "directory": "/code/build/s2geometry/examples",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -I/s2geometry/src    -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/term_index.dir/term_index.cc.o -c /s2geometry/doc/examples/term_index.cc",
+  "file": "/s2geometry/doc/examples/term_index.cc"
+},
+{
+  "directory": "/code/build/s2geometry/examples",
+  "command": "/usr/bin/c++  -DABSL_MIN_LOG_LEVEL=1 -I/s2geometry/src    -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-deprecated-declarations -std=c++11 -o CMakeFiles/point_index.dir/point_index.cc.o -c /s2geometry/doc/examples/point_index.cc",
+  "file": "/s2geometry/doc/examples/point_index.cc"
+}
+]

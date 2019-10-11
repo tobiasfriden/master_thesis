@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC   -shared -Wl,-soname,libsimulation.so -o libsimulation.so CMakeFiles/simulation.dir/simulation.cpp.o -Wl,-rpath,/code/build/s2geometry s2geometry/libs2.so -lssl -lcrypto -lpthread 

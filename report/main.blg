@@ -3,61 +3,61 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: main.aux
 The style file: plainnat.bst
 A level-1 auxiliary file: notation.aux
-A level-1 auxiliary file: theory.aux
-A level-1 auxiliary file: theory/wind.aux
-A level-1 auxiliary file: theory/uav_dynamics.aux
+A level-1 auxiliary file: theory/fixed_wing_uav.aux
+A level-1 auxiliary file: theory/motion_planning.aux
 Database file #1: IEEEfull.bib
 Database file #2: myrefs.bib
+Warning--entry type for "arduplane" isn't style-file defined
+--line 418 of file myrefs.bib
 Warning--entry type for "arduplane_l1" isn't style-file defined
---line 391 of file myrefs.bib
-Warning--entry type for "smhi" isn't style-file defined
---line 445 of file myrefs.bib
-Warning--to sort, need author or key in smhi
-Warning--empty booktitle in tps
-Warning--empty journal in spatial_interpolation
-Warning--empty chapter and pages in l1_controller
-Warning--empty publisher in l1_controller
-Warning--empty year in l1_controller
-Warning--empty year in l1_controller
-You've used 9 entries,
+--line 426 of file myrefs.bib
+Warning--entry type for "ardupilot_takeoff" isn't style-file defined
+--line 442 of file myrefs.bib
+Warning--entry type for "ardupilot_land" isn't style-file defined
+--line 450 of file myrefs.bib
+Warning--empty school in uav_dynamics_wind
+Warning--empty booktitle in uav_dynamics_modeling
+Warning--empty publisher in planning_algorithms
+Warning--empty school in fighter_aircraft_mpc
+You've used 10 entries,
             2773 wiz_defined-function locations,
-            1173 strings with 21089 characters,
-and the built_in function-call counts, 3907 in all, are:
-= -- 331
-> -- 198
-< -- 7
-+ -- 69
-- -- 60
-* -- 292
-:= -- 569
-add.period$ -- 29
-call.type$ -- 9
+            1170 strings with 20749 characters,
+and the built_in function-call counts, 3751 in all, are:
+= -- 321
+> -- 178
+< -- 9
++ -- 67
+- -- 54
+* -- 263
+:= -- 580
+add.period$ -- 32
+call.type$ -- 10
 change.case$ -- 45
-chr.to.int$ -- 9
-cite$ -- 26
-duplicate$ -- 205
-empty$ -- 351
-format.name$ -- 70
-if$ -- 842
-int.to.chr$ -- 1
+chr.to.int$ -- 7
+cite$ -- 24
+duplicate$ -- 190
+empty$ -- 336
+format.name$ -- 66
+if$ -- 783
+int.to.chr$ -- 4
 int.to.str$ -- 1
-missing$ -- 9
-newline$ -- 55
-num.names$ -- 32
-pop$ -- 132
+missing$ -- 5
+newline$ -- 60
+num.names$ -- 40
+pop$ -- 119
 preamble$ -- 1
 purify$ -- 38
 quote$ -- 0
-skip$ -- 153
+skip$ -- 149
 stack$ -- 0
-substring$ -- 91
-swap$ -- 36
-text.length$ -- 3
+substring$ -- 65
+swap$ -- 30
+text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 89
-warning$ -- 7
-while$ -- 28
+type$ -- 105
+warning$ -- 4
+while$ -- 33
 width$ -- 0
-write$ -- 119
-(There were 9 warnings)
+write$ -- 131
+(There were 8 warnings)

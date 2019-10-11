@@ -1,0 +1,2 @@
+/usr/bin/ar qc libs2testing.a  CMakeFiles/s2testing.dir/src/s2/s2builderutil_testing.cc.o CMakeFiles/s2testing.dir/src/s2/s2shapeutil_testing.cc.o CMakeFiles/s2testing.dir/src/s2/s2testing.cc.o
+/usr/bin/ranlib libs2testing.a

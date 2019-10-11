@@ -6,12 +6,32 @@
 \babel@toc {english}{}
 \babel@toc {english}{}
 \contentsline {chapter}{Notation}{ix}{section*.5}% 
-\contentsline {chapter}{\numberline {1}Theory}{1}{chapter.1}% 
-\contentsline {section}{\numberline {1.1}Wind}{2}{section.1.1}% 
-\contentsline {subsection}{\numberline {1.1.1}Spatial interpolation}{2}{subsection.1.1.1}% 
-\contentsline {subsection}{\numberline {1.1.2}Thin Plate Splines}{3}{subsection.1.1.2}% 
-\contentsline {subsection}{\numberline {1.1.3}Wind Modeling using \textsc {tps}\xspace }{3}{subsection.1.1.3}% 
-\contentsline {subsection}{\numberline {1.1.4}Data collection and model evaluation}{4}{subsection.1.1.4}% 
-\contentsline {section}{\numberline {1.2}UAV dynamics}{6}{section.1.2}% 
-\contentsline {chapter}{Bibliography}{9}{appendix*.8}% 
-\contentsline {chapter}{Index}{10}{appendix*.8}% 
+\contentsline {chapter}{\numberline {1}Fixed-wing Unmanned Aerial Vehicles}{1}{chapter.1}% 
+\contentsline {section}{\numberline {1.1}Fixed-wing dynamics}{1}{section.1.1}% 
+\contentsline {subsection}{\numberline {1.1.1}General definitions and terminology}{1}{subsection.1.1.1}% 
+\contentsline {subsubsection}{Coordinate reference frames}{1}{section*.7}% 
+\contentsline {subsubsection}{Attitude representation}{2}{section*.8}% 
+\contentsline {subsubsection}{Aerodynamic angles}{2}{section*.9}% 
+\contentsline {subsubsection}{Fixed-wing UAV}{3}{section*.10}% 
+\contentsline {subsection}{\numberline {1.1.2}Dynamic equations}{3}{subsection.1.1.2}% 
+\contentsline {subsubsection}{Translational dynamics}{4}{section*.11}% 
+\contentsline {subsubsection}{Rotational dynamics}{4}{section*.12}% 
+\contentsline {subsubsection}{Aerodynamics}{4}{section*.13}% 
+\contentsline {subsubsection}{Wind effects}{5}{section*.14}% 
+\contentsline {subsubsection}{Complete dynamics model}{5}{section*.15}% 
+\contentsline {section}{\numberline {1.2}ArduPlane autopilot}{6}{section.1.2}% 
+\contentsline {subsection}{\numberline {1.2.1}Navigation control loop}{6}{subsection.1.2.1}% 
+\contentsline {subsection}{\numberline {1.2.2}Altitude and velocity control loop}{8}{subsection.1.2.2}% 
+\contentsline {subsection}{\numberline {1.2.3}Mission representation and flight modes}{8}{subsection.1.2.3}% 
+\contentsline {subsubsection}{Waypoint mode}{9}{section*.17}% 
+\contentsline {subsubsection}{Takeoff mode}{9}{section*.18}% 
+\contentsline {subsubsection}{Land mode}{9}{section*.19}% 
+\contentsline {chapter}{\numberline {2}Motion planning}{11}{chapter.2}% 
+\contentsline {section}{\numberline {2.1}Motion planning with differential constraints}{11}{section.2.1}% 
+\contentsline {subsection}{\numberline {2.1.1}General definitions and terminology}{11}{subsection.2.1.1}% 
+\contentsline {subsubsection}{Motion planning terminology}{11}{section*.20}% 
+\contentsline {subsubsection}{Differential constraints}{12}{section*.21}% 
+\contentsline {subsection}{\numberline {2.1.2}Sampling based motion planning}{12}{subsection.2.1.2}% 
+\contentsline {subsubsection}{Forward simulation}{12}{section*.22}% 
+\contentsline {chapter}{Bibliography}{15}{appendix*.23}% 
+\contentsline {chapter}{Index}{16}{appendix*.23}% 

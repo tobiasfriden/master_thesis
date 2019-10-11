@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/term_index.dir/term_index.cc.o  -o term_index -Wl,-rpath,/code/build/s2geometry ../libs2testing.a ../libs2.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so -lpthread 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.7.2)  31 JUL 2019 12:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.7.2)  30 AUG 2019 11:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1159,7 +1159,7 @@ File: pgflibraryshapes.multipart.code.tex 2019/04/04 v3.1.2 (3.1.2)
 \pgfnodepartsevenbox=\box62
 \pgfnodepartsixbox=\box63
 \pgfnodepartfivebox=\box64
-))) (/Users/tobiasfriden/Exjobb/code/report/main.aux (/Users/tobiasfriden/Exjobb/code/report/notation.aux) (/Users/tobiasfriden/Exjobb/code/report/theory.aux) (/Users/tobiasfriden/Exjobb/code/report/theory/wind.aux) (/Users/tobiasfriden/Exjobb/code/report/theory/uav_dynamics.aux))
+))) (/Users/tobiasfriden/Exjobb/code/report/main.aux (/Users/tobiasfriden/Exjobb/code/report/notation.aux) (/Users/tobiasfriden/Exjobb/code/report/theory/fixed_wing_uav.aux) (/Users/tobiasfriden/Exjobb/code/report/theory/motion_planning.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/jkpw/m/it on input line 32.
@@ -1656,7 +1656,7 @@ LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 16.41594pt on input line 36.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 16.41594pt on input line 36.
-<fig/LiU_primary_black.pdf, id=58, 314.38354pt x 112.98912pt>
+<fig/LiU_primary_black.pdf, id=78, 314.38354pt x 112.98912pt>
 File: fig/LiU_primary_black.pdf Graphic file (type pdf)
 <use fig/LiU_primary_black.pdf>
 Package pdftex.def Info: fig/LiU_primary_black.pdf  used on input line 36.
@@ -1726,85 +1726,104 @@ File: t1jkp.fd 2007/01/24 Fontinst v1.928 font definitions for T1/jkp.
 ] [10
 
 ])
-\openout2 = `theory.aux'.
+\openout2 = `theory/fixed_wing_uav.aux'.
 
- (/Users/tobiasfriden/Exjobb/code/report/theory.tex
+ (/Users/tobiasfriden/Exjobb/code/report/theory/fixed_wing_uav.tex
 Chapter 1.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 40.54503pt on input line 1.
+(Font)              scaled to size 40.54503pt on input line 2.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 108.12012pt on input line 1.
-) [1
+(Font)              scaled to size 108.12012pt on input line 2.
+[1
 
+
+
+
+] [2] [3]
+Underfull \hbox (badness 10000) in paragraph at lines 195--201
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 215--218
+
+ []
+
+[4]
+Overfull \hbox (0.42001pt too wide) in paragraph at lines 255--259
+\T1/jkpk/m/n/10 where \T1/jkpk/m/it/10 lon-gi-tu-dal \T1/jkpk/m/n/10 de-notes move-ment in the ver-ti-cal plane and \T1/jkpk/m/it/10 lat-eral \T1/jkpk/m/n/10 de-notes move-
+ []
+
+[5] [6] [7] [8]) [9]
+\openout2 = `theory/motion_planning.aux'.
+
+ (/Users/tobiasfriden/Exjobb/code/report/theory/motion_planning.tex [10
 
 
 
 ]
-\openout2 = `theory/wind.aux'.
+Chapter 2.
 
- (/Users/tobiasfriden/Exjobb/code/report/theory/wind.tex
-Overfull \hbox (4.34998pt too wide) in paragraph at lines 12--13
-[][][]\T1/jkpk/b/n/10 Definition 1.1 (Spa-tial in-ter-po-la-tion). []\T1/jkpk/m/n/10 Given $\OML/jkpw/m/it/10 N$ \T1/jkpk/m/n/10 val-ues of a stud-ied phe-nomenon
+Overfull \hbox (1.88988pt too wide) in paragraph at lines 2--6
+\T1/jkpk/m/n/10 con-straints might in-clude dif-fer-en-tial con-straints of the sys-tem and ob-sta-cle avoid-
  []
 
-[2
+[11] [12]) [13] [14
 
 
-]
-LaTeX Font Info:    Font shape `T1/phv/b/sc' will be
-(Font)              scaled to size 11.39996pt on input line 71.
-
-Overfull \hbox (3.76942pt too wide) in paragraph at lines 72--73
-\T1/jkpk/m/n/10 The Swedish Me-te-o-rol-ogy and Hy-drol-ogy In-sti-tute (SMHI) use Nu-mer-i-cal Weather
+] (/Users/tobiasfriden/Exjobb/code/report/main.bbl
+Underfull \hbox (badness 2556) in paragraph at lines 14--17
+[]\T1/jkpk/m/n/10 Waqas Khan and Meyer Na-hon.  Dy-nam-ics mod-el-ing of a highly-
  []
 
-[3] [4]) [5]
-\openout2 = `theory/uav_dynamics.aux'.
-
- (/Users/tobiasfriden/Exjobb/code/report/theory/uav_dynamics.tex [6
-
-
-] [7]) [8] (/Users/tobiasfriden/Exjobb/code/report/main.bbl
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 10.
- (/usr/local/texlive/2019/texmf-dist/tex/latex/psnfss/t1pcr.fd
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 26.
+(/usr/local/texlive/2019/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 24--28
+Underfull \hbox (badness 10000) in paragraph at lines 24--27
+\T1/jkpk/m/n/10 URL []$\T1/pcr/m/n/10 http : / / ardupilot . org / plane / docs / automatic-[]landing .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 29--32
+\T1/jkpk/m/n/10 URL []$\T1/pcr/m/n/10 http : / / ardupilot . org / plane / docs / automatic-[]takeoff .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 39--42
 \T1/jkpk/m/n/10 URL []$\T1/pcr/m/n/10 http : / / ardupilot . org / plane / docs / navigation-[]tuning .
  []
 
-) (/Users/tobiasfriden/Exjobb/code/report/main.ind [9
+) (/Users/tobiasfriden/Exjobb/code/report/main.ind [15
 
 
-
-
-] [10
+] [16
 
 
 ])
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 72.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 72.
- (/Users/tobiasfriden/Exjobb/code/report/main.aux (/Users/tobiasfriden/Exjobb/code/report/notation.aux) (/Users/tobiasfriden/Exjobb/code/report/theory.aux) (/Users/tobiasfriden/Exjobb/code/report/theory/wind.aux) (/Users/tobiasfriden/Exjobb/code/report/theory/uav_dynamics.aux))
+ (/Users/tobiasfriden/Exjobb/code/report/main.aux (/Users/tobiasfriden/Exjobb/code/report/notation.aux) (/Users/tobiasfriden/Exjobb/code/report/theory/fixed_wing_uav.aux) (/Users/tobiasfriden/Exjobb/code/report/theory/motion_planning.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 72.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 72.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 4BFAE0B697D2A2F7F434C8E5CBCDAF8C;791.
+(rerunfilecheck)             Checksum: E40F192F83CF2237472CEEF27DC41C64;1287.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 72.
  )
 (\end occurred when \ifx on line 18 was incomplete) 
 Here is how much of TeX's memory you used:
- 25010 strings out of 492616
- 467261 string characters out of 6129482
- 586328 words of memory out of 5000000
- 28173 multiletter control sequences out of 15000+600000
- 201998 words of font info for 181 fonts, out of 8000000 for 9000
+ 25033 strings out of 492616
+ 467492 string characters out of 6129482
+ 584261 words of memory out of 5000000
+ 28151 multiletter control sequences out of 15000+600000
+ 197883 words of font info for 181 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,13n,67p,685b,872s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/kpfonts/kpfonts-expert.enc}{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/kpfonts/kpfonts-large-sc.enc}</usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpbmi.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpbn8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpbn8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpbsc8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpex.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpkmsc.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmi.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmia.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmit8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmn8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmn8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmne.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpsy.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpsyb.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on /Users/tobiasfriden/Exjobb/code/report/main.pdf (20 pages, 186648 bytes).
+ 55i,14n,67p,624b,873s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/kpfonts/kpfonts-expert.enc}{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/kpfonts/kpfonts-large-sc.enc}</usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpbmi.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpbmia.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpbn8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpbn8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpbsc8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpex.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpkmsc.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmi.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmia.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmit8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmite.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmn8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmn8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmne.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpsy.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpsyb.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
+Output written on /Users/tobiasfriden/Exjobb/code/report/main.pdf (26 pages, 212894 bytes).
 PDF statistics:
- 336 PDF objects out of 1000 (max. 8388607)
- 293 compressed objects within 3 object streams
- 87 named destinations out of 1000 (max. 500000)
- 18554 words of extra memory for PDF output out of 20736 (max. 10000000)
+ 447 PDF objects out of 1000 (max. 8388607)
+ 395 compressed objects within 4 object streams
+ 139 named destinations out of 1000 (max. 500000)
+ 18594 words of extra memory for PDF output out of 20736 (max. 10000000)
 

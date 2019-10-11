@@ -28,4 +28,9 @@ RUN /mason/mason install geometry 1.0.0
 RUN /mason/mason install variant 1.1.4
 RUN /mason/mason install rapidjson 1.1.0
 
+COPY ./nomad.3.9.1 /nomad
+WORKDIR /nomad
+ENV NOMAD_HOME=/nomad
+RUN ./configure && make
+
 
