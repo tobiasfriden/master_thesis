@@ -84,7 +84,15 @@
         "*.tcc": "cpp",
         "memory_resource": "cpp",
         "cfenv": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "*.ipp": "cpp",
+        "valarray": "cpp"
     },
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "C_Cpp.default.includePath": [
+        "/Users/tobiasfriden/Exjobb/code/route/third_party/**",
+        "/Users/tobiasfriden/Exjobb/code/route/third_party/ompl/src",
+        "/Users/tobiasfriden/Exjobb/code/route/mason_packages/headers/**",
+        "/Users/tobiasfriden/Exjobb/code/route/third_party/nomad"
+    ]
 }

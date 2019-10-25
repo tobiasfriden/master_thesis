@@ -5,14 +5,46 @@
 #include <boost/unordered_set.hpp>
 
 #include "opt.h"
+#include "constants.h"
 
 class MotionPrimitive {
 public:
-    MotionPrimitive(float north, float east, int goal_hdg, int wind_dir)
-        : north_{north}, east_{east}, goal_hdg_{goal_hdg}, wind_dir_{wind_dir} {};
+    MotionPrimitive() {};
+
+    MotionPrimitive(int wind_dir) : wind_dir_{wind_dir} {};
+
+    MotionPrimitive(
+        double north,
+        double east,
+        double heading,
+        double wp_north,
+        double wp_east,
+        double cost,
+        int goal_hdg,
+        int wind_dir
+    ) : north_{north},
+        east_{east},
+        heading_{fmod(heading, 360)},
+        wp_north_{wp_north},
+        wp_east_{wp_east},
+        cost_{cost},
+        goal_hdg_{goal_hdg},
+        wind_dir_{wind_dir}
+        {
+            if(heading_ < 0) heading_ += 360;
+        };
 
     MotionPrimitive(const MotionPrimitive& other)
-        : north_{other.north()}, east_{other.east()}, goal_hdg_{other.goal_hdg()}, wind_dir_{other.wind_dir()} {};
+        : north_{other.north()},
+          east_{other.east()},
+          heading_{other.heading()},
+          wp_north_{other.wp_north()},
+          wp_east_{other.wp_east()},
+          cost_{other.cost()},
+          goal_hdg_{other.goal_hdg()},
+          wind_dir_{other.wind_dir()} {
+              if(heading_ < 0) heading_ += 360;
+          };
 
     friend std::size_t hash_value(const MotionPrimitive& mp){
         std::size_t seed=0;
@@ -21,12 +53,39 @@ public:
         return seed;
     }
 
+    friend std::istream& operator>>(std::istream& is, MotionPrimitive& mp){
+        is >> mp.north_
+           >> mp.east_
+           >> mp.heading_
+           >> mp.wp_north_
+           >> mp.wp_east_
+           >> mp.cost_
+           >> mp.goal_hdg_
+           >> mp.wind_dir_;
+        return is;
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const MotionPrimitive& mp){
+        os << mp.north_ << " "
+           << mp.east_ << " "
+           << mp.heading_ << " "
+           << mp.wp_north_ << " "
+           << mp.wp_east_ << " "
+           << mp.cost_ << " "
+           << mp.goal_hdg_ << " "
+           << mp.wind_dir_ << std::endl;
+    }
+
     bool operator==(const MotionPrimitive& other) const {
         return goal_hdg_== other.goal_hdg() && wind_dir_ == other.wind_dir();
     }
 
-    float north() const { return north_; };
-    float east() const { return east_; };
+    double north() const { return north_; };
+    double east() const { return east_; };
+    double heading() const { return heading_; };
+    double wp_north() const { return wp_north_; };
+    double wp_east() const { return wp_east_; };
+    double cost() const { return cost_; };
     int goal_hdg() const { return goal_hdg_; };
     int wind_dir() const { return wind_dir_; }
 
@@ -34,55 +93,36 @@ public:
     void set_wind_dir(int wind_dir){ wind_dir_ = wind_dir; };
 
 private:
-    float north_{0};
-    float east_{0};
-    int goal_hdg_;
-    int wind_dir_;
+    double north_{0};
+    double east_{0};
+    double heading_{0};
+    double wp_north_{0};
+    double wp_east_{0};
+    double cost_{0};
+    int goal_hdg_{0};
+    int wind_dir_{0};
 };
-
-std::ostream& operator<<(std::ostream& out, const MotionPrimitive& mp) {
-    out << "(" << mp.north() << "," << mp.east() << "," << mp.goal_hdg() << "," << mp.wind_dir() << ")\n";
-    return out;
-}
 
 class MotionPrimitiveSet{
 public:
-    MotionPrimitiveSet(float wind_spd) : wind_spd_{wind_spd} {};
+    MotionPrimitiveSet(double wind_spd=Constants::wind_spd()) : wind_spd_{wind_spd} {};
 
     void generate(bool log=false);
     void save_to_file(std::string output);
     void load_from_file(std::string input);
 
-    void save(float north, float east, int goal_hdg, int wind_dir);
+    void save(const MotionPrimitive& mp);
     
-    std::vector<Vector2_f> get_expansions(float heading, int wind_dir);
+    std::vector<Vector2_d> get_expansions(double heading, int wind_dir) const;
+    std::vector<MotionPrimitive> get_mp_expansions(double heading, int wind_dir) const;
 
 private:
-    int closest_wind_dir(float heading_diff);
-    bool lookup(MotionPrimitive& mp);
-    Vector2_f offset_vector(float offset_heading, float d_north, float d_east);
+    int closest_wind_dir(double heading_diff) const;
+    bool lookup(MotionPrimitive& mp) const;
+    Vector2_d offset_vector(double offset_heading, double d_north, double d_east) const;
 
-    float wind_spd_{0};
+    double wind_spd_{0};
     boost::unordered_set<MotionPrimitive> mp_set;
-
-    float wind_directions[16]{
-        0,
-        to_deg(atanf(0.5)),
-        to_deg(atanf(1)),
-        to_deg(atanf(2)),
-        to_deg(M_PI/2),
-        to_deg(M_PI/2+atanf(0.5)),
-        to_deg(M_PI/2+atanf(1)),
-        to_deg(M_PI/2+atanf(2)),
-        to_deg(M_PI),
-        to_deg(M_PI+atanf(0.5)),
-        to_deg(M_PI+atanf(1)),
-        to_deg(M_PI+atanf(2)),
-        to_deg(1.5*M_PI),
-        to_deg(1.5*M_PI+atanf(0.5)),
-        to_deg(1.5*M_PI+atanf(1)),
-        to_deg(1.5*M_PI+atanf(2)),        
-    };
 };
 
 

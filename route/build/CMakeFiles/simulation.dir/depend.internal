@@ -47,6 +47,7 @@ CMakeFiles/simulation.dir/simulation.cpp.o
  ../mason_packages/headers/variant/1.1.4/include/mapbox/recursive_wrapper.hpp
  ../mason_packages/headers/variant/1.1.4/include/mapbox/variant.hpp
  ../mason_packages/headers/variant/1.1.4/include/mapbox/variant_visitor.hpp
+ /code/constants.h
  /code/geo_utils.h
  /code/simulation.cpp
  /code/simulation.h

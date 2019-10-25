@@ -1,61 +1,61 @@
 #include "simulation.h"
 
-void Simulator::reset(float lat, float lng, float new_yaw){
-    _pos = S2LatLng::FromDegrees(lat, lng);
+void Simulator::reset(double x, double y, double new_yaw){
+    _pos = Vector2_d(x, y);
     _yaw = new_yaw;
     _hdg_diff = 0;
     _path_bearing = 0;
 }
 
 // Simulate transition between two waypoints
-float Simulator::simulate_waypoints(
-    S2LatLng const& prev_wp,
-    S2LatLng const& next_wp,
-    std::vector<S2LatLng>& trajectory,
+double Simulator::simulate_waypoints(
+    Vector2_d const& prev_wp,
+    Vector2_d const& next_wp,
+    std::vector<Vector2_d>& trajectory,
     bool correct_wind
 ){
     if(correct_wind){
         _yaw = wind_correction_angle();
     }
-    float cost = 0;
+    double cost = 0;
     while(!passed_point(_pos, prev_wp, next_wp)){
         trajectory.push_back(_pos);
-        if(get_distance_NE(_pos, next_wp).Norm() < 10){
+        if((next_wp-_pos).Norm() <= 1){
             break;
         }
-        cost += 1 + step(prev_wp, next_wp).Norm();
+        cost += step(prev_wp, next_wp).Norm();
     }
     return cost;
 }
 // Simulate transition between two waypoints
-float Simulator::simulate_waypoints(
-    S2LatLng const& prev_wp,
-    S2LatLng const& next_wp,
+double Simulator::simulate_waypoints(
+    Vector2_d const& prev_wp,
+    Vector2_d const& next_wp,
     bool correct_wind
 ){
     if(correct_wind){
         _yaw = wind_correction_angle();
     }
-    float cost = 0;
+    double cost = 0;
     while(!passed_point(_pos, prev_wp, next_wp)){
-        if(get_distance_NE(_pos, next_wp).Norm() < 10){
+        if((next_wp-_pos).Norm() <= 1){
             break;
         }
-        cost += 1 + step(prev_wp, next_wp).Norm();
+        cost += step(prev_wp, next_wp).Norm();
     }
     return cost;
 }
 
-std::vector<S2LatLng> Simulator::simulate_mission(std::vector<S2LatLng> mission) {
-    std::vector<S2LatLng> trajectory;
-    reset(mission[0].lat().degrees(), mission[0].lng().degrees(), 0);
+std::vector<Vector2_d> Simulator::simulate_mission(std::vector<Vector2_d> mission) {
+    std::vector<Vector2_d> trajectory;
+    reset(mission[0].x(), mission[0].y(), 0);
     auto it = mission.begin();
-    S2LatLng prev_wp = *it;
+    Vector2_d prev_wp = *it;
     it++;
     while(it != mission.end()) {
-        S2LatLng next_wp = *it;
+        Vector2_d next_wp = *it;
         while(!passed_point(_pos, prev_wp, next_wp)){
-            if(get_distance_NE(_pos, next_wp).Norm() < 1){
+            if((next_wp-_pos).Norm() <= 1){
                 break;
             }
             step(prev_wp, next_wp);
@@ -67,11 +67,12 @@ std::vector<S2LatLng> Simulator::simulate_mission(std::vector<S2LatLng> mission)
     return trajectory;
 }
 
-void Simulator::save_trajectory(std::vector<S2LatLng> trajectory, std::string path){
+void Simulator::save_trajectory(S2LatLng const& origin, std::vector<Vector2_d> const& trajectory, std::string path){
     std::ofstream out;
     mapbox::geojson::feature_collection fc;
-    for(auto ll : trajectory){
+    for(auto p : trajectory){
         mapbox::geojson::feature f;
+        S2LatLng ll = offset(origin, p.x(), p.y());
         f.geometry = mapbox::geojson::point(ll.lng().degrees(), ll.lat().degrees());
         fc.push_back(f);
     }
@@ -80,89 +81,65 @@ void Simulator::save_trajectory(std::vector<S2LatLng> trajectory, std::string pa
     out.close();
 }
 
-Vector2_f Simulator::simulate_const_yrate(float goal_hdg, float yrate){
-    _yaw = wind_correction_angle();
-    float time = 0.0;
-    std::cout << goal_hdg << std::endl;
-    std::cout << _path_bearing << std::endl;
-    while(fabs(goal_hdg-_path_bearing)>2.5 && time < 30){
-        step_const_yrate(yrate);
-        time += _dt;
-    }
-    return get_distance_NE(S2LatLng::FromDegrees(0, 0), _pos);
-}
+// Step simulation, update position/_yaw and return air relative derivative
+Vector2_d Simulator::step(Vector2_d const& prev_wp, Vector2_d const& next_wp){
+    Vector2_d groundspeed = groundspeed_vector();
+    Vector2_d pos_diff = groundspeed*_dt;
 
-// Step simulation, update position/_yaw and return derivatives
-Vector2_f Simulator::step(S2LatLng const& prev_wp, S2LatLng const& next_wp){
-    Vector2_f groundspeed = groundspeed_vector();
-    Vector2_f pos_diff = groundspeed*_dt;
+    double lat_acc = L1_acc(prev_wp, next_wp, groundspeed);
+    double yrate = clamp(lat_acc/_airspeed, -_yrate_max, _yrate_max);
+    double y_diff = to_deg(yrate*_dt);
 
-    float lat_acc = L1_acc(prev_wp, next_wp, groundspeed);
-    float yrate = clamp(lat_acc/_airspeed, -_yrate_max, _yrate_max);
-    float y_diff = to_deg(yrate*_dt);
-
-    S2LatLng last_pos = _pos;
-    _pos = offset(_pos, pos_diff[0], pos_diff[1]);
+    _pos += pos_diff;
     _yaw += y_diff;
-    _yaw = fmod(_yaw, 360);
+    _yaw = wrap_heading_360(_yaw);
     _hdg_diff += y_diff;
-    _path_bearing = bearing_to(last_pos, _pos);
+    _path_bearing = to_deg(std::atan2(groundspeed.y(), groundspeed.x()));
+    _path_bearing = wrap_heading_360(_path_bearing);
 
-    return Vector2_f(pos_diff[0], pos_diff[1]);
-}
-
-void Simulator::step_const_yrate(float yrate){
-    Vector2_f groundspeed = groundspeed_vector();
-    Vector2_f pos_diff = groundspeed*_dt;
-
-    float y_diff = to_deg(yrate*_dt);
-
-    S2LatLng last_pos = _pos;
-    _pos = offset(_pos, pos_diff[0], pos_diff[1]);
-    _yaw += y_diff;
-    _path_bearing = bearing_to(last_pos, _pos);  
+    return _dt*airspeed_vector();
 }
 
 
 // Calculate demanded lateral acceleration
-float Simulator::L1_acc(S2LatLng const& prev_wp, S2LatLng const& next_wp, Vector2_f groundspeed){
-    float K_L1 = 4*_L1_damping*_L1_damping;
-    float L1_dist = fmax(1/M_PI*_L1_damping*_L1_period*_airspeed, 0.1);
+double Simulator::L1_acc(Vector2_d const& prev_wp, Vector2_d const& next_wp, Vector2_d groundspeed){
+    double K_L1 = 4*_L1_damping*_L1_damping;
+    double L1_dist = fmax(1/M_PI*_L1_damping*_L1_period*_airspeed, 0.1);
 
-    Vector2_f ab = get_distance_NE(prev_wp, next_wp);
+    Vector2_d ab = get_distance_NE(prev_wp, next_wp);
     if(ab.Norm() < 1e-6){
         ab = get_distance_NE(_pos, next_wp);
     }
-    Vector2_f ab_unit = ab.Normalize();
+    Vector2_d ab_unit = ab.Normalize();
     
-    Vector2_f a_pos = get_distance_NE(prev_wp, _pos);
+    Vector2_d a_pos = get_distance_NE(prev_wp, _pos);
     // Save for reporting
     _xtrack_error = a_pos.CrossProd(ab_unit);
-    float wp_a_dist = a_pos.Norm();
+    double wp_a_dist = a_pos.Norm();
 
-    float along_track_dist = a_pos.DotProd(ab_unit);
-    float Nu = 0;
-    float xtrack_v = 0;
-    float ltrack_v = 0;
+    double along_track_dist = a_pos.DotProd(ab_unit);
+    double Nu = 0;
+    double xtrack_v = 0;
+    double ltrack_v = 0;
     if(wp_a_dist > L1_dist && along_track_dist/fmax(wp_a_dist, 1) < -0.7071){
-        Vector2_f a_pos_unit = a_pos.Normalize();
+        Vector2_d a_pos_unit = a_pos.Normalize();
         xtrack_v = groundspeed.CrossProd(-1*a_pos_unit);
         ltrack_v = groundspeed.DotProd(-1*a_pos_unit);
         Nu = atan2f(xtrack_v, ltrack_v);
     } else if(along_track_dist > (ab.Norm() + 3*_airspeed)){
-        Vector2_f b_pos = get_distance_NE(next_wp, _pos);
-        Vector2_f b_pos_unit = b_pos.Normalize();
+        Vector2_d b_pos = get_distance_NE(next_wp, _pos);
+        Vector2_d b_pos_unit = b_pos.Normalize();
         xtrack_v = groundspeed.CrossProd(-1*b_pos_unit);
         ltrack_v = groundspeed.DotProd(-1*b_pos_unit);
         Nu = atan2f(xtrack_v, ltrack_v);
     } else {
         xtrack_v = groundspeed.CrossProd(ab_unit);
         ltrack_v = groundspeed.DotProd(ab_unit);
-        float Nu2 = atan2f(xtrack_v, ltrack_v);
+        double Nu2 = atan2f(xtrack_v, ltrack_v);
 
-        float sin_Nu1 = _xtrack_error/fmax(L1_dist, 0.1);
+        double sin_Nu1 = _xtrack_error/fmax(L1_dist, 0.1);
         sin_Nu1 = clamp(sin_Nu1, -0.7071, 0.7071);
-        float Nu1 = asinf(sin_Nu1);
+        double Nu1 = asinf(sin_Nu1);
 
         Nu = Nu1 + Nu2;
     }
@@ -171,17 +148,20 @@ float Simulator::L1_acc(S2LatLng const& prev_wp, S2LatLng const& next_wp, Vector
     return K_L1*_airspeed*_airspeed/L1_dist*sinf(Nu);
 }
 
-// Calculate wind compensated groundspeed vector
-Vector2_f Simulator::groundspeed_vector() {
-    Vector2_f groundspeed(cosf(to_rad(_yaw)), sinf(to_rad(_yaw)));
-    groundspeed *= _airspeed;
+// Calculate airspeed vector
+Vector2_d Simulator::airspeed_vector() {
+    Vector2_d airspeed_vec(cosf(to_rad(_yaw)), sinf(to_rad(_yaw)));
+    return airspeed_vec*_airspeed;
+}
 
-    Vector2_f wind_vec(cosf(to_rad(_wind_dir)), sinf(to_rad(_wind_dir)));
+// Calculate wind compensated groundspeed vector
+Vector2_d Simulator::groundspeed_vector() {
+    Vector2_d wind_vec(cosf(to_rad(_wind_dir)), sinf(to_rad(_wind_dir)));
     wind_vec *= _wind_spd;
-    return groundspeed + wind_vec;
+    return airspeed_vector() + wind_vec;
 }
 
 // Wind correction angle assuming convergence to path _yaw=0
-float Simulator::wind_correction_angle() {
+double Simulator::wind_correction_angle() {
     return to_deg(-asinf(_wind_spd/_airspeed*sinf(to_rad(_wind_dir))));
 }

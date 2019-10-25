@@ -90,6 +90,7 @@ astar_EXTERNAL_OBJECTS =
 
 libastar.so: CMakeFiles/astar.dir/astar.cpp.o
 libastar.so: CMakeFiles/astar.dir/build.make
+libastar.so: libgraph.so
 libastar.so: libmotion_primitive.so
 libastar.so: libopt.so
 libastar.so: libsimulation.so
@@ -97,6 +98,7 @@ libastar.so: s2geometry/libs2.so
 libastar.so: /usr/lib/x86_64-linux-gnu/libssl.so
 libastar.so: /usr/lib/x86_64-linux-gnu/libcrypto.so
 libastar.so: /nomad/builds/release/lib/libnomad.so
+libastar.so: /usr/local/lib/libompl.so
 libastar.so: CMakeFiles/astar.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared library libastar.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/astar.dir/link.txt --verbose=$(VERBOSE)

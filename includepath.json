@@ -1,0 +1,10 @@
+{
+    "C_Cpp.default.includePath": [
+        "/usr/local/include/**",
+        "/usr/include/**",
+        "/nomad/src",
+        "/nomad/ext/sgtelib/src",
+        "/code/mason_packages/headers/**",
+        "/code/"
+    ]
+}

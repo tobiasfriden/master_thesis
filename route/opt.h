@@ -13,11 +13,11 @@ public:
     SimEvaluator(const NOMAD::Parameters &p) : NOMAD::Evaluator(p) {};
     ~SimEvaluator() {};
 
-    void set_simulator_params(float airspeed, float wind_spd, float wind_dir, float yrate_max) {
+    void set_simulator_params(double airspeed, double wind_spd, double wind_dir, double yrate_max) {
         sim = Simulator(airspeed, wind_spd, wind_dir, yrate_max);
     }
 
-    void set_goal(float goal_hdg_, float hdg_error_=5, float xtrack_error_=5) {
+    void set_goal(double goal_hdg_, double hdg_error_=5, double xtrack_error_=5) {
         goal_hdg=goal_hdg_;
         hdg_error=hdg_error_;
         xtrack_error=xtrack_error_;
@@ -25,10 +25,11 @@ public:
 
     bool eval_x( NOMAD::Eval_Point &x, const NOMAD::Double &h_max, bool &count_eval) {
         sim.reset(0, 0, 0);
-        S2LatLng start = S2LatLng::FromDegrees(0, 0);
-        float cost = sim.simulate_waypoints(
+        Vector2_d start(0, 0);
+        Vector2_d goal(x[0].value(), x[1].value());
+        double cost = sim.simulate_waypoints(
             start,
-            offset(start, x[0].value(), x[1].value())
+            goal
         );
         cost += fabs(sim.path_bearing() - goal_hdg)*10;
         cost += sim.xtrack_error()*10;
@@ -42,8 +43,8 @@ public:
     Simulator sim;
 
 private:
-    float goal_hdg{0};
-    float hdg_error{0};
-    float xtrack_error{0};
+    double goal_hdg{0};
+    double hdg_error{0};
+    double xtrack_error{0};
 };
 #endif

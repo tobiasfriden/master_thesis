@@ -9,11 +9,6 @@ void set_params(NOMAD::Parameters &p){
     bbot[2] = NOMAD::EB;
     p.set_BB_OUTPUT_TYPE(bbot);
 
-    // NOMAD::Point x0(2);
-    // x0[0] = 50;
-    // x0[1] = 50;
-    // p.set_X0(x0);
-
     NOMAD::Point lb(2);
     lb[0] = -1000;
     lb[1] = 0;
@@ -39,8 +34,9 @@ int main(int argc, char** argv) {
     std::cout << se.sim.xtrack_error() << std::endl;
 
     Simulator sim(14, 7.5, 0, 0.3);
-    auto start = S2LatLng::FromDegrees(0, 0);
-    sim.simulate_waypoints(start, offset(start, -120, 1));
+    Vector2_d start(0, 0);
+    Vector2_d goal(-120, 1);
+    sim.simulate_waypoints(start, goal);
     std::cout << std::endl;
     std::cout << sim.path_bearing() << std::endl;
     std::cout << sim.xtrack_error() << std::endl;

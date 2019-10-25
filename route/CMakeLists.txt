@@ -1,8 +1,13 @@
 cmake_minimum_required (VERSION 2.6)
 project (Route)
 
+find_package(Boost REQUIRED)
+include_directories(${BOOST_INCLUDE_DIRS})
+
+find_package(ompl REQUIRED)
+include_directories(${OMPL_INCLUDE_DIRS})
+
 include(cmake/mason.cmake)
-include(ExternalProject)
 
 add_definitions(-Wno-attributes)
 add_definitions(-Wno-deprecated-declarations)
@@ -13,13 +18,11 @@ include_directories(/code)
 
 include_directories(/nomad/src)
 include_directories(/nomad/ext/sgtelib/src)
-#link_directories(/code/nomad.3.9.1/lib)
 
 mason_use(variant VERSION 1.1.4 HEADER_ONLY)
 mason_use(geometry VERSION 1.0.0 HEADER_ONLY)
 mason_use(rapidjson VERSION 1.1.0 HEADER_ONLY)
 mason_use(geojson VERSION 0.4.3 HEADER_ONLY)
-mason_use(boost VERSION 1.67.0 HEADER_ONLY)
 
 add_library(nomad SHARED IMPORTED GLOBAL)
 set_property(TARGET nomad PROPERTY IMPORTED_LOCATION "/nomad/builds/release/lib/libnomad.so")
@@ -44,11 +47,21 @@ target_add_mason_package(motion_primitive PUBLIC boost)
 add_executable(mp mp.cpp)
 target_link_libraries(mp PUBLIC motion_primitive)
 
+add_library(graph graph.cpp)
+target_link_libraries(graph PUBLIC s2)
+target_link_libraries(graph PUBLIC simulation)
+target_link_libraries(graph PUBLIC motion_primitive)
+target_link_libraries(graph PUBLIC ${OMPL_LIBRARIES})
+target_link_libraries(graph PUBLIC ${BOOST_LIBRARIES})
+
+add_library(hlut hlut.cpp)
+target_link_libraries(hlut PUBLIC graph)
+
 add_library(astar astar.cpp)
-target_add_mason_package(astar PUBLIC boost)
-target_link_libraries(astar PUBLIC s2)
-target_link_libraries(astar PUBLIC simulation)
-target_link_libraries(astar PUBLIC motion_primitive)
+target_link_libraries(astar PUBLIC graph)
+
+add_executable(gen_hlut gen_hlut.cpp)
+target_link_libraries(gen_hlut PUBLIC hlut)
 
 add_executable(route main.cpp)
 
@@ -58,9 +71,10 @@ target_add_mason_package(route PUBLIC variant)
 target_add_mason_package(route PUBLIC geometry)
 target_add_mason_package(route PUBLIC rapidjson)
 target_add_mason_package(route PUBLIC geojson)
-target_add_mason_package(route PUBLIC boost)
 target_link_libraries(route PUBLIC simulation)
 target_link_libraries(route PUBLIC motion_primitive)
+target_link_libraries(route PUBLIC hlut)
+target_link_libraries(route PUBLIC ${BOOST_LIBRARIES})
 
 add_executable(sim sim.cpp)
 target_link_libraries(sim PUBLIC simulation)

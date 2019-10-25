@@ -15,7 +15,7 @@ RUN git clone https://github.com/google/s2geometry.git
 
 WORKDIR /s2geometry
 
-RUN cmake -DCMAKE_INSTALL_PREFIX=/code/third_party -DBUILD_SHARED_LIBS=OFF . && make && make install
+RUN cmake -DBUILD_SHARED_LIBS=OFF . && make && make install
 
 RUN mkdir /mason
 WORKDIR /mason
@@ -32,5 +32,21 @@ COPY ./nomad.3.9.1 /nomad
 WORKDIR /nomad
 ENV NOMAD_HOME=/nomad
 RUN ./configure && make
+
+WORKDIR /
+RUN git clone https://github.com/ompl/ompl.git
+RUN apt-get -y install cmake \
+                    pkg-config \
+                    libboost-serialization-dev \
+                    libboost-filesystem-dev \
+                    libboost-system-dev \
+                    libboost-program-options-dev \
+                    libboost-test-dev \
+                    libeigen3-dev \
+                    libode-dev
+WORKDIR /ompl
+RUN mkdir build && cd build && cmake .. && make install
+
+WORKDIR /code
 
 

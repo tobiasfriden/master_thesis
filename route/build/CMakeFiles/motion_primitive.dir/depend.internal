@@ -452,6 +452,7 @@ CMakeFiles/motion_primitive.dir/motion_primitive.cpp.o
  ../mason_packages/headers/variant/1.1.4/include/mapbox/recursive_wrapper.hpp
  ../mason_packages/headers/variant/1.1.4/include/mapbox/variant.hpp
  ../mason_packages/headers/variant/1.1.4/include/mapbox/variant_visitor.hpp
+ /code/constants.h
  /code/geo_utils.h
  /code/motion_primitive.cpp
  /code/motion_primitive.h

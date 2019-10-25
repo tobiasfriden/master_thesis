@@ -11,73 +11,80 @@
 #include "Evaluator.hpp"
 
 #include "geo_utils.h"
+#include "constants.h"
 
 class Simulator {
 public:
-    Simulator() {};
+    Simulator()
+      : _airspeed{Constants::airspeed()},
+        _wind_spd{Constants::wind_spd()},
+        _wind_dir{Constants::wind_dir()},
+        _yrate_max{Constants::yrate()},
+        _pos{Vector2_d(0, 0)} {};
 
     Simulator(
-        float airspeed,
-        float wind_spd,
-        float wind_dir,
-        float yrate_max
+        double airspeed,
+        double wind_spd,
+        double wind_dir,
+        double yrate_max
     ) : _airspeed{airspeed},
         _wind_spd{wind_spd},
         _wind_dir{wind_dir},
         _yrate_max{yrate_max}
     {
-        _pos = S2LatLng::FromDegrees(0, 0);
+        _pos = Vector2_d(0, 0);
     };
 
-    void reset(float lat, float lng, float yaw);
+    void reset(double x, double y, double yaw);
 
-    float simulate_waypoints(
-        S2LatLng const& prev_wp,
-        S2LatLng const& next_wp,
+    double simulate_waypoints(
+        Vector2_d const& prev_wp,
+        Vector2_d const& next_wp,
         bool correct_wind=true
     );
 
-    float simulate_waypoints(
-        S2LatLng const& prev_wp,
-        S2LatLng const& next_wp,
-        std::vector<S2LatLng>& trajectory,
+    double simulate_waypoints(
+        Vector2_d const& prev_wp,
+        Vector2_d const& next_wp,
+        std::vector<Vector2_d>& trajectory,
         bool correct_wind=true
     );
-    std::vector<S2LatLng> simulate_mission(std::vector<S2LatLng> mission);
-    void save_trajectory(std::vector<S2LatLng> traj, std::string path);
-    Vector2_f simulate_const_yrate(float goal_hdg, float yrate);
+    std::vector<Vector2_d> simulate_mission(std::vector<Vector2_d> mission);
+    void save_trajectory(S2LatLng const& origin, std::vector<Vector2_d> const& traj, std::string path);
 
-    S2LatLng pos() const { return _pos; };
-    float yaw() const { return _yaw; };
-    float path_bearing() const { return _path_bearing; };
-    float xtrack_error() const { return _xtrack_error; };
-    float hdg_diff() const { return _hdg_diff; };
-    float wind_spd() const { return _wind_spd; };
-    float wind_dir() const { return _wind_dir; };
+    Vector2_d pos() const { return _pos; };
+    double yaw() const { return _yaw; };
+    double path_bearing() const { return _path_bearing; };
+    double xtrack_error() const { return _xtrack_error; };
+    double hdg_diff() const { return _hdg_diff; };
+    double wind_spd() const { return _wind_spd; };
+    double wind_dir() const { return _wind_dir; };
+    double airspeed() const { return _airspeed; };
+    double yrate_max() const { return _yrate_max; };
 
 private:
-    Vector2_f step(S2LatLng const& prev_wp, S2LatLng const& next_wp);
-    void step_const_yrate(float yrate);
+    Vector2_d step(Vector2_d const& prev_wp, Vector2_d const& next_wp);
 
-    float L1_acc(S2LatLng const& prev_wp, S2LatLng const& next_wp, Vector2_f groundspeed);
-    Vector2_f groundspeed_vector();
-    float wind_correction_angle();
+    double L1_acc(Vector2_d const& prev_wp, Vector2_d const& next_wp, Vector2_d groundspeed);
+    Vector2_d groundspeed_vector();
+    Vector2_d airspeed_vector();
+    double wind_correction_angle();
 
-    S2LatLng _pos;
-    float _yaw{0};
+    Vector2_d _pos;
+    double _yaw{0};
 
-    float _airspeed{0.0};
-    float _wind_spd{0.0};
-    float _wind_dir{0.0};
-    float _yrate_max{0.0};
-    float _dt{0.1};
+    double _airspeed{0.0};
+    double _wind_spd{0.0};
+    double _wind_dir{0.0};
+    double _yrate_max{0.0};
+    double _dt{0.25};
 
-    float _L1_period{16.0};
-    float _L1_damping{0.75};
+    double _L1_period{16.0};
+    double _L1_damping{0.75};
 
-    float _path_bearing{0};
-    float _hdg_diff{0};
-    float _xtrack_error{0};
+    double _path_bearing{0};
+    double _hdg_diff{0};
+    double _xtrack_error{0};
 };
 
 #endif

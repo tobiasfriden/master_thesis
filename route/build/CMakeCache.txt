@@ -20,6 +20,12 @@ BUILD_EXAMPLES:BOOL=ON
 //Build shared libraries instead of static.
 BUILD_SHARED_LIBS:BOOL=ON
 
+//The directory containing a CMake configuration file for Boost.
+Boost_DIR:PATH=Boost_DIR-NOTFOUND
+
+//Path to a file.
+Boost_INCLUDE_DIR:PATH=/usr/include
+
 //Path to a program.
 CMAKE_AR:FILEPATH=/usr/bin/ar
 
@@ -278,6 +284,18 @@ MASON_PACKAGE_variant_PREFIX:STRING=/code/mason_packages/headers/variant/1.1.4
 MASON_PACKAGE_variant_VERSION:STRING=1.1.4
 
 //Path to a library.
+OMPLAPPBASE_LIBRARY:FILEPATH=OMPLAPPBASE_LIBRARY-NOTFOUND
+
+//Path to a library.
+OMPLAPP_LIBRARY:FILEPATH=OMPLAPP_LIBRARY-NOTFOUND
+
+//Include path for OMPL and its dependencies
+OMPL_INCLUDE_DIRS:STRING=/usr/local/include/ompl-1.5;/usr/include/eigen3
+
+//Path to a library.
+OMPL_LIBRARIES:FILEPATH=/usr/local/lib/libompl.so
+
+//Path to a library.
 OPENSSL_CRYPTO_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libcrypto.so
 
 //Path to a file.
@@ -287,7 +305,7 @@ OPENSSL_INCLUDE_DIR:PATH=/usr/include
 OPENSSL_SSL_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libssl.so
 
 //pkg-config executable
-PKG_CONFIG_EXECUTABLE:FILEPATH=PKG_CONFIG_EXECUTABLE-NOTFOUND
+PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
 
 //Path to a program.
 PYTHON_EXECUTABLE:FILEPATH=/usr/bin/python
@@ -314,13 +332,25 @@ SWIG_EXECUTABLE:FILEPATH=SWIG_EXECUTABLE-NOTFOUND
 WITH_GFLAGS:BOOL=OFF
 
 //Dependencies for the target
-astar_LIB_DEPENDS:STATIC=general;;general;s2;general;simulation;general;motion_primitive;
+astar_LIB_DEPENDS:STATIC=general;graph;
+
+//The directory containing a CMake configuration file for boost.
+boost_DIR:PATH=boost_DIR-NOTFOUND
+
+//Dependencies for the target
+graph_LIB_DEPENDS:STATIC=general;s2;general;simulation;general;motion_primitive;general;/usr/local/lib/libompl.so;
+
+//Dependencies for the target
+hlut_LIB_DEPENDS:STATIC=general;graph;
 
 //Dependencies for the target
 motion_primitive_LIB_DEPENDS:STATIC=general;simulation;general;opt;general;nomad;general;;
 
 //Path to a library.
 nomad:FILEPATH=nomad-NOTFOUND
+
+//The directory containing a CMake configuration file for ompl.
+ompl_DIR:PATH=/usr/local/share/ompl/cmake
 
 //Dependencies for the target
 opt_LIB_DEPENDS:STATIC=general;simulation;general;nomad;
@@ -345,6 +375,10 @@ simulation_LIB_DEPENDS:STATIC=general;s2;general;;general;;general;;general;;
 # INTERNAL cache entries
 ########################
 
+//ADVANCED property for variable: Boost_DIR
+Boost_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_INCLUDE_DIR
+Boost_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_AR
 CMAKE_AR-ADVANCED:INTERNAL=1
 //This is the directory where this CMakeCache.txt was created
@@ -494,12 +528,14 @@ FIND_PACKAGE_MESSAGE_DETAILS_OpenSSL:INTERNAL=[/usr/lib/x86_64-linux-gnu/libcryp
 FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/usr/bin/python][v2.7.15()]
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
+//Details about finding ompl
+FIND_PACKAGE_MESSAGE_DETAILS_ompl:INTERNAL=[/usr/local/include/ompl-1.5;/usr/include/eigen3][/usr/local/lib/libompl.so][v()]
 //ADVANCED property for variable: MASON_PACKAGE_boost_HEADER_ONLY
 MASON_PACKAGE_boost_HEADER_ONLY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MASON_PACKAGE_boost_INCLUDE_DIRS
 MASON_PACKAGE_boost_INCLUDE_DIRS-ADVANCED:INTERNAL=1
 //boost invocation ID
-MASON_PACKAGE_boost_INVOCATION:INTERNAL=G3Bt1l0Ujfmy9ccP
+MASON_PACKAGE_boost_INVOCATION:INTERNAL=EEhjuoy689mLbxyZ
 //ADVANCED property for variable: MASON_PACKAGE_boost_LIBRARIES
 MASON_PACKAGE_boost_LIBRARIES-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MASON_PACKAGE_boost_NAME
@@ -513,7 +549,7 @@ MASON_PACKAGE_geojson_HEADER_ONLY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MASON_PACKAGE_geojson_INCLUDE_DIRS
 MASON_PACKAGE_geojson_INCLUDE_DIRS-ADVANCED:INTERNAL=1
 //geojson invocation ID
-MASON_PACKAGE_geojson_INVOCATION:INTERNAL=G3Bt1l0Ujfmy9ccP
+MASON_PACKAGE_geojson_INVOCATION:INTERNAL=jvkMvN0JpQFw6G2L
 //ADVANCED property for variable: MASON_PACKAGE_geojson_LIBRARIES
 MASON_PACKAGE_geojson_LIBRARIES-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MASON_PACKAGE_geojson_NAME
@@ -527,7 +563,7 @@ MASON_PACKAGE_geometry_HEADER_ONLY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MASON_PACKAGE_geometry_INCLUDE_DIRS
 MASON_PACKAGE_geometry_INCLUDE_DIRS-ADVANCED:INTERNAL=1
 //geometry invocation ID
-MASON_PACKAGE_geometry_INVOCATION:INTERNAL=G3Bt1l0Ujfmy9ccP
+MASON_PACKAGE_geometry_INVOCATION:INTERNAL=jvkMvN0JpQFw6G2L
 //ADVANCED property for variable: MASON_PACKAGE_geometry_LIBRARIES
 MASON_PACKAGE_geometry_LIBRARIES-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MASON_PACKAGE_geometry_NAME
@@ -541,7 +577,7 @@ MASON_PACKAGE_rapidjson_HEADER_ONLY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MASON_PACKAGE_rapidjson_INCLUDE_DIRS
 MASON_PACKAGE_rapidjson_INCLUDE_DIRS-ADVANCED:INTERNAL=1
 //rapidjson invocation ID
-MASON_PACKAGE_rapidjson_INVOCATION:INTERNAL=G3Bt1l0Ujfmy9ccP
+MASON_PACKAGE_rapidjson_INVOCATION:INTERNAL=jvkMvN0JpQFw6G2L
 //ADVANCED property for variable: MASON_PACKAGE_rapidjson_LIBRARIES
 MASON_PACKAGE_rapidjson_LIBRARIES-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MASON_PACKAGE_rapidjson_NAME
@@ -555,7 +591,7 @@ MASON_PACKAGE_variant_HEADER_ONLY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MASON_PACKAGE_variant_INCLUDE_DIRS
 MASON_PACKAGE_variant_INCLUDE_DIRS-ADVANCED:INTERNAL=1
 //variant invocation ID
-MASON_PACKAGE_variant_INVOCATION:INTERNAL=G3Bt1l0Ujfmy9ccP
+MASON_PACKAGE_variant_INVOCATION:INTERNAL=jvkMvN0JpQFw6G2L
 //ADVANCED property for variable: MASON_PACKAGE_variant_LIBRARIES
 MASON_PACKAGE_variant_LIBRARIES-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MASON_PACKAGE_variant_NAME
@@ -580,25 +616,49 @@ PYTHON_LIBRARY-ADVANCED:INTERNAL=1
 PYTHON_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PYTHON_LIBRARY_RELEASE
 PYTHON_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//Components requested for this build tree.
+_Boost_COMPONENTS_SEARCHED:INTERNAL=
+//Last used Boost_INCLUDE_DIR value.
+_Boost_INCLUDE_DIR_LAST:INTERNAL=/usr/include
+//Last used Boost_NAMESPACE value.
+_Boost_NAMESPACE_LAST:INTERNAL=boost
+//Last used Boost_USE_MULTITHREADED value.
+_Boost_USE_MULTITHREADED_LAST:INTERNAL=TRUE
 _OPENSSL_CFLAGS:INTERNAL=
 _OPENSSL_CFLAGS_I:INTERNAL=
 _OPENSSL_CFLAGS_OTHER:INTERNAL=
-_OPENSSL_FOUND:INTERNAL=
-_OPENSSL_INCLUDEDIR:INTERNAL=
-_OPENSSL_LIBDIR:INTERNAL=
+_OPENSSL_FOUND:INTERNAL=1
+_OPENSSL_INCLUDEDIR:INTERNAL=/usr/include
+_OPENSSL_INCLUDE_DIRS:INTERNAL=
+_OPENSSL_LDFLAGS:INTERNAL=-lssl;-lcrypto
+_OPENSSL_LDFLAGS_OTHER:INTERNAL=
+_OPENSSL_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+_OPENSSL_LIBRARIES:INTERNAL=ssl;crypto
+_OPENSSL_LIBRARY_DIRS:INTERNAL=
 _OPENSSL_LIBS:INTERNAL=
 _OPENSSL_LIBS_L:INTERNAL=
 _OPENSSL_LIBS_OTHER:INTERNAL=
 _OPENSSL_LIBS_PATHS:INTERNAL=
-_OPENSSL_PREFIX:INTERNAL=
+_OPENSSL_PREFIX:INTERNAL=/usr
 _OPENSSL_STATIC_CFLAGS:INTERNAL=
 _OPENSSL_STATIC_CFLAGS_I:INTERNAL=
 _OPENSSL_STATIC_CFLAGS_OTHER:INTERNAL=
+_OPENSSL_STATIC_INCLUDE_DIRS:INTERNAL=
+_OPENSSL_STATIC_LDFLAGS:INTERNAL=-lssl;-lcrypto;-ldl;-pthread
+_OPENSSL_STATIC_LDFLAGS_OTHER:INTERNAL=-pthread
 _OPENSSL_STATIC_LIBDIR:INTERNAL=
+_OPENSSL_STATIC_LIBRARIES:INTERNAL=ssl;crypto;dl
+_OPENSSL_STATIC_LIBRARY_DIRS:INTERNAL=
 _OPENSSL_STATIC_LIBS:INTERNAL=
 _OPENSSL_STATIC_LIBS_L:INTERNAL=
 _OPENSSL_STATIC_LIBS_OTHER:INTERNAL=
 _OPENSSL_STATIC_LIBS_PATHS:INTERNAL=
-_OPENSSL_VERSION:INTERNAL=
+_OPENSSL_VERSION:INTERNAL=1.1.1
+_OPENSSL_openssl_INCLUDEDIR:INTERNAL=
+_OPENSSL_openssl_LIBDIR:INTERNAL=
+_OPENSSL_openssl_PREFIX:INTERNAL=
+_OPENSSL_openssl_VERSION:INTERNAL=
+__pkg_config_arguments__OPENSSL:INTERNAL=QUIET;openssl
 __pkg_config_checked__OPENSSL:INTERNAL=1
+prefix_result:INTERNAL=/usr/lib/x86_64-linux-gnu
 

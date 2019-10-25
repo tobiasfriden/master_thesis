@@ -6,5 +6,5 @@ CXX_FLAGS =   -Wno-attributes -Wno-deprecated-declarations -Wno-attributes -Wno-
 
 CXX_DEFINES = -DABSL_MIN_LOG_LEVEL=1
 
-CXX_INCLUDES = -I/s2geometry/src 
+CXX_INCLUDES = -I/usr/local/include/ompl-1.5 -I/usr/include/eigen3 -I/s2geometry/src 
 

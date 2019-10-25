@@ -392,6 +392,8 @@ mapbox/variant_visitor.hpp
 
 ../mason_packages/headers/variant/1.1.4/include/mapbox/variant_visitor.hpp
 
+/code/constants.h
+
 /code/geo_utils.h
 math.h
 -
@@ -399,6 +401,8 @@ s2/s2latlng.h
 -
 s2/util/math/vector.h
 -
+constants.h
+/code/constants.h
 
 /code/simulation.cpp
 simulation.h
@@ -421,6 +425,8 @@ Evaluator.hpp
 /code/Evaluator.hpp
 geo_utils.h
 /code/geo_utils.h
+constants.h
+/code/constants.h
 
 /nomad/src/Algo_Parameters.hpp
 string

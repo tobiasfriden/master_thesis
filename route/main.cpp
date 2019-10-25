@@ -18,15 +18,17 @@
 #include <sstream>
 #include <iostream>
 #include <vector>
+#include <chrono>
 
 #include "astar.h"
 #include "simulation.h"
 #include "motion_primitive.h"
+#include "hlut.h"
 
 using namespace mapbox::geojson;
 
 int main(int argc, char**argv){
-    Simulator sim(14, 7.5, 0, 0.25);
+    Simulator sim;
     // S2LatLng start = offset(S2LatLng::FromDegrees(57.6432, 11.8630), 400, 0);
     // std::vector<S2LatLng> mission{
     //     start,
@@ -35,15 +37,18 @@ int main(int argc, char**argv){
     // };
     // auto traj = sim.simulate_mission(mission);
     // sim.save_trajectory(traj, "../sim.txt");
-    MotionPrimitiveSet primitives(0);
+    MotionPrimitiveSet primitives;
     primitives.load_from_file("../primitives.txt");
 
-    //S2LatLng start = offset(S2LatLng::FromDegrees(57.6432, 11.8630), 400, 0);
-    S2LatLng start = offset(S2LatLng::FromDegrees(0, 0), 300, 0);
-    S2LatLng goal = offset(start, atoi(argv[1]), atoi(argv[2]));
+    HLUT hlut;
+    hlut.load_binary("../hlut.bin");
 
-    auto path = astar(sim, primitives, start, goal, atof(argv[3]));
-    //if(path.size() > 2) path = filter_solution(path);
+    S2LatLng origin = offset(S2LatLng::FromDegrees(57.6432, 11.8630), 400, 0);
+    //S2LatLng origin = S2LatLng::FromDegrees(0, 0);
+    Vector2_d goal(atoi(argv[1]), atoi(argv[2]));
+
+    auto path = astar(sim, primitives, hlut, origin, goal, atoi(argv[3]), atof(argv[4]));
+    if(path.size() > 2) path = filter_solution(path);
 
     std::ofstream out;
     out.open("../sol.txt");
@@ -51,27 +56,27 @@ int main(int argc, char**argv){
     feature_collection points;
     for(auto p : path) {
         feature f;
-        auto ll = p.waypoint();
+        auto wp = p.waypoint();
+        auto ll = offset(origin, wp.x(), wp.y());
         f.geometry = point(ll.lng().degrees(), ll.lat().degrees());
         points.push_back(f);
     }
     out << stringify(points) << std::endl;
     out.close();
 
-    std::cout << "transform" << std::endl;
-    std::vector<S2LatLng> mission;
+    std::vector<Vector2_d> mission;
     std::transform(
         path.begin(),
         path.end(),
         std::back_inserter(mission),
-        [](Coordinate c) -> S2LatLng {
+        [](Coordinate c) -> Vector2_d {
             return c.waypoint();
         }
     );
     std::cout << "sim mission: " << mission.size() << std::endl;
     auto trajectory = sim.simulate_mission(mission);
     std::cout << "done" << std::endl;
-    sim.save_trajectory(trajectory, "../sim.txt");
+    sim.save_trajectory(origin, trajectory, "../sim.txt");
 
 }
 
