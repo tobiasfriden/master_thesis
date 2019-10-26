@@ -3,8 +3,6 @@
 
 #include <chrono>
 
-#include <s2/s2latlng.h>
-
 #include "graph.h"
 #include "hlut.h"
 #include "constants.h"

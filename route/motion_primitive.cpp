@@ -39,7 +39,7 @@ void MotionPrimitiveSet::generate(bool log){
     set_params(p);
 
     int fail = 0;
-    for(int i=1; i<=9; i++){
+    for(int i=1; i<=7; i++){
         for(int j=0; j<18; j++){
             int goal_hdg = i*20;
             int wind_dir = j*20;
@@ -72,7 +72,7 @@ void MotionPrimitiveSet::generate(bool log){
                 save(MotionPrimitive(
                     se.sim.pos().x(),
                     se.sim.pos().y(),
-                    se.sim.yaw(),
+                    se.sim.path_bearing(),
                     sol->value(0),
                     sol->value(1),
                     cost,
@@ -103,9 +103,11 @@ void MotionPrimitiveSet::save(const MotionPrimitive& mp){
     mp_set.insert(mp);
 }
 
-void MotionPrimitiveSet::save_to_file(std::string output){
+void MotionPrimitiveSet::save_to_file(std::string base_path){
+    std::ostringstream full_path;
+    full_path << base_path << int(wind_spd_) << ".txt"; 
     std::ofstream out;
-    out.open(output.c_str());
+    out.open(full_path.str().c_str());
     for(auto it = mp_set.begin(); it!=mp_set.end(); it++){
         MotionPrimitive mp = *it;
         out << mp;
@@ -113,9 +115,11 @@ void MotionPrimitiveSet::save_to_file(std::string output){
     out.close();    
 }
 
-void MotionPrimitiveSet::load_from_file(std::string input){
+void MotionPrimitiveSet::load_from_file(std::string base_path){
+    std::ostringstream full_path;
+    full_path << base_path << int(wind_spd_) << ".txt"; 
     std::ifstream in;
-    in.open(input.c_str());
+    in.open(full_path.str().c_str());
     
     MotionPrimitive mp;
     std::string line;
@@ -141,8 +145,8 @@ std::vector<Vector2_d> MotionPrimitiveSet::get_expansions(double heading, int wi
 
     MotionPrimitive mp(closest_wind);
     MotionPrimitive mp_inverse(inverse_closest_wind);
-    for(int i=1; i<=18; i++){
-        int goal_hdg = i*10;
+    for(int i=1; i<=7; i++){
+        int goal_hdg = i*20;
         mp.set_goal_hdg(goal_hdg);
         mp_inverse.set_goal_hdg(goal_hdg);
         if(lookup(mp)){
@@ -188,8 +192,8 @@ std::vector<MotionPrimitive> MotionPrimitiveSet::get_mp_expansions(double headin
     MotionPrimitive mp(closest_wind);
     MotionPrimitive mp_inverse(inverse_closest_wind);
 
-    for(int i=1; i<=18; i++){
-        int goal_hdg = i*10;
+    for(int i=1; i<=7; i++){
+        int goal_hdg = i*20;
         mp.set_goal_hdg(goal_hdg);
         mp_inverse.set_goal_hdg(goal_hdg);
         Vector2_d offset_pos;

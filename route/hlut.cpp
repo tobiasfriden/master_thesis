@@ -39,10 +39,6 @@ void HLUT::dijkstra_search(
     while(!frontier.empty()){
         Node::Ptr current = frontier.top();
 
-        // if(current -> coord == Coordinate(100, -100, 90)){
-        //     std::cout << current -> rank << " " << current -> coord << std::endl;
-        // }
-
         if(closed_set.is_visited(current -> coord)){
             std::cout << "already visited: " << current -> coord << std::endl;
         }
@@ -60,28 +56,6 @@ void HLUT::dijkstra_search(
         save_cost(current -> coord, start_hdg, current -> coord.cost());
     }
     std::cout << "generated " << lookup.size() << " entries" << std::endl;
-    // Coordinate best_coord(0, 0, 0);
-    // int missing = 0;
-    // double min_norm = std::numeric_limits<double>().max();
-    // for(double x = -_max_size; x <= _max_size; x+= hlut_size){
-    //     for(double y = -_max_size; y <= _max_size; y+= hlut_size){
-    //         for(double hdg=0; hdg < 360; hdg += hlut_hdg){
-    //             Coordinate coord(x, y, hdg);
-    //             if(!exists(coord, start_hdg)){
-    //                 if(coord.position().Norm() < 10){
-    //                     std::cout << coord << std::endl;
-    //                 }
-    //                 missing++;
-    //                 if(coord.position().Norm() < min_norm) {
-    //                     min_norm = coord.position().Norm();
-    //                     best_coord = coord;
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-    // std::cout << "missing: " << missing << std::endl;
-    // std::cout << "min coord: " << best_coord << std::endl;
 }
 
 void HLUT::astar_search(MotionPrimitiveSet& primitives, double start_hdg, const Coordinate& goal){
@@ -123,8 +97,8 @@ bool HLUT::lookup_cost(
     Query q(
         goal.position().x() - start.position().x(),
         goal.position().y() - start.position().y(),
-        start.heading(),
-        goal.heading()
+        start.bearing(),
+        goal.bearing()
     );
     q.rotate(_wind_dir);
     auto it = lookup.find(q);
@@ -136,12 +110,15 @@ bool HLUT::lookup_cost(
     // Project query to smaller HLUT
     if(project){
         double p_dist = q.project(_min_size);
+        //std::cout << "projected: " << q << std::endl;
+        //std::cout << p_dist << std::endl;
         it = lookup.find(q);
         if(it != lookup.end()){
             cost = p_dist + it->cost();
             return true;
         }
     }
+    std::cout << "did not find project" << std::endl;
 
     cost = wind_corrected_distance(
         rotate(start.position(), -_wind_dir),
@@ -152,7 +129,7 @@ bool HLUT::lookup_cost(
 
 void HLUT::save_cost(const Coordinate& coord, double start_hdg, double cost){
     Vector2_d pos = coord.position();
-    Query q(pos.x(), pos.y(), start_hdg, coord.heading(), cost);
+    Query q(pos.x(), pos.y(), start_hdg, coord.bearing(), cost);
     auto it = lookup.find(q);
     if(it == lookup.end() || cost < it -> cost()){
         lookup.insert(q);
@@ -161,7 +138,7 @@ void HLUT::save_cost(const Coordinate& coord, double start_hdg, double cost){
 
 bool HLUT::exists(const Coordinate& coord, double start_hdg){
     Vector2_d pos = coord.position();
-    return lookup.count(Query(pos.x(), pos.y(), start_hdg, coord.heading())) > 0;
+    return lookup.count(Query(pos.x(), pos.y(), start_hdg, coord.bearing())) > 0;
 }
 
 bool HLUT::in_allowed_area(const Coordinate& coord){
@@ -169,35 +146,11 @@ bool HLUT::in_allowed_area(const Coordinate& coord){
     return std::abs(pos.x()) <= _max_size && std::abs(pos.y()) <= _max_size;
 }
 
-void HLUT::save_to_file(std::string path){
+void HLUT::save_binary(std::string base_path){
+    std::ostringstream full_path;
+    full_path << base_path << int(_wind_spd) << ".bin";
     std::ofstream out;
-    out.open(path);
-
-    for(auto it = lookup.begin(); it != lookup.end(); it++){
-        out << *it << std::endl;
-    }
-
-    out.close();
-}
-
-void HLUT::load_from_file(std::string path){
-    std::ifstream in;
-    in.open(path);
-
-    std::string line;
-    Query q;
-    while(getline(in, line)){
-        std::stringstream ss(line);
-        ss >> q;
-        lookup.insert(q);
-    }
-
-    in.close();
-}
-
-void HLUT::save_binary(std::string path){
-    std::ofstream out;
-    out.open(path.c_str(), ios::binary);
+    out.open(full_path.str().c_str(), ios::binary);
     for(auto it = lookup.begin(); it != lookup.end(); it++){
         Query q = *it;
         out.write((char*)&q, sizeof(Query));
@@ -205,9 +158,11 @@ void HLUT::save_binary(std::string path){
     out.close();
 }
 
-void HLUT::load_binary(std::string path){
+void HLUT::load_binary(std::string base_path){
+    std::ostringstream full_path;
+    full_path << base_path << int(_wind_spd) << ".bin";
     std::ifstream in;
-    in.open(path.c_str(), ios::binary);
+    in.open(full_path.str().c_str(), ios::binary);
     while(!in.eof()){
         Query q;
         in.read((char*)&q, sizeof(Query));

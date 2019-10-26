@@ -28,9 +28,9 @@ int graph_hdg_idx(double heading){
 class Coordinate {
 public:
     Coordinate(double north, double east, double heading)
-        : _position{Vector2_d(north, east)}, _heading{fmod(heading, 360)} {
-            if(_heading < 0) _heading += 360;
-        };
+        : _position{Vector2_d(north, east)},
+          _heading{wrap_heading_360(heading)},
+          _bearing{wrap_heading_360(heading)} {};
 
     Coordinate(
         const Vector2_d waypoint,
@@ -38,9 +38,11 @@ public:
         double heading,
         double bearing,
         double cost
-    ) : _position{position}, _heading{fmod(heading, 360)}, _waypoint{waypoint}, _cost{cost} {
-        if(_heading < 0) _heading += 360;
-    };
+    ) : _position{position},
+        _heading{wrap_heading_360(heading)},
+        _bearing{wrap_heading_360(bearing)},
+        _waypoint{waypoint},
+        _cost{cost} {};
 
     Coordinate(const Coordinate& other)
       : _position{other._position},
@@ -81,7 +83,7 @@ public:
     }
 
     bool operator==(const Coordinate& other) const {
-        return cell_idx() == other.cell_idx() && graph_hdg_idx(_heading) == graph_hdg_idx(other.heading());
+        return cell_idx() == other.cell_idx() && graph_hdg_idx(_bearing) == graph_hdg_idx(other.bearing());
     }
 
     void operator=(const Coordinate& other){
@@ -98,7 +100,7 @@ public:
         Vector2_i idx = c.cell_idx();
         boost::hash_combine(seed, idx.x());
         boost::hash_combine(seed, idx.y());
-        boost::hash_combine(seed, graph_hdg_idx(c.heading()));
+        boost::hash_combine(seed, graph_hdg_idx(c.bearing()));
         return seed;       
     }
 

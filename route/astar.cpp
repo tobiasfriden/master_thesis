@@ -35,7 +35,7 @@
 
 bool is_equal_goal(Coordinate const& c1, Coordinate const& goal){
     Vector2_d diff = c1.position() - goal.position();
-    double heading_diff = std::abs(c1.heading() - goal.heading());
+    double heading_diff = std::abs(c1.bearing() - goal.bearing());
     heading_diff = std::min(heading_diff, std::abs(360-heading_diff));
     return std::abs(diff.x()) < Constants::goal_size &&
            std::abs(diff.y()) < Constants::goal_size &&
@@ -67,6 +67,7 @@ std::vector<Coordinate> astar(
     double best_heuristic = std::numeric_limits<double>().max();
     double h;
     hlut.lookup_cost(start, goal, h);
+    //double h = wind_corrected_distance(start.position(), goal.position());
     std::cout << "heuristic estimate: " << h << std::endl;
     int calls = 0;
 
@@ -111,8 +112,8 @@ std::vector<Coordinate> astar(
             std::reverse(pathVec.begin(), pathVec.end());
             return pathVec;
         }
-        //auto coords = current -> coord.get_neighbours(sim, primitives);
-        auto coords = current -> coord.get_mp_neighbours(primitives, sim.wind_dir());
+        auto coords = current -> coord.get_neighbours(sim, primitives);
+        //auto coords = current -> coord.get_mp_neighbours(primitives, sim.wind_dir());
         for(auto c: coords) {
             if(c == current->coord){
                 continue;
@@ -120,6 +121,7 @@ std::vector<Coordinate> astar(
             if(!closed_set.is_visited(c)) {
                 double cost;
                 hlut.lookup_cost(c, goal, cost);
+                //double cost = wind_corrected_distance(c.position(), goal.position());
                 // double cost = (c.position() - goal.position()).Norm();
                 // double rank = inflation*c.heuristic(goal, space, calls)
                 frontier.push(c, current, c.cost() + inflation*cost);

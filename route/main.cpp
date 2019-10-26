@@ -29,26 +29,18 @@ using namespace mapbox::geojson;
 
 int main(int argc, char**argv){
     Simulator sim;
-    // S2LatLng start = offset(S2LatLng::FromDegrees(57.6432, 11.8630), 400, 0);
-    // std::vector<S2LatLng> mission{
-    //     start,
-    //     offset(start, 161, 101),
-    //     offset(start, 282, 300)
-    // };
-    // auto traj = sim.simulate_mission(mission);
-    // sim.save_trajectory(traj, "../sim.txt");
-    MotionPrimitiveSet primitives;
-    primitives.load_from_file("../primitives.txt");
 
-    HLUT hlut;
-    hlut.load_binary("../hlut.bin");
+    MotionPrimitiveSet primitives(5);
+    primitives.load_from_file("../primitives/");
+
+    HLUT hlut(5);
+    hlut.load_binary("../hlut/");
 
     S2LatLng origin = offset(S2LatLng::FromDegrees(57.6432, 11.8630), 400, 0);
-    //S2LatLng origin = S2LatLng::FromDegrees(0, 0);
     Vector2_d goal(atoi(argv[1]), atoi(argv[2]));
 
     auto path = astar(sim, primitives, hlut, origin, goal, atoi(argv[3]), atof(argv[4]));
-    if(path.size() > 2) path = filter_solution(path);
+    //if(path.size() > 2) path = filter_solution(path);
 
     std::ofstream out;
     out.open("../sol.txt");

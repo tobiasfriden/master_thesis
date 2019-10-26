@@ -12683,22 +12683,6 @@ cmath
 -
 cstdlib
 -
-iosfwd
--
-iostream
--
-limits
--
-type_traits
--
-s2/base/integral_types.h
-/s2geometry/src/s2/util/math/s2/base/integral_types.h
-s2/base/logging.h
-/s2geometry/src/s2/util/math/s2/base/logging.h
-s2/third_party/absl/base/macros.h
-/s2geometry/src/s2/util/math/s2/third_party/absl/base/macros.h
-s2/third_party/absl/utility/utility.h
-/s2geometry/src/s2/util/math/s2/third_party/absl/utility/utility.h
 
 /s2geometry/src/s2/util/math/vector3_hash.h
 cstddef

@@ -18,7 +18,7 @@ public:
         : _dx{dx}, _dy{dy}, _init_hdg{init_hdg}, _goal_hdg{goal_hdg}, _cost{cost} {};
 
     Query(const Coordinate& coord)
-        : _dx{coord.position().x()}, _dy{coord.position().y()}, _goal_hdg{coord.heading()} {};
+        : _dx{coord.position().x()}, _dy{coord.position().y()}, _goal_hdg{coord.bearing()} {};
 
     Vector2_i cell_idx() const {
         return Vector2_i(
@@ -42,7 +42,7 @@ public:
         if(_init_hdg > 180){
             _init_hdg = 360 - _init_hdg;
             _goal_hdg = 360 - _goal_hdg;
-            _dy = -dy;
+            _dy = -_dy;
         }
     }
 
@@ -98,10 +98,10 @@ private:
 class HLUT{
 public:
     HLUT(
-        double max_size=Constants::hlut_outer(),
-        double min_size=Constants::hlut_inner(),
+        double wind_spd=Constants::wind_spd(),
         double wind_dir=Constants::wind_dir(),
-        double wind_spd=Constants::wind_spd()
+        double max_size=Constants::hlut_outer(),
+        double min_size=Constants::hlut_inner()
     ) : _max_size{max_size},
         _min_size{min_size},
         _wind_dir{wind_dir},
@@ -117,10 +117,8 @@ public:
         bool project=true
     ) const;
 
-    void load_from_file(std::string path);
-    void save_to_file(std::string path);
-    void load_binary(std::string path);
-    void save_binary(std::string path);
+    void load_binary(std::string base_path);
+    void save_binary(std::string base_path);
     void save_visual(std::string path, double start_hdg, double goal_hdg);
 private:
     void dijkstra_search(MotionPrimitiveSet& primitives, double start_hdg);

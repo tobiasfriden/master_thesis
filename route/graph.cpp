@@ -9,7 +9,7 @@ std::vector<Coordinate> Coordinate::get_neighbours(
     std::vector<Coordinate> coordVector; 
     std::vector<Vector2_d> traj;
 
-    auto offsets = primitives.get_expansions(_heading, sim.wind_dir());
+    auto offsets = primitives.get_expansions(_bearing, sim.wind_dir());
     Vector2_d start = _position;
     Vector2_d start_waypoint = _waypoint;
     double primitive_cost;
@@ -39,7 +39,7 @@ std::vector<Coordinate> Coordinate::get_mp_neighbours(const MotionPrimitiveSet& 
             goal_waypoint,
             goal,
             mp.heading(),
-            0,
+            mp.heading(),
              _cost + mp.cost()
         );
         coord_vec.push_back(coord);

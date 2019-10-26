@@ -108,8 +108,8 @@ public:
     MotionPrimitiveSet(double wind_spd=Constants::wind_spd()) : wind_spd_{wind_spd} {};
 
     void generate(bool log=false);
-    void save_to_file(std::string output);
-    void load_from_file(std::string input);
+    void save_to_file(std::string base_path);
+    void load_from_file(std::string base_path);
 
     void save(const MotionPrimitive& mp);
     
