@@ -40,24 +40,33 @@ public:
 
         // Handle heading > 180
         if(_init_hdg > 180){
-            _init_hdg = 360 - _init_hdg;
-            _goal_hdg = 360 - _goal_hdg;
+            _init_hdg = wrap_heading_360(360 - _init_hdg);
+            _goal_hdg = wrap_heading_360(360 - _goal_hdg);
             _dy = -_dy;
         }
     }
 
     // Project query to land inside a square with given size,
     // return offset distance
-    double project(double max_dist){
+    bool project(double max_dist, double& p_dist){
+        // Projection invalid
+        if(false && std::abs(_dx) >= max_dist && std::abs(_dy) >= max_dist){
+            p_dist = wind_corrected_distance(
+                Vector2_d(0, 0),
+                Vector2_d(_dx, _dy)
+            );
+            return false;
+        }
         double dx = _dx, dy = _dy;
         _dx = std::max(-max_dist, std::min(dx, max_dist));
         _dy = std::max(-max_dist, std::min(dy, max_dist));
 
         // Projected distance compensated for wind speed
-        return wind_corrected_distance(
+        p_dist = wind_corrected_distance(
             Vector2_d(_dx, _dy),
             Vector2_d(dx, dy)
         );
+        return true;
     }
 
     double cost() const { return _cost; };

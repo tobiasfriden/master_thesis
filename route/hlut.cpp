@@ -100,7 +100,9 @@ bool HLUT::lookup_cost(
         start.bearing(),
         goal.bearing()
     );
+    //std::cout << "before rot: " << q << std::endl;
     q.rotate(_wind_dir);
+    //std::cout << "after rot: " << q << std::endl;
     auto it = lookup.find(q);
     if(it != lookup.end()){
         cost = it -> cost();
@@ -109,12 +111,17 @@ bool HLUT::lookup_cost(
 
     // Project query to smaller HLUT
     if(project){
-        double p_dist = q.project(_min_size);
+        double p_dist;
+        if(!q.project(_min_size, p_dist)){
+            cost = p_dist;
+            return true;
+        }
         //std::cout << "projected: " << q << std::endl;
         //std::cout << p_dist << std::endl;
         it = lookup.find(q);
         if(it != lookup.end()){
             cost = p_dist + it->cost();
+            //std::cout << "lookup cost: " << it->cost() << std::endl;
             return true;
         }
     }

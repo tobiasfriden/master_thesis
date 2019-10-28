@@ -338,7 +338,7 @@ astar_LIB_DEPENDS:STATIC=general;graph;
 boost_DIR:PATH=boost_DIR-NOTFOUND
 
 //Dependencies for the target
-graph_LIB_DEPENDS:STATIC=general;s2;general;simulation;general;motion_primitive;general;/usr/local/lib/libompl.so;
+graph_LIB_DEPENDS:STATIC=general;s2;general;simulation;general;motion_primitive;general;obstacle;general;/usr/local/lib/libompl.so;
 
 //Dependencies for the target
 hlut_LIB_DEPENDS:STATIC=general;graph;
@@ -348,6 +348,9 @@ motion_primitive_LIB_DEPENDS:STATIC=general;simulation;general;opt;general;nomad
 
 //Path to a library.
 nomad:FILEPATH=nomad-NOTFOUND
+
+//Dependencies for the target
+obstacle_LIB_DEPENDS:STATIC=general;s2;general;;general;;general;;general;;
 
 //The directory containing a CMake configuration file for ompl.
 ompl_DIR:PATH=/usr/local/share/ompl/cmake
@@ -549,7 +552,7 @@ MASON_PACKAGE_geojson_HEADER_ONLY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MASON_PACKAGE_geojson_INCLUDE_DIRS
 MASON_PACKAGE_geojson_INCLUDE_DIRS-ADVANCED:INTERNAL=1
 //geojson invocation ID
-MASON_PACKAGE_geojson_INVOCATION:INTERNAL=jvkMvN0JpQFw6G2L
+MASON_PACKAGE_geojson_INVOCATION:INTERNAL=heUbSjlAcrkrUGMk
 //ADVANCED property for variable: MASON_PACKAGE_geojson_LIBRARIES
 MASON_PACKAGE_geojson_LIBRARIES-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MASON_PACKAGE_geojson_NAME
@@ -563,7 +566,7 @@ MASON_PACKAGE_geometry_HEADER_ONLY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MASON_PACKAGE_geometry_INCLUDE_DIRS
 MASON_PACKAGE_geometry_INCLUDE_DIRS-ADVANCED:INTERNAL=1
 //geometry invocation ID
-MASON_PACKAGE_geometry_INVOCATION:INTERNAL=jvkMvN0JpQFw6G2L
+MASON_PACKAGE_geometry_INVOCATION:INTERNAL=heUbSjlAcrkrUGMk
 //ADVANCED property for variable: MASON_PACKAGE_geometry_LIBRARIES
 MASON_PACKAGE_geometry_LIBRARIES-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MASON_PACKAGE_geometry_NAME
@@ -577,7 +580,7 @@ MASON_PACKAGE_rapidjson_HEADER_ONLY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MASON_PACKAGE_rapidjson_INCLUDE_DIRS
 MASON_PACKAGE_rapidjson_INCLUDE_DIRS-ADVANCED:INTERNAL=1
 //rapidjson invocation ID
-MASON_PACKAGE_rapidjson_INVOCATION:INTERNAL=jvkMvN0JpQFw6G2L
+MASON_PACKAGE_rapidjson_INVOCATION:INTERNAL=heUbSjlAcrkrUGMk
 //ADVANCED property for variable: MASON_PACKAGE_rapidjson_LIBRARIES
 MASON_PACKAGE_rapidjson_LIBRARIES-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MASON_PACKAGE_rapidjson_NAME
@@ -591,7 +594,7 @@ MASON_PACKAGE_variant_HEADER_ONLY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MASON_PACKAGE_variant_INCLUDE_DIRS
 MASON_PACKAGE_variant_INCLUDE_DIRS-ADVANCED:INTERNAL=1
 //variant invocation ID
-MASON_PACKAGE_variant_INVOCATION:INTERNAL=jvkMvN0JpQFw6G2L
+MASON_PACKAGE_variant_INVOCATION:INTERNAL=heUbSjlAcrkrUGMk
 //ADVANCED property for variable: MASON_PACKAGE_variant_LIBRARIES
 MASON_PACKAGE_variant_LIBRARIES-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MASON_PACKAGE_variant_NAME

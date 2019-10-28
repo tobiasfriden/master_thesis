@@ -26,6 +26,37 @@ std::vector<Coordinate> Coordinate::get_neighbours(
     return coordVector;
 }
 
+std::vector<Coordinate> Coordinate::get_neighbours(
+    Simulator& sim,
+    const MotionPrimitiveSet& primitives,
+    const Obstacles& obst
+) {
+    std::vector<Coordinate> coordVector; 
+    std::vector<Vector2_d> traj;
+
+    auto offsets = primitives.get_expansions(_bearing, sim.wind_dir());
+    Vector2_d start = _position;
+    Vector2_d start_waypoint = _waypoint;
+    double primitive_cost;
+
+    for(auto ofs: offsets){
+        Vector2_d goal_waypoint = start_waypoint + Vector2_d(ofs[0], ofs[1]);
+        if(obst.in_collision(goal_waypoint)){
+            continue;
+        }
+        if(obst.in_collision(start_waypoint, goal_waypoint)){
+            continue;
+        }
+        traj.clear();
+        sim.reset(start.x(), start.y(), _heading);
+        primitive_cost = sim.simulate_waypoints(start_waypoint, goal_waypoint, traj, false);
+        Coordinate coord(goal_waypoint, sim.pos(), sim.yaw(), sim.path_bearing(), _cost + primitive_cost);
+        coord.add_states(traj);
+        coordVector.push_back(coord);
+    }
+    return coordVector;
+}
+
 std::vector<Coordinate> Coordinate::get_mp_neighbours(const MotionPrimitiveSet& primitives, int wind_dir){
     std::vector<Coordinate> coord_vec;
 
@@ -34,6 +65,37 @@ std::vector<Coordinate> Coordinate::get_mp_neighbours(const MotionPrimitiveSet& 
     Vector2_d start_waypoint = _waypoint;
     for(auto mp: mps){
         Vector2_d goal_waypoint = start_waypoint + Vector2_d(mp.wp_north(), mp.wp_east());
+        Vector2_d goal = start + Vector2_d(mp.north(), mp.east());
+        Coordinate coord(
+            goal_waypoint,
+            goal,
+            mp.heading(),
+            mp.heading(),
+             _cost + mp.cost()
+        );
+        coord_vec.push_back(coord);
+    }
+    return coord_vec;
+}
+
+std::vector<Coordinate> Coordinate::get_mp_neighbours(
+    const MotionPrimitiveSet& primitives,
+    const Obstacles& obst,
+    int wind_dir
+){
+    std::vector<Coordinate> coord_vec;
+
+    auto mps = primitives.get_mp_expansions(_heading, wind_dir);
+    Vector2_d start = _position;
+    Vector2_d start_waypoint = _waypoint;
+    for(auto mp: mps){
+        Vector2_d goal_waypoint = start_waypoint + Vector2_d(mp.wp_north(), mp.wp_east());
+        if(obst.in_collision(goal_waypoint)){
+            continue;
+        }
+        if(obst.in_collision(start_waypoint, goal_waypoint)){
+            continue;
+        }
         Vector2_d goal = start + Vector2_d(mp.north(), mp.east());
         Coordinate coord(
             goal_waypoint,
@@ -61,25 +123,6 @@ mapbox::geojson::feature_collection Coordinate::get_states(S2LatLng const& origi
         fc.push_back(f);
     }
     return fc;
-}
-
-double Coordinate::heuristic(const Coordinate& to, const ob::StateSpacePtr& space, int& calls) {
-    // if(is_equal_goal(*this, to)){
-    //     return 0;
-    // }
-    //return (to.position() - _position).Norm();
-    calls++;
-    ob::ScopedState<ob::DubinsStateSpace> start(space);
-    ob::ScopedState<ob::DubinsStateSpace> goal(space);
-
-    start->setX(_position.x());
-    start->setY(_position.y());
-    start->setYaw(to_rad(_heading));
-
-    goal->setX(to.position().x());
-    goal->setY(to.position().y());
-    goal->setYaw(to_rad(to.heading()));
-    return space -> distance(start(), goal());
 }
 
 // Frontier definition

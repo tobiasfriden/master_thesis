@@ -1,38 +1,5 @@
 #include <astar.h>
 
-// // Grid definitions
-// bool Grid::isCrossing(const S2LatLng& ll1, const S2LatLng& ll2) const {
-//     auto target = S2ClosestEdgeQuery::PointTarget(ll2.ToPoint());
-//     auto res = _query -> GetCrossingEdges(
-//         ll1.ToPoint().Normalize(),
-//         ll2.ToPoint().Normalize(),
-//         S2CrossingEdgeQuery::CrossingType::ALL
-//     );
-//     return res.size() > 0;
-// }
-
-// std::vector<S2LatLng> Grid::getNeighbours(const S2LatLng& ll) const {
-//     std::vector<S2LatLng> coords;
-//     auto target = S2ClosestEdgeQuery::PointTarget(ll.ToPoint().Normalize());
-//     int dynamic_step = _dQuery -> GetDistance(&target).e6()/20;
-//     std::cout << "Dyn_step: " << dynamic_step << std::endl;
-//     dynamic_step = std::max(dynamic_step, step);
-//     for(int i=0; i<8; i++) {
-//         int32 inc_lat = _inc[i][0]*dynamic_step;
-//         int32 inc_lng = _inc[i][1]*dynamic_step;
-//         S2LatLng ll_new =
-//             S2LatLng::FromE6(
-//                 ll.lat().e6() + inc_lat,
-//                 ll.lng().e6() + inc_lng
-//             );
-//         if(!isCrossing(ll, ll_new)){
-//             coords.push_back(ll_new);
-//         }
-//     }
-
-//     return coords;
-// }
-
 bool is_equal_goal(Coordinate const& c1, Coordinate const& goal){
     Vector2_d diff = c1.position() - goal.position();
     double heading_diff = std::abs(c1.bearing() - goal.bearing());
@@ -47,13 +14,13 @@ std::vector<Coordinate> astar(
     Simulator& sim,
     const MotionPrimitiveSet& primitives,
     const HLUT& hlut,
+    const Obstacles& obst,
     const S2LatLng& origin,
     const Vector2_d& to,
     double goal_hdg,
     double inflation
 ){
     auto start_time = std::chrono::system_clock::now();
-    ob::StateSpacePtr space(new ob::DubinsStateSpace(1.5*sim.airspeed()/sim.yrate_max()));
     ClosedSet closed_set;
     Frontier frontier;
     std::vector<Coordinate> nbrVec;
@@ -70,7 +37,6 @@ std::vector<Coordinate> astar(
     //double h = wind_corrected_distance(start.position(), goal.position());
     std::cout << "heuristic estimate: " << h << std::endl;
     int calls = 0;
-
     while(true) {
         
         if(frontier.empty()) {
@@ -112,8 +78,8 @@ std::vector<Coordinate> astar(
             std::reverse(pathVec.begin(), pathVec.end());
             return pathVec;
         }
-        auto coords = current -> coord.get_neighbours(sim, primitives);
-        //auto coords = current -> coord.get_mp_neighbours(primitives, sim.wind_dir());
+        //auto coords = current -> coord.get_neighbours(sim, primitives, obst);
+        auto coords = current -> coord.get_mp_neighbours(primitives, obst, sim.wind_dir());
         for(auto c: coords) {
             if(c == current->coord){
                 continue;

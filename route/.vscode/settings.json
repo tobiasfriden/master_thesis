@@ -72,5 +72,17 @@
         "typeinfo": "cpp",
         "valarray": "cpp",
         "variant": "cpp"
-    }
+    },
+    "C_Cpp.default.includePath": [
+        "/usr/local/include/**",
+        "/usr/include/**",
+        "/nomad/src",
+        "/nomad/ext/sgtelib/src",
+        "/code/mason_packages/headers/**/*",
+        "/code/mason_packages/headers/geojson/0.4.3/include",
+        "/code/mason_packages/headers/geometry/1.0.0/include",
+        "/code/mason_packages/headers/rapidjson/1.1.0/include",
+        "/code/mason_packages/headers/variant/1.1.4/include",
+        "/code/"
+    ]
 }

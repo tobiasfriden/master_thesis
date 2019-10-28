@@ -95,10 +95,11 @@ gen_hlut: libgraph.so
 gen_hlut: libmotion_primitive.so
 gen_hlut: libopt.so
 gen_hlut: libsimulation.so
+gen_hlut: /nomad/builds/release/lib/libnomad.so
+gen_hlut: libobstacle.so
 gen_hlut: s2geometry/libs2.so
 gen_hlut: /usr/lib/x86_64-linux-gnu/libssl.so
 gen_hlut: /usr/lib/x86_64-linux-gnu/libcrypto.so
-gen_hlut: /nomad/builds/release/lib/libnomad.so
 gen_hlut: /usr/local/lib/libompl.so
 gen_hlut: CMakeFiles/gen_hlut.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable gen_hlut"

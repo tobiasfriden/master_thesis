@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC   -shared -Wl,-soname,libobstacle.so -o libobstacle.so CMakeFiles/obstacle.dir/obstacle.cpp.o -Wl,-rpath,/code/build/s2geometry s2geometry/libs2.so -lssl -lcrypto -lpthread 

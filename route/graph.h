@@ -11,15 +11,11 @@
 #include <mapbox/geojson.hpp>
 #include <mapbox/geojson_impl.hpp>
 #include <mapbox/geometry.hpp>
-#include <ompl/base/spaces/DubinsStateSpace.h>
-#include <ompl/base/State.h>
-#include <ompl/base/ScopedState.h>
 
 #include "simulation.h"
 #include "motion_primitive.h"
 #include "constants.h"
-
-namespace ob = ompl::base;
+#include "obstacle.h"
 
 int graph_hdg_idx(double heading){
     return Constants::heading_index(heading, Constants::hdg_size);
@@ -58,15 +54,25 @@ public:
         const MotionPrimitiveSet& primitives
     );
 
+    std::vector<Coordinate> get_neighbours(
+        Simulator& sim,
+        const MotionPrimitiveSet& primitives,
+        const Obstacles& obst
+    );
+
     std::vector<Coordinate> get_mp_neighbours(
         const MotionPrimitiveSet& primitives,
         int wind_dir
     );
 
+    std::vector<Coordinate> get_mp_neighbours(
+        const MotionPrimitiveSet& primitives,
+        const Obstacles& obst,
+        int wind_dir
+    );
+
     void add_states(std::vector<Vector2_d> states);
     mapbox::geojson::feature_collection get_states(S2LatLng const& origin);
-
-    double heuristic(const Coordinate& to, ob::StateSpacePtr const& space, int& calls);
 
     const Vector2_d& position() const { return _position; };
     const Vector2_d waypoint() const { return _waypoint; };

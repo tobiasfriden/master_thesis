@@ -1,37 +1,5 @@
 #include "motion_primitive.h"
 
-Vector2_i grid_search(int num_cells, int step, double goal_hdg, double wind_spd, double wind_dir){
-    int best_x = step;
-    int best_y = step;
-    double cost;
-    double best_cost = std::numeric_limits<double>().max();
-    double best_yaw = 0;
-
-    Vector2_d start(0, 0);
-    Vector2_d goal;
-
-    Simulator sim(14, wind_spd, wind_dir, 0.3);
-    for(int i=-num_cells; i<=num_cells; i++){
-        for(int j=1; j<=num_cells; j++){
-            sim.reset(0, 0, 0);
-            goal = Vector2_d(i*step, j*step);
-            double cost = sim.simulate_waypoints(start, goal);
-            //cost += std::fabs(sim.path_bearing() - goal_hdg)*2.5;
-            //cost += std::fabs(sim.xtrack_error())*10;
-            if(std::fabs(sim.path_bearing() - goal_hdg) < 15 &&
-               std::fabs(sim.xtrack_error()) < 5 &&
-               cost < best_cost){
-                best_cost = cost;
-                best_x = step*i;
-                best_y = step*j;
-                best_yaw = sim.yaw();
-            }
-            
-        }
-    }
-    return Vector2_i(best_x, best_y);
-}
-
 void MotionPrimitiveSet::generate(bool log){
     std::ofstream os;
     NOMAD::Display out(os);
@@ -39,9 +7,9 @@ void MotionPrimitiveSet::generate(bool log){
     set_params(p);
 
     int fail = 0;
-    for(int i=1; i<=7; i++){
+    for(int i=1; i<=Constants::prim_headings; i++){
         for(int j=0; j<18; j++){
-            int goal_hdg = i*20;
+            int goal_hdg = i*Constants::prim_hdg_size;
             int wind_dir = j*20;
             
             Vector2_d offset(cosf(to_rad(goal_hdg)), sinf(to_rad(goal_hdg)));
@@ -145,8 +113,8 @@ std::vector<Vector2_d> MotionPrimitiveSet::get_expansions(double heading, int wi
 
     MotionPrimitive mp(closest_wind);
     MotionPrimitive mp_inverse(inverse_closest_wind);
-    for(int i=1; i<=7; i++){
-        int goal_hdg = i*20;
+    for(int i=1; i<=Constants::prim_headings; i++){
+        int goal_hdg = i*Constants::prim_hdg_size;
         mp.set_goal_hdg(goal_hdg);
         mp_inverse.set_goal_hdg(goal_hdg);
         if(lookup(mp)){
@@ -192,8 +160,8 @@ std::vector<MotionPrimitive> MotionPrimitiveSet::get_mp_expansions(double headin
     MotionPrimitive mp(closest_wind);
     MotionPrimitive mp_inverse(inverse_closest_wind);
 
-    for(int i=1; i<=7; i++){
-        int goal_hdg = i*20;
+    for(int i=1; i<=Constants::prim_headings; i++){
+        int goal_hdg = i*Constants::prim_hdg_size;
         mp.set_goal_hdg(goal_hdg);
         mp_inverse.set_goal_hdg(goal_hdg);
         Vector2_d offset_pos;

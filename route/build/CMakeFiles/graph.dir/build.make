@@ -91,13 +91,14 @@ graph_EXTERNAL_OBJECTS =
 libgraph.so: CMakeFiles/graph.dir/graph.cpp.o
 libgraph.so: CMakeFiles/graph.dir/build.make
 libgraph.so: libmotion_primitive.so
+libgraph.so: libobstacle.so
 libgraph.so: /usr/local/lib/libompl.so
 libgraph.so: libopt.so
 libgraph.so: libsimulation.so
+libgraph.so: /nomad/builds/release/lib/libnomad.so
 libgraph.so: s2geometry/libs2.so
 libgraph.so: /usr/lib/x86_64-linux-gnu/libssl.so
 libgraph.so: /usr/lib/x86_64-linux-gnu/libcrypto.so
-libgraph.so: /nomad/builds/release/lib/libnomad.so
 libgraph.so: CMakeFiles/graph.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared library libgraph.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/graph.dir/link.txt --verbose=$(VERBOSE)

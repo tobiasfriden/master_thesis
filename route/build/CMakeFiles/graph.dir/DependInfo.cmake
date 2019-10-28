@@ -26,6 +26,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
   "/code/build/CMakeFiles/motion_primitive.dir/DependInfo.cmake"
+  "/code/build/CMakeFiles/obstacle.dir/DependInfo.cmake"
   "/code/build/CMakeFiles/opt.dir/DependInfo.cmake"
   "/code/build/CMakeFiles/simulation.dir/DependInfo.cmake"
   "/code/build/s2geometry/CMakeFiles/s2.dir/DependInfo.cmake"

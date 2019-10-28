@@ -7,9 +7,6 @@
 
 #include "constants.h"
 
-// def longitude_scale(Lat):
-//     scale = np.cos(np.radians(Lat))
-//     return np.max([scale, 0.01])
 double longitude_scale(S2LatLng const& ll){
     double scale = cos(ll.lat());
     return fmax(scale, 0.01);

@@ -15,7 +15,7 @@ int main(int argc, char** argv){
         hlut.save_binary("../hlut/");
     } else {
         hlut.load_binary("../hlut/");
-        hlut.save_visual("../hlut_viz.txt", 0, atof(argv[2]));
+        hlut.save_visual("../hlut_viz.txt", atof(argv[2]), atof(argv[3]));
     }
 
     double cost;

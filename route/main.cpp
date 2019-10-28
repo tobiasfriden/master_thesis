@@ -24,22 +24,29 @@
 #include "simulation.h"
 #include "motion_primitive.h"
 #include "hlut.h"
+#include "obstacle.h"
 
 using namespace mapbox::geojson;
 
 int main(int argc, char**argv){
+    S2LatLng origin = offset(S2LatLng::FromDegrees(57.6432, 11.8630), Constants::start_offset(), 0);
+    //S2LatLng origin = S2LatLng::FromDegrees(0, 0);
+
     Simulator sim;
 
-    MotionPrimitiveSet primitives(5);
+    MotionPrimitiveSet primitives;
     primitives.load_from_file("../primitives/");
 
-    HLUT hlut(5);
+    HLUT hlut;
     hlut.load_binary("../hlut/");
+    Obstacles obst(origin, Constants::safety_dist(), "../geodata/single.geojson");
+    obst.save_to_file(origin, "../obstacles.txt");
 
-    S2LatLng origin = offset(S2LatLng::FromDegrees(57.6432, 11.8630), 400, 0);
     Vector2_d goal(atoi(argv[1]), atoi(argv[2]));
-
-    auto path = astar(sim, primitives, hlut, origin, goal, atoi(argv[3]), atof(argv[4]));
+    if(obst.in_collision(goal)){
+        std::cerr << "goal in collision" << std::endl;
+    }
+    auto path = astar(sim, primitives, hlut, obst, origin, goal, atoi(argv[3]), atof(argv[4]));
     //if(path.size() > 2) path = filter_solution(path);
 
     std::ofstream out;

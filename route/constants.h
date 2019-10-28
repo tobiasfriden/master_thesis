@@ -28,19 +28,31 @@ namespace Constants{
         return read_env("HDG_ERROR");
     }
 
+    // Primitives
+    static const int prim_hdg_size = 10;
+    static const int prim_headings = 16;
+
     // Grid definition
     static const double cell_size = 10;
     static const double hdg_size = 20;
     static const double goal_size = 25;
 
     // HLUT definition
-    static const double hlut_size = 20;
-    static const double hlut_hdg = 30;
+    static const double hlut_size = 40;
+    static const double hlut_hdg = 20;
     double hlut_inner(){
         return read_env("HLUT_INNER");
     }
     double hlut_outer(){
         return read_env("HLUT_OUTER");
+    }
+
+    // Obstacles
+    double safety_dist(){
+        return read_env("SAFETY_DIST");
+    }
+    double start_offset(){
+        return read_env("START_OFFSET");
     }
 
     int heading_index(double heading, double interval){

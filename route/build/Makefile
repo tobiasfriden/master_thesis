@@ -68,38 +68,16 @@ install/strip/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
 
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
 
-.PHONY : list_install_components/fast
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
+.PHONY : edit_cache/fast
 
 # Special rule for the target install
 install: preinstall
@@ -113,16 +91,38 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
 
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
 
-.PHONY : edit_cache/fast
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -157,69 +157,30 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named route
+# Target rules for targets named mp
 
 # Build rule for target.
-route: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 route
-.PHONY : route
+mp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 mp
+.PHONY : mp
 
 # fast build rule for target.
-route/fast:
-	$(MAKE) -f CMakeFiles/route.dir/build.make CMakeFiles/route.dir/build
-.PHONY : route/fast
+mp/fast:
+	$(MAKE) -f CMakeFiles/mp.dir/build.make CMakeFiles/mp.dir/build
+.PHONY : mp/fast
 
 #=============================================================================
-# Target rules for targets named gen_hlut
+# Target rules for targets named simulation
 
 # Build rule for target.
-gen_hlut: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 gen_hlut
-.PHONY : gen_hlut
+simulation: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 simulation
+.PHONY : simulation
 
 # fast build rule for target.
-gen_hlut/fast:
-	$(MAKE) -f CMakeFiles/gen_hlut.dir/build.make CMakeFiles/gen_hlut.dir/build
-.PHONY : gen_hlut/fast
-
-#=============================================================================
-# Target rules for targets named astar
-
-# Build rule for target.
-astar: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 astar
-.PHONY : astar
-
-# fast build rule for target.
-astar/fast:
-	$(MAKE) -f CMakeFiles/astar.dir/build.make CMakeFiles/astar.dir/build
-.PHONY : astar/fast
-
-#=============================================================================
-# Target rules for targets named graph
-
-# Build rule for target.
-graph: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 graph
-.PHONY : graph
-
-# fast build rule for target.
-graph/fast:
-	$(MAKE) -f CMakeFiles/graph.dir/build.make CMakeFiles/graph.dir/build
-.PHONY : graph/fast
-
-#=============================================================================
-# Target rules for targets named sim
-
-# Build rule for target.
-sim: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 sim
-.PHONY : sim
-
-# fast build rule for target.
-sim/fast:
-	$(MAKE) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/build
-.PHONY : sim/fast
+simulation/fast:
+	$(MAKE) -f CMakeFiles/simulation.dir/build.make CMakeFiles/simulation.dir/build
+.PHONY : simulation/fast
 
 #=============================================================================
 # Target rules for targets named opt
@@ -248,19 +209,6 @@ hlut/fast:
 .PHONY : hlut/fast
 
 #=============================================================================
-# Target rules for targets named simulation
-
-# Build rule for target.
-simulation: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 simulation
-.PHONY : simulation
-
-# fast build rule for target.
-simulation/fast:
-	$(MAKE) -f CMakeFiles/simulation.dir/build.make CMakeFiles/simulation.dir/build
-.PHONY : simulation/fast
-
-#=============================================================================
 # Target rules for targets named motion_primitive
 
 # Build rule for target.
@@ -274,17 +222,82 @@ motion_primitive/fast:
 .PHONY : motion_primitive/fast
 
 #=============================================================================
-# Target rules for targets named mp
+# Target rules for targets named sim
 
 # Build rule for target.
-mp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 mp
-.PHONY : mp
+sim: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 sim
+.PHONY : sim
 
 # fast build rule for target.
-mp/fast:
-	$(MAKE) -f CMakeFiles/mp.dir/build.make CMakeFiles/mp.dir/build
-.PHONY : mp/fast
+sim/fast:
+	$(MAKE) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/build
+.PHONY : sim/fast
+
+#=============================================================================
+# Target rules for targets named astar
+
+# Build rule for target.
+astar: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 astar
+.PHONY : astar
+
+# fast build rule for target.
+astar/fast:
+	$(MAKE) -f CMakeFiles/astar.dir/build.make CMakeFiles/astar.dir/build
+.PHONY : astar/fast
+
+#=============================================================================
+# Target rules for targets named graph
+
+# Build rule for target.
+graph: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 graph
+.PHONY : graph
+
+# fast build rule for target.
+graph/fast:
+	$(MAKE) -f CMakeFiles/graph.dir/build.make CMakeFiles/graph.dir/build
+.PHONY : graph/fast
+
+#=============================================================================
+# Target rules for targets named gen_hlut
+
+# Build rule for target.
+gen_hlut: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gen_hlut
+.PHONY : gen_hlut
+
+# fast build rule for target.
+gen_hlut/fast:
+	$(MAKE) -f CMakeFiles/gen_hlut.dir/build.make CMakeFiles/gen_hlut.dir/build
+.PHONY : gen_hlut/fast
+
+#=============================================================================
+# Target rules for targets named obstacle
+
+# Build rule for target.
+obstacle: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 obstacle
+.PHONY : obstacle
+
+# fast build rule for target.
+obstacle/fast:
+	$(MAKE) -f CMakeFiles/obstacle.dir/build.make CMakeFiles/obstacle.dir/build
+.PHONY : obstacle/fast
+
+#=============================================================================
+# Target rules for targets named route
+
+# Build rule for target.
+route: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 route
+.PHONY : route
+
+# fast build rule for target.
+route/fast:
+	$(MAKE) -f CMakeFiles/route.dir/build.make CMakeFiles/route.dir/build
+.PHONY : route/fast
 
 #=============================================================================
 # Target rules for targets named s2testing
@@ -527,6 +540,33 @@ mp.cpp.s:
 	$(MAKE) -f CMakeFiles/mp.dir/build.make CMakeFiles/mp.dir/mp.cpp.s
 .PHONY : mp.cpp.s
 
+obstacle.o: obstacle.cpp.o
+
+.PHONY : obstacle.o
+
+# target to build an object file
+obstacle.cpp.o:
+	$(MAKE) -f CMakeFiles/obstacle.dir/build.make CMakeFiles/obstacle.dir/obstacle.cpp.o
+.PHONY : obstacle.cpp.o
+
+obstacle.i: obstacle.cpp.i
+
+.PHONY : obstacle.i
+
+# target to preprocess a source file
+obstacle.cpp.i:
+	$(MAKE) -f CMakeFiles/obstacle.dir/build.make CMakeFiles/obstacle.dir/obstacle.cpp.i
+.PHONY : obstacle.cpp.i
+
+obstacle.s: obstacle.cpp.s
+
+.PHONY : obstacle.s
+
+# target to generate assembly for a file
+obstacle.cpp.s:
+	$(MAKE) -f CMakeFiles/obstacle.dir/build.make CMakeFiles/obstacle.dir/obstacle.cpp.s
+.PHONY : obstacle.cpp.s
+
 opt.o: opt.cpp.o
 
 .PHONY : opt.o
@@ -615,21 +655,22 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... install/strip"
-	@echo "... list_install_components"
-	@echo "... rebuild_cache"
-	@echo "... install/local"
-	@echo "... route"
-	@echo "... install"
-	@echo "... gen_hlut"
-	@echo "... astar"
-	@echo "... graph"
-	@echo "... sim"
+	@echo "... mp"
+	@echo "... simulation"
+	@echo "... edit_cache"
 	@echo "... opt"
 	@echo "... hlut"
-	@echo "... edit_cache"
-	@echo "... simulation"
 	@echo "... motion_primitive"
-	@echo "... mp"
+	@echo "... sim"
+	@echo "... astar"
+	@echo "... graph"
+	@echo "... gen_hlut"
+	@echo "... obstacle"
+	@echo "... install"
+	@echo "... route"
+	@echo "... install/local"
+	@echo "... rebuild_cache"
+	@echo "... list_install_components"
 	@echo "... s2testing"
 	@echo "... s2"
 	@echo "... term_index"
@@ -655,6 +696,9 @@ help:
 	@echo "... mp.o"
 	@echo "... mp.i"
 	@echo "... mp.s"
+	@echo "... obstacle.o"
+	@echo "... obstacle.i"
+	@echo "... obstacle.s"
 	@echo "... opt.o"
 	@echo "... opt.i"
 	@echo "... opt.s"
