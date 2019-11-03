@@ -114,7 +114,7 @@ bool HLUT::lookup_cost(
         double p_dist;
         if(!q.project(_min_size, p_dist)){
             cost = p_dist;
-            return true;
+            return false;
         }
         //std::cout << "projected: " << q << std::endl;
         //std::cout << p_dist << std::endl;
@@ -122,10 +122,10 @@ bool HLUT::lookup_cost(
         if(it != lookup.end()){
             cost = p_dist + it->cost();
             //std::cout << "lookup cost: " << it->cost() << std::endl;
-            return true;
+            return false;
         }
     }
-    std::cout << "did not find project" << std::endl;
+    //std::cout << "did not find project" << std::endl;
 
     cost = wind_corrected_distance(
         rotate(start.position(), -_wind_dir),

@@ -1,32 +1,70 @@
 
 \chapter{Fixed-wing Unmanned Aerial Vehicles}\label{cha:fixed_wing_uav}
-Though not recieving the same amount of research and commercial interest as their multirotor counterparts,
-fixed-wing UAVs offer a number of advantages in many usecases. In the following sections a thorough description of
-general fixed-wing dynamics as well as a description of the specific platform used in this work will be presented. 
-
-\section{Fixed-wing dynamics}
-This first section will give the reader a quick overview of some common definitions and terminology. 
-A general purpose 6-DOF model of a fixed-wing UAV will also be derived. 
-\subsection{General definitions and terminology}
-We begin with establishing some common definitions and
- terminology which will be used throughout this thesis. These definitions are 
+\section{General definitions and terminology}
+Fixed-wind UAVs are receiving increasing commercial and research interest, and offer a number of advantages in many use-cases. In the following sections a thorough description of
+general fixed-wing kinematics and control as well as a description of the specific platform used in this work will be presented. 
+We begin with establishing some common definitions and terminology which will be used throughout this thesis. These definitions are 
  used in many other works related to fixed-wing aircraft, such as \cite{uav_dynamics_wind}, \cite{uav_dynamics_modeling}, 
 \cite{fighter_aircraft_mpc}. 
 
-\subsubsection{Coordinate reference frames}
-Three different coordinate reference frames are used, an inertial frame, a body frame and a wind reference frame.
-This is convenient since some sensors, like GPS report their values in the inertial frame
- while others, like IMU sensors report values in the body frame. Other advantages of the different references
-will be made apparent when formulating the dynamic equations.
+\subsection{Coordinate reference frames}
+Four different coordinate frames are relevant to consider for UAV applications in wind: the inertial frame which is 
+fixed in the earth, the air-relative frame, the body frame and the wind reference frame. The body frame and wind reference frames are related through the \textit{angle of attack} $\alpha$ and \textit{sideslip} $\beta$
+ as shown in Figure \ref{fig:body_wind_frame}.
+\begin{figure}
+    \begin{center}
+        \begin{tikzpicture}
+            \coordinate (body) at ($(0,0)+(45:-.25)$);
+            
+
+            \draw[my_v] (body) -- node[at end, left]{$x$} (45:1.5);
+            \draw[my_v] (body) -- node[at end, below]{$y$} (-45:1.5);
+
+            \draw[my_v] (body) -- node[at end, left]{$x_{w}$} ++ (80:1.5);
+            \draw[my_v] (body) -- node[at end, below]{$y_{w}$} ++ (-10:1.5);
+            \draw[my_v] (body) -- node[at end, left]{$\vec{v}_I$} ++ (80:3);
+
+            \draw[my_v] (.5,.5) arc(45:80:1) node[midway, anchor=225]{$\beta$};
+
+            \Drone{0}{0}{50};
+        \end{tikzpicture}
+        \begin{tikzpicture}
+            \useasboundingbox (-2, -2) rectangle (2, 2);
+            \coordinate (origin) at (0,0);
+
+            \draw[my_v] (origin) -- node[at end, below]{$x$} ++ (1.5,0);
+            \draw[my_v] (origin) -- node[at end, right]{$z$} ++ (0,-1.5);
+
+            \draw[my_v] (origin) --node[at end, anchor=160]{$x_w$} ++ (30:1.5);
+            \draw[my_v] (origin) --node[at end, right]{$z_w$} ++ (-60:1.5);
+            \draw[my_v] (origin) --node[at end, anchor=160]{$\vec{v}_I$} ++ (30:3);
+
+            \draw[my_v] (1,0) arc(0:30:1) node[midway, anchor=180]{$\alpha$};
+        \end{tikzpicture}
+    \end{center}
+    \caption{Relation between body and wind frames}
+    \label{fig:body_wind_frame}
+\end{figure}
 
 \begin{definition}[Inertial frame]
     The inertial frame, denoted with subscript $I$ is fixed relative to the earth.
-    A position vector in the intertial frame is defined in the NED order as
+    A position vector in the inertial frame is defined in the NED order as
     \begin{equation}
         \vec{p}_I = (p_N, p_E, -p_H)
     \end{equation}
     where $p_N$ points in the north direction, $p_E$ points east and $p_H$ points down towards the earth,
     in order to form a right hand positive coordinate system.
+\end{definition}
+
+\begin{definition}[Air frame]
+    The air frame, denoted with subscript $A$ is fixed in the air and aligned with the current direction of wind. In the case of non-zero wind,
+    this coordinate frame moves with the same speed.
+    This means that inertial frame coordinates become time-dependent in the air frame, and are given by
+    \begin{align}
+        p_{N,A}(t) &= \cos\psi_w p_{N,I} + \sin\psi_w p_{E,I} - Wt\\
+        p_{E,A}(t) &= -\sin\psi_w p_{N,I} + \cos\psi_w p_{E,I}
+    \end{align}
+    where $W$ is the wind speed and $\psi_w$ the wind direction.
 \end{definition}
 
 \begin{definition}[Body frame]
@@ -35,7 +73,7 @@ will be made apparent when formulating the dynamic equations.
     \begin{equation}
         \vec{p}_B = (x, y, z)
     \end{equation}
-    where $x$ points forward through the UAV, $y$ points to the right and $z$ points down as shown in Figure TODO
+    where $x$ points forward through the UAV, $y$ points to the right and $z$ points down.
 \end{definition}
 
 \begin{definition}[Wind reference frame]
@@ -49,7 +87,7 @@ will be made apparent when formulating the dynamic equations.
     $y_w$ points to the right of $x_w$ and $z$ points down relative $x_w$ and $y_w$.
 \end{definition}
 
-\subsubsection{Attitude representation}
+\subsection{Attitude representation}
 The attitude of the UAV is represented by the \textit{Euler angles}. 
 
 \begin{definition}[Euler angles]
@@ -60,7 +98,6 @@ The Euler angle vector is defined as
 where the \textit{roll angle} $\phi$ is rotation around the north inertial axis, 
 the \textit{pitch angle} $\theta$ is rotation around the east inertial axis and
 the \textit{yaw angle} $\psi$ is rotation around the downwards inertial axis.
-\end{definition}
 
 The relationship between coordinates in the body frame and inertial frame is given
  by the rotation matrix
@@ -68,44 +105,28 @@ The relationship between coordinates in the body frame and inertial frame is giv
 \begin{equation}\label{eq:r_i_b}
 \mathcal{R}^I_B = \mathcal{R}^x_\phi\mathcal{R}^y_\theta\mathcal{R}^z_\psi\\
 =
-\begin{pmatrix}
+\begin{bmatrix}
     1 & 0 & 0 \\
     0 & \cos\phi & \sin\phi \\
     0 & -\sin\phi & \cos\phi
-\end{pmatrix}
-\begin{pmatrix}
+\end{bmatrix}
+\begin{bmatrix}
     \cos\theta & 0 & -\sin\theta \\
     0 & 1 & 0 \\
     \sin\theta & 0 & \cos\theta
-\end{pmatrix}      
-\begin{pmatrix}
+\end{bmatrix}      
+\begin{bmatrix}
     \cos\psi & \sin\psi & 0 \\
     -\sin\psi & \cos\psi & 0 \\
     0 & 0 & 1
-\end{pmatrix}
+\end{bmatrix}
 \end{equation}  
+\end{definition}
+
 This attitude representation is not defined for $\theta=\pm\pi/2$. However, such attitudes
  were deemed very unlikely in this work as the main focus is on level flight scenarios.
 
-\subsubsection{Aerodynamic angles}
-The \textit{aerodynamic angles} relate the wind reference frame to the other coordinate frames.
-
-\begin{definition}[Aerodynamic angles]
-We first define the body frame velocity vector as 
-\begin{equation}
-    \vec{v}_B=(u, v, w)
-\end{equation}
-The \textit{angle of attack} $\alpha$ and \textit{side slip} $\beta$ are then defined as
-\begin{equation}
-    \alpha=\arctan\frac{w}{u}
-\end{equation}
-\begin{equation}
-    \beta=\arcsin\frac{v}{V_a}
-\end{equation}
-where $V_a=\sqrt{u^2+v^2+w^2}$
-\end{definition}
-
-\subsubsection{Fixed-wing UAV}
+\subsection{Fixed-wing UAV}
 A fixed-wing UAV is equipped with two horizontal wings that are fixed in the body frame.
 In order to stay in the air, it needs to keep a minimum forward velocity
 \begin{equation}
@@ -121,178 +142,89 @@ air, it is equipped with some or all of the following control surfaces:
 The UAV is also equipped with one or several propellers that are used to create the thrust which
 increases the total energy of the system. These might be facing towards or against the direction of motion.
 
-\subsection{Dynamic equations}
-In the following section the dynamic equations of a general fixed-wing aircraft will be derived. The 
-equations are based on the following common state representation:
-\begin{equation}
-    \vec{x}=
-    \begin{pmatrix}
-        \vec{p}_I & \vec{v}_B & \vec{\Phi} & \vec{\omega}
-    \end{pmatrix}
-\end{equation}
-where $\vec{\omega}=(p, q, r)$ are the angular rates in the body reference frame. These can be divided
-into translational and rotational dynamics which are presented separately.
-\subsubsection{Translational dynamics}
-The dynamic equation for the position $\vec{p}_I$ is directly given as
-\begin{equation}\label{eq:dynamic_first}
-    \dot{\vec{p}}_I=\mathcal{R}^I_B\vec{v}_B
-\end{equation}
-Furthermore, Newtons second law of motion gives 
-\begin{equation}\label{eq:uav_force}
-    \vec{F}_{tot}=m\dot{\vec{v}}_B + \vec{\omega}\times m\vec{v}_B 
-\end{equation}
-where $m$ is the UAV mass and $\vec{F}_{tot}$ is the sum of all forces working on the UAV.
-These can be divided into
-\begin{equation}
-    \vec{F}_{tot}=\vec{F}_g+\vec{F}_{aero}+\vec{F}_{thr}
-\end{equation}
-where $\vec{F}_g$ is the gravitational force, $\vec{F}_{aero}$ is the aerodynamic force and
-$\vec{F}_{thr}$ is the thrust force. The thrust force is assumed to only work in the same direction
-as the x-axis in the body frame, so that
-\begin{equation}
-    \vec{F}_{thr, B}=(T, 0, 0)
-\end{equation}
-\subsubsection{Rotational dynamics}
-The dynamic equations for the Euler vector $\vec{\Phi}$ are given by
-\begin{equation}
-    \begin{pmatrix}
-        \dot{\phi} \\
-        \dot{\theta} \\
-        \dot{\psi}
-    \end{pmatrix}
-    =
-    \begin{pmatrix}
-        1 & -\sin\phi\tan\theta & \cos\phi\tan\theta \\
-        0 & \cos\phi & \sin\phi \\
-        0 & -\sin\phi\sec\theta & \cos\phi\sec\theta
-    \end{pmatrix}
-    \begin{pmatrix}
-        p \\
-        q \\
-        r
-    \end{pmatrix}
-\end{equation}
-By again using Newtons second law for the moment we derive
-\begin{equation}
-    \vec{M}=\vec{I}\dot{\vec{\omega}} + \vec{\omega}\times\vec{I}\vec{\omega}
-\end{equation}
-The moment $\vec{M}$ is assumed to mainly come from aerodynamics.
-\subsubsection{Aerodynamics}
-The aerodynamic forces and moments generated require some further analysis. The aerodynamic
-force $\vec{F}_{aero}$ can be written in the wind reference frame as
-\begin{equation}
-    \vec{F}_{aero}=
-    \begin{pmatrix}
-        -D \\
-        Y \\
-        -L
-    \end{pmatrix}=
-    \begin{pmatrix}
-        \bar{q}SC_D \\
-        \bar{q}SC_Y \\
-        \bar{q}SC_L
-    \end{pmatrix}
-\end{equation}
-where $\bar{q}=\frac{1}{2}\rho(h)V^2$ is the free-stream dynamic pressure, $S$ is the 
-wing surface area and $C_D$, $C_Y$ and $C_L$ are dimensionless constants.
-$D$, $Y$ and $L$ are called the \textit{drag}, \textit{sideforce} and \textit{lift} respectively. 
-The corresponding coefficients are dependent on a number of variables, such as the aerodynamic angles
-and airframe dependent parameters \cite{fighter_aircraft_mpc}.\\
 
-The aerodynamic moments are usually defined in the body reference frame as
-\begin{equation}\label{eq:dynamic_last}
-    \vec{M}_{aero}=
-    \begin{pmatrix}
-        M_x \\
-        M_y \\
-        M_z
-    \end{pmatrix}=
-    \begin{pmatrix}
-        \bar{q}SbC_l \\
-        \bar{q}SbC_m \\
-        \bar{q}SbC_n
-    \end{pmatrix}
+\section{Trajectory following}
+In trajectory following, the goal is for the UAV to follow some pre-defined trajectory, which is a set of 
+linear or curved segments in the inertial frame. This can be formulated as calculating the control signal 
+in each time-step which minimizes the \textit{cross-track error}
+\begin{equation}
+    d(t)=\min\|\vec{p}_{I,UAV}(t)-\vec{p}_{I,traj}\|
 \end{equation}
-where $b$ is the wing-span of the aircraft and $C_l$, $C_m$ and $C_n$ are dimensionless 
-constants mainly dependent on the aerodynamic angles \cite{uav_dynamics_wind}. \\
+where $\vec{p}_{I,traj}$ is any point on the trajectory. In this thesis, the trajectories to follow are 
+assumed to consist of piecewise linear segments. We also chose to study the trajectory following problem 
+only in the 2-dimensional $(p_N,p_E)$ frame.
 
-\subsubsection{Wind effects}
-The dynamic equations derived in \eqref{eq:dynamic_first}-\eqref{eq:dynamic_last} are under
-the assumption that the air through which the UAV is travelling is at rest relative to the earth.
-During real flights, wind will cause the air to move which has non-negligible effects on the UAV.
-The wind vector is often defined in the inertial frame as
-\begin{equation}
-    \vec{w}=(w_N, w_E, w_H)
-\end{equation}
-$\vec{w}$ can be decomposed to
-\begin{equation}
-    \vec{w}=\vec{w}_{m}+\vec{w}_s
-\end{equation}
-where $\vec{w}_m$ is the mean wind and $\vec{w}_s$ is some stochastic process \cite{spline_trajectory}. In this work,
-we only consider the mean wind.
-The mean wind magnitude $W=|\vec{w}|$ varies with altitude as
-\begin{equation}
-    W(h)=W_{10}(\frac{h}{h_{10}})^a
-\end{equation}
-where $W_{10}$ is the wind measured at $h=10$ meters and $a$ is the Hellman exponent, which depends on
-the shape and coastal location of the underlying terrain \cite{uav_dynamics_wind}. The wind can be 
-incorporated in the dynamic equations of motion by extending \eqref{eq:dynamic_first} to
-\begin{equation}
-    \dot{\vec{p}}=\mathcal{R}^I_B\vec{v}_B+\vec{w}
-\end{equation}
-Also, we need to extend \eqref{eq:uav_force} by replacing $\vec{v}_B$ with
-\begin{equation}
-    \vec{v}_g = \vec{v}_B + \vec{w}_B
-\end{equation} 
-where $\vec{v}_g$ is the body-fixed velocity relative the ground and $\vec{w}_B$ is the
-wind vector in the body frame.
-
-\subsubsection{Complete dynamics model}
-The complete dynamic model is given by combining the above equations. It will not be 
-written out here, but is given in e. g. \cite{uav_dynamics_wind}. The dynamics are clearly nonlinear and quite complex. Extensive modeling and experimentation, such as described in \cite{aerodynamic_parameters}
-is needed to identify the different parameters which describe the behaviour of a specific airframe.
-
-It is often interesting to study the \textit{longitudal} and \textit{lateral} dynamics
-separately, where \textit{longitudal} denotes movement in the vertical plane and
-\textit{lateral} denotes movement out of the vertical plane. The decoupled state
-vectors are given by
-\begin{equation}
-    \vec{x}_{lng}=(p_N, p_H, u, w, \theta, q)
-\end{equation}
-and
-\begin{equation}
-    \vec{x}_{lat}=(p_E, v, \phi, \psi, p, r)
-\end{equation}
-By introducing the polar inertial components $(V, \gamma)$ and writing the dynamic equations
-in the wind reference frame the longitudal dynamics become
-\begin{align}
-    \dot{V}&=\frac{1}{m}[T\cos\alpha-D-mg\sin\gamma] \\
-    \dot{\gamma}&=\frac{1}{mV}[T\sin\alpha + L - mg\cos\gamma] \\
-    \dot{q}&=\frac{M_y}{I_{yy}} \\
-    \dot{\alpha}&=\dot{\theta}-\dot{\gamma}=q-\frac{1}{mV}[T\sin\alpha + L - mg\cos\gamma]
+\subsection{Kinematic model}
+When designing trajectory-following controllers for fixed-wing UAVs, the following simple kinematic model is commonly used:
+\begin{align}\label{eq:traj_model}
+    \dot{p}_N &= V_a\cos\psi + W\cos\psi_w \\
+    \dot{p}_E &= V_a\sin\psi + W\sin\psi_w \\
+    \dot{\psi} &= \frac{g}{V_a}\tan\phi
 \end{align}
-Assuming level flight in the longitudal direction, i. e. $u$, $V$ and $p_H$ are constant, the lateral dynamics can be formulated as
+where $V_a$ is the air-relative speed, $\psi$ is the inertial-frame yaw angle, $W$ is the wind magnitude, $\psi_w$ is the wind direction and $\phi$ is the roll angle. The dynamic equation for the roll angle is 
+defined as
 \begin{align}
-    \dot{p}_E &= u\sin\psi + v\cos\phi\cos\psi \\
-    \dot{\psi} &= r\cos\phi \\
-    \dot{\phi} &= p \\
-    \dot{v} &= \frac{Y_B}{m} + g\sin\phi - ru \\
-    \dot{p} &= \frac{I_{zz}M_x + I_{xz}M_z}{I_{xx}I_{zz} - I^2_{xz}} \\
-    \dot{r} &= \frac{I_{xz}M_x + I_{xz}M_z}{I_{xx}I_{zz} - I^2_{xz}} \\
+    \dot{\phi} = f_\phi(\phi-\phi^c)
 \end{align}
+where $f_\phi$ is defined by the inner-loop roll controller of the UAV and $\phi^c$ is the roll-angle command by the
+trajectory following controller.
+\subsection{Straight path following in wind}\label{sec:straight_path_wind}
+To study the problem of accurately following a straight path segment, it is helpful to introduce another 
+coordinate frame which is aligned with the path segment to follow, as shown in Figure \ref{fig:coord_straight}.
+
+\begin{figure}[H]
+    \begin{center}
+        \tikzstyle{myaxis}=[
+            ->,
+            line width=1pt
+            ]
+            \begin{tikzpicture}
+                \Drone{2}{1}{65}
+                \coordinate (test) at (50:2);
+                \draw[myaxis] (0, 0) -- node[at end, left]{$p_N$} (0, 2);
+                \draw[myaxis] (0,0) -- node[at end, below]{$p_E$} (2, 0);
+
+                \draw[myaxis] (0, 0) -- node[at end, left]{$p_{N,s}$} (test);
+                \draw[myaxis] (0,0) -- node[at end, below]{$p_{E,s}$} (-40:2);
+                \draw[myaxis](0,0.75) arc(90:50:0.75) node[midway, above]{$\psi_s$};
+                \draw[dashed](0, 0) -- (50:4);
+                \draw[dashed](2,1) -- node[midway, anchor=south west]{$d$} (test);
+            \end{tikzpicture}        
+    \end{center}
+    \caption{Coordinate frame for straight path following}
+    \label{fig:coord_straight}
+\end{figure}
+
+The relevant equations for the control problem in this frame become
+\begin{align}
+    \dot{d}\equiv\dot{p}_{E,s} &= V_a\sin(\psi-\psi_s) + W\sin(\psi_w-\psi_s)\\
+    \dot{\psi} &= \frac{g}{V_a}\tan\phi
+\end{align}
+Assuming that $d=0$ and $\dot{d}=0$, we get
+\begin{equation}
+    V_a\sin(\psi-\psi_s) + W\sin(\psi_w-\psi_s)=0
+\end{equation}
+This means that the cross-track error is minimized when $\psi$ converges to
+\begin{equation}\label{eq:wca}
+    \psi_{wca}=-\arcsin\left(\frac{W}{V_a}\sin(\psi_w-\psi_s)\right) + \psi_s
+\end{equation}
+In the case of no wind, this simplifies to $\psi_{wca}=\psi_s$. In windy conditions however, the wind 
+has to be compensated with a constant offset which depends on wind speed, direction and desired 
+heading $\psi_s$. $\psi_{wca}$ is called the \textit{wind correction angle}.
+
 \section{ArduPlane autopilot}
 The ArduPlane autopilot is an open source autopilot for fixed-wing UAVs \cite{arduplane}. 
 It contains high-level controllers for navigation, velocity and altitude control as well as 
 low level logic to command the attitude and throttle of the vehicle. In the following section
 the underlying theory of the relevant control loops for this thesis will be presented.
 
-\subsection{Navigation control loop}
-The ArduPlane autopilot the $L_1$ control law described in \cite{arduplane_l1} for navigation.
-The goal of the control loop is to follow a straight line from a start coordinate $(x_s, y_s)$ to a goal
-coordinate $(x_g, y_g)$. This is obtained by aiming towards a point $P$ which is located at a
+\subsection{Trajectory controller}\label{sec:traj_controller}
+The ArduPlane autopilot uses the $L_1$ control law described in \cite{arduplane_l1} for trajectory following.
+The goal of the control loop is to follow a straight line from a start coordinate $\vec{p}_{s}$ to a goal
+coordinate $\vec{p}_{g}$. This is obtained by aiming towards a point $P$ which is located at a
 fixed distance $L_1$ from the UAV. 
 The logic behind the controller is illustrated in Figure~\ref{fig:ss_defs},
-where $(x, y)$ is the UAV position and $\psi$ is the UAV yaw angle.
+where $\vec{p}$ is the UAV position and $\psi$ is the UAV yaw angle.
 \begin{figure}[htb]
     \begin{center}
     \tikzstyle{point} = [
@@ -312,23 +244,27 @@ where $(x, y)$ is the UAV position and $\psi$ is the UAV yaw angle.
         \coordinate (goal) at (9,9);
         \coordinate (ref) at (7,7);
         
-        \node[anchor=east] at (drone) {$(x, y)$};
+        \node[anchor=300] at (drone) {$\vec{p}$};
         \draw[my_v] (drone) -- node[above, near end, anchor=south east]{$\vec{v}$} ++ ({atan(2)}:2.5);
 
         \draw[->] ([yshift=0.7cm]drone) arc(90:{atan(2)}:0.7) node[above,midway]{$\psi$};
         \draw[dashed] (drone) --++ (0,1);
         \draw[->] (drone) ++ (0.5,1) arc({atan(2)}:{atan(0.2)}:{sqrt(1.25)}) node[midway,anchor=223]{$\eta$};
         
-        \node[anchor=north west] at (origin) {$(x_s, y_s)$};
+        \node[anchor=north west] at (origin) {$\vec{p}_s$};
 
-        \node[anchor=north west] at (goal) {$(x_g, y_g)$};
+        \node[anchor=north west] at (goal) {$\vec{p}_g$};
         
         \draw (drone) -- node[above,sloped]{$L_1$} (ref);
         \node[point] at (ref) {};
         \node[anchor=north west] at (ref) {$P$};
         
-        \draw[my_v] (origin) -- node[above, at end]{$\vec{g}$} (goal);
-        \draw[my_v] (origin) -- node[left]{$\vec{r}$} (drone);
+        \draw[] (origin) -- node[above, at end]{} (goal);
+        \node[point] at (origin) {};
+        \node[point] at (goal) {};
+        \node[point] at (drone) {};
+    
+        \Drone{2}{6}{70};
 
     \end{tikzpicture}
         
@@ -340,12 +276,15 @@ where $(x, y)$ is the UAV position and $\psi$ is the UAV yaw angle.
 In the ArduPilot implementation, the distance $L_1$ is calculated as
 \begin{equation}\label{eq:ardu_l1}
     L_1=\begin{cases}
-        \frac{1}{\pi}\zeta\Delta TV & \mbox{if}\quad |\frac{1}{\pi}\zeta\Delta TV|>|\vec{r}-\vec{g}| \\
-        |\vec{r}-\vec{g}| & \mbox{otherwise}
+        \frac{1}{\pi}\zeta\Delta TV & \mbox{if}\quad |\frac{1}{\pi}\zeta\Delta TV|>|\vec{p}_g-\vec{p}| \\
+        |\vec{p}_g-\vec{p}| & \mbox{otherwise}
     \end{cases}
 \end{equation}
 where $V=|\vec{v}|$, $\zeta$ is the damping factor and $\Delta T$ is the update period of the controller \cite{arduplane_l1}.
-
+Wind effects are compensated by using the inertial frame velocity vector 
+\begin{equation}
+    \vec{v} = (V_a\cos\psi + W\cos\psi_w, V_a\sin\psi + W\sin\psi_w)
+\end{equation}
  In each time step, the control law corresponds to following a circular segment with radius
  \begin{equation}
     R=\frac{L_1}{2\sin\eta}
@@ -353,15 +292,28 @@ where $V=|\vec{v}|$, $\zeta$ is the damping factor and $\Delta T$ is the update 
  which is tangent to $\vec{v}$ in $(x,y)$.
  $\eta$ is defined as the angle between the UAV velocity vector $\vec{v}$ and the line from the UAV to $P$.
 This circular segment is followed by issuing a lateral acceleration command
-\begin{equation}
-    a_{cmd}=2\frac{V^2}{L_1}\sin\eta
+\begin{equation}\label{eq:lat_acc}
+    a^{c}=2\frac{V^2}{L_1}\sin\eta
 \end{equation}
-The lateral acceleration command is translated to a desired roll angle
-\begin{equation}
-    \phi_{cmd}=\cos\theta\tan^{-1}(a_{cmd}/g)
+The lateral acceleration command is translated to a roll command
+\begin{equation}\label{eq:roll_cmd}
+    \phi^{c}=\tan^{-1}(a^{c}/g)
 \end{equation}
 where $g$ is the gravitational constant. The low-level attitude controller is then used to track the desired roll.
 
+In the case of a straight reference trajectory, it is shown in \cite{l1_controller} that \eqref{eq:lat_acc} 
+can be linearized to
+\begin{equation}
+    a^c\approx2\frac{V}{L_1}\left(\dot{d}+\frac{V}{L_1}d\right)
+\end{equation} 
+which is a PD-controller. Furthermore, if inner-loop dynamics are neglected and 
+$\vec{v}$ is assumed parallel to the reference line, $a^c\approx \ddot{d}$ and we get
+\begin{equation}
+    \ddot{d} + 2\zeta\omega_n\dot{d} + \omega_n^2d=0
+\end{equation}
+with $\zeta=1/\sqrt{2}$ and $\omega_n=\sqrt{2}V/L_1$. This is a simple second-order system where 
+the damping is constant, and the speed depends on the ratio between $V$ and $L_1$. 
+\iffalse
 \subsection{Altitude and velocity control loop}
 ArduPlane uses a combined control loop to handle both desired altitude and velocity, called 
 TECS (Total Energy Control System). This controller is based on the total energy of the UAV,
@@ -389,6 +341,7 @@ The longitudinal aircraft dynamics give
 Thus, by increasing the thrust
 energy is added to the system. By changing the pitch angle using the elevators, the balance 
 between kinetic and potential energy can be modified. 
+\fi
 
 \subsection{Mission representation and flight modes}
 A \textit{mission} $\mathcal{M}$ is defined as 
@@ -405,18 +358,18 @@ in ArduPlane, but this work will be focused on
     c_{wp}\in \{Waypoint, Takeoff, Land\}
 \end{equation}
 \subsubsection{Waypoint mode}
-In the \textit{waypoint} mode uses the navigation control loop
+In \textit{waypoint} mode the trajectory following controller is used
 to navigate along the line from $\vec{p}_i$ to $\vec{p}_{i+1}$. When $\vec{p}_{i+1}$ is reached, the flight mode
 is updated depending on the next $c_{wp}$. The next waypoint is assumed to be reached when
 \begin{equation}
-    |\vec{p}_{UAV}-\vec{p}_{wp}| < R_{wp}
+    \|\vec{p}_{UAV}-\vec{p}_{wp}\| < R_{wp}
 \end{equation}
-where $R_{wp}$ is defined by the user.
-\subsubsection{Takeoff mode}
-In \textit{takeoff} mode, the plane will attempt to reach the given altitude $h_{takeoff}$, while
-keeping a constant heading given by the launch direction. The takeoff can be triggered either
-by throwing the UAV, launching it from a catapult or on a runway \cite{ardupilot_takeoff}.
-
+where $R_{wp}$ is defined by the user, or passed when
+\begin{equation}
+    \frac{\|\vec{p}_{UAV}\cdot \vec{p}_{wp}\|}{\|\vec{p}_{wp}\|}
+     \geq 1
+\end{equation}
+where $\vec{p}_{UAV}=\vec{p}-\vec{p}_i$ and $\vec{p}_{wp}=\vec{p}_{i+1}-\vec{p}_i$.
 \subsubsection{Land mode}
 In \textit{Land} mode, the plane will attempt to land at a given coordinate. The landing approach 
 is divided into two different stages, the \textit{approach} stage and \textit{flare} stage.

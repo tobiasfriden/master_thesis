@@ -2,62 +2,95 @@ This is BibTeX, Version 0.99d (TeX Live 2019)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: main.aux
 The style file: plainnat.bst
-A level-1 auxiliary file: notation.aux
+A level-1 auxiliary file: theory/introduction.aux
 A level-1 auxiliary file: theory/fixed_wing_uav.aux
+A level-1 auxiliary file: theory/wind_estimate.aux
 A level-1 auxiliary file: theory/motion_planning.aux
+A level-1 auxiliary file: theory/planning_wind.aux
+A level-1 auxiliary file: theory/optimal_landing.aux
+A level-1 auxiliary file: theory/implementation.aux
+A level-1 auxiliary file: theory/results.aux
+A level-1 auxiliary file: theory/discussion.aux
 Database file #1: IEEEfull.bib
 Database file #2: myrefs.bib
+Warning--I'm ignoring Bergman_lic's extra "institution" field
+--line 79 of file myrefs.bib
+Warning--entry type for "hlut" isn't style-file defined
+--line 402 of file myrefs.bib
 Warning--entry type for "arduplane" isn't style-file defined
---line 418 of file myrefs.bib
+--line 621 of file myrefs.bib
 Warning--entry type for "arduplane_l1" isn't style-file defined
---line 426 of file myrefs.bib
-Warning--entry type for "ardupilot_takeoff" isn't style-file defined
---line 442 of file myrefs.bib
+--line 629 of file myrefs.bib
+Warning--entry type for "ardupilot_sitl" isn't style-file defined
+--line 637 of file myrefs.bib
 Warning--entry type for "ardupilot_land" isn't style-file defined
---line 450 of file myrefs.bib
+--line 653 of file myrefs.bib
+Warning--entry type for "px4_ecl_ekf" isn't style-file defined
+--line 661 of file myrefs.bib
+Warning--entry type for "jsbsim" isn't style-file defined
+--line 669 of file myrefs.bib
+Warning--entry type for "mavros" isn't style-file defined
+--line 685 of file myrefs.bib
+Warning--entry type for "ros" isn't style-file defined
+--line 693 of file myrefs.bib
+Warning--entry type for "mavlink" isn't style-file defined
+--line 700 of file myrefs.bib
+Warning--entry type for "s2geo" isn't style-file defined
+--line 714 of file myrefs.bib
+Warning--to sort, need author or key in jsbsim
+Warning--to sort, need author or key in s2geo
+Warning--to sort, need author or key in mavlink
+Warning--to sort, need author or key in ros
+Warning--empty chapter and pages in wind_hellman
+Warning--empty publisher in wind_hellman
 Warning--empty school in uav_dynamics_wind
 Warning--empty booktitle in uav_dynamics_modeling
 Warning--empty publisher in planning_algorithms
+Warning--empty booktitle in rrt
+Warning--empty chapter and pages in l1_controller
+Warning--empty publisher in l1_controller
+Warning--empty year in l1_controller
+Warning--empty year in l1_controller
 Warning--empty school in fighter_aircraft_mpc
-You've used 10 entries,
+You've used 38 entries,
             2773 wiz_defined-function locations,
-            1170 strings with 20749 characters,
-and the built_in function-call counts, 3751 in all, are:
-= -- 321
-> -- 178
-< -- 9
-+ -- 67
-- -- 54
-* -- 263
-:= -- 580
-add.period$ -- 32
-call.type$ -- 10
-change.case$ -- 45
-chr.to.int$ -- 7
-cite$ -- 24
-duplicate$ -- 190
-empty$ -- 336
-format.name$ -- 66
-if$ -- 783
+            1358 strings with 26056 characters,
+and the built_in function-call counts, 15414 in all, are:
+= -- 1385
+> -- 718
+< -- 25
++ -- 257
+- -- 216
+* -- 1196
+:= -- 2294
+add.period$ -- 133
+call.type$ -- 38
+change.case$ -- 180
+chr.to.int$ -- 35
+cite$ -- 95
+duplicate$ -- 744
+empty$ -- 1401
+format.name$ -- 262
+if$ -- 3291
 int.to.chr$ -- 4
 int.to.str$ -- 1
-missing$ -- 5
-newline$ -- 60
-num.names$ -- 40
-pop$ -- 119
+missing$ -- 27
+newline$ -- 217
+num.names$ -- 136
+pop$ -- 434
 preamble$ -- 1
-purify$ -- 38
+purify$ -- 148
 quote$ -- 0
-skip$ -- 149
+skip$ -- 565
 stack$ -- 0
-substring$ -- 65
-swap$ -- 30
-text.length$ -- 1
+substring$ -- 463
+swap$ -- 94
+text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 105
-warning$ -- 4
-while$ -- 33
+type$ -- 398
+warning$ -- 15
+while$ -- 125
 width$ -- 0
-write$ -- 131
-(There were 8 warnings)
+write$ -- 513
+(There were 27 warnings)

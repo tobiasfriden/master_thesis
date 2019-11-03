@@ -53,19 +53,19 @@ Define $\vec{z}=(z_1,\ldots,z_N)^T$, $\vec{b}=(b_0 \ldots b_d)^T$, $\vec{w}=(w_1
 \end{equation}
 Equations \eqref{eq:tps} and \eqref{eq:tps_null} can be written on matrix form as
 \begin{equation}\label{eq:tps_closed_form}
-    \begin{pmatrix}
+    \begin{bmatrix}
         K+\lambda I & L \\
         L^T & 0
-    \end{pmatrix}
-    \begin{pmatrix}
+    \end{bmatrix}
+    \begin{bmatrix}
         \vec{w} \\
         \vec{b}
-    \end{pmatrix}
+    \end{bmatrix}
     =
-    \begin{pmatrix}
+    \begin{bmatrix}
         \vec{z} \\
         0
-    \end{pmatrix}
+    \end{bmatrix}
 \end{equation}
 which has a closed form solution if $L$ is of full rank.
 \subsection{Wind Modeling using \abbrTPS}

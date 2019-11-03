@@ -1,0 +1,203 @@
+\chapter{Planning in wind}\label{cha:motion_planning_fw}
+\section{State and input set definition}
+Based on the kinematic model in Equation \eqref{eq:traj_model} the state vector is defined as
+\begin{equation}
+    x=(p_N, p_E, \psi)
+\end{equation}
+The goal of the motion planner is to find a reference which consists of straight line-segments and takes the system from 
+$x_i=(p_{N,i},p_{E,i},\psi_i)$ to $x_f=(p_{N,f},p_{E,f},\psi_f)$. 
+The input $u$ is defined as the relative positions of the start and endpoints of each line-segment. Assuming that a 
+line-segment starts in the origin, the corresponding input is thus 
+\begin{equation}
+    u=(p_{N,g}, p_{E,g})
+\end{equation}
+Since any other path segment can be represented in this way by subtracting the start coordinates from the end coordinates this 
+representation will be used in this chapter for ease of notation.
+\section{Closed-loop model}
+Based on the definition of $u$ and the trajectory-following controller presented in Section \ref{sec:traj_controller} 
+a model for the entire closed-loop system can be formulated. The desired course for the current line-segment is
+\begin{equation}
+    \psi_g=\tan^{-1}(p_{E,g}/p_{N,g})
+\end{equation}
+By introducing a line parallel to the line-segment we can write the angle $\eta$ in Figure \ref{fig:ss_defs} as
+\begin{equation}\label{eq:eta_first}
+    \eta=\eta_1+\eta_2
+\end{equation}
+where $\eta_2$ is defined as the angle from the velocity vector $\vec{v}$ to this line. These angles are then given by 
+\begin{equation}
+    \eta_2=\tan^{-1}\left(\frac{\cos\psi_g(V_a\sin\psi + W\sin\psi_w) - \sin\psi_g(V_a\cos\psi + W\cos\psi_w)}{\cos\psi_g(V_a\cos\psi + W\cos\psi_w)+\sin\psi_g(V_a\sin\psi + W\sin\psi_w)}\right)
+\end{equation}
+and 
+\begin{equation}\label{eq:eta_last}
+    \eta_1=\sin^{-1}\left(\frac{p_N\sin\psi_g-p_E\cos\psi_g}{L_1}\right)
+\end{equation}
+If roll dynamics are neglected, we then get the resulting yaw-rate by inserting the roll command from Equation \eqref{eq:roll_cmd} into Equation \eqref{eq:traj_model}, so that 
+\begin{equation}
+    \dot{\psi}=\frac{a^c(x, u)}{V_a}
+\end{equation}
+where $a^c(x, u)$ is given by Equation \eqref{eq:lat_acc} with $\eta$ as defined in \eqref{eq:eta_first}-\eqref{eq:eta_last}.
+However, in a real world case there is come maximum possible yaw-rate $\dot{\psi}_{max}$ obtainable by the system, meaning that the actual yawrate will be 
+\begin{equation}\label{eq:saturation}
+    \underline{\dot{\psi}}(x, u)=\begin{cases}
+        a^c(x, u)/V_a & |a^c(x, u)/V_a| \leq \dot{\psi}_{max} \\
+        \text{sgn}(a^c(x, u)/V_a)\dot{\psi}_{max} & \text{otherwise}
+    \end{cases}
+\end{equation}
+Finally, the kinematic model of the closed-loop system becomes
+\begin{equation}\label{eq:closed_loop}
+    \dot{x}=f(x,u)=
+    \begin{bmatrix}
+        V_a\cos\psi + W\cos\psi_w\\
+        V_a\sin\psi + W\sin\psi_w\\
+        \underline{\dot{\psi}}(x, u)
+    \end{bmatrix}
+\end{equation}
+
+\section{Motion Primitives}\label{sec:motion_prims_wind}
+The motion primitive set is generated using the maneuver-base method described in Section \ref{sec:motion_prim}.  
+It consists of reference line-segments $u$ which take the system from the origin to a set of desired final states, and are 
+optimal in the sense that time is minimized while ensuring good tracking performance of the closed-loop system.
+\subsection{Wind compensation}
+The closed-loop kinematic model \eqref{eq:closed_loop} is clearly dependent on both wind speed and direction. There are several 
+wind-related effects that have to be taken into account when constructing the motion primitive set.
+\subsubsection{Handling different winds}
+During motion planning in wind, states with any possible $\psi$ relative to the wind direction $\psi_w$ might occur. 
+In practice, this means that motion primitives must be generated for a set of discrete wind directions $\{\psi_{w,0},\hdots,\psi_{w,n}\}$ covering 360 degrees. 
+The difference between discrete directions $\psi_{w,i+1}-\psi_{w,i}$ must be small enough that the closed loop system can follow a reference trajectory in wind 
+direction $\psi_w,\quad\psi_{w,i}<\psi_w<\psi_{w,i+1}$ even though $\psi_w=\psi_{w,i}$ is used in motion primitive generation.
+
+Since the wind speed $W$ also affects the kinematic model, different primitive sets have to be generated for different values of $W$.
+\subsubsection{Course and yaw compensation}
+In the case of non-zero uniform wind, the required yaw angle $\psi$ to hold a desired 
+course $\phi_d$ will be different from $\phi_d$ as shown in Section \ref{sec:straight_path_wind}. This can be compensated by 
+formulating the initial and final constraints on desired course angle instead of yaw, where the course is given by 
+\begin{equation}
+    \psi_c(x) = \tan^{-1}\left(\frac{V_a\sin\psi + W\sin\psi_w}{V_a\cos\psi+W\cos\psi_w}\right)
+\end{equation}
+This also means that the initial value of $\psi$ should be set to the wind correction angle $\psi_{wca}$ as defined in Equation \eqref{eq:wca}.
+\subsection{Ensuring state connectivity}
+The cross-track error at the end of a line-segment can be calculated as 
+\begin{equation}
+    d(x_f, u) = p_{N,f}\sin\psi_g-p_{E,f}\cos\psi_g
+\end{equation}
+If $d(x_f, u)\neq0$ this means that $d(x_i)$ for the next line-segment will be non-zero. 
+Since the closed-loop system is used when expanding the graph a small initial error can be handled.
+To ensure that the value is small enough the constraint $|d(x_f, u)|\leq d_{min}$ is added to the primitive generation optimization problem.
+\subsection{Optimal control formulation}
+The motion primitives are generated by solving the optimal control problem
+\begin{subequations}
+    \label{eq:opt_problem_mp_uav}
+    \begin{alignat}{3}
+    &\min_{x(t),u,T}        &\qquad& J=|d(x(T), u)|^2 + |\psi_c(x(T))-\psi_d|^2 + \int_{0}^{T}V_a dt & \\
+    &\text{subject to} & & \psi(0)=\psi_{wca} &\\
+    & & & \psi_c(x(0))=0, \quad |\psi_c(x(T))-\psi_d| \leq \Delta\psi_{min} &\\
+    & & & |d(x(T), u)|\leq d_{min} &\\
+    & & & \dot{x}=f(x(t), u) &t\in[0,T]\\
+    & & & x(t)\in\mathcal{X}& t\in[0,T]\\
+    & & & u\in\mathcal{U} &
+    \end{alignat}
+\end{subequations}
+for all desired values of $\psi_w$ and desired final course $\psi_d$. The final term in the objective function is equal to the distance the UAV 
+travels through the air when $t\in[0, T]$. Instead of having strict equality constraints for $d(x(T), u)$ and $\psi_c(x(T))$ they 
+are allowed to vary a bit from the desired values to enable some tradeoff between tracking performance, final course and distance travelled.
+
+\subsubsection{Solving the optimal control problem}
+Methods commonly used to solve optimal control problems include \textit{multiple shooting} and \textit{direct collocation} \cite{Bergman_lic}. 
+However, there are some properties of \eqref{eq:opt_problem_mp_uav} which makes it hard to solve which such methods. 
+One property is that the closed-loop system is highly non-linear, especially when including the saturation from Equation \eqref{eq:saturation}. 
+Also, normally in optimal control problems the input $u(t)$ can be chosen freely from $\mathcal{U}$ for each time-step, while 
+in this formulation the input is forced to be a constant $u(t)=u$. This means that when transformed to a Nonlinear Program using e. g. multiple shooting,
+the optimization variables corresponding to $x(t)$ in each time-step all depend on the same constant $u$. 
+
+\subsubsection{Derivative-free Optimization}
+Since all other variables in Equation \eqref{eq:opt_problem_mp_uav} depend on the choice of $u$, the system can be 
+simulated from the origin for different values of $u$ and the objective value $J$ calculated. Choices of $u$ which violates the constraints 
+can also easily be pruned. A plot of the objective function for $W=5$, $V_a=14$, $\psi_w=30\degree$, $\psi_d=45\degree$, $\Delta\psi_{min}=10\degree$ and $d_{min}=2.5$ is 
+shown in Figure~\ref{fig:opt_contour}.
+
+\begin{figure}
+    \includegraphics[width=\linewidth]{J_opt_45}
+    \caption{Contour plot of optimization objective $J$}
+    \label{fig:opt_contour}
+\end{figure}
+
+As can be seen the feasible region is not convex, but there is a clear global optimum.  
+This optimization problem can be solved by using \textit{derivative-free} optimization methods, as presented in \cite{derivative_free_opt}. 
+Such methods are used to solve general optimization problems formulated as 
+\begin{subequations}
+    \label{eq:derivative_free_opt}
+    \begin{alignat}{3}
+    &\min_{x\in\reals^n}        &\qquad& f: x \rightarrow \reals & \\
+    &\text{subject to} & & x\in\mathcal{X}_{feasible} &\\
+    \end{alignat}
+\end{subequations}
+where no other information, such as the derivatives of $f$ is available.
+One class of derivative-free methods, Mesh-Adaptive Direct Search (MADS) is based on creating an incrementally smaller grid around the 
+currently optimal solution on which the objective function is evaluated. Given a good initial guess $x_0$ such 
+methods are able to quickly converge to the optimal value \cite{mads}.
+
+\section{Heuristic function}
+As discussed in Section \ref{sec:a-star}, the choice of heuristic function is 
+crucial in achieving good performance. The goal of the heuristic function is to estimate the 
+length of the shortest air-relative path from an initial state $x_i$ to a final state $x_f$.
+
+\subsection{Cost estimation for straight line-segments}
+As discussed in Section \ref{sec:straight_path_wind}, when following a straight line-segment in wind the air-relative 
+path travelled by the UAV will be different from the path in the inertial frame. Since the yaw angle of the UAV is 
+equal to $\psi_{wca}$ as defined in Equation \eqref{eq:wca}, the velocity of the UAV along the current reference line in the inertial frame is given by 
+\begin{equation}
+    V_{\parallel}=\cos\psi_s(V_a\cos\psi_{wca}+W\cos\psi_w) + \sin\psi_s(V_a\sin\psi_{wca}+W\sin\psi_w)
+\end{equation}
+This means that the time travelled by the UAV is equal to 
+\begin{equation}
+    t=\frac{\|\vec{p}_{i+1}-\vec{p}_i\|}{V_\parallel}
+\end{equation}
+where $\vec{p}_{i+1}$ and $\vec{p}_i$ are the end and start points of the line in inertial coordinates. Thus, the distance 
+travelled in the air-relative frame is equal to 
+\begin{equation}
+    s_A=V_at=\frac{V_a}{V_\parallel}\|\vec{p}_{i+1}-\vec{p}_{i}\|
+\end{equation}
+and $s_A$ provides a good heuristic estimate for traveling along a straight path segment assuming that $\psi(x_i)=\psi(x_f)=\psi_{wca}$.
+This also means that the euclidean distance $\|\vec{p}_{i+1}-\vec{p}_{i}\|$ is a non-admissible heuristic if 
+$V_a/V_\parallel<1$, which is the case if the UAV is traveling downwind.
+
+\subsection{Cost estimation for arbitrary initial and final heading}
+Estimating the cost for traveling between states with arbitrary $\psi_i$ and $\psi_f$ is a more challenging problem than straight line-segments.
+Methods to calculate time-optimal such paths in the presence of wind are given in both \cite{optimal_path_target} and \cite{optimal_path_trochoidal}, 
+but since there is no analytical solution in all cases these methods rely on numerical root-finding techniques.
+Computing these values every time an heuristic estimate is needed was assumed too computationally expensive.
+
+When the heuristic cannot be calculated in real-time, another option is to use a HLUT as discussed in Section \ref{sec:hlut}. By using the generated 
+motion primitives $\mathcal{P}$ when calculating costs stored in the HLUT these will be perfect estimations of the heuristic value. However, a drawback of 
+using a HLUT is that different wind speeds $W$ require different motion primitive sets, and thus also different HLUTs. 
+
+To estimate the cost of queries not stored in the HLUT, these queries can be projected as shown in Figure \ref{fig:hlut_proj}. The total heuristic value can then be estimated as 
+\begin{equation}
+    h'(x, x_f) = h_{HLUT}(x, x_p) + h_s(x_p, x_f)
+\end{equation}
+where $h_s(x, x')$ is the estimated cost for a straight line-segment.
+\begin{figure}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw (-2, -2) rectangle (2, 2);
+
+            \draw[my_v] (0,0) -- node[at end, below]{$p_E$} (1,0);
+            \draw[my_v] (0,0) -- node[at end, left]{$p_N$} (0,1);
+
+            \node[point] at (0,0){};
+            \node[below] at (0,0){$x$};
+
+            \node[point] at (2,1){};
+            \node[above] at (2,1){$x_p$};
+            \draw (0,0) -- node[midway, below, anchor=north west]{$h_{HLUT}(x, x_p)$} (2,1);
+
+            \node[point] at (4,2){};
+            \node[above] at (4,2){$x_f$};
+            \draw[dashed] (2,1) -- node[midway,below, anchor=north west]{$h_s(x_p,x_f)$} (4,2);
+
+            \node[anchor=west] at (-1.8,-1.75){HLUT available};
+        \end{tikzpicture}
+    \end{center}
+    \caption{Projection of queries on HLUT}
+    \label{fig:hlut_proj}
+\end{figure}

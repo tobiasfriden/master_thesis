@@ -1,34 +1,185 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{38}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
+\bibitem[jsb(2019)]{jsbsim}
+Jsbsim - an open source, platform-independent, flight dynamics \& control
+  software library in c++, 2019.
+\newblock URL \url{http://jsbsim.org}.
+
+\bibitem[mav(2019)]{mavlink}
+Mavlink - micro air vehicle communication protocol, 2019.
+\newblock URL \url{http://mavlink.io}.
+
+\bibitem[ros(2019)]{ros}
+Ros - robotic operating system, 2019.
+\newblock URL \url{http://ros.org}.
+
+\bibitem[s2g(2019)]{s2geo}
+S2geometry - computational geometry and spatial indexing on the sphere, 2019.
+\newblock URL \url{https://s2geometry.io/}.
+
+\bibitem[Andersson et~al.(2019)Andersson, Gillis, Horn, Rawlings, and
+  Diehl]{casadi}
+Joel A~E Andersson, Joris Gillis, Greg Horn, James~B Rawlings, and Moritz
+  Diehl.
+\newblock {CasADi} -- {A} software framework for nonlinear optimization and
+  optimal control.
+\newblock \emph{Mathematical Programming Computation}, 11\penalty0
+  (1):\penalty0 1--36, 2019.
+\newblock \doi{10.1007/s12532-018-0139-4}.
+
+\bibitem[Audet and Dennis(2006)]{mads}
+Charles Audet and J.~Dennis.
+\newblock Mesh adaptive direct search algorithms for constrained optimization.
+\newblock \emph{SIAM Journal on Optimization}, 17:\penalty0 188--217, 01 2006.
+\newblock \doi{10.1137/060671267}.
+
+\bibitem[Bauelos-Ruedas et~al.(2011)Bauelos-Ruedas, Angeles-Camacho, and
+  Rios-Marcuello]{wind_hellman}
+Francisco Bauelos-Ruedas, Cesar Angeles-Camacho, and Sebastian Rios-Marcuello.
+\newblock \emph{Methodologies Used in the Extrapolation of Wind Speed Data at
+  Different Heights and Its Impact in the Wind Energy Resource Assessment in a
+  Region}.
+\newblock 06 2011.
+\newblock ISBN 978-953-307-483-2.
+\newblock \doi{10.5772/20669}.
+
+\bibitem[Bergman(2019)]{Bergman_lic}
+Kristoffer Bergman.
+\newblock On motion planning using numerical optimal control, 2019.
+\newblock ISSN 0280-7971.
+
 \bibitem[Brezoescu(2013)]{uav_dynamics_wind}
 Cornel-Alexandru Brezoescu.
 \newblock \emph{Small lightweight aircraft navigation in the presence of wind}.
 \newblock PhD thesis, 2013.
+
+\bibitem[Dolgov et~al.(2010)Dolgov, Thrun, Montemerlo, and
+  Diebel]{hybrid_astar}
+Dmitri Dolgov, Sebastian Thrun, Michael Montemerlo, and James Diebel.
+\newblock Path planning for autonomous vehicles in unknown semi-structured
+  environments.
+\newblock \emph{I. J. Robotic Res.}, 29:\penalty0 485--501, 04 2010.
+\newblock \doi{10.1177/0278364909359210}.
+
+\bibitem[Dubins(1957)]{dubins}
+L.~E. Dubins.
+\newblock On curves of minimal length with a constraint on average curvature,
+  and with prescribed initial and terminal positions and tangents.
+\newblock \emph{American Journal of Mathematics}, 79\penalty0 (3):\penalty0
+  497--516, 1957.
+\newblock ISSN 00029327, 10806377.
+\newblock URL \url{http://www.jstor.org/stable/2372560}.
+
+\bibitem[Ermakov(2019)]{mavros}
+Vladimir Ermakov.
+\newblock Mavros - mavlink extendable communication node for ros with proxy for
+  ground control station, 2019.
+\newblock URL \url{http://wiki.ros.org/mavros}.
+
+\bibitem[{Gautam} et~al.(2014){Gautam}, {Sujit}, and
+  {Saripalli}]{survey_landing}
+A.~{Gautam}, P.~B. {Sujit}, and S.~{Saripalli}.
+\newblock A survey of autonomous landing techniques for uavs.
+\newblock In \emph{2014 International Conference on Unmanned Aircraft Systems
+  (ICUAS)}, pages 1210--1218, May 2014.
+\newblock \doi{10.1109/ICUAS.2014.6842377}.
+
+\bibitem[Gustafsson(2010)]{sensor_fusion}
+F.~Gustafsson.
+\newblock \emph{Statistical Sensor Fusion}.
+\newblock Studentlitteratur, 2010.
+\newblock ISBN 9789144054896.
+\newblock URL \url{https://books.google.se/books?id=yd\_2SAAACAAJ}.
+
+\bibitem[{Hart} et~al.(1968){Hart}, {Nilsson}, and {Raphael}]{astar}
+P.~E. {Hart}, N.~J. {Nilsson}, and B.~{Raphael}.
+\newblock A formal basis for the heuristic determination of minimum cost paths.
+\newblock \emph{IEEE Transactions on Systems Science and Cybernetics},
+  4\penalty0 (2):\penalty0 100--107, July 1968.
+\newblock ISSN 0536-1567.
+\newblock \doi{10.1109/TSSC.1968.300136}.
+
+\bibitem[{Hwangbo} et~al.(2007){Hwangbo}, {Kuffner}, and {Kanade}]{2_phase_uav}
+M.~{Hwangbo}, J.~{Kuffner}, and T.~{Kanade}.
+\newblock Efficient two-phase 3d motion planning for small fixed-wing uavs.
+\newblock In \emph{Proceedings 2007 IEEE International Conference on Robotics
+  and Automation}, pages 1035--1041, April 2007.
+\newblock \doi{10.1109/ROBOT.2007.363121}.
+
+\bibitem[{Kavraki} et~al.(1996){Kavraki}, {Svestka}, {Latombe}, and
+  {Overmars}]{prm}
+L.~E. {Kavraki}, P.~{Svestka}, J.~. {Latombe}, and M.~H. {Overmars}.
+\newblock Probabilistic roadmaps for path planning in high-dimensional
+  configuration spaces.
+\newblock \emph{IEEE Transactions on Robotics and Automation}, 12\penalty0
+  (4):\penalty0 566--580, Aug 1996.
+\newblock \doi{10.1109/70.508439}.
 
 \bibitem[Khan and Nahon(2013)]{uav_dynamics_modeling}
 Waqas Khan and Meyer Nahon.
 \newblock Dynamics modeling of a highly-maneuverable fixed-wing uav.
 \newblock 04 2013.
 
+\bibitem[{Knepper} and {Kelly}(2006)]{hlut}
+R.~A. {Knepper} and A.~{Kelly}.
+\newblock High performance state lattice planning using heuristic look-up
+  tables, Oct 2006.
+
 \bibitem[La~Valle(2006)]{planning_algorithms}
 Steven~M. La~Valle.
 \newblock \emph{Planning Algorithms}.
 \newblock 2006.
+
+\bibitem[Langelaan et~al.(2011)Langelaan, Alley, and
+  Neidhoefer]{wind_direct_computation}
+Jack Langelaan, Nicholas Alley, and James Neidhoefer.
+\newblock Wind field estimation for small unmanned aerial vehicles.
+\newblock \emph{Journal of Guidance, Control, and Dynamics}, 34:\penalty0
+  1016--1030, 07 2011.
+\newblock \doi{10.2514/1.52532}.
+
+\bibitem[LaValle(1998)]{rrt}
+Steven~M. LaValle.
+\newblock Rapidly-exploring random trees: A new tool for path planning.
+\newblock 1998.
+
+\bibitem[{Le~Digabel}(2011)]{nomad}
+S.~{Le~Digabel}.
+\newblock Algorithm 909: {NOMAD}: Nonlinear optimization with the {MADS}
+  algorithm.
+\newblock \emph{{ACM} Transactions on Mathematical Software}, 37\penalty0
+  (4):\penalty0 1--15, 2011.
+
+\bibitem[{Lee} and {Shim}(2014)]{rrt_uav}
+D.~{Lee} and D.~H. {Shim}.
+\newblock Rrt-based path planning for fixed-wing uavs with arrival time and
+  approach direction constraints.
+\newblock In \emph{2014 International Conference on Unmanned Aircraft Systems
+  (ICUAS)}, pages 317--328, May 2014.
+\newblock \doi{10.1109/ICUAS.2014.6842270}.
+
+\bibitem[Mcgee et~al.(2005)Mcgee, Spry, and Hedrick]{optimal_path_target}
+Timothy Mcgee, Stephen Spry, and J~Hedrick.
+\newblock Optimal path planning in a constant wind with a bounded turning rate.
+\newblock \emph{Collection of Technical Papers - AIAA Guidance, Navigation, and
+  Control Conference}, 5, 08 2005.
+\newblock \doi{10.2514/6.2005-6186}.
 
 \bibitem[open~source autopilot(2019{\natexlab{a}})]{ardupilot_land}
 Ardupilot:~The open~source autopilot.
 \newblock Arduplane automatic landing, 2019{\natexlab{a}}.
 \newblock URL \url{http://ardupilot.org/plane/docs/automatic-landing.html}.
 
-\bibitem[open~source autopilot(2019{\natexlab{b}})]{ardupilot_takeoff}
+\bibitem[open~source autopilot(2019{\natexlab{b}})]{ardupilot_sitl}
 Ardupilot:~The open~source autopilot.
-\newblock Arduplane automatic takeoff, 2019{\natexlab{b}}.
-\newblock URL \url{http://ardupilot.org/plane/docs/automatic-takeoff.html}.
+\newblock Ardupilot sitl advanced testing, 2019{\natexlab{b}}.
+\newblock URL
+  \url{http://ardupilot.org/dev/docs/using-sitl-for-ardupilot-testing.html}.
 
 \bibitem[open~source autopilot(2019{\natexlab{c}})]{arduplane}
 Ardupilot:~The open~source autopilot.
@@ -40,26 +191,67 @@ Ardupilot:~The open~source autopilot.
 \newblock Arduplane: Navigation tuning, 2019{\natexlab{d}}.
 \newblock URL \url{http://ardupilot.org/plane/docs/navigation-tuning.html}.
 
-\bibitem[{Rodríguez} et~al.(2017){Rodríguez}, {Balampanis}, {Cobano}, {Maza},
-  and {Ollero}]{spline_trajectory}
-L.~{Rodríguez}, F.~{Balampanis}, J.~A. {Cobano}, I.~{Maza}, and A.~{Ollero}.
-\newblock Energy-efficient trajectory generation with spline curves considering
-  environmental and dynamic constraints for small uas.
-\newblock In \emph{2017 IEEE/RSJ International Conference on Intelligent Robots
-  and Systems (IROS)}, pages 1739--1745, Sep. 2017.
-\newblock \doi{10.1109/IROS.2017.8205987}.
+\bibitem[Park et~al.()Park, Deyst, and How]{l1_controller}
+Sanghyuk Park, John Deyst, and Jonathan How.
+\newblock \emph{A New Nonlinear Guidance Logic for Trajectory Tracking}.
+\newblock \doi{10.2514/6.2004-4900}.
+\newblock URL \url{https://arc.aiaa.org/doi/abs/10.2514/6.2004-4900}.
 
-\bibitem[Shen et~al.(2018)Shen, Su, Liang, and Zhu]{aerodynamic_parameters}
-Jieliang Shen, Yan Su, Qing Liang, and Xinhua Zhu.
-\newblock Calculation and identification of the aerodynamic parameters for
-  small-scaled fixed-wing uavs.
-\newblock \emph{Sensors}, 18:\penalty0 206, 01 2018.
-\newblock \doi{10.3390/s18010206}.
+\bibitem[Persson(2016)]{landing_on_vehicle}
+Linnea Persson.
+\newblock Cooperative control for landing a fixed-wing unmanned aerial vehicle
+  on a ground vehicle, 2016.
+
+\bibitem[Rios and Sahinidis(2013)]{derivative_free_opt}
+Luis~Miguel Rios and Nikolaos~V. Sahinidis.
+\newblock Derivative-free optimization: a review of algorithms and comparison
+  of software implementations.
+\newblock \emph{Journal of Global Optimization}, 56\penalty0 (3):\penalty0
+  1247--1293, Jul 2013.
+\newblock ISSN 1573-2916.
+\newblock \doi{10.1007/s10898-012-9951-y}.
+\newblock URL \url{https://doi.org/10.1007/s10898-012-9951-y}.
+
+\bibitem[Riseborough(2019)]{px4_ecl_ekf}
+Paul Riseborough.
+\newblock Estimation and control library, 2019.
+\newblock URL \url{https://github.com/PX4/ecl/blob/master/EKF/documentation}.
+
+\bibitem[Rysdyk(2010)]{course_hdg_wind}
+Rolf Rysdyk.
+\newblock Course and heading changes in significant wind.
+\newblock \emph{Journal of Guidance Control and Dynamics - J GUID CONTROL
+  DYNAM}, 33:\penalty0 1311--1312, 07 2010.
+\newblock \doi{10.2514/1.48934}.
+
+\bibitem[Selecky et~al.(2013)Selecky, Váňa, Rollo, and Meiser]{wind_astar}
+Martin Selecky, Petr Váňa, Milan Rollo, and Tomas Meiser.
+\newblock Wind corrections in flight path planning.
+\newblock \emph{International Journal of Advanced Robotic Systems},
+  10:\penalty0 1, 05 2013.
+\newblock \doi{10.5772/56455}.
 
 \bibitem[Simon(2017)]{fighter_aircraft_mpc}
 Daniel Simon.
 \newblock \emph{Fighter Aircraft Maneuver Limiting Using MPC - Theory and
   Application}.
 \newblock PhD thesis, 09 2017.
+
+\bibitem[Techy and Woolsey(2009)]{optimal_path_trochoidal}
+Laszlo Techy and Craig Woolsey.
+\newblock Minimum-time path planning for unmanned aerial vehicles in steady
+  uniform winds.
+\newblock \emph{Journal of Guidance Control and Dynamics - J GUID CONTROL
+  DYNAM}, 32:\penalty0 1736--1746, 11 2009.
+\newblock \doi{10.2514/1.44580}.
+
+\bibitem[Warren et~al.(2015)Warren, Mejias, Kok, Yang, Gonzalez, and
+  Upcroft]{emergency_landing}
+Michael Warren, Luis Mejias, Jonathan Kok, Xilin Yang, Luis Gonzalez, and Ben
+  Upcroft.
+\newblock An automated emergency landing system for fixed-wing aircraft:
+  Planning and control.
+\newblock \emph{Journal of Field Robotics}, 32:\penalty0 1114--1140, 12 2015.
+\newblock \doi{10.1002/rob.21641}.
 
 \end{thebibliography}

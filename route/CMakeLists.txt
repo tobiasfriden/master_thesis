@@ -4,8 +4,8 @@ project (Route)
 find_package(Boost REQUIRED)
 include_directories(${BOOST_INCLUDE_DIRS})
 
-find_package(ompl REQUIRED)
-include_directories(${OMPL_INCLUDE_DIRS})
+find_package(casadi REQUIRED)
+include_directories(${casadi_INCLUDE_DIRS})
 
 include(cmake/mason.cmake)
 
@@ -59,7 +59,6 @@ target_link_libraries(graph PUBLIC s2)
 target_link_libraries(graph PUBLIC simulation)
 target_link_libraries(graph PUBLIC motion_primitive)
 target_link_libraries(graph PUBLIC obstacle)
-target_link_libraries(graph PUBLIC ${OMPL_LIBRARIES})
 target_link_libraries(graph PUBLIC ${BOOST_LIBRARIES})
 
 add_library(hlut hlut.cpp)
@@ -67,6 +66,11 @@ target_link_libraries(hlut PUBLIC graph)
 
 add_library(astar astar.cpp)
 target_link_libraries(astar PUBLIC graph)
+
+add_library(landing landing.cpp)
+target_link_libraries(landing PUBLIC obstacle)
+target_link_libraries(landing PUBLIC s2)
+target_link_libraries(landing PUBLIC casadi)
 
 add_executable(gen_hlut gen_hlut.cpp)
 target_link_libraries(gen_hlut PUBLIC hlut)
@@ -83,11 +87,13 @@ target_link_libraries(route PUBLIC simulation)
 target_link_libraries(route PUBLIC motion_primitive)
 target_link_libraries(route PUBLIC hlut)
 target_link_libraries(route PUBLIC obstacle)
+target_link_libraries(route PUBLIC landing)
 target_link_libraries(route PUBLIC ${BOOST_LIBRARIES})
+target_link_libraries(route PUBLIC casadi)
 
-add_executable(sim sim.cpp)
-target_link_libraries(sim PUBLIC simulation)
-target_link_libraries(sim PUBLIC s2)
+# add_executable(sim sim.cpp)
+# target_link_libraries(sim PUBLIC simulation)
+# target_link_libraries(sim PUBLIC s2)
 
 # add_executable(opt opt.cpp)
 # target_link_libraries(opt PUBLIC simulation)

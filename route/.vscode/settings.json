@@ -84,5 +84,6 @@
         "/code/mason_packages/headers/rapidjson/1.1.0/include",
         "/code/mason_packages/headers/variant/1.1.4/include",
         "/code/"
-    ]
+    ],
+    "C_Cpp.errorSquiggles": "Disabled"
 }

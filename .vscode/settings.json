@@ -94,5 +94,6 @@
         "/Users/tobiasfriden/Exjobb/code/route/third_party/ompl/src",
         "/Users/tobiasfriden/Exjobb/code/route/mason_packages/headers/**",
         "/Users/tobiasfriden/Exjobb/code/route/third_party/nomad"
-    ]
+    ],
+    "python.pythonPath": "/usr/local/bin/python3"
 }

@@ -1,0 +1,75 @@
+\chapter{Wind field definition and estimation}\label{cha:wind}
+\section{Wind field definition}
+The wind field is commonly defined as a time and spatially dependent vector field
+\begin{equation}
+    \vec{w}(p_N,p_E,p_H,t)=
+    \begin{bmatrix}
+        w_N(p_N,p_E,p_H,t) \\
+        w_E(p_N,p_E,p_H,t) \\
+        w_H(p_N,p_E,p_H,t)
+    \end{bmatrix}
+\end{equation}
+In this thesis, the vertical component $w_H$ will be neglected and the wind vector is written as 
+\begin{equation}
+    \vec{w}=W\begin{bmatrix}
+        \cos\psi_w\\
+        \sin\psi_w
+    \end{bmatrix}
+\end{equation}
+where $W$ is the wind magnitude and $\psi_w$ is the wind direction. The dependency on position and time will from now on not be written out explicitly for simplicity.
+The wind field can be decomposed as
+\begin{equation}
+    \vec{w} = \bar{\vec{w}} + \vec{w}_s
+\end{equation}
+where $\bar{\vec{w}}$ is the mean wind field and $\vec{w}_s$ is described by some stochastic process.
+
+\subsection{Wind gradient}
+The wind magnitude $W$ is dependent on the altitude above ground $h$. A simplified model of this relationship is 
+\begin{equation}
+    W(h)=W_{0}\left(\frac{h}{h_0}\right)^a
+\end{equation}
+where $W_{0}$ is wind measured at a reference height $h_0$, often 10 meters and $a$ is the Hellman exponent. $a$ is dependent on parameters such as the 
+roughness of the terrain and if the location is coastal or not \cite{wind_hellman}.
+\subsection{Turbulence}
+The stochastic components of wind is often modeled using \textit{Dryden's Gust Model} which is stochastic process with spectral density 
+\begin{equation}
+    \Phi_u(\Omega)=\sigma_u^2\frac{L_u}{\pi}\frac{1}{1+(L_u\Omega)^2}
+\end{equation}
+\begin{equation}
+    \Phi_w(\Omega)=\sigma_w^2\frac{L_w}{\pi}\frac{1 + 3(L_w\Omega)^2}{(1+(L_w\Omega)^2)^2}
+\end{equation}
+where $u$ is the horizontal component and $w$ is the vertical. For altitudes below 1000 feet, the length scale of the vertical gust is 
+$L_w=h$ and the intensity is $\sigma_w=0.1W_{20}$ where $W_{20}$ is the wind magnitude at 20 feet. The horizontal gust length and intensity are related to the vertical as 
+\begin{equation}
+    \frac{L_u}{L_w}=\frac{1}{(0.177 + 0.000823h)^{1.2}}
+\end{equation}
+\begin{equation}
+    \frac{\sigma_u}{\sigma_w}=\frac{1}{(0.177 + 0.000823h)^{0.4}}
+\end{equation}
+where $h$ is measured in feet \cite{wind_direct_computation}.
+
+\section{Wind estimation}
+Wind field estimation techniques are important for efficiently handling the effects of winds on UAVs. 
+Fixed-wing UAVs are often equipped with a \textit{pitot-tube} sensor which makes it possible to measure the 
+true airspeed (TAS) of the UAV through the surrounding air.
+\subsection{Direct computation of wind field}
+If the inertial velocity vector $\vec{v}_I$ can be measured, e. g. with the GPS system of the UAV the wind vector can be 
+computed directly as 
+\begin{equation}
+    \vec{w} = \vec{v}_I - (\mathcal{R}^I_B)^{-1}\vec{v}_B
+\end{equation}
+where $\mathcal{R}^I_B$ is given by Equation \eqref{eq:r_i_b}. Assuming level flight, it is shown in \cite{wind_direct_computation} that 
+the measurement error is
+\begin{equation}
+    e^2=\sigma_{\dot{p}_N}^2+\sigma_{\dot{p}_E}^2+\sigma_{\dot{p}_H}^2+\sigma_{V_a}^2 + V_a^2(\sigma_{\theta}^2+\sigma_{\alpha}^2+\sigma_{\beta}^2+\sigma_{\psi}^2)
+\end{equation}
+In standard unaided GPS systems, the measurement error is approximately 0.1 m/s. Assuming the measurement error of $V_a$ is 0.2 m/s and angles 
+can be measured up to $1\degree$ precision, the error becomes $e^2=0.07+0.0012V_a^2$. If the airspeed is 16 m/s this corresponds to a measurement error of 
+$e=0.61$ m/s.
+\subsection{Estimation using Extended Kalman Filter}\label{sec:wind_ekf}
+A more robust approach is to use an Extended Kalman Filter (EKF) to measure vehicle states. These are 
+commonly used in autonomous systems to fuse measurements from many different sensors such as GPS, Inertial Measurement Units (IMU) and barometers. 
+A thorough reference on the underlying theory of EKFs is given in \cite{sensor_fusion}.
+
+The ArduPlane EKF implementation uses 24 different states such as attitude, velocity, position, sensor biases and wind. The different process models and 
+measurement equations are presented in \cite{px4_ecl_ekf}.

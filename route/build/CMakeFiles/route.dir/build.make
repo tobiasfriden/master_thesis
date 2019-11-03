@@ -92,6 +92,8 @@ route: CMakeFiles/route.dir/main.cpp.o
 route: CMakeFiles/route.dir/build.make
 route: libastar.so
 route: libhlut.so
+route: liblanding.so
+route: /usr/local/lib/libcasadi.so.3.6
 route: libgraph.so
 route: libmotion_primitive.so
 route: libopt.so
@@ -101,7 +103,6 @@ route: libobstacle.so
 route: s2geometry/libs2.so
 route: /usr/lib/x86_64-linux-gnu/libssl.so
 route: /usr/lib/x86_64-linux-gnu/libcrypto.so
-route: /usr/local/lib/libompl.so
 route: CMakeFiles/route.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable route"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/route.dir/link.txt --verbose=$(VERBOSE)

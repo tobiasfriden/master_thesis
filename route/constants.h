@@ -38,7 +38,7 @@ namespace Constants{
     static const double goal_size = 25;
 
     // HLUT definition
-    static const double hlut_size = 40;
+    static const double hlut_size = 20;
     static const double hlut_hdg = 20;
     double hlut_inner(){
         return read_env("HLUT_INNER");
@@ -53,6 +53,23 @@ namespace Constants{
     }
     double start_offset(){
         return read_env("START_OFFSET");
+    }
+
+    // Landing
+    double flare_sink(){
+        return read_env("FLARE_SINK");
+    }
+    double flare_alt(){
+        return read_env("FLARE_ALT");
+    }
+    double max_sink(){
+        return read_env("MAX_SINK");
+    }
+    double safety_alt(){
+        return read_env("SAFETY_ALT");
+    }
+    double start_alt(){
+        return read_env("START_ALT");
     }
 
     int heading_index(double heading, double interval){

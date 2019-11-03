@@ -10,8 +10,6 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/usr/local/include/ompl-1.5"
-  "/usr/include/eigen3"
   "../"
   "/nomad/src"
   "/nomad/ext/sgtelib/src"
@@ -21,12 +19,14 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../mason_packages/headers/geojson/0.4.3/include"
   "/s2geometry/src"
   "../mason_packages/headers/boost/1.67.0/include"
+  "/usr/local/include"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
   "/code/build/CMakeFiles/astar.dir/DependInfo.cmake"
   "/code/build/CMakeFiles/hlut.dir/DependInfo.cmake"
+  "/code/build/CMakeFiles/landing.dir/DependInfo.cmake"
   "/code/build/CMakeFiles/graph.dir/DependInfo.cmake"
   "/code/build/CMakeFiles/motion_primitive.dir/DependInfo.cmake"
   "/code/build/CMakeFiles/opt.dir/DependInfo.cmake"

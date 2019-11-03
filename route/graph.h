@@ -25,6 +25,7 @@ class Coordinate {
 public:
     Coordinate(double north, double east, double heading)
         : _position{Vector2_d(north, east)},
+          _waypoint{Vector2_d(north, east)},
           _heading{wrap_heading_360(heading)},
           _bearing{wrap_heading_360(heading)} {};
 

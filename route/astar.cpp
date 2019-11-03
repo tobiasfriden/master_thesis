@@ -31,10 +31,8 @@ std::vector<Coordinate> astar(
     frontier.push(start, nullptr, 0);
 
     Coordinate goal(to, to, goal_hdg, goal_hdg, 0);
-    double best_heuristic = std::numeric_limits<double>().max();
     double h;
     hlut.lookup_cost(start, goal, h);
-    //double h = wind_corrected_distance(start.position(), goal.position());
     std::cout << "heuristic estimate: " << h << std::endl;
     int calls = 0;
     while(true) {
@@ -50,7 +48,28 @@ std::vector<Coordinate> astar(
             continue;
         }
 
-        if(is_equal_goal(current -> coord, goal)) {
+        bool found_in_expansion = false;
+        Node::Ptr goal_node;
+        if(get_distance_NE(current -> coord.position(), goal.position()).Norm() < 300 && !obst.in_collision(current -> coord.waypoint(), goal.waypoint())){
+            //Expansion towards final goal
+            sim.reset(
+                current ->coord.position().x(),
+                current ->coord.position().y(),
+                current ->coord.heading()
+            );
+            std::vector<Vector2_d> traj;
+            double cost = sim.simulate_waypoints(current -> coord.waypoint(), goal.waypoint(), traj, false);
+            Coordinate coord(goal.waypoint(), sim.pos(), sim.yaw(), sim.path_bearing(), current -> coord.cost() + cost);
+            coord.add_states(traj);
+            if(coord == goal){
+                goal_node = std::make_shared<Node>(coord);
+                std::cout << "found in goal expansion" << std::endl;
+                goal_node -> parent = current;
+                found_in_expansion = true;
+            }
+        }
+
+        if(current -> coord == goal || found_in_expansion) {
             auto end_time = std::chrono::system_clock::now();
             std::chrono::duration<double> diff = end_time - start_time;
             std::cout << "Path found in: " << diff.count() << std::endl;
@@ -61,6 +80,9 @@ std::vector<Coordinate> astar(
             std::cout << "total cost: " << current -> coord.cost() << std::endl;
             std::cout << get_distance_NE(from, current -> coord.position()) << std::endl;
             Node::Ptr np = current;
+            if(found_in_expansion){
+                np = goal_node;
+            }
             mapbox::geojson::feature_collection fc;
             auto f = np -> coord.get_states(origin);
             std::copy(f.begin(), f.end(), std::back_inserter(fc));
@@ -78,8 +100,8 @@ std::vector<Coordinate> astar(
             std::reverse(pathVec.begin(), pathVec.end());
             return pathVec;
         }
-        //auto coords = current -> coord.get_neighbours(sim, primitives, obst);
-        auto coords = current -> coord.get_mp_neighbours(primitives, obst, sim.wind_dir());
+        auto coords = current -> coord.get_neighbours(sim, primitives, obst);
+        //auto coords = current -> coord.get_mp_neighbours(primitives, obst, sim.wind_dir());
         for(auto c: coords) {
             if(c == current->coord){
                 continue;

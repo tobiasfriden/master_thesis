@@ -1,0 +1,166 @@
+\chapter{Optimal landing sequences}\label{cha:landing}
+\section{Problem formulation}
+In many previous works, the problem of landing a fixed-wing UAV on a runway is studied. However, small and light-weight UAVs such as the ones studied 
+in this thesis can land in any area as long as the ground is flat enough. The issue is instead that there might be obstacles such as trees around the landing area which limit the possible 
+approach directions. Wind also plays an essential role since landing downwind enables much shorter approach paths relative to the ground.
+
+\begin{figure}
+    \begin{center}
+        \begin{tikzpicture}
+            \coordinate (center) at ($(1,1)+(20:1.5)+(110:0.5)$);
+            \coordinate (a) at ($(center)+(-130:2)$);
+            \draw[fill=lightgray, rotate around={20:(1,1)}] (1,1) rectangle (4,2);
+            \draw[](0,1) -- ++ (80:1.5) -- ++ (20:1) -- ++ (45:0.75) -- (0,4) --++ (-2, -1.5) -- (-1,1) -- (0,1);
+            \node at (-.5,2.5){$\mathcal{X}_{obst}$};
+            \node at ($(center)+(-160:1)$){$\mathcal{A}$};
+            \draw (center) -- ++ (-130:2);
+            \node[point] at (center){};
+            \node[above] at (center){$\vec{p}_L$};
+            \node[point] at (a){};
+            \node[below] at (a){$\vec{p}_A$};
+            \draw[my_v] ($(center)+(20:3)$) -- node[above]{$\vec{w}$} ++ (-1,0);
+            \Drone{-1}{0}{10}
+            \draw[dashed](-1,0) -- (a);            
+        \end{tikzpicture}
+    \end{center}
+    \caption{Landing sequence definition}
+    \label{fig:land}          
+\end{figure}
+
+The problem of landing is thus defined as finding the optimal inputs which lands the UAV as close to the center as possible in a pre-defined landing area $\mathcal{A}$. The landing area is 
+defined as a rectangular region with walls of height $h_A$, and to ensure safe landing the UAV must enter $\mathcal{A}$ above this altitude. 
+There might also be obstacle regions $\mathcal{X}_{obst}$ around the landing area where the UAV is not permitted to fly. The problem definition is illustrated in Figure \ref{fig:land}.
+
+\section{Landing sequence}
+A landing sequence for fixed-wing UAVs is defined by an approach point $\vec{p}_A$ and landing point $\vec{p}_L$. These points together 
+define an approach direction $\psi_L$. The landing velocity $V_L$ depends on $\psi_L$, the airspeed $V_a$ and current wind as 
+\begin{equation}
+    V_L=\cos\psi_L(V_a\cos\psi_{wca}+W\cos\psi_w) + \sin\psi_L(V_a\sin\psi_{wca}+W\sin\psi_w)
+\end{equation}
+The landing sequence is divided into a approach phase and a flare phase. During the approach phase, the UAV will try to 
+achieve the sink rate 
+\begin{equation}
+    \dot{h}=\frac{h_0-h_{flare}}{\|\vec{p}_A-\vec{p}_L\|-R_{flare}}V_L
+\end{equation}
+where $h_0$ is the initial altitude, $h_{flare}$ is the flare altitude and $R_{flare}$ is the flare distance.
+To ensure smooth landing, the flare phase is activated once the UAV reaches the altitude $h_{flare}$ above the ground. 
+In this mode it instead tries to achieve a pre-defined target descent rate 
+\begin{equation}
+    \dot{h}=\dot{h}_{flare}
+\end{equation}
+which means that the flare distance is given by
+\begin{equation}\label{eq:r_flare}
+    R_{flare}=h_{flare}\frac{V_L}{\dot{h}_{flare}}
+\end{equation}
+Due to physical limitations in the system, the landing sequence has to be defined such that 
+\begin{equation}\label{eq:sink_constraint}
+    \dot{h}\leq\dot{h}_{max}
+\end{equation}
+for some constant $\dot{h}_{max}$ during the initial portion before the flare.
+
+\section{Finding an optimal sequence}
+Since the goal of the landing sequence is to land as closely as possible to the center point $\vec{p}_c$ of the landing area $\mathcal{A}$, any 
+optimal sequence will be defined by placing $\vec{p}_A$ and $\vec{p}_L$ along a line which passes through $\vec{p}_C$ and points in the direction given by $\psi_L$.
+This fact can be used to divide the problem in two parts, where first the optimal $\psi_L$ is determined and then $\vec{p}_A$ and $\vec{p}_L$ based on the chosen direction.
+
+\begin{figure}
+    \begin{center}
+        \begin{tikzpicture}
+            \coordinate (center) at (2,1);
+            \coordinate (p1) at ($(center)+(-1.5,-1)$);
+            \coordinate (p2) at ($(center)+(1.5,1)$);
+            \coordinate (pa) at ($(p1)+(-.75,-.5)$);
+            \coordinate (pl) at ($(center)+(.75,.5)$);
+
+            \draw[fill=lightgray] (0,0) rectangle (4,2);
+            \node[point] at (p1){};
+            \node[below] at (p1){$\vec{p}_1$};
+
+            \node[point] at (p2){};
+            \node[above] at (p2){$\vec{p}_2$};
+
+            \node[point] at (center){};
+            \node[above] at (center){$\vec{p}_c$};
+
+            \draw[dashed] ($(p1)+(-3,-2)$) -- (p2);
+            \node[below] at (pa){$\vec{p}_A$};
+            \node[point] at (pa){};
+
+            \node[above] at (pl){${\vec{p}_L}$};
+            \node[point] at (pl){};
+
+            \draw[line width=1.5pt] (pa) -- (pl);
+
+            \Drone{-2.5}{-2}{30};
+            \draw[dashed] ($(-2.5,-2)+(.75,.5)$) -- ++ (1,0);
+            \draw ($(-2.5,-2)+(1.25,.5)$) arc(0:30:.5) node[midway, anchor=200]{$\psi_L$};
+
+            \node at (3.5,.5){$\mathcal{A}$};
+            \draw[my_v] (2, 4) -- node[left]{$\vec{w}$} ++ (0,-1);
+        \end{tikzpicture}
+    \end{center}
+    \caption{Variables to determine optimal landing sequence}
+    \label{fig:opt_landing}
+\end{figure}
+
+\subsection{Determining the approach direction}
+Any line through $\vec{p}_c$ with a given direction will cross the walls of $\mathcal{A}$ in exactly two points $\vec{p}_1$ and $\vec{p}_2$, as is illustrated in Figure \ref{fig:opt_landing}. 
+We thus have the following constraints to consider:
+\begin{itemize}
+    \item The distance $\|\vec{p}_1-\vec{p}_2\|$ has to be large enough so that the altitude $h$ in $\vec{p}_1$ is larger than $h_A$ while satisfying 
+    the constraint \eqref{eq:sink_constraint}
+    \item The approach direction $\psi_L$ has to be chosen so that the initial trajectory up until $\vec{p}_A$ is not inside $\mathcal{X}_{obst}$
+\end{itemize}
+Assuming that the UAV is at altitude $h=h_A$, the minimum distance to the flare point is given by
+\begin{equation}
+    R_{min}=(h_A-h_{flare})\frac{V_L}{\dot{h}_{max}}
+\end{equation}
+To ensure landing in $\mathcal{A}$ it is thus required that 
+\begin{equation}
+    \|\vec{p}_1-\vec{p}_2\|\geq R_{min}+R_{flare}
+\end{equation}
+where $R_{flare}$ is given by Equation \eqref{eq:r_flare}. To ensure the second constraint, a simple approach is to 
+create lines starting in $\vec{p}_1$ with length $K(R_{min}+R_{flare})$ and direction $\psi_L+180\degree$ for some $K\geq0$ and different discrete values of $\psi_L$. 
+The set of feasible approach directions $\{\psi_{L}\}_{feas}$ can then be found by checking each corresponding line for intersections with $\mathcal{X}_{obst}$. Finally, the optimal approach direction is 
+chosen as 
+\begin{equation}
+    \psi_{L,opt} = \argmin_{\psi\in\{\psi_{L}\}_{feas}}R(\psi)
+\end{equation}
+where
+\begin{equation}
+    R(\psi)=R_{min}(\psi) + R_{flare}(\psi)
+\end{equation}
+
+\subsection{Determining the approach points}
+After fixing the approach direction to $\psi_L=\psi_{L,opt}$ the next step is to calculate the optimal values of $\vec{p}_A$ and $\vec{p}_L$. 
+Since the approach direction is fixed, the remaining variables can be redefined as 
+\begin{subequations}
+    \begin{align}
+        R_a&=\|\vec{p}_A-\vec{p}_2\|\\
+        R_l&=\|\vec{p}_L-\vec{p}_2\|\\
+        R_c&=\|\vec{p}_c-\vec{p}_2\|
+    \end{align}
+\end{subequations}
+The problem is thus finding $R_a$ and $R_l$ so that $R_a$ and $|R_c-R_l|$ is minimized, while fulfilling the given constraints.
+The target descent rate during pre-flare is given by 
+\begin{equation}\label{eq:h_dot_constraint}
+    \dot{h}=V_L\frac{h_0-h_{flare}}{R_a-R_l-R{flare}}
+\end{equation}
+and we also require that 
+\begin{equation}\label{eq:h_a_constraint}
+    (R_a-2R_c)\frac{\dot{h}}{V_L}\geq h_A
+\end{equation}
+to ensure that the altitude is greater or equal than $h_A$ in $\vec{p}_1$. The optimal values of $R_a$ and $R_l$ can thus be found 
+as the solution of the optimization problem 
+\begin{subequations}
+    \label{eq:opt_problem_land}
+    \begin{alignat}{3}
+    &\min_{R_a,R_l}        &\qquad& J=R_a^2 + \lambda|R_c-R_l|^2 & \\
+    &\text{subject to} & & R_a,R_l\geq0 &\\
+    & & & \dot{h}\leq \dot{h}_{max}\\
+    & & & \eqref{eq:h_dot_constraint} \nonumber\\
+    & & & \eqref{eq:h_a_constraint} \nonumber
+    \end{alignat}
+\end{subequations}
+where the weight $\lambda$ is chosen to trade-off between minimizing distance to the center point and approach distance. 
+This optimization problem has a quadratic cost function and linear constraints and as such is easy to solve using standard methods.

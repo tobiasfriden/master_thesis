@@ -92,7 +92,6 @@ libgraph.so: CMakeFiles/graph.dir/graph.cpp.o
 libgraph.so: CMakeFiles/graph.dir/build.make
 libgraph.so: libmotion_primitive.so
 libgraph.so: libobstacle.so
-libgraph.so: /usr/local/lib/libompl.so
 libgraph.so: libopt.so
 libgraph.so: libsimulation.so
 libgraph.so: /nomad/builds/release/lib/libnomad.so

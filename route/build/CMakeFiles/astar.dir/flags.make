@@ -6,5 +6,5 @@ CXX_FLAGS = -fPIC   -Wno-attributes -Wno-deprecated-declarations
 
 CXX_DEFINES = -Dastar_EXPORTS
 
-CXX_INCLUDES = -I/usr/local/include/ompl-1.5 -I/usr/include/eigen3 -I/code -I/nomad/src -I/nomad/ext/sgtelib/src -I/s2geometry/src -I/code/mason_packages/headers/variant/1.1.4/include -I/code/mason_packages/headers/geometry/1.0.0/include -I/code/mason_packages/headers/rapidjson/1.1.0/include -I/code/mason_packages/headers/geojson/0.4.3/include -I/code/mason_packages/headers/boost/1.67.0/include 
+CXX_INCLUDES = -I/code -I/nomad/src -I/nomad/ext/sgtelib/src -I/s2geometry/src -I/code/mason_packages/headers/variant/1.1.4/include -I/code/mason_packages/headers/geometry/1.0.0/include -I/code/mason_packages/headers/rapidjson/1.1.0/include -I/code/mason_packages/headers/geojson/0.4.3/include -I/code/mason_packages/headers/boost/1.67.0/include 
 

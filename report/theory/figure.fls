@@ -1,0 +1,6 @@
+PWD /Users/tobiasfriden/Exjobb/code/report/theory
+INPUT /usr/local/texlive/2019/texmf.cnf
+INPUT /usr/local/texlive/2019/texmf-dist/web2c/texmf.cnf
+INPUT /usr/local/texlive/2019/texmf-var/web2c/pdftex/pdflatex.fmt
+INPUT /Users/tobiasfriden/Exjobb/code/report/theory/figure.tex
+OUTPUT /Users/tobiasfriden/Exjobb/code/report/theory/figure.log

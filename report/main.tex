@@ -13,9 +13,15 @@
 
 \usepackage{mythesis}
 \usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{todonotes}
+\usepackage{subfig}
 \usetikzlibrary{calc}
 \usetikzlibrary{plotmarks}
 \usetikzlibrary{shapes}
+\usetikzlibrary{arrows}
+\usetikzlibrary{positioning}
 
 \renewcommand{\vec}[1]{
     \boldsymbol{#1}
@@ -29,15 +35,38 @@
     \mathrm{Arg}~#1
 }
 
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcommand{\Drone}[3]{
+  \draw[
+    fill=gray,
+    rounded corners=1mm,
+    rotate around={#3:(#1,#2)}
+  ] (#1,#2) --++ (-.5,.35) --++ (0.25,-.35) --++ (-0.25,-.35) -- (#1,#2);
+}
+
+\tikzstyle{point} = [
+  circle,
+  minimum width=3.5pt,
+  inner sep=0,
+  fill=black
+]
+
+\tikzstyle{my_v} = [
+  ->,
+  line width = 1.2pt
+]
+
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+text width=5em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{line} = [draw, -latex']
+
 \begin{document}
 \selectlanguage{english}
 
 \frontmatter
 \maketitle
-
-\begin{abstract}[swedish]
-  \input{svensk-sammanfattning}
-\end{abstract}
 
 \begin{abstract}[english]
   \input{engelsk-sammanfattning}
@@ -46,13 +75,19 @@
 %\include{tack}
 
 \tableofcontents
-\include{notation}
+%\include{notation}
 
 \mainmatter
 %\include{introduktion}
-
+\include{theory/introduction}
 \include{theory/fixed_wing_uav}
+\include{theory/wind_estimate}
 \include{theory/motion_planning}
+\include{theory/planning_wind}
+\include{theory/optimal_landing}
+\include{theory/implementation}
+\include{theory/results}
+\include{theory/discussion}
 
 
 %\include{resultat}

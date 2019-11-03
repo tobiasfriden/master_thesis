@@ -170,6 +170,19 @@ mp/fast:
 .PHONY : mp/fast
 
 #=============================================================================
+# Target rules for targets named motion_primitive
+
+# Build rule for target.
+motion_primitive: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 motion_primitive
+.PHONY : motion_primitive
+
+# fast build rule for target.
+motion_primitive/fast:
+	$(MAKE) -f CMakeFiles/motion_primitive.dir/build.make CMakeFiles/motion_primitive.dir/build
+.PHONY : motion_primitive/fast
+
+#=============================================================================
 # Target rules for targets named simulation
 
 # Build rule for target.
@@ -209,32 +222,6 @@ hlut/fast:
 .PHONY : hlut/fast
 
 #=============================================================================
-# Target rules for targets named motion_primitive
-
-# Build rule for target.
-motion_primitive: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 motion_primitive
-.PHONY : motion_primitive
-
-# fast build rule for target.
-motion_primitive/fast:
-	$(MAKE) -f CMakeFiles/motion_primitive.dir/build.make CMakeFiles/motion_primitive.dir/build
-.PHONY : motion_primitive/fast
-
-#=============================================================================
-# Target rules for targets named sim
-
-# Build rule for target.
-sim: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 sim
-.PHONY : sim
-
-# fast build rule for target.
-sim/fast:
-	$(MAKE) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/build
-.PHONY : sim/fast
-
-#=============================================================================
 # Target rules for targets named astar
 
 # Build rule for target.
@@ -246,6 +233,19 @@ astar: cmake_check_build_system
 astar/fast:
 	$(MAKE) -f CMakeFiles/astar.dir/build.make CMakeFiles/astar.dir/build
 .PHONY : astar/fast
+
+#=============================================================================
+# Target rules for targets named landing
+
+# Build rule for target.
+landing: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 landing
+.PHONY : landing
+
+# fast build rule for target.
+landing/fast:
+	$(MAKE) -f CMakeFiles/landing.dir/build.make CMakeFiles/landing.dir/build
+.PHONY : landing/fast
 
 #=============================================================================
 # Target rules for targets named graph
@@ -459,6 +459,33 @@ hlut.cpp.s:
 	$(MAKE) -f CMakeFiles/hlut.dir/build.make CMakeFiles/hlut.dir/hlut.cpp.s
 .PHONY : hlut.cpp.s
 
+landing.o: landing.cpp.o
+
+.PHONY : landing.o
+
+# target to build an object file
+landing.cpp.o:
+	$(MAKE) -f CMakeFiles/landing.dir/build.make CMakeFiles/landing.dir/landing.cpp.o
+.PHONY : landing.cpp.o
+
+landing.i: landing.cpp.i
+
+.PHONY : landing.i
+
+# target to preprocess a source file
+landing.cpp.i:
+	$(MAKE) -f CMakeFiles/landing.dir/build.make CMakeFiles/landing.dir/landing.cpp.i
+.PHONY : landing.cpp.i
+
+landing.s: landing.cpp.s
+
+.PHONY : landing.s
+
+# target to generate assembly for a file
+landing.cpp.s:
+	$(MAKE) -f CMakeFiles/landing.dir/build.make CMakeFiles/landing.dir/landing.cpp.s
+.PHONY : landing.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -594,33 +621,6 @@ opt.cpp.s:
 	$(MAKE) -f CMakeFiles/opt.dir/build.make CMakeFiles/opt.dir/opt.cpp.s
 .PHONY : opt.cpp.s
 
-sim.o: sim.cpp.o
-
-.PHONY : sim.o
-
-# target to build an object file
-sim.cpp.o:
-	$(MAKE) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/sim.cpp.o
-.PHONY : sim.cpp.o
-
-sim.i: sim.cpp.i
-
-.PHONY : sim.i
-
-# target to preprocess a source file
-sim.cpp.i:
-	$(MAKE) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/sim.cpp.i
-.PHONY : sim.cpp.i
-
-sim.s: sim.cpp.s
-
-.PHONY : sim.s
-
-# target to generate assembly for a file
-sim.cpp.s:
-	$(MAKE) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/sim.cpp.s
-.PHONY : sim.cpp.s
-
 simulation.o: simulation.cpp.o
 
 .PHONY : simulation.o
@@ -656,13 +656,13 @@ help:
 	@echo "... depend"
 	@echo "... install/strip"
 	@echo "... mp"
+	@echo "... motion_primitive"
 	@echo "... simulation"
 	@echo "... edit_cache"
 	@echo "... opt"
 	@echo "... hlut"
-	@echo "... motion_primitive"
-	@echo "... sim"
 	@echo "... astar"
+	@echo "... landing"
 	@echo "... graph"
 	@echo "... gen_hlut"
 	@echo "... obstacle"
@@ -687,6 +687,9 @@ help:
 	@echo "... hlut.o"
 	@echo "... hlut.i"
 	@echo "... hlut.s"
+	@echo "... landing.o"
+	@echo "... landing.i"
+	@echo "... landing.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
@@ -702,9 +705,6 @@ help:
 	@echo "... opt.o"
 	@echo "... opt.i"
 	@echo "... opt.s"
-	@echo "... sim.o"
-	@echo "... sim.i"
-	@echo "... sim.s"
 	@echo "... simulation.o"
 	@echo "... simulation.i"
 	@echo "... simulation.s"
