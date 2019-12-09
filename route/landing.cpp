@@ -96,7 +96,6 @@ double Landing::groundspeed(double hdg){
 
     Vector2_d airspeed_vec = _airspeed*Vector2_d(std::cos(hdg_rad), std::sin(hdg_rad));
     Vector2_d wind_vec = _wind_spd*Vector2_d(std::cos(wind_dir_rad), std::sin(wind_dir_rad));
-    std::cout << (airspeed_vec + wind_vec) << std::endl;
     return (airspeed_vec + wind_vec).Norm();
 }
 
@@ -149,9 +148,6 @@ bool Landing::feasible_heading(const Obstacles& obst, double hdg, double safety_
 Landing::line Landing::optimize(double hdg, double safety_h, double alt){
     // Parameters for problem setup
     double v = groundspeed(hdg);
-    double h_0 = alt - _flare_h;
-    safety_h -= _flare_h;
-    double R_f = _flare_h*v/_flare_sink;
     line points = intersection_points(hdg);
     double R_c = (points[0] - points[1]).Norm()/2;
     std::cout << 2*R_c << std::endl;
@@ -160,40 +156,55 @@ Landing::line Landing::optimize(double hdg, double safety_h, double alt){
     casadi::MX R_a = opti.variable();
     casadi::MX R_b = opti.variable();
 
+    casadi::MX h_dot = v*alt/(R_a-R_b);
+    casadi::MX h_f = _flare_sec*h_dot;
+
+    casadi::MX slope = (alt - h_f)/(R_a - R_b);
+    casadi::MX R_f = fmin(v*(h_f/_flare_sink), (R_a-R_b)/2);
+    casadi::MX h_dot_r = v*(alt-h_f+slope*500)/(R_a - R_b - R_f + 500);
+
+    casadi::MX R_f_real = v*h_f/_flare_sink_real;
+    casadi::MX h_f_real = alt - h_dot_r/v*(R_a-R_b-R_f_real);
+
     opti.subject_to(R_a >= 0);
     opti.subject_to(R_b >= 0);
+    opti.subject_to(h_dot_r <= _max_sink);
+    opti.subject_to(h_f <= 2*_flare_h);
+    opti.subject_to(h_f_real <=  1.5*h_f);
 
-    casadi::MX vz = h_0*v/(R_a - R_b - R_f);
-    opti.subject_to(vz <= _max_sink);
-    opti.subject_to(vz >= 0);
+    opti.set_initial(R_a, 100);//land_distance(hdg,alt));
+    opti.set_initial(R_b, 0);
 
-    opti.set_initial(R_a, land_distance(hdg,alt) - R_f + R_c);
-    opti.set_initial(R_b, R_c);
-
-    casadi::MX cross_h = h_0 - (R_a - 2*R_c)*vz/v;
-    opti.subject_to(cross_h >= safety_h);
-
-    opti.minimize(R_a*R_a + 20*(R_b-R_c)*(R_b-R_c));
+    opti.minimize(pow(R_a, 2) + 100*pow((R_b - R_c), 2));
 
     casadi::Dict plugin_opts;
     casadi::Dict solver_opts;
-    solver_opts["print_level"] = 0;
+    solver_opts["print_level"] = 5;
+    solver_opts["max_iter"] = 1000;
     opti.solver("ipopt", plugin_opts, solver_opts);
-    casadi::OptiSol sol = opti.solve();
 
-    auto R_a_opt = sol.value(R_a);
-    auto R_b_opt = sol.value(R_b);
-    auto v_opt = sol.value(vz);
-    auto cross = sol.value(cross_h);
-    std::cout << "R_a-R_b: " << std::abs(static_cast<double>(R_a_opt)-static_cast<double>(R_b_opt)) << std::endl;
-    std::cout << "R_b: " << std::abs(static_cast<double>(R_b_opt)-R_c) << std::endl;
-    std::cout << "R_b: " << static_cast<double>(R_b_opt) << std::endl;
-    std::cout << "cross: " << cross << std::endl;
-    std::cout << "velocity: " << v << std::endl;
+    casadi::DM R_a_opt;
+    casadi::DM R_b_opt;
+
+    try {
+        casadi::OptiSol sol = opti.solve();
+        R_a_opt = sol.value(R_a);
+        R_b_opt = sol.value(R_b);
+        std::cout << "R_a" << sol.value(R_a) << std::endl;
+        std::cout << "R_a-R_b: " << std::abs(static_cast<double>(R_a_opt)-static_cast<double>(R_b_opt)) << std::endl;
+        std::cout << "R_f: " << sol.value(R_f) << std::endl;
+        std::cout << "R_b: " << std::abs(static_cast<double>(R_b_opt)-R_c) << std::endl;
+        //std::cout << "R_b: " << static_cast<double>(R_b_opt) << std::endl;
+        std::cout << "h" << sol.value(h_f_real - h_f) << std::endl;
+        std::cout << "velocity: " << v << std::endl;
+    } catch(const casadi::CasadiException& e){
+        opti.debug().show_infeasibilities();
+        throw e;
+    }
     
     Vector2_d start_pos = offset_bearing(_center, hdg, R_c);
     Vector2_d b_pos = offset_bearing(start_pos, hdg+180, static_cast<double>(R_b_opt));
-    Vector2_d a_pos = offset_bearing(start_pos, hdg+180, static_cast<double>(R_a_opt) + 50);
+    Vector2_d a_pos = offset_bearing(start_pos, hdg+180, static_cast<double>(R_a_opt));
     std::ofstream out("../land_opt.txt");
     out << b_pos.x() << " " << b_pos.y() << std::endl;
     out << a_pos.x() << " " << a_pos.y() << std::endl;

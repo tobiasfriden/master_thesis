@@ -3,10 +3,13 @@
 int main(int argc, char** argv){
     MotionPrimitiveSet ms;
     if(atoi(argv[1])){
-        ms.generate();
+        ms.generate(true);
         ms.save_to_file("../primitives/");
     } else {
         ms.load_from_file("../primitives/");
+        ms.save_visual("../primitives/visual.txt", atoi(argv[2]), 1);
+        ms.save_visual("../primitives/visual_low.txt", atoi(argv[2]), 1-Constants::wind_error());
+        ms.save_visual("../primitives/visual_high.txt", atoi(argv[2]), 1+Constants::wind_error());
     }
     auto exp = ms.get_mp_expansions(0, 0);
     std::cout << exp.size() << std::endl;

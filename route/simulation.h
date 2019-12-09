@@ -19,6 +19,7 @@ public:
       : _airspeed{Constants::airspeed()},
         _wind_spd{Constants::wind_spd()},
         _wind_dir{Constants::wind_dir()},
+        _wind_error{Constants::wind_error()},
         _yrate_max{Constants::yrate()},
         _pos{Vector2_d(0, 0)} {};
 
@@ -36,6 +37,7 @@ public:
     };
 
     void reset(double x, double y, double yaw);
+    void set_wind(double wind_spd, double wind_dir);
 
     double simulate_waypoints(
         Vector2_d const& prev_wp,
@@ -68,6 +70,7 @@ private:
     double L1_acc(Vector2_d const& prev_wp, Vector2_d const& next_wp, Vector2_d groundspeed);
     Vector2_d groundspeed_vector();
     Vector2_d airspeed_vector();
+    Vector2_d wind_vector();
     double wind_correction_angle();
 
     Vector2_d _pos;
@@ -76,6 +79,7 @@ private:
     double _airspeed{0.0};
     double _wind_spd{0.0};
     double _wind_dir{0.0};
+    double _wind_error{0.0};
     double _yrate_max{0.0};
     double _dt{0.25};
 

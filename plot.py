@@ -7,6 +7,8 @@ from matplotlib import rc
 import json
 
 from lib.control import get_distance_NE
+from lib.simulation import simulate_primitive
+from lib.plot import plot_primitive
 
 def get_solution_wps():
     with open('route/sol.txt') as f:
@@ -41,6 +43,58 @@ def read_landing():
         hdg = np.radians(r + 90)
         x_new, y_new = np.array([x, y]) + h*np.array([np.cos(hdg), np.sin(hdg)])
         return x_new, y_new, w, h, r_new
+
+def read_grid():
+    with open('route/grid_search.txt') as f:
+        raw = f.read()
+        lines = raw.split('\n')[:-1]
+        nx = len(lines)
+        ny = len(lines[0].split(' ')[:-1])
+        grid = np.zeros((nx, ny))
+        for i, line in enumerate(lines):
+            values = line.split(' ')[:-1]
+            grid[i, :] = np.array([float(v) if float(v) > 0 else np.nan for v in values ])
+        return grid
+
+def grid_main():
+    rc('text', usetex=True)
+    grid = read_grid()
+    step = 5
+    x_ticks = step*np.arange(1, grid.shape[1]+1, 1)
+    y_ticks = step*np.arange(-grid.shape[1], grid.shape[1]+1, 1)
+
+    X, Y = np.meshgrid(x_ticks, y_ticks)
+    _, ax = plt.subplots()
+    ax.contourf(X, Y, grid, 50)
+
+    sim_df = simulate_primitive(70, 180, wind_spd=5, wind_dir=0)
+    plot_primitive(sim_df, ax=ax, label='trajectory')
+    ax.scatter(180, 70, color='red', label='$u$')
+
+    wind_dir = np.radians(0)
+    ax.quiver(100, -100, np.sin(wind_dir), np.cos(wind_dir), scale=10, label='$\mathbf{w}$')
+
+    ax.set_xlim([-10, 500])
+    ax.set_ylim([-250, 250])
+    ax.set_xlabel('$y_E$ [m]')
+    ax.set_ylabel('$x_N$ [m]')
+    
+    plt.legend()
+    plt.show()
+
+def prim_diff_main():
+    sim_1 = simulate_primitive(-180, 0, wind_dir=90, wind_spd=5, init_yaw=5)
+    sim_2 = simulate_primitive(-180, 0, wind_dir=90, wind_spd=5, init_yaw=-5)
+    _, ax = plt.subplots()
+    plot_primitive(sim_1, ax=ax, label='$\psi_i=5\degree$')
+    plot_primitive(sim_2, ax=ax, label='$\psi_i=-5\degree$')
+    wind_rad = np.pi/2
+    ax.quiver(100,-150, np.sin(wind_rad), np.cos(wind_rad), scale=10, label='wind')
+    ax.set_xlabel('$y_E$ [m]')
+    ax.set_ylabel('$x_N$ [m]')
+
+    plt.legend()
+    plt.show()
 
 def main():
     rc('text', usetex=True)
@@ -81,5 +135,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    prim_diff_main()
     

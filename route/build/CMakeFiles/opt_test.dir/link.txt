@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/opt_test.dir/opt_test.cpp.o  -o opt_test -Wl,-rpath,/code/build:/code/build/s2geometry:/nomad/builds/release/lib libopt.so libsimulation.so s2geometry/libs2.so -lssl -lcrypto -lpthread /nomad/builds/release/lib/libnomad.so 

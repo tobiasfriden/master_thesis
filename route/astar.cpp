@@ -119,31 +119,66 @@ std::vector<Coordinate> astar(
     }
 }
 
-std::vector<Coordinate> filter_solution(std::vector<Coordinate> pathVec){
-    std::vector<Coordinate> filtered;
+Coordinate find_best_next_coord(
+    const Obstacles& obst,
+    Simulator& sim,
+    std::vector<Coordinate> path_vec,
+    Coordinate coord
+){
+    Coordinate best_coord = path_vec.front();
+    Coordinate prev = path_vec.front();
 
-    auto it = pathVec.begin();
-    Coordinate start = *it;
-    filtered.push_back(start);
-    it++;
-    Coordinate next = *it;
-    it++;
-    double prev_bearing = bearing_to(start.position(), next.position());
-    for(; it != pathVec.end(); it++){
-        Coordinate last = *it;
-        double bearing_first = fabs(bearing_to(start.position(), next.position())-prev_bearing);
-        bearing_first = fmin(bearing_first, fabs(360-bearing_first));
-        double bearing_second = fabs(bearing_to(next.position(), last.position())-prev_bearing);
-        bearing_second = fmin(bearing_second, fabs(360-bearing_second));
-        double dist = get_distance_NE(start.position(), last.position()).Norm();
-        if(dist > 20 && (bearing_first > 20 || bearing_second > 20)){
-            filtered.push_back(next);
-            prev_bearing = fabs(bearing_to(start.position(), last.position()));
+    Vector2_d start = coord.position();
+    Vector2_d start_waypoint = coord.waypoint();
+    for(auto it = path_vec.begin()+1; it != path_vec.end(); it++){
+        sim.reset(start.x(), start.y(), coord.heading());
+        Coordinate next = *it;
+        double dist = get_distance_NE(prev.waypoint(), next.waypoint()).Norm();
+        //std::cout << dist << std::endl;
+        if(dist < 30){
+            prev = next;
+            continue;
         }
-        start = next;
-        next = last;
+        if(false && obst.in_collision(start_waypoint, next.waypoint())){
+            prev = next;
+            continue;
+        }
+
+        double goal_hdg = bearing_to(prev.waypoint(), next.waypoint());
+        sim.simulate_waypoints(start_waypoint, next.waypoint());
+        double hdg_error = std::abs(goal_hdg - sim.path_bearing());
+        hdg_error = std::min(hdg_error, std::abs(hdg_error - 360));
+        if(hdg_error < 5 && std::abs(sim.xtrack_error()) < Constants::xtrack_error()){
+            best_coord = next;
+        }
+        prev = next;
     }
-    filtered.push_back(next);
+    return best_coord;
+}
+
+std::vector<Coordinate> filter_solution(
+    const Obstacles& obst,
+    Simulator& sim,
+    std::vector<Coordinate> pathVec
+){
+    std::vector<Coordinate> filtered;
+    filtered.push_back(pathVec.front());
+    for(auto it = pathVec.begin(); it != pathVec.end(); it++){
+        Coordinate best = find_best_next_coord(
+            obst,
+            sim,
+            std::vector<Coordinate>(it+1, pathVec.end()),
+            *it
+        );
+        filtered.push_back(best);
+        if(best == pathVec.back()){
+            break;
+        }
+        while(*it != best){
+            it++;
+        }
+        it--;
+    }   
     return filtered;
 }
  

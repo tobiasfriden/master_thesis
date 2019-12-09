@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import time
 
 from lib.control import L1_controller, offset, get_distance_NE, passed_point
 
@@ -35,6 +36,10 @@ class Simulator:
             self.wind_dir = opts['wind_dir']
         else:
             self.wind_dir = 0
+        if 'wind_error' in opts:
+            self.wind_error = opts['wind_error']
+        else:
+            self.wind_error = 0
      
     # Forward wp counter, return True if reached
     def next_wp(self):
@@ -85,6 +90,13 @@ class Simulator:
             np.degrees(yawrate),
             0
         ])
+
+    def wind_vector(self):
+        wind_dir_rad = np.radians(self.wind_dir)
+        yaw_rad = np.radians(self.yaw)
+        err_factor = self.wind_error*np.cos(wind_dir_rad - yaw_rad)
+        scale = self.wind_spd*(1 + err_factor)
+        return scale*np.array([np.cos(wind_dir_rad), np.sin(wind_dir_rad)])
     
     def step(self, simple=False):
         dt = self.dt
@@ -115,9 +127,10 @@ class Simulator:
         Roll_next = self.roll[-1] + rrate*dt
 
         V_ground = np.array([
-            V*np.cos(np.radians(self.yaw))+ self.wind_spd*np.cos(np.radians(self.wind_dir)),
-            V*np.sin(np.radians(self.yaw))+ self.wind_spd*np.sin(np.radians(self.wind_dir))
+            V*np.cos(np.radians(self.yaw)),
+            V*np.sin(np.radians(self.yaw))
         ])
+        V_ground += self.wind_vector()
         
         Lat_next, Lng_next = offset(
             [self.lat, self.lng],
@@ -154,3 +167,33 @@ class Simulator:
                     break
             result.append(self.step(simple))
         return pd.DataFrame(result)
+
+def simulate_primitive(offset_x, offset_y, wind_dir=0, wind_spd=0, wind_err=0, init_yaw=0):
+    V = 14
+    init_yaw += np.degrees(-np.arcsin(wind_spd/V*np.sin(np.radians(wind_dir))))
+    init = pd.Series({
+            'Lat': 0.0,
+            'Lng': 0.0,
+            'Roll': 0,
+            'Yaw': init_yaw,
+            'L1_acc': 0.0,
+            'Timestamp': pd.Timestamp(time.time())
+        })
+    ofs = offset([0, 0], offset_x, offset_y)
+    opts = {
+            'V': V,
+            'dt': 0.1,
+            'wps': [{'lat': 0.0, 'lng': 0.0}, {'lat': ofs[0], 'lng': ofs[1]}],
+            'wp_R': 0.1,
+            'wind_dir': wind_dir,
+            'wind_spd': wind_spd,
+            'wind_error': wind_err
+        }
+    return Simulator(
+        init,
+        opts,
+        None,
+        None,
+        None,
+        5
+    ).simulate_mission(True)   

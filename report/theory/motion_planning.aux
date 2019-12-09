@@ -1,5 +1,7 @@
 \relax 
 \providecommand\hyper@newdestlabel[2]{}
+\citation{planning_algorithms}
+\citation{graph_theory}
 \@writefile{toc}{\contentsline {chapter}{\numberline {4}Motion planning theory}{17}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
@@ -7,34 +9,43 @@
 \@writefile{toc}{\contentsline {section}{\numberline {4.1}General definitions and terminology}{17}{section.4.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Graph terminology}{17}{subsection.4.1.1}\protected@file@percent }
 \citation{planning_algorithms}
+\citation{planning_algorithms}
+\citation{planning_algorithms}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}Motion planning terminology}{18}{subsection.4.1.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1.3}Differential constraints}{18}{subsection.4.1.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Sampling based motion planning}{18}{section.4.2}\protected@file@percent }
+\citation{planning_algorithms}
+\citation{state_lattice_planning}
 \citation{Bergman_lic}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Sampling based motion planning}{19}{section.4.2}\protected@file@percent }
 \newlabel{def:reach_graph}{{4.8}{19}{Reachability graph}{theorem.4.8}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Forward simulation}{19}{subsection.4.2.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Motion primitives}{19}{subsection.4.2.2}\protected@file@percent }
 \newlabel{sec:motion_prim}{{4.2.2}{19}{Motion primitives}{subsection.4.2.2}{}}
-\newlabel{eq:opt_problem_mp}{{4.8}{19}{Motion primitives}{equation.4.2.8}{}}
+\citation{Bergman_lic}
 \citation{astar}
 \citation{hybrid_astar}
+\newlabel{eq:opt_problem_mp}{{4.8}{20}{Motion primitives}{equation.4.2.8}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4.3}Graph search methods}{20}{section.4.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}A-star search}{20}{subsection.4.3.1}\protected@file@percent }
 \newlabel{sec:a-star}{{4.3.1}{20}{A-star search}{subsection.4.3.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Hybrid A-star}{20}{subsection.4.3.2}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces A-star based motion planning\relax }}{21}{algorithm.1}\protected@file@percent }
-\newlabel{alg:astar}{{1}{21}{A-star based motion planning\relax }{algorithm.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Difference between regular and hybrid A-star\relax }}{21}{figure.caption.11}\protected@file@percent }
-\newlabel{fig:hybrid_vs_regular}{{4.1}{21}{Difference between regular and hybrid A-star\relax }{figure.caption.11}{}}
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Regular A-star}}}{21}{subfigure.1.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Hybrid A-star}}}{21}{subfigure.1.2}\protected@file@percent }
+\citation{state_lattice_planning}
 \citation{dubins}
 \citation{2_phase_uav}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces $A^*$ based motion planning\relax }}{21}{algorithm.1}\protected@file@percent }
+\newlabel{alg:astar}{{1}{21}{$A^*$ based motion planning\relax }{algorithm.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Hybrid A-star}{21}{subsection.4.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.3}Non-holonomic heuristics}{21}{subsection.4.3.3}\protected@file@percent }
 \citation{hlut}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.3}Non-holonomic heuristics}{22}{subsection.4.3.3}\protected@file@percent }
+\citation{anytime_astar}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Difference between regular and hybrid $A^*$\relax }}{22}{figure.caption.11}\protected@file@percent }
+\newlabel{fig:hybrid_vs_regular}{{4.1}{22}{Difference between regular and hybrid $A^*$\relax }{figure.caption.11}{}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Regular $A^*$}}}{22}{subfigure.1.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Hybrid $A^*$}}}{22}{subfigure.1.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{Dubin's metric}{22}{section*.12}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{Heuristic Look-Up Table}{22}{section*.13}\protected@file@percent }
 \newlabel{sec:hlut}{{4.3.3}{22}{Heuristic Look-Up Table}{section*.13}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.4}Inflated heuristics and sub-optimality guarantees}{22}{subsection.4.3.4}\protected@file@percent }
+\newlabel{sec:sub_optimal}{{4.3.4}{22}{Inflated heuristics and sub-optimality guarantees}{subsection.4.3.4}{}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces HLUT generation using Dijkstra's algorithm\relax }}{23}{algorithm.2}\protected@file@percent }
 \newlabel{alg:hlut}{{2}{23}{HLUT generation using Dijkstra's algorithm\relax }{algorithm.2}{}}
 \@setckpt{theory/motion_planning}{
@@ -50,7 +61,7 @@
 \setcounter{part}{0}
 \setcounter{chapter}{4}
 \setcounter{section}{3}
-\setcounter{subsection}{3}
+\setcounter{subsection}{4}
 \setcounter{subsubsection}{0}
 \setcounter{paragraph}{0}
 \setcounter{subparagraph}{0}
@@ -67,11 +78,11 @@
 \setcounter{CPROT@size@temp}{0}
 \setcounter{CPROT@temp@chars}{0}
 \setcounter{float@type}{8}
-\setcounter{NAT@ctr}{38}
+\setcounter{NAT@ctr}{41}
 \setcounter{caption@flags}{2}
 \setcounter{ContinuedFloat}{0}
 \setcounter{Item}{2}
-\setcounter{bookmark@seq@number}{41}
+\setcounter{bookmark@seq@number}{42}
 \setcounter{lofdepth}{1}
 \setcounter{lotdepth}{1}
 \setcounter{KVtest}{1}
@@ -95,5 +106,5 @@
 \setcounter{ALG@storecount}{0}
 \setcounter{ALG@tmpcounter}{0}
 \setcounter{@todonotes@numberoftodonotes}{0}
-\setcounter{section@level}{3}
+\setcounter{section@level}{2}
 }

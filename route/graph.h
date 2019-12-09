@@ -93,6 +93,10 @@ public:
         return cell_idx() == other.cell_idx() && graph_hdg_idx(_bearing) == graph_hdg_idx(other.bearing());
     }
 
+    bool operator!=(const Coordinate& other) const {
+        return !(*this==other);
+    }
+
     void operator=(const Coordinate& other){
         _position=other._position;
         _waypoint=other._waypoint;

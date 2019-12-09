@@ -7,33 +7,38 @@
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \newlabel{cha:implementation}{{7}{37}{Implementation}{chapter.7}{}}
+\@writefile{tdo}{\contentsline {todo}{Implementation p\IeC {\r a} riktig UAV}{37}{section*.26}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {7.1}System overview}{37}{section.7.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {7.2}Simulation environment}{37}{section.7.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7.3}Obstacle avoidance}{37}{section.7.3}\protected@file@percent }
 \citation{casadi}
 \citation{nomad}
-\@writefile{lof}{\contentsline {figure}{\numberline {7.1}{\ignorespaces System overview\relax }}{38}{figure.caption.22}\protected@file@percent }
-\newlabel{fig:sys_overview}{{7.1}{38}{System overview\relax }{figure.caption.22}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.1}{\ignorespaces System overview\relax }}{38}{figure.caption.27}\protected@file@percent }
+\newlabel{fig:sys_overview}{{7.1}{38}{System overview\relax }{figure.caption.27}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.3}Obstacle avoidance}{38}{section.7.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {7.4}Wind estimation}{38}{section.7.4}\protected@file@percent }
+\@writefile{tdo}{\contentsline {todo}{Skriv mer utf\IeC {\"o}rligt om vind-estimering. Eventuellt estimera medelvind och vind-varians online?}{38}{section*.28}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {7.5}Landing sequence calculation}{38}{section.7.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7.6}Motion planner}{38}{section.7.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.6.1}Motion Primitive Generation}{38}{subsection.7.6.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {7.2}{\ignorespaces Motion primitives for different wind directions, $W=5$ m/s\relax }}{39}{figure.caption.23}\protected@file@percent }
-\newlabel{fig:motion_prims}{{7.2}{39}{Motion primitives for different wind directions, $W=5$ m/s\relax }{figure.caption.23}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.2}{\ignorespaces Inputs for different wind directions, $W=5$ m/s\relax }}{39}{figure.caption.29}\protected@file@percent }
+\newlabel{fig:motion_prims}{{7.2}{39}{Inputs for different wind directions, $W=5$ m/s\relax }{figure.caption.29}{}}
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {$\psi _w=0\ensuremath {\SI@fstyle {\no@qsk \ensuremath {^{\circ }}}}$}}}{39}{subfigure.2.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {$\psi _w=160\ensuremath {\SI@fstyle {\no@qsk \ensuremath {^{\circ }}}}$}}}{39}{subfigure.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {$\psi _w=80\ensuremath {\SI@fstyle {\no@qsk \ensuremath {^{\circ }}}}$}}}{39}{subfigure.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.6}Motion planner}{39}{section.7.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.6.1}Input set generation}{39}{subsection.7.6.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.6.2}State-space discretization}{39}{subsection.7.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.6.3}State expansions}{39}{subsection.7.6.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7.3}{\ignorespaces Large cross track error for $\Delta \psi \approx 180\ensuremath  {\SI@fstyle  {\no@qsk  \ensuremath  {^{\circ }}}}$ when the wind is perpendicular to UAV motion\relax }}{40}{figure.caption.31}\protected@file@percent }
+\newlabel{fig:hdg_diff_wind}{{7.3}{40}{Large cross track error for $\Delta \psi \approx 180\degree $ when the wind is perpendicular to UAV motion\relax }{figure.caption.31}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.6.3}State expansions}{40}{subsection.7.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Handling perpendicular winds}{40}{section*.30}\protected@file@percent }
 \citation{mavlink}
 \citation{mavros}
 \citation{ros}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.6.4}Heuristic Lookup Table}{40}{subsection.7.6.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7.7}Waypoint controller}{40}{section.7.7}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {7.3}{\ignorespaces HLUT for $W=5$ m/s and $\psi _f=0\ensuremath  {\SI@fstyle  {\no@qsk  \ensuremath  {^{\circ }}}}$\relax }}{41}{figure.caption.24}\protected@file@percent }
-\newlabel{fig:hlut}{{7.3}{41}{HLUT for $W=5$ m/s and $\psi _f=0\degree $\relax }{figure.caption.24}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.6.4}Heuristic Lookup Table}{41}{subsection.7.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.7}Waypoint controller}{41}{section.7.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7.4}{\ignorespaces HLUT for $W=5$ m/s and $\psi _f=0\ensuremath  {\SI@fstyle  {\no@qsk  \ensuremath  {^{\circ }}}}$\relax }}{42}{figure.caption.32}\protected@file@percent }
+\newlabel{fig:hlut}{{7.4}{42}{HLUT for $W=5$ m/s and $\psi _f=0\degree $\relax }{figure.caption.32}{}}
 \@setckpt{theory/implementation}{
-\setcounter{page}{42}
-\setcounter{equation}{4}
+\setcounter{page}{43}
+\setcounter{equation}{5}
 \setcounter{enumi}{2}
 \setcounter{enumii}{0}
 \setcounter{enumiii}{0}
@@ -48,9 +53,9 @@
 \setcounter{subsubsection}{0}
 \setcounter{paragraph}{0}
 \setcounter{subparagraph}{0}
-\setcounter{figure}{3}
+\setcounter{figure}{4}
 \setcounter{table}{0}
-\setcounter{parentequation}{13}
+\setcounter{parentequation}{14}
 \setcounter{CPROT@family}{1}
 \setcounter{CPROT@family@temp}{0}
 \setcounter{CPROT@series}{2}
@@ -61,11 +66,11 @@
 \setcounter{CPROT@size@temp}{0}
 \setcounter{CPROT@temp@chars}{0}
 \setcounter{float@type}{8}
-\setcounter{NAT@ctr}{38}
+\setcounter{NAT@ctr}{41}
 \setcounter{caption@flags}{0}
 \setcounter{ContinuedFloat}{0}
 \setcounter{Item}{2}
-\setcounter{bookmark@seq@number}{69}
+\setcounter{bookmark@seq@number}{71}
 \setcounter{lofdepth}{1}
 \setcounter{lotdepth}{1}
 \setcounter{KVtest}{1}
@@ -88,6 +93,6 @@
 \setcounter{ALG@blocknr}{10}
 \setcounter{ALG@storecount}{0}
 \setcounter{ALG@tmpcounter}{0}
-\setcounter{@todonotes@numberoftodonotes}{0}
+\setcounter{@todonotes@numberoftodonotes}{4}
 \setcounter{section@level}{1}
 }

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.7.2)  3 NOV 2019 20:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.7.2)  20 NOV 2019 11:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1707,7 +1707,7 @@ LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 16.41594pt on input line 69.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 16.41594pt on input line 69.
-<fig/LiU_primary_black.pdf, id=320, 314.38354pt x 112.98912pt>
+<fig/LiU_primary_black.pdf, id=328, 314.38354pt x 112.98912pt>
 File: fig/LiU_primary_black.pdf Graphic file (type pdf)
 <use fig/LiU_primary_black.pdf>
 Package pdftex.def Info: fig/LiU_primary_black.pdf  used on input line 69.
@@ -1758,7 +1758,9 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 \tf@toc=\write6
 \openout6 = `main.toc'.
 
- [6]
+ [6] [7] [8
+
+]
 \openout2 = `theory/introduction.aux'.
 
  (/Users/tobiasfriden/Exjobb/code/report/theory/introduction.tex
@@ -1768,7 +1770,6 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 108.12012pt on input line 1.
 [1
-
 
 
 ] [2]) [3] [4]
@@ -1801,14 +1802,24 @@ Chapter 3.
 
 ]
 Chapter 4.
-[17] [18] [19]
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 188.
- [20] [21]
+[17] [18]
+Overfull \hbox (1.19006pt too wide) in paragraph at lines 122--128
+[]\T1/jkpk/m/it/10 Maneuver-based \T1/jkpk/m/n/10 mo-tion prim-i-tive gen-er-a-tion is in-tro-duced in [[]] as the method
+ []
+
+[19]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 189.
+ [20]
+Overfull \hbox (5.11847pt too wide) in paragraph at lines 234--238
+[]\T1/jkpk/m/n/10 The Hy-brid $\OML/jkpw/m/it/10 A[]$ \T1/jkpk/m/n/10 al-go-rithm also in-cludes the con-cept of \T1/jkpk/m/it/10 an-a-lytic ex-pan-sions\T1/jkpk/m/n/10 , which
+ []
+
+
 Overfull \hbox (0.39728pt too wide) in paragraph at lines 240--244
 \T1/jkpk/m/n/10 A com-mon choice of heuris-tic func-tion is sim-ply the eu-clidean dis-tance $\OML/jkpw/m/it/10 h[]\OT1/jkp/m/n/10 (\OML/jkpw/m/it/10 x; x[]\OT1/jkp/m/n/10 ) =
  []
 
-) [22] [23]
+[21]) [22] [23]
 \openout2 = `theory/planning_wind.aux'.
 
  (/Users/tobiasfriden/Exjobb/code/report/theory/planning_wind.tex [24
@@ -1817,165 +1828,176 @@ Overfull \hbox (0.39728pt too wide) in paragraph at lines 240--244
 
 ]
 Chapter 5.
-
-Overfull \hbox (5.24252pt too wide) in paragraph at lines 6--11
-\T1/jkpk/m/n/10 line-segments and takes the sys-tem from $\OML/jkpw/m/it/10 x[] \OT1/jkp/m/n/10 = (\OML/jkpw/m/it/10 p[]; p[];  []\OT1/jkp/m/n/10 )$ \T1/jkpk/m/n/10 to $\OML/jkpw/m/it/10 x[] \OT1/jkp/m/n/10 = (\OML/jkpw/m/it/10 p[]; p[];  []\OT1/jkp/m/n/10 )$\T1/jkpk/m/n/10 .
+[25] [26]
+Overfull \hbox (2.55525pt too wide) in paragraph at lines 89--93
+\T1/jkpk/m/n/10 ror can be han-dled. To en-sure that the value is small enough the fac-tor $\OMS/jkpw/m/n/10 j\OML/jkpw/m/it/10 d\OT1/jkp/m/n/10 (\OML/jkpw/m/it/10 x\OT1/jkp/m/n/10 (\OML/jkpw/m/it/10 T\OT1/jkp/m/n/10 )\OML/jkpw/m/it/10 ; u\OT1/jkp/m/n/10 )\OMS/jkpw/m/n/10 j[]$
  []
 
-[25] [26] [27]
-Overfull \hbox (0.13pt too wide) in paragraph at lines 105--111
+[27]
+Overfull \hbox (0.13pt too wide) in paragraph at lines 111--117
 \T1/jkpk/m/n/10 Methods com-monly used to solve op-ti-mal con-trol prob-lems in-clude \T1/jkpk/m/it/10 mul-ti-ple shoot-
  []
 
-<fig/J_opt_45.png, id=765, 722.7pt x 722.7pt>
-File: fig/J_opt_45.png Graphic file (type png)
-<use fig/J_opt_45.png>
-Package pdftex.def Info: fig/J_opt_45.png  used on input line 119.
-(pdftex.def)             Requested size: 355.65944pt x 355.65892pt.
-[28] [29 </Users/tobiasfriden/Exjobb/code/report/fig/J_opt_45.png>]) [30] [31]
+<fig/J_opt_90.png, id=797, 462.528pt x 346.896pt>
+File: fig/J_opt_90.png Graphic file (type png)
+<use fig/J_opt_90.png>
+Package pdftex.def Info: fig/J_opt_90.png  used on input line 124.
+(pdftex.def)             Requested size: 355.65944pt x 266.75609pt.
+
+Overfull \hbox (1.26085pt too wide) in paragraph at lines 145--148
+\T1/jkpk/m/n/10 would thus be to gen-er-ate in-put sets which han-dle wind speeds $\OML/jkpw/m/it/10 W \OMS/jkpw/m/n/10 2 \OT1/jkp/m/n/10 [\OML/jkpw/m/it/10 W[]; W[]\OT1/jkp/m/n/10 ]$\T1/jkpk/m/n/10 .
+ []
+
+[28] [29 </Users/tobiasfriden/Exjobb/code/report/fig/J_opt_90.png>]
+Package hyperref Info: bookmark level for unknown todo defaults to 0 on input line 193.
+ [30] [31]) [32]
 \openout2 = `theory/optimal_landing.aux'.
 
- (/Users/tobiasfriden/Exjobb/code/report/theory/optimal_landing.tex [32
+ (/Users/tobiasfriden/Exjobb/code/report/theory/optimal_landing.tex
+Chapter 6.
+[33
 
 
 
 ]
-Chapter 6.
-[33]
 Missing character: There is no ; in font nullfont!
  [34] [35]) [36]
 \openout2 = `theory/implementation.aux'.
 
  (/Users/tobiasfriden/Exjobb/code/report/theory/implementation.tex
 Chapter 7.
-[37
+
+Underfull \vbox (badness 4429) has occurred while \output is active []
+
+ [37
 
 
 
 ]
-Overfull \hbox (10.28406pt too wide) in paragraph at lines 47--52
-\T1/jkpk/m/n/10 mo-tion prim-i-tive set was gen-er-ated for wind di-rec-tions $\OML/jkpw/m/it/10  [] \OT1/jkp/m/n/10 = \OMS/jkpw/m/n/10 f\OT1/jkp/m/n/10 0[]\OML/jkpw/m/it/10 ; \OT1/jkp/m/n/10 20[]\OML/jkpw/m/it/10 ; \OT1/jkp/m/n/10 40[]\OML/jkpw/m/it/10 ; [] \OT1/jkp/m/n/10 340[]\OMS/jkpw/m/n/10 g$
+Overfull \hbox (13.25218pt too wide) in paragraph at lines 49--54
+\T1/jkpk/m/n/10 wind speed $\OML/jkpw/m/it/10 W$\T1/jkpk/m/n/10 . Sym-me-tries of the sys-tem mean that in-puts for $\OML/jkpw/m/it/10  [] \OT1/jkp/m/n/10 = \OMS/jkpw/m/n/10 f^^@\OT1/jkp/m/n/10 10[]\OML/jkpw/m/it/10 ; \OMS/jkpw/m/n/10 ^^@\OT1/jkp/m/n/10 20[]\OML/jkpw/m/it/10 ; [] \OMS/jkpw/m/n/10 ^^@
  []
 
 [38]
-<fig/mp_0.png, id=896, 722.7pt x 722.7pt>
+<fig/mp_0.png, id=952, 722.7pt x 722.7pt>
 File: fig/mp_0.png Graphic file (type png)
 <use fig/mp_0.png>
-Package pdftex.def Info: fig/mp_0.png  used on input line 61.
+Package pdftex.def Info: fig/mp_0.png  used on input line 63.
 (pdftex.def)             Requested size: 170.715pt x 170.71672pt.
-<fig/mp_160.png, id=897, 722.7pt x 722.7pt>
-File: fig/mp_160.png Graphic file (type png)
-<use fig/mp_160.png>
-Package pdftex.def Info: fig/mp_160.png  used on input line 64.
+<fig/mp_80.png, id=953, 722.7pt x 722.7pt>
+File: fig/mp_80.png Graphic file (type png)
+<use fig/mp_80.png>
+Package pdftex.def Info: fig/mp_80.png  used on input line 66.
 (pdftex.def)             Requested size: 170.715pt x 170.71672pt.
- [39 </Users/tobiasfriden/Exjobb/code/report/fig/mp_0.png> </Users/tobiasfriden/Exjobb/code/report/fig/mp_160.png>]
-<fig/hlut.png, id=914, 722.7pt x 722.7pt>
+ [39 </Users/tobiasfriden/Exjobb/code/report/fig/mp_0.png> </Users/tobiasfriden/Exjobb/code/report/fig/mp_80.png>]
+<fig/prim_diff_hdg.png, id=968, 462.528pt x 346.896pt>
+File: fig/prim_diff_hdg.png Graphic file (type png)
+<use fig/prim_diff_hdg.png>
+Package pdftex.def Info: fig/prim_diff_hdg.png  used on input line 98.
+(pdftex.def)             Requested size: 248.96051pt x 186.72292pt.
+ [40 </Users/tobiasfriden/Exjobb/code/report/fig/prim_diff_hdg.png>]
+<fig/hlut.png, id=980, 722.7pt x 722.7pt>
 File: fig/hlut.png Graphic file (type png)
 <use fig/hlut.png>
-Package pdftex.def Info: fig/hlut.png  used on input line 105.
+Package pdftex.def Info: fig/hlut.png  used on input line 126.
 (pdftex.def)             Requested size: 213.39783pt x 213.39314pt.
-) [40] [41 </Users/tobiasfriden/Exjobb/code/report/fig/hlut.png>]
+) [41] [42 </Users/tobiasfriden/Exjobb/code/report/fig/hlut.png>]
 \openout2 = `theory/results.aux'.
 
- (/Users/tobiasfriden/Exjobb/code/report/theory/results.tex [42
-
-
-
-]
+ (/Users/tobiasfriden/Exjobb/code/report/theory/results.tex
 Chapter 8.
-<fig/sol_0.png, id=940, 462.528pt x 346.896pt>
+<fig/sol_0.png, id=1003, 462.528pt x 346.896pt>
 File: fig/sol_0.png Graphic file (type png)
 <use fig/sol_0.png>
 Package pdftex.def Info: fig/sol_0.png  used on input line 45.
 (pdftex.def)             Requested size: 170.715pt x 128.0372pt.
-<fig/sol_90.png, id=941, 462.528pt x 346.896pt>
+<fig/sol_90.png, id=1004, 462.528pt x 346.896pt>
 File: fig/sol_90.png Graphic file (type png)
 <use fig/sol_90.png>
 Package pdftex.def Info: fig/sol_90.png  used on input line 48.
 (pdftex.def)             Requested size: 170.715pt x 128.0372pt.
-<fig/sol_180.png, id=942, 462.528pt x 346.896pt>
+<fig/sol_180.png, id=1005, 462.528pt x 346.896pt>
 File: fig/sol_180.png Graphic file (type png)
 <use fig/sol_180.png>
 Package pdftex.def Info: fig/sol_180.png  used on input line 51.
 (pdftex.def)             Requested size: 170.715pt x 128.0372pt.
-<fig/sol_270.png, id=943, 462.528pt x 346.896pt>
+<fig/sol_270.png, id=1006, 462.528pt x 346.896pt>
 File: fig/sol_270.png Graphic file (type png)
 <use fig/sol_270.png>
 Package pdftex.def Info: fig/sol_270.png  used on input line 54.
 (pdftex.def)             Requested size: 170.715pt x 128.0372pt.
-) [43] [44 </Users/tobiasfriden/Exjobb/code/report/fig/sol_0.png> </Users/tobiasfriden/Exjobb/code/report/fig/sol_90.png> </Users/tobiasfriden/Exjobb/code/report/fig/sol_180.png> </Users/tobiasfriden/Exjobb/code/report/fig/sol_270.png>]
+[43
+
+
+
+] [44 </Users/tobiasfriden/Exjobb/code/report/fig/sol_0.png> </Users/tobiasfriden/Exjobb/code/report/fig/sol_90.png> </Users/tobiasfriden/Exjobb/code/report/fig/sol_180.png> </Users/tobiasfriden/Exjobb/code/report/fig/sol_270.png>]) [45]
 \openout2 = `theory/discussion.aux'.
 
- (/Users/tobiasfriden/Exjobb/code/report/theory/discussion.tex
+ (/Users/tobiasfriden/Exjobb/code/report/theory/discussion.tex [46
+
+
+
+]
 Chapter 9.
-) [45
-
-
-
-] [46
+) [47] [48
 
 
 ] (/Users/tobiasfriden/Exjobb/code/report/main.bbl
 LaTeX Font Info:    Try loading font information for T1+pcr on input line 11.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-) [47
+) [49
 
 
 ]
-Underfull \hbox (badness 2020) in paragraph at lines 93--98
+Underfull \hbox (badness 2020) in paragraph at lines 105--110
 \T1/jkpk/m/n/10 9789144054896.  URL []$\T1/pcr/m/n/10 https : / / books . google . se / books ? id = yd _
  []
 
-
-Underfull \hbox (badness 2556) in paragraph at lines 124--127
-[]\T1/jkpk/m/n/10 Waqas Khan and Meyer Na-hon.  Dy-nam-ics mod-el-ing of a highly-
- []
-
-[48]
-Underfull \hbox (badness 10000) in paragraph at lines 174--177
+[50]
+Underfull \hbox (badness 10000) in paragraph at lines 192--195
 \T1/jkpk/m/n/10 URL []$\T1/pcr/m/n/10 http : / / ardupilot . org / plane / docs / automatic-[]landing .
  []
 
 
-Underfull \hbox (badness 6792) in paragraph at lines 179--183
+Underfull \hbox (badness 6792) in paragraph at lines 197--201
 []\T1/jkpk/m/n/10 Ardupilot: The open source au-topi-lot.  Ardupi-lot sitl ad-vanced
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 179--183
+Underfull \hbox (badness 10000) in paragraph at lines 197--201
 \T1/jkpk/m/n/10 test-ing, 2019.  URL []$\T1/pcr/m/n/10 http : / / ardupilot . org / dev / docs /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 190--193
+Underfull \hbox (badness 10000) in paragraph at lines 208--211
 \T1/jkpk/m/n/10 URL []$\T1/pcr/m/n/10 http : / / ardupilot . org / plane / docs / navigation-[]tuning .
  []
 
-[49]) (/Users/tobiasfriden/Exjobb/code/report/main.ind) [50]
+[51]) (/Users/tobiasfriden/Exjobb/code/report/main.ind) [52]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 107.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 107.
  (/Users/tobiasfriden/Exjobb/code/report/main.aux (/Users/tobiasfriden/Exjobb/code/report/theory/introduction.aux) (/Users/tobiasfriden/Exjobb/code/report/theory/fixed_wing_uav.aux) (/Users/tobiasfriden/Exjobb/code/report/theory/wind_estimate.aux) (/Users/tobiasfriden/Exjobb/code/report/theory/motion_planning.aux) (/Users/tobiasfriden/Exjobb/code/report/theory/planning_wind.aux) (/Users/tobiasfriden/Exjobb/code/report/theory/optimal_landing.aux) (/Users/tobiasfriden/Exjobb/code/report/theory/implementation.aux) (/Users/tobiasfriden/Exjobb/code/report/theory/results.aux) (/Users/tobiasfriden/Exjobb/code/report/theory/discussion.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 107.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 107.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: EF793A0FB417B753C266B5BA1CB20449;5339.
+(rerunfilecheck)             Checksum: D2493747E2EEBE962C4BBF03E924AFCF;5599.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 107.
  )
 (\end occurred when \ifx on line 17 was incomplete) 
 Here is how much of TeX's memory you used:
- 27382 strings out of 492616
- 516073 string characters out of 6129482
- 634001 words of memory out of 5000000
- 30224 multiletter control sequences out of 15000+600000
+ 27465 strings out of 492616
+ 517657 string characters out of 6129482
+ 635751 words of memory out of 5000000
+ 30279 multiletter control sequences out of 15000+600000
  211092 words of font info for 194 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,14n,89p,624b,1020s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/kpfonts/kpfonts-expert.enc}{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/kpfonts/kpfonts-large-sc.enc}</usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpbmi.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpbmia.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpbn8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpbn8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpbne.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpex.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpkmsc.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmi.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmia.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmit8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmn8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmn8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmne.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmne.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpsy.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpsyb.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpsyc.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on /Users/tobiasfriden/Exjobb/code/report/main.pdf (56 pages, 710871 bytes).
+ 55i,14n,89p,670b,1020s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/kpfonts/kpfonts-expert.enc}{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/kpfonts/kpfonts-large-sc.enc}</usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpbmi.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpbmia.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpbn8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpbn8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpbne.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpex.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpkmsc.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmi.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmia.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmit8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmite.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmn8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmn8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmne.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpmne.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpsy.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpsyb.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/kpfonts/jkpsyc.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
+Output written on /Users/tobiasfriden/Exjobb/code/report/main.pdf (60 pages, 687992 bytes).
 PDF statistics:
- 1157 PDF objects out of 1200 (max. 8388607)
- 1021 compressed objects within 11 object streams
- 325 named destinations out of 1000 (max. 500000)
- 19162 words of extra memory for PDF output out of 20736 (max. 10000000)
+ 1235 PDF objects out of 1440 (max. 8388607)
+ 1092 compressed objects within 11 object streams
+ 351 named destinations out of 1000 (max. 500000)
+ 19183 words of extra memory for PDF output out of 20736 (max. 10000000)
 

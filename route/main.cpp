@@ -58,10 +58,10 @@ int main(int argc, char**argv){
 
     Simulator sim;
 
-    MotionPrimitiveSet primitives;
+    MotionPrimitiveSet primitives(5);
     primitives.load_from_file("../primitives/");
 
-    HLUT hlut;
+    HLUT hlut(5);
     hlut.load_binary("../hlut/");
 
     Obstacles obst(origin, Constants::safety_dist(), "../geodata/single.geojson");
@@ -84,7 +84,9 @@ int main(int argc, char**argv){
         std::cerr << "goal in collision" << std::endl;
     }
     auto path = astar(sim, primitives, hlut, obst, origin, goal, best_hdg, 1);
-    //if(path.size() > 2) path = filter_solution(path);
+    //if(path.size() > 2) path = filter_solution(obst, sim, path);
+    path.pop_back();
+    path.push_back(Coordinate(approach[0].x(), approach[0].y(), 0));
     path.push_back(Coordinate(approach[1].x(), approach[1].y(), 0));
 
     std::ofstream out;

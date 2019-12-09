@@ -39,34 +39,36 @@
 \BOOKMARK [2][-]{subsection.4.3.1}{4.3.1 A-star search}{section.4.3}% 39
 \BOOKMARK [2][-]{subsection.4.3.2}{4.3.2 Hybrid A-star}{section.4.3}% 40
 \BOOKMARK [2][-]{subsection.4.3.3}{4.3.3 Non-holonomic heuristics}{section.4.3}% 41
-\BOOKMARK [0][]{chapter.5}{5 Planning in wind}{}% 42
-\BOOKMARK [1][-]{section.5.1}{5.1 State and input set definition}{chapter.5}% 43
-\BOOKMARK [1][-]{section.5.2}{5.2 Closed-loop model}{chapter.5}% 44
-\BOOKMARK [1][-]{section.5.3}{5.3 Motion Primitives}{chapter.5}% 45
-\BOOKMARK [2][-]{subsection.5.3.1}{5.3.1 Wind compensation}{section.5.3}% 46
-\BOOKMARK [2][-]{subsection.5.3.2}{5.3.2 Ensuring state connectivity}{section.5.3}% 47
-\BOOKMARK [2][-]{subsection.5.3.3}{5.3.3 Optimal control formulation}{section.5.3}% 48
-\BOOKMARK [1][-]{section.5.4}{5.4 Heuristic function}{chapter.5}% 49
-\BOOKMARK [2][-]{subsection.5.4.1}{5.4.1 Cost estimation for straight line-segments}{section.5.4}% 50
-\BOOKMARK [2][-]{subsection.5.4.2}{5.4.2 Cost estimation for arbitrary initial and final heading}{section.5.4}% 51
-\BOOKMARK [0][]{chapter.6}{6 Optimal landing sequences}{}% 52
-\BOOKMARK [1][-]{section.6.1}{6.1 Problem formulation}{chapter.6}% 53
-\BOOKMARK [1][-]{section.6.2}{6.2 Landing sequence}{chapter.6}% 54
-\BOOKMARK [1][-]{section.6.3}{6.3 Finding an optimal sequence}{chapter.6}% 55
-\BOOKMARK [2][-]{subsection.6.3.1}{6.3.1 Determining the approach direction}{section.6.3}% 56
-\BOOKMARK [2][-]{subsection.6.3.2}{6.3.2 Determining the approach points}{section.6.3}% 57
-\BOOKMARK [0][]{chapter.7}{7 Implementation}{}% 58
-\BOOKMARK [1][-]{section.7.1}{7.1 System overview}{chapter.7}% 59
-\BOOKMARK [1][-]{section.7.2}{7.2 Simulation environment}{chapter.7}% 60
-\BOOKMARK [1][-]{section.7.3}{7.3 Obstacle avoidance}{chapter.7}% 61
-\BOOKMARK [1][-]{section.7.4}{7.4 Wind estimation}{chapter.7}% 62
-\BOOKMARK [1][-]{section.7.5}{7.5 Landing sequence calculation}{chapter.7}% 63
-\BOOKMARK [1][-]{section.7.6}{7.6 Motion planner}{chapter.7}% 64
-\BOOKMARK [2][-]{subsection.7.6.1}{7.6.1 Motion Primitive Generation}{section.7.6}% 65
-\BOOKMARK [2][-]{subsection.7.6.2}{7.6.2 State-space discretization}{section.7.6}% 66
-\BOOKMARK [2][-]{subsection.7.6.3}{7.6.3 State expansions}{section.7.6}% 67
-\BOOKMARK [2][-]{subsection.7.6.4}{7.6.4 Heuristic Lookup Table}{section.7.6}% 68
-\BOOKMARK [1][-]{section.7.7}{7.7 Waypoint controller}{chapter.7}% 69
-\BOOKMARK [0][]{chapter.8}{8 Results}{}% 70
-\BOOKMARK [0][]{chapter.9}{9 Discussion}{}% 71
-\BOOKMARK [0][]{appendix*.28}{Bibliography}{}% 72
+\BOOKMARK [2][-]{subsection.4.3.4}{4.3.4 Inflated heuristics and sub-optimality guarantees}{section.4.3}% 42
+\BOOKMARK [0][]{chapter.5}{5 Waypoint-sampling based motion planning in wind}{}% 43
+\BOOKMARK [1][-]{section.5.1}{5.1 Waypoint sampling}{chapter.5}% 44
+\BOOKMARK [2][-]{subsection.5.1.1}{5.1.1 State and input set definition}{section.5.1}% 45
+\BOOKMARK [2][-]{subsection.5.1.2}{5.1.2 State transition function}{section.5.1}% 46
+\BOOKMARK [1][-]{section.5.2}{5.2 Input set generation}{chapter.5}% 47
+\BOOKMARK [2][-]{subsection.5.2.1}{5.2.1 Ensuring state connectivity}{section.5.2}% 48
+\BOOKMARK [2][-]{subsection.5.2.2}{5.2.2 Optimal control formulation}{section.5.2}% 49
+\BOOKMARK [2][-]{subsection.5.2.3}{5.2.3 Guaranteeing robustness during wind variations}{section.5.2}% 50
+\BOOKMARK [1][-]{section.5.3}{5.3 Heuristic function}{chapter.5}% 51
+\BOOKMARK [2][-]{subsection.5.3.1}{5.3.1 Cost estimation for straight line-segments}{section.5.3}% 52
+\BOOKMARK [2][-]{subsection.5.3.2}{5.3.2 Cost estimation for arbitrary initial and final heading}{section.5.3}% 53
+\BOOKMARK [0][]{chapter.6}{6 Robust landing sequences}{}% 54
+\BOOKMARK [1][-]{section.6.1}{6.1 Problem formulation}{chapter.6}% 55
+\BOOKMARK [1][-]{section.6.2}{6.2 Landing sequence}{chapter.6}% 56
+\BOOKMARK [1][-]{section.6.3}{6.3 Finding an optimized sequence}{chapter.6}% 57
+\BOOKMARK [2][-]{subsection.6.3.1}{6.3.1 Determining the approach direction}{section.6.3}% 58
+\BOOKMARK [2][-]{subsection.6.3.2}{6.3.2 Determining the approach points}{section.6.3}% 59
+\BOOKMARK [0][]{chapter.7}{7 Implementation}{}% 60
+\BOOKMARK [1][-]{section.7.1}{7.1 System overview}{chapter.7}% 61
+\BOOKMARK [1][-]{section.7.2}{7.2 Simulation environment}{chapter.7}% 62
+\BOOKMARK [1][-]{section.7.3}{7.3 Obstacle avoidance}{chapter.7}% 63
+\BOOKMARK [1][-]{section.7.4}{7.4 Wind estimation}{chapter.7}% 64
+\BOOKMARK [1][-]{section.7.5}{7.5 Landing sequence calculation}{chapter.7}% 65
+\BOOKMARK [1][-]{section.7.6}{7.6 Motion planner}{chapter.7}% 66
+\BOOKMARK [2][-]{subsection.7.6.1}{7.6.1 Input set generation}{section.7.6}% 67
+\BOOKMARK [2][-]{subsection.7.6.2}{7.6.2 State-space discretization}{section.7.6}% 68
+\BOOKMARK [2][-]{subsection.7.6.3}{7.6.3 State expansions}{section.7.6}% 69
+\BOOKMARK [2][-]{subsection.7.6.4}{7.6.4 Heuristic Lookup Table}{section.7.6}% 70
+\BOOKMARK [1][-]{section.7.7}{7.7 Waypoint controller}{chapter.7}% 71
+\BOOKMARK [0][]{chapter.8}{8 Results}{}% 72
+\BOOKMARK [0][]{chapter.9}{9 Discussion}{}% 73
+\BOOKMARK [0][]{appendix*.37}{Bibliography}{}% 74

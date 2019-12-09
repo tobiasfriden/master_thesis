@@ -20,7 +20,7 @@
 \contentsline {subsection}{\numberline {2.1.2}Attitude representation}{6}{subsection.2.1.2}% 
 \contentsline {subsection}{\numberline {2.1.3}Fixed-wing UAV}{7}{subsection.2.1.3}% 
 \contentsline {section}{\numberline {2.2}Trajectory following}{7}{section.2.2}% 
-\contentsline {subsection}{\numberline {2.2.1}Kinematic model}{8}{subsection.2.2.1}% 
+\contentsline {subsection}{\numberline {2.2.1}Kinematic model}{7}{subsection.2.2.1}% 
 \contentsline {subsection}{\numberline {2.2.2}Straight path following in wind}{8}{subsection.2.2.2}% 
 \contentsline {section}{\numberline {2.3}ArduPlane autopilot}{9}{section.2.3}% 
 \contentsline {subsection}{\numberline {2.3.1}Trajectory controller}{9}{subsection.2.3.1}% 
@@ -39,47 +39,52 @@
 \contentsline {subsection}{\numberline {4.1.1}Graph terminology}{17}{subsection.4.1.1}% 
 \contentsline {subsection}{\numberline {4.1.2}Motion planning terminology}{18}{subsection.4.1.2}% 
 \contentsline {subsection}{\numberline {4.1.3}Differential constraints}{18}{subsection.4.1.3}% 
-\contentsline {section}{\numberline {4.2}Sampling based motion planning}{18}{section.4.2}% 
+\contentsline {section}{\numberline {4.2}Sampling based motion planning}{19}{section.4.2}% 
 \contentsline {subsection}{\numberline {4.2.1}Forward simulation}{19}{subsection.4.2.1}% 
 \contentsline {subsection}{\numberline {4.2.2}Motion primitives}{19}{subsection.4.2.2}% 
 \contentsline {section}{\numberline {4.3}Graph search methods}{20}{section.4.3}% 
 \contentsline {subsection}{\numberline {4.3.1}A-star search}{20}{subsection.4.3.1}% 
-\contentsline {subsection}{\numberline {4.3.2}Hybrid A-star}{20}{subsection.4.3.2}% 
-\contentsline {subsection}{\numberline {4.3.3}Non-holonomic heuristics}{22}{subsection.4.3.3}% 
+\contentsline {subsection}{\numberline {4.3.2}Hybrid A-star}{21}{subsection.4.3.2}% 
+\contentsline {subsection}{\numberline {4.3.3}Non-holonomic heuristics}{21}{subsection.4.3.3}% 
 \contentsline {subsubsection}{Dubin's metric}{22}{section*.12}% 
 \contentsline {subsubsection}{Heuristic Look-Up Table}{22}{section*.13}% 
-\contentsline {chapter}{\numberline {5}Planning in wind}{25}{chapter.5}% 
-\contentsline {section}{\numberline {5.1}State and input set definition}{25}{section.5.1}% 
-\contentsline {section}{\numberline {5.2}Closed-loop model}{25}{section.5.2}% 
-\contentsline {section}{\numberline {5.3}Motion Primitives}{26}{section.5.3}% 
-\contentsline {subsection}{\numberline {5.3.1}Wind compensation}{26}{subsection.5.3.1}% 
-\contentsline {subsubsection}{Handling different winds}{26}{section*.14}% 
+\contentsline {subsection}{\numberline {4.3.4}Inflated heuristics and sub-optimality guarantees}{22}{subsection.4.3.4}% 
+\contentsline {chapter}{\numberline {5}Waypoint-sampling based motion planning in wind}{25}{chapter.5}% 
+\contentsline {section}{\numberline {5.1}Waypoint sampling}{25}{section.5.1}% 
+\contentsline {subsection}{\numberline {5.1.1}State and input set definition}{25}{subsection.5.1.1}% 
+\contentsline {subsection}{\numberline {5.1.2}State transition function}{25}{subsection.5.1.2}% 
+\contentsline {section}{\numberline {5.2}Input set generation}{26}{section.5.2}% 
+\contentsline {subsubsection}{Handling different winds}{27}{section*.14}% 
 \contentsline {subsubsection}{Course and yaw compensation}{27}{section*.15}% 
-\contentsline {subsection}{\numberline {5.3.2}Ensuring state connectivity}{27}{subsection.5.3.2}% 
-\contentsline {subsection}{\numberline {5.3.3}Optimal control formulation}{27}{subsection.5.3.3}% 
+\contentsline {subsection}{\numberline {5.2.1}Ensuring state connectivity}{27}{subsection.5.2.1}% 
+\contentsline {subsection}{\numberline {5.2.2}Optimal control formulation}{27}{subsection.5.2.2}% 
 \contentsline {subsubsection}{Solving the optimal control problem}{28}{section*.16}% 
 \contentsline {subsubsection}{Derivative-free Optimization}{28}{section*.17}% 
-\contentsline {section}{\numberline {5.4}Heuristic function}{28}{section.5.4}% 
-\contentsline {subsection}{\numberline {5.4.1}Cost estimation for straight line-segments}{30}{subsection.5.4.1}% 
-\contentsline {subsection}{\numberline {5.4.2}Cost estimation for arbitrary initial and final heading}{30}{subsection.5.4.2}% 
-\contentsline {chapter}{\numberline {6}Optimal landing sequences}{33}{chapter.6}% 
+\contentsline {subsection}{\numberline {5.2.3}Guaranteeing robustness during wind variations}{28}{subsection.5.2.3}% 
+\contentsline {subsubsection}{Bi-Objective MADS}{30}{section*.19}% 
+\contentsline {section}{\numberline {5.3}Heuristic function}{30}{section.5.3}% 
+\contentsline {subsection}{\numberline {5.3.1}Cost estimation for straight line-segments}{30}{subsection.5.3.1}% 
+\contentsline {subsection}{\numberline {5.3.2}Cost estimation for arbitrary initial and final heading}{31}{subsection.5.3.2}% 
+\contentsline {subsubsection}{Effects of wind variations on heuristic}{31}{section*.22}% 
+\contentsline {chapter}{\numberline {6}Robust landing sequences}{33}{chapter.6}% 
 \contentsline {section}{\numberline {6.1}Problem formulation}{33}{section.6.1}% 
 \contentsline {section}{\numberline {6.2}Landing sequence}{34}{section.6.2}% 
-\contentsline {section}{\numberline {6.3}Finding an optimal sequence}{34}{section.6.3}% 
-\contentsline {subsection}{\numberline {6.3.1}Determining the approach direction}{34}{subsection.6.3.1}% 
+\contentsline {section}{\numberline {6.3}Finding an optimized sequence}{34}{section.6.3}% 
+\contentsline {subsection}{\numberline {6.3.1}Determining the approach direction}{35}{subsection.6.3.1}% 
 \contentsline {subsection}{\numberline {6.3.2}Determining the approach points}{36}{subsection.6.3.2}% 
 \contentsline {chapter}{\numberline {7}Implementation}{37}{chapter.7}% 
 \contentsline {section}{\numberline {7.1}System overview}{37}{section.7.1}% 
 \contentsline {section}{\numberline {7.2}Simulation environment}{37}{section.7.2}% 
-\contentsline {section}{\numberline {7.3}Obstacle avoidance}{37}{section.7.3}% 
+\contentsline {section}{\numberline {7.3}Obstacle avoidance}{38}{section.7.3}% 
 \contentsline {section}{\numberline {7.4}Wind estimation}{38}{section.7.4}% 
 \contentsline {section}{\numberline {7.5}Landing sequence calculation}{38}{section.7.5}% 
-\contentsline {section}{\numberline {7.6}Motion planner}{38}{section.7.6}% 
-\contentsline {subsection}{\numberline {7.6.1}Motion Primitive Generation}{38}{subsection.7.6.1}% 
+\contentsline {section}{\numberline {7.6}Motion planner}{39}{section.7.6}% 
+\contentsline {subsection}{\numberline {7.6.1}Input set generation}{39}{subsection.7.6.1}% 
 \contentsline {subsection}{\numberline {7.6.2}State-space discretization}{39}{subsection.7.6.2}% 
-\contentsline {subsection}{\numberline {7.6.3}State expansions}{39}{subsection.7.6.3}% 
-\contentsline {subsection}{\numberline {7.6.4}Heuristic Lookup Table}{40}{subsection.7.6.4}% 
-\contentsline {section}{\numberline {7.7}Waypoint controller}{40}{section.7.7}% 
+\contentsline {subsection}{\numberline {7.6.3}State expansions}{40}{subsection.7.6.3}% 
+\contentsline {subsubsection}{Handling perpendicular winds}{40}{section*.30}% 
+\contentsline {subsection}{\numberline {7.6.4}Heuristic Lookup Table}{41}{subsection.7.6.4}% 
+\contentsline {section}{\numberline {7.7}Waypoint controller}{41}{section.7.7}% 
 \contentsline {chapter}{\numberline {8}Results}{43}{chapter.8}% 
-\contentsline {chapter}{\numberline {9}Discussion}{45}{chapter.9}% 
-\contentsline {chapter}{Bibliography}{47}{appendix*.28}% 
+\contentsline {chapter}{\numberline {9}Discussion}{47}{chapter.9}% 
+\contentsline {chapter}{Bibliography}{49}{appendix*.37}% 

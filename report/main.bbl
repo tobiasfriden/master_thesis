@@ -1,4 +1,4 @@
-\begin{thebibliography}{38}
+\begin{thebibliography}{41}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -38,6 +38,13 @@ Charles Audet and J.~Dennis.
 \newblock \emph{SIAM Journal on Optimization}, 17:\penalty0 188--217, 01 2006.
 \newblock \doi{10.1137/060671267}.
 
+\bibitem[Audet et~al.(2008)Audet, Savard, and Zghal]{bi_mads}
+Charles Audet, Gilles Savard, and Walid Zghal.
+\newblock Multiobjective optimization through a series of single-objective
+  formulations.
+\newblock \emph{SIAM Journal on Optimization}, 19\penalty0 (1):\penalty0
+  188--210, 2008.
+
 \bibitem[Bauelos-Ruedas et~al.(2011)Bauelos-Ruedas, Angeles-Camacho, and
   Rios-Marcuello]{wind_hellman}
 Francisco Bauelos-Ruedas, Cesar Angeles-Camacho, and Sebastian Rios-Marcuello.
@@ -52,6 +59,11 @@ Francisco Bauelos-Ruedas, Cesar Angeles-Camacho, and Sebastian Rios-Marcuello.
 Kristoffer Bergman.
 \newblock On motion planning using numerical optimal control, 2019.
 \newblock ISSN 0280-7971.
+
+\bibitem[Bondy et~al.(1976)]{graph_theory}
+John~Adrian Bondy et~al.
+\newblock \emph{Graph theory with applications}, volume 290.
+\newblock 1976.
 
 \bibitem[Brezoescu(2013)]{uav_dynamics_wind}
 Cornel-Alexandru Brezoescu.
@@ -120,11 +132,6 @@ L.~E. {Kavraki}, P.~{Svestka}, J.~. {Latombe}, and M.~H. {Overmars}.
   (4):\penalty0 566--580, Aug 1996.
 \newblock \doi{10.1109/70.508439}.
 
-\bibitem[Khan and Nahon(2013)]{uav_dynamics_modeling}
-Waqas Khan and Meyer Nahon.
-\newblock Dynamics modeling of a highly-maneuverable fixed-wing uav.
-\newblock 04 2013.
-
 \bibitem[{Knepper} and {Kelly}(2006)]{hlut}
 R.~A. {Knepper} and A.~{Kelly}.
 \newblock High performance state lattice planning using heuristic look-up
@@ -163,6 +170,12 @@ D.~{Lee} and D.~H. {Shim}.
   (ICUAS)}, pages 317--328, May 2014.
 \newblock \doi{10.1109/ICUAS.2014.6842270}.
 
+\bibitem[Likhachev et~al.(2004)Likhachev, Gordon, and Thrun]{anytime_astar}
+Maxim Likhachev, Geoffrey~J Gordon, and Sebastian Thrun.
+\newblock Ara*: Anytime a* with provable bounds on sub-optimality.
+\newblock In \emph{Advances in neural information processing systems}, pages
+  767--774, 2004.
+
 \bibitem[Mcgee et~al.(2005)Mcgee, Spry, and Hedrick]{optimal_path_target}
 Timothy Mcgee, Stephen Spry, and J~Hedrick.
 \newblock Optimal path planning in a constant wind with a bounded turning rate.
@@ -170,25 +183,30 @@ Timothy Mcgee, Stephen Spry, and J~Hedrick.
   Control Conference}, 5, 08 2005.
 \newblock \doi{10.2514/6.2005-6186}.
 
-\bibitem[open~source autopilot(2019{\natexlab{a}})]{ardupilot_land}
+\bibitem[open~source autopilot(2019{\natexlab{a}})]{ardupilot_auto}
 Ardupilot:~The open~source autopilot.
-\newblock Arduplane automatic landing, 2019{\natexlab{a}}.
+\newblock Arduplane auto flight mode, 2019{\natexlab{a}}.
+\newblock URL \url{http://ardupilot.org/plane/docs/auto-mode.html}.
+
+\bibitem[open~source autopilot(2019{\natexlab{b}})]{ardupilot_land}
+Ardupilot:~The open~source autopilot.
+\newblock Arduplane automatic landing, 2019{\natexlab{b}}.
 \newblock URL \url{http://ardupilot.org/plane/docs/automatic-landing.html}.
 
-\bibitem[open~source autopilot(2019{\natexlab{b}})]{ardupilot_sitl}
+\bibitem[open~source autopilot(2019{\natexlab{c}})]{ardupilot_sitl}
 Ardupilot:~The open~source autopilot.
-\newblock Ardupilot sitl advanced testing, 2019{\natexlab{b}}.
+\newblock Ardupilot sitl advanced testing, 2019{\natexlab{c}}.
 \newblock URL
   \url{http://ardupilot.org/dev/docs/using-sitl-for-ardupilot-testing.html}.
 
-\bibitem[open~source autopilot(2019{\natexlab{c}})]{arduplane}
+\bibitem[open~source autopilot(2019{\natexlab{d}})]{arduplane}
 Ardupilot:~The open~source autopilot.
-\newblock Arduplane, 2019{\natexlab{c}}.
+\newblock Arduplane, 2019{\natexlab{d}}.
 \newblock URL \url{http://ardupilot.org/plane/index.html}.
 
-\bibitem[open~source autopilot(2019{\natexlab{d}})]{arduplane_l1}
+\bibitem[open~source autopilot(2019{\natexlab{e}})]{arduplane_l1}
 Ardupilot:~The open~source autopilot.
-\newblock Arduplane: Navigation tuning, 2019{\natexlab{d}}.
+\newblock Arduplane: Navigation tuning, 2019{\natexlab{e}}.
 \newblock URL \url{http://ardupilot.org/plane/docs/navigation-tuning.html}.
 
 \bibitem[Park et~al.()Park, Deyst, and How]{l1_controller}
@@ -201,6 +219,14 @@ Sanghyuk Park, John Deyst, and Jonathan How.
 Linnea Persson.
 \newblock Cooperative control for landing a fixed-wing unmanned aerial vehicle
   on a ground vehicle, 2016.
+
+\bibitem[Pivtoraiko et~al.(2009)Pivtoraiko, Knepper, and
+  Kelly]{state_lattice_planning}
+Mihail Pivtoraiko, Ross~A Knepper, and Alonzo Kelly.
+\newblock Differentially constrained mobile robot motion planning in state
+  lattices.
+\newblock \emph{Journal of Field Robotics}, 26\penalty0 (3):\penalty0 308--333,
+  2009.
 
 \bibitem[Rios and Sahinidis(2013)]{derivative_free_opt}
 Luis~Miguel Rios and Nikolaos~V. Sahinidis.
@@ -230,12 +256,6 @@ Martin Selecky, Petr Váňa, Milan Rollo, and Tomas Meiser.
 \newblock \emph{International Journal of Advanced Robotic Systems},
   10:\penalty0 1, 05 2013.
 \newblock \doi{10.5772/56455}.
-
-\bibitem[Simon(2017)]{fighter_aircraft_mpc}
-Daniel Simon.
-\newblock \emph{Fighter Aircraft Maneuver Limiting Using MPC - Theory and
-  Application}.
-\newblock PhD thesis, 09 2017.
 
 \bibitem[Techy and Woolsey(2009)]{optimal_path_trochoidal}
 Laszlo Techy and Craig Woolsey.

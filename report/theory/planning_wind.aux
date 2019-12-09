@@ -1,41 +1,51 @@
 \relax 
 \providecommand\hyper@newdestlabel[2]{}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Planning in wind}{25}{chapter.5}\protected@file@percent }
+\citation{hybrid_astar}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Waypoint-sampling based motion planning in wind}{25}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{cha:motion_planning_fw}{{5}{25}{Planning in wind}{chapter.5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}State and input set definition}{25}{section.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Closed-loop model}{25}{section.5.2}\protected@file@percent }
-\newlabel{eq:eta_first}{{5.4}{25}{Closed-loop model}{equation.5.2.4}{}}
-\newlabel{eq:eta_last}{{5.6}{26}{Closed-loop model}{equation.5.2.6}{}}
-\newlabel{eq:saturation}{{5.8}{26}{Closed-loop model}{equation.5.2.8}{}}
-\newlabel{eq:closed_loop}{{5.9}{26}{Closed-loop model}{equation.5.2.9}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}Motion Primitives}{26}{section.5.3}\protected@file@percent }
-\newlabel{sec:motion_prims_wind}{{5.3}{26}{Motion Primitives}{section.5.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}Wind compensation}{26}{subsection.5.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Handling different winds}{26}{section*.14}\protected@file@percent }
+\newlabel{cha:motion_planning_fw}{{5}{25}{Waypoint-sampling based motion planning in wind}{chapter.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Waypoint sampling}{25}{section.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.1}State and input set definition}{25}{subsection.5.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.2}State transition function}{25}{subsection.5.1.2}\protected@file@percent }
+\newlabel{eq:eta_first}{{5.4}{26}{State transition function}{equation.5.1.4}{}}
+\newlabel{eq:eta_last}{{5.6}{26}{State transition function}{equation.5.1.6}{}}
+\newlabel{eq:saturation}{{5.8}{26}{State transition function}{equation.5.1.8}{}}
+\newlabel{eq:closed_loop}{{5.9}{26}{State transition function}{equation.5.1.9}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Input set generation}{26}{section.5.2}\protected@file@percent }
+\newlabel{sec:motion_prims_wind}{{5.2}{26}{Input set generation}{section.5.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Handling different winds}{27}{section*.14}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{Course and yaw compensation}{27}{section*.15}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}Ensuring state connectivity}{27}{subsection.5.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.3}Optimal control formulation}{27}{subsection.5.3.3}\protected@file@percent }
-\newlabel{eq:opt_problem_mp_uav}{{5.12}{27}{Optimal control formulation}{equation.5.3.12}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}Ensuring state connectivity}{27}{subsection.5.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.2}Optimal control formulation}{27}{subsection.5.2.2}\protected@file@percent }
+\newlabel{eq:opt_problem_mp_uav}{{5.12}{27}{Optimal control formulation}{equation.5.2.12}{}}
 \citation{Bergman_lic}
 \citation{derivative_free_opt}
 \citation{mads}
+\citation{bi_mads}
 \@writefile{toc}{\contentsline {subsubsection}{Solving the optimal control problem}{28}{section*.16}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{Derivative-free Optimization}{28}{section*.17}\protected@file@percent }
-\newlabel{eq:derivative_free_opt}{{5.13}{28}{Derivative-free Optimization}{equation.5.3.13}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Heuristic function}{28}{section.5.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Contour plot of optimization objective $J$\relax }}{29}{figure.caption.18}\protected@file@percent }
-\newlabel{fig:opt_contour}{{5.1}{29}{Contour plot of optimization objective $J$\relax }{figure.caption.18}{}}
+\newlabel{eq:derivative_free_opt}{{5.13}{28}{Derivative-free Optimization}{equation.5.2.13}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.3}Guaranteeing robustness during wind variations}{28}{subsection.5.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Contour plot of optimization objective $J$ and simulated trajectory for optimal input $u$. $V_a=14$ m/s, $W=5$ m/s, $\psi _w=0\ensuremath  {\SI@fstyle  {\no@qsk  \ensuremath  {^{\circ }}}}$, $\psi _d=90\ensuremath  {\SI@fstyle  {\no@qsk  \ensuremath  {^{\circ }}}}$, $\Delta \psi _{min}=10\ensuremath  {\SI@fstyle  {\no@qsk  \ensuremath  {^{\circ }}}}$ and $x_i=(0, 0, 0\ensuremath  {\SI@fstyle  {\no@qsk  \ensuremath  {^{\circ }}}})$.\relax }}{29}{figure.caption.18}\protected@file@percent }
+\newlabel{fig:opt_contour}{{5.1}{29}{Contour plot of optimization objective $J$ and simulated trajectory for optimal input $u$. $V_a=14$ m/s, $W=5$ m/s, $\psi _w=0\degree $, $\psi _d=90\degree $, $\Delta \psi _{min}=10\degree $ and $x_i=(0, 0, 0\degree )$.\relax }{figure.caption.18}{}}
+\citation{bi_mads}
+\@writefile{toc}{\contentsline {subsubsection}{Bi-Objective MADS}{30}{section*.19}\protected@file@percent }
+\newlabel{eq:bi_mads}{{5.14}{30}{Bi-Objective MADS}{equation.5.2.14}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Heuristic function}{30}{section.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}Cost estimation for straight line-segments}{30}{subsection.5.3.1}\protected@file@percent }
+\newlabel{sec:straight_path_heuristic}{{5.3.1}{30}{Cost estimation for straight line-segments}{subsection.5.3.1}{}}
 \citation{optimal_path_target}
 \citation{optimal_path_trochoidal}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.1}Cost estimation for straight line-segments}{30}{subsection.5.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.2}Cost estimation for arbitrary initial and final heading}{30}{subsection.5.4.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Projection of queries on HLUT\relax }}{31}{figure.caption.19}\protected@file@percent }
-\newlabel{fig:hlut_proj}{{5.2}{31}{Projection of queries on HLUT\relax }{figure.caption.19}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Projection of queries on HLUT\relax }}{31}{figure.caption.21}\protected@file@percent }
+\newlabel{fig:hlut_proj}{{5.2}{31}{Projection of queries on HLUT\relax }{figure.caption.21}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}Cost estimation for arbitrary initial and final heading}{31}{subsection.5.3.2}\protected@file@percent }
+\@writefile{tdo}{\contentsline {todo}{F\IeC {\"o}rb\IeC {\"a}ttra projektionsmetoden (garantera admissible?)}{31}{section*.20}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Effects of wind variations on heuristic}{31}{section*.22}\protected@file@percent }
+\newlabel{eq:wind_heuristic_eps}{{5.21}{32}{Effects of wind variations on heuristic}{equation.5.3.21}{}}
 \@setckpt{theory/planning_wind}{
-\setcounter{page}{32}
-\setcounter{equation}{17}
+\setcounter{page}{33}
+\setcounter{equation}{21}
 \setcounter{enumi}{2}
 \setcounter{enumii}{0}
 \setcounter{enumiii}{0}
@@ -45,14 +55,14 @@
 \setcounter{rt@toplevel}{0}
 \setcounter{part}{0}
 \setcounter{chapter}{5}
-\setcounter{section}{4}
+\setcounter{section}{3}
 \setcounter{subsection}{2}
 \setcounter{subsubsection}{0}
 \setcounter{paragraph}{0}
 \setcounter{subparagraph}{0}
 \setcounter{figure}{2}
 \setcounter{table}{0}
-\setcounter{parentequation}{13}
+\setcounter{parentequation}{14}
 \setcounter{CPROT@family}{1}
 \setcounter{CPROT@family@temp}{0}
 \setcounter{CPROT@series}{2}
@@ -63,11 +73,11 @@
 \setcounter{CPROT@size@temp}{0}
 \setcounter{CPROT@temp@chars}{0}
 \setcounter{float@type}{8}
-\setcounter{NAT@ctr}{38}
+\setcounter{NAT@ctr}{41}
 \setcounter{caption@flags}{0}
 \setcounter{ContinuedFloat}{0}
 \setcounter{Item}{2}
-\setcounter{bookmark@seq@number}{51}
+\setcounter{bookmark@seq@number}{53}
 \setcounter{lofdepth}{1}
 \setcounter{lotdepth}{1}
 \setcounter{KVtest}{1}
@@ -90,6 +100,6 @@
 \setcounter{ALG@blocknr}{10}
 \setcounter{ALG@storecount}{0}
 \setcounter{ALG@tmpcounter}{0}
-\setcounter{@todonotes@numberoftodonotes}{0}
-\setcounter{section@level}{2}
+\setcounter{@todonotes@numberoftodonotes}{1}
+\setcounter{section@level}{3}
 }

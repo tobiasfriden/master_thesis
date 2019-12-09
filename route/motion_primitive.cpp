@@ -1,5 +1,35 @@
 #include "motion_primitive.h"
 
+Vector2_i grid_search(int num_cells, int step, float wind_dir, float goal_hdg){
+    int best_x = step;
+    int best_y = step;
+    float cost;
+    float best_cost = std::numeric_limits<float>().max();
+    float best_yaw = 0;
+    Vector2_d start(0, 0);
+    Vector2_d goal;
+    Simulator sim;
+    for(int i=-num_cells; i<=num_cells; i++){
+        for(int j=1; j<=num_cells; j++){
+            sim.reset(0, 0, 0);
+            goal = Vector2_d(i*step, j*step);
+            cost = sim.simulate_waypoints(start, goal);
+            cost += fabs(sim.xtrack_error())*Constants::xtrack_w();
+            double hdg_error = std::abs(sim.path_bearing() - goal_hdg);
+            hdg_error = std::min(hdg_error, std::abs(360-hdg_error));
+            if(hdg_error < Constants::hdg_error() &&
+               std::abs(sim.xtrack_error()) < Constants::xtrack_error() &&
+               cost < best_cost){
+                best_cost = cost;
+                best_x = step*i;
+                best_y = step*j;
+                best_yaw = sim.yaw();
+            }
+        }
+    }
+    return Vector2_i(best_x, best_y);
+}
+
 void MotionPrimitiveSet::generate(bool log){
     std::ofstream os;
     NOMAD::Display out(os);
@@ -12,9 +42,11 @@ void MotionPrimitiveSet::generate(bool log){
             int goal_hdg = i*Constants::prim_hdg_size;
             int wind_dir = j*20;
             
-            Vector2_d offset(cosf(to_rad(goal_hdg)), sinf(to_rad(goal_hdg)));
-            offset *= 100;
             NOMAD::Point x0(2);
+            Vector2_i offset = grid_search(30, 10, wind_dir, goal_hdg);
+            if(offset == Vector2_i(10, 10)){
+                std::cout << "grid search failed: " << wind_dir << " " << goal_hdg << std::endl;
+            }
             x0[0] = offset[0];
             x0[1] = fmax(offset[1], 0);
             p.set_X0(x0);
@@ -32,17 +64,18 @@ void MotionPrimitiveSet::generate(bool log){
                 Constants::yrate()
             );
             se.set_goal(goal_hdg, Constants::hdg_error(), Constants::xtrack_error());
-            auto res = mads.run();
-            auto sol = mads.get_best_feasible();
-            if(res == NOMAD::stop_type::DELTA_M_MIN_REACHED && sol){
+            mads.multi_run();
+            auto front = mads.get_pareto_front();
+            if(!front -> empty()){
+                Vector2_d best_wp = se.get_best_pareto_point(front);
                 se.sim.reset(0, 0, 0);
-                double cost = se.sim.simulate_waypoints(Vector2_d(0, 0), Vector2_d(sol->value(0), sol->value(1)));
+                double cost = se.sim.simulate_waypoints(Vector2_d(0, 0), best_wp);
                 save(MotionPrimitive(
                     se.sim.pos().x(),
                     se.sim.pos().y(),
                     se.sim.path_bearing(),
-                    sol->value(0),
-                    sol->value(1),
+                    best_wp.x(),
+                    best_wp.y(),
                     cost,
                     goal_hdg,
                     wind_dir
@@ -99,11 +132,36 @@ void MotionPrimitiveSet::load_from_file(std::string base_path){
     in.close();
 }
 
+void MotionPrimitiveSet::save_visual(std::string path, double wind_dir, double wind_scale){
+    Simulator sim(Constants::airspeed(), wind_scale*Constants::wind_spd(), wind_dir, Constants::yrate());
+
+    std::ofstream out(path);
+
+    std::vector<Vector2_d> traj;
+    Vector2_d origin(0, 0);
+    for(auto exp : get_expansions(0, wind_dir)){
+        traj.clear();
+        sim.reset(0, 0, 0);
+        out << exp.x() << "," << exp.y() << " ";
+        sim.simulate_waypoints(origin, exp, traj);
+        for(auto point : traj){
+            out << point.x() << "," << point.y() << " ";
+        }
+        out << std::endl;
+    }
+}
+
 std::vector<Vector2_d> MotionPrimitiveSet::get_expansions(double heading, int wind_dir) const {
     std::vector<Vector2_d> expansions;
     double heading_diff = wind_dir - heading;
     int closest_wind = closest_wind_dir(heading_diff);
     int inverse_closest_wind = closest_wind_dir(360-heading_diff);
+
+    heading_diff = std::min(heading_diff, std::abs(360-heading_diff));
+    int prim_headings = Constants::prim_headings;
+    if(std::abs(std::sin(to_rad(heading_diff))) > M_SQRT1_2){
+        prim_headings = Constants::prim_headings_safe;
+    }
 
     // Forward primitive
     std::vector<int> forward_expansions{25, 50, 75, 100};
@@ -113,7 +171,7 @@ std::vector<Vector2_d> MotionPrimitiveSet::get_expansions(double heading, int wi
 
     MotionPrimitive mp(closest_wind);
     MotionPrimitive mp_inverse(inverse_closest_wind);
-    for(int i=1; i<=Constants::prim_headings; i++){
+    for(int i=1; i<=prim_headings; i++){
         int goal_hdg = i*Constants::prim_hdg_size;
         mp.set_goal_hdg(goal_hdg);
         mp_inverse.set_goal_hdg(goal_hdg);
@@ -135,6 +193,13 @@ std::vector<MotionPrimitive> MotionPrimitiveSet::get_mp_expansions(double headin
     double heading_diff = wind_dir - heading;
     int closest_wind = closest_wind_dir(heading_diff);
     int inverse_closest_wind = closest_wind_dir(360-heading_diff);
+
+    heading_diff = std::min(heading_diff, std::abs(360-heading_diff));
+    int prim_headings = Constants::prim_headings;
+    if(std::abs(std::sin(to_rad(heading_diff))) > M_SQRT1_2){
+        prim_headings = Constants::prim_headings_safe;
+    }
+
     std::vector<int> forward_expansions{10};
     Vector2_d origin(0, 0);
     for(auto i : forward_expansions){
@@ -160,7 +225,7 @@ std::vector<MotionPrimitive> MotionPrimitiveSet::get_mp_expansions(double headin
     MotionPrimitive mp(closest_wind);
     MotionPrimitive mp_inverse(inverse_closest_wind);
 
-    for(int i=1; i<=Constants::prim_headings; i++){
+    for(int i=1; i<=prim_headings; i++){
         int goal_hdg = i*Constants::prim_hdg_size;
         mp.set_goal_hdg(goal_hdg);
         mp_inverse.set_goal_hdg(goal_hdg);

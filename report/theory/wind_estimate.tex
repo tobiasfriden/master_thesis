@@ -2,11 +2,11 @@
 \section{Wind field definition}
 The wind field is commonly defined as a time and spatially dependent vector field
 \begin{equation}
-    \vec{w}(p_N,p_E,p_H,t)=
+    \vec{w}(x_N,y_E,z_H,t)=
     \begin{bmatrix}
-        w_N(p_N,p_E,p_H,t) \\
-        w_E(p_N,p_E,p_H,t) \\
-        w_H(p_N,p_E,p_H,t)
+        w_N(x_N,y_E,z_H,t) \\
+        w_E(x_N,y_E,z_H,t) \\
+        w_H(x_N,y_E,z_H,t)
     \end{bmatrix}
 \end{equation}
 In this thesis, the vertical component $w_H$ will be neglected and the wind vector is written as 
@@ -61,7 +61,7 @@ computed directly as
 where $\mathcal{R}^I_B$ is given by Equation \eqref{eq:r_i_b}. Assuming level flight, it is shown in \cite{wind_direct_computation} that 
 the measurement error is
 \begin{equation}
-    e^2=\sigma_{\dot{p}_N}^2+\sigma_{\dot{p}_E}^2+\sigma_{\dot{p}_H}^2+\sigma_{V_a}^2 + V_a^2(\sigma_{\theta}^2+\sigma_{\alpha}^2+\sigma_{\beta}^2+\sigma_{\psi}^2)
+    e^2=\sigma_{\dot{x}_N}^2+\sigma_{\dot{y}_E}^2+\sigma_{\dot{z}_H}^2+\sigma_{V_a}^2 + V_a^2(\sigma_{\theta}^2+\sigma_{\alpha}^2+\sigma_{\beta}^2+\sigma_{\psi}^2)
 \end{equation}
 In standard unaided GPS systems, the measurement error is approximately 0.1 m/s. Assuming the measurement error of $V_a$ is 0.2 m/s and angles 
 can be measured up to $1\degree$ precision, the error becomes $e^2=0.07+0.0012V_a^2$. If the airspeed is 16 m/s this corresponds to a measurement error of 

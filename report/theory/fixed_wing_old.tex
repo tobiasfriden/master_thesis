@@ -17,9 +17,9 @@ will be made apparent when formulating the dynamic equations.
     The inertial frame, denoted with subscript $I$ is fixed relative to the earth.
     A position vector in the intertial frame is defined in the NED order as
     \begin{equation}
-        \vec{p}_I = (p_N, p_E, -p_H)
+        \vec{p}_I = (x_N, y_E, -z_H)
     \end{equation}
-    where $p_N$ points in the north direction, $p_E$ points east and $p_H$ points down towards the earth,
+    where $x_N$ points in the north direction, $y_E$ points east and $z_H$ points down towards the earth,
     in order to form a right hand positive coordinate system.
 \end{definition}
 
@@ -236,11 +236,11 @@ separately, where \textit{longitudal} denotes movement in the vertical plane and
 \textit{lateral} denotes movement out of the vertical plane. The decoupled state
 vectors are given by
 \begin{equation}
-    \vec{x}_{lng}=(p_N, p_H, u, w, \theta, q)
+    \vec{x}_{lng}=(x_N, z_H, u, w, \theta, q)
 \end{equation}
 and
 \begin{equation}
-    \vec{x}_{lat}=(p_E, v, \phi, \psi, p, r)
+    \vec{x}_{lat}=(y_E, v, \phi, \psi, p, r)
 \end{equation}
 By introducing the polar inertial components $(V, \gamma)$ and writing the dynamic equations
 in the wind reference frame the longitudal dynamics become
@@ -250,9 +250,9 @@ in the wind reference frame the longitudal dynamics become
     \dot{q}&=\frac{M_y}{I_{yy}} \\
     \dot{\alpha}&=\dot{\theta}-\dot{\gamma}=q-\frac{1}{mV}[T\sin\alpha + L - mg\cos\gamma]
 \end{align}
-Assuming level flight in the longitudal direction, i. e. $u$, $V$ and $p_H$ are constant, the lateral dynamics can be formulated as
+Assuming level flight in the longitudal direction, i. e. $u$, $V$ and $z_H$ are constant, the lateral dynamics can be formulated as
 \begin{align}
-    \dot{p}_E &= u\sin\psi + v\cos\phi\cos\psi \\
+    \dot{y}_E &= u\sin\psi + v\cos\phi\cos\psi \\
     \dot{\psi} &= r\cos\phi \\
     \dot{\phi} &= p \\
     \dot{v} &= \frac{Y_B}{m} + g\sin\phi - ru \\

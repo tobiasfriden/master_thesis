@@ -110,8 +110,10 @@ public:
     void generate(bool log=false);
     void save_to_file(std::string base_path);
     void load_from_file(std::string base_path);
+    void save_visual(std::string path, double wind_dir, double wind_scale);
 
     void save(const MotionPrimitive& mp);
+    
     
     std::vector<Vector2_d> get_expansions(double heading, int wind_dir) const;
     std::vector<MotionPrimitive> get_mp_expansions(double heading, int wind_dir) const;

@@ -13,6 +13,9 @@ namespace Constants{
     double wind_spd(){
         return read_env("WIND_SPD");
     }
+    double wind_error(){
+        return read_env("WIND_ERROR");
+    }
     double airspeed(){
         return read_env("AIRSPEED");
     }
@@ -20,17 +23,24 @@ namespace Constants{
         return read_env("YRATE");
     }
 
-    // Optimization constraints
+    // Optimization
     double xtrack_error(){
         return read_env("XTRACK_ERROR");
+    }
+    double xtrack_w(){
+        return read_env("XTRACK_W");
     }
     double hdg_error(){
         return read_env("HDG_ERROR");
     }
+    double hdg_w(){
+        return read_env("HDG_W");
+    }
 
     // Primitives
     static const int prim_hdg_size = 10;
-    static const int prim_headings = 16;
+    static const int prim_headings = 9;
+    static const int prim_headings_safe = 16;
 
     // Grid definition
     static const double cell_size = 10;
@@ -59,8 +69,14 @@ namespace Constants{
     double flare_sink(){
         return read_env("FLARE_SINK");
     }
+    double flare_sink_real(){
+        return read_env("FLARE_SINK_REAL");
+    }
     double flare_alt(){
         return read_env("FLARE_ALT");
+    }
+    double flare_sec(){
+        return read_env("FLARE_SEC");
     }
     double max_sink(){
         return read_env("MAX_SINK");

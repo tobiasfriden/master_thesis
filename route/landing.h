@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <s2/s2latlng.h>
-#include <casadi/core/optistack.hpp>
+#include <casadi/casadi.hpp>
 
 #include "geo_utils.h"
 #include "constants.h"
@@ -21,6 +21,8 @@ public:
         _height{height},
         _rotation{rotation},
         _flare_sink{Constants::flare_sink()},
+        _flare_sink_real{Constants::flare_sink_real()},
+        _flare_sec{Constants::flare_sec()},
         _max_sink{Constants::max_sink()},
         _flare_h{Constants::flare_alt()},
         _wind_spd{Constants::wind_spd()},
@@ -68,8 +70,10 @@ private:
     
     // Landing params
     double _flare_sink;
+    double _flare_sink_real;
     double _max_sink;
     double _flare_h;
+    double _flare_sec;
 };
 
 

@@ -1,1 +1,1 @@
-/usr/bin/c++    -rdynamic CMakeFiles/sim.dir/sim.cpp.o  -o sim -Wl,-rpath,/code/build:/code/build/s2geometry libsimulation.so s2geometry/libs2.so -lssl -lcrypto -lpthread 
+/usr/bin/c++    -rdynamic CMakeFiles/sim.dir/sim.cpp.o  -o sim -Wl,-rpath,/code/build:/code/build/s2geometry:/nomad/builds/release/lib libopt.so libsimulation.so s2geometry/libs2.so -lssl -lcrypto -lpthread /nomad/builds/release/lib/libnomad.so 

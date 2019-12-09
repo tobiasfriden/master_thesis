@@ -1,4 +1,5 @@
-\chapter{Optimal landing sequences}\label{cha:landing}
+\chapter{Robust landing sequences}\label{cha:landing}
+\todo[inline]{Hantera osäkerhet i vind samt vindvariationer vid olika höjd}
 \section{Problem formulation}
 In many previous works, the problem of landing a fixed-wing UAV on a runway is studied. However, small and light-weight UAVs such as the ones studied 
 in this thesis can land in any area as long as the ground is flat enough. The issue is instead that there might be obstacles such as trees around the landing area which limit the possible 
@@ -27,7 +28,7 @@ approach directions. Wind also plays an essential role since landing downwind en
     \label{fig:land}          
 \end{figure}
 
-The problem of landing is thus defined as finding the optimal inputs which lands the UAV as close to the center as possible in a pre-defined landing area $\mathcal{A}$. The landing area is 
+The problem of landing is thus defined as finding the inputs which lands the UAV as close to the center as possible in a pre-defined landing area $\mathcal{A}$. The landing area is 
 defined as a rectangular region with walls of height $h_A$, and to ensure safe landing the UAV must enter $\mathcal{A}$ above this altitude. 
 There might also be obstacle regions $\mathcal{X}_{obst}$ around the landing area where the UAV is not permitted to fly. The problem definition is illustrated in Figure \ref{fig:land}.
 
@@ -39,7 +40,7 @@ define an approach direction $\psi_L$. The landing velocity $V_L$ depends on $\p
 \end{equation}
 The landing sequence is divided into a approach phase and a flare phase. During the approach phase, the UAV will try to 
 achieve the sink rate 
-\begin{equation}
+\begin{equation}\label{eq:sink_rate}
     \dot{h}=\frac{h_0-h_{flare}}{\|\vec{p}_A-\vec{p}_L\|-R_{flare}}V_L
 \end{equation}
 where $h_0$ is the initial altitude, $h_{flare}$ is the flare altitude and $R_{flare}$ is the flare distance.
@@ -49,7 +50,7 @@ In this mode it instead tries to achieve a pre-defined target descent rate
     \dot{h}=\dot{h}_{flare}
 \end{equation}
 which means that the flare distance is given by
-\begin{equation}\label{eq:r_flare}
+\begin{equation}\label{eq:R_{flare}lare}
     R_{flare}=h_{flare}\frac{V_L}{\dot{h}_{flare}}
 \end{equation}
 Due to physical limitations in the system, the landing sequence has to be defined such that 
@@ -58,10 +59,10 @@ Due to physical limitations in the system, the landing sequence has to be define
 \end{equation}
 for some constant $\dot{h}_{max}$ during the initial portion before the flare.
 
-\section{Finding an optimal sequence}
+\section{Finding an optimized sequence}
 Since the goal of the landing sequence is to land as closely as possible to the center point $\vec{p}_c$ of the landing area $\mathcal{A}$, any 
-optimal sequence will be defined by placing $\vec{p}_A$ and $\vec{p}_L$ along a line which passes through $\vec{p}_C$ and points in the direction given by $\psi_L$.
-This fact can be used to divide the problem in two parts, where first the optimal $\psi_L$ is determined and then $\vec{p}_A$ and $\vec{p}_L$ based on the chosen direction.
+optimized sequence will be defined by placing $\vec{p}_A$ and $\vec{p}_L$ along a line which passes through $\vec{p}_C$ and points in the direction given by $\psi_L$.
+This fact can be used to divide the problem in two parts, where first the optimized $\psi_L$ is determined and then $\vec{p}_A$ and $\vec{p}_L$ based on the chosen direction.
 
 \begin{figure}
     \begin{center}
@@ -99,7 +100,7 @@ This fact can be used to divide the problem in two parts, where first the optima
             \draw[my_v] (2, 4) -- node[left]{$\vec{w}$} ++ (0,-1);
         \end{tikzpicture}
     \end{center}
-    \caption{Variables to determine optimal landing sequence}
+    \caption{Variables to determine optimized landing sequence}
     \label{fig:opt_landing}
 \end{figure}
 
@@ -119,9 +120,9 @@ To ensure landing in $\mathcal{A}$ it is thus required that
 \begin{equation}
     \|\vec{p}_1-\vec{p}_2\|\geq R_{min}+R_{flare}
 \end{equation}
-where $R_{flare}$ is given by Equation \eqref{eq:r_flare}. To ensure the second constraint, a simple approach is to 
+where $R_{flare}$ is given by Equation \eqref{eq:R_{flare}lare}. To ensure the second constraint, a simple approach is to 
 create lines starting in $\vec{p}_1$ with length $K(R_{min}+R_{flare})$ and direction $\psi_L+180\degree$ for some $K\geq0$ and different discrete values of $\psi_L$. 
-The set of feasible approach directions $\{\psi_{L}\}_{feas}$ can then be found by checking each corresponding line for intersections with $\mathcal{X}_{obst}$. Finally, the optimal approach direction is 
+The set of feasible approach directions $\{\psi_{L}\}_{feas}$ can then be found by checking each corresponding line for intersections with $\mathcal{X}_{obst}$. Finally, the optimized approach direction is 
 chosen as 
 \begin{equation}
     \psi_{L,opt} = \argmin_{\psi\in\{\psi_{L}\}_{feas}}R(\psi)
@@ -132,7 +133,7 @@ where
 \end{equation}
 
 \subsection{Determining the approach points}
-After fixing the approach direction to $\psi_L=\psi_{L,opt}$ the next step is to calculate the optimal values of $\vec{p}_A$ and $\vec{p}_L$. 
+After fixing the approach direction to $\psi_L=\psi_{L,opt}$ the next step is to calculate the optimized values of $\vec{p}_A$ and $\vec{p}_L$. 
 Since the approach direction is fixed, the remaining variables can be redefined as 
 \begin{subequations}
     \begin{align}
@@ -142,24 +143,27 @@ Since the approach direction is fixed, the remaining variables can be redefined 
     \end{align}
 \end{subequations}
 The problem is thus finding $R_a$ and $R_l$ so that $R_a$ and $|R_c-R_l|$ is minimized, while fulfilling the given constraints.
-The target descent rate during pre-flare is given by 
-\begin{equation}\label{eq:h_dot_constraint}
-    \dot{h}=V_L\frac{h_0-h_{flare}}{R_a-R_l-R{flare}}
+The sink rate during pre-flare is given by \eqref{eq:sink_rate} as a function of the parameters $R_a$ and $R_l$ so the altitude during the pre-flare is given by
+\begin{equation}
+    h(R) = h_0 - R\frac{\dot{h}(R_a,R_l)}{V_L}
 \end{equation}
-and we also require that 
+where $h_0$ is the initial altitude. To ensure enough altitude when entering $\mathcal{A}$, it is required that
 \begin{equation}\label{eq:h_a_constraint}
-    (R_a-2R_c)\frac{\dot{h}}{V_L}\geq h_A
+    h(R_a - 2R_c)\geq h_A
 \end{equation}
-to ensure that the altitude is greater or equal than $h_A$ in $\vec{p}_1$. The optimal values of $R_a$ and $R_l$ can thus be found 
-as the solution of the optimization problem 
+and to ensure the slope is steep enough it is required that
+\begin{equation}\label{eq:h_{flare}_constraint}
+    h(R_a - R_{flare} - R_l)= h_{flare}
+\end{equation}
+The landing parameters can thus be calculated by solving the optimization problem
 \begin{subequations}
     \label{eq:opt_problem_land}
     \begin{alignat}{3}
     &\min_{R_a,R_l}        &\qquad& J=R_a^2 + \lambda|R_c-R_l|^2 & \\
     &\text{subject to} & & R_a,R_l\geq0 &\\
-    & & & \dot{h}\leq \dot{h}_{max}\\
-    & & & \eqref{eq:h_dot_constraint} \nonumber\\
-    & & & \eqref{eq:h_a_constraint} \nonumber
+    & & & \dot{h}(R_a, R_l)\leq \dot{h}_{max}\\
+    & & & \eqref{eq:h_a_constraint} \nonumber\\
+    & & & \eqref{eq:h_{flare}_constraint} \nonumber
     \end{alignat}
 \end{subequations}
 where the weight $\lambda$ is chosen to trade-off between minimizing distance to the center point and approach distance. 

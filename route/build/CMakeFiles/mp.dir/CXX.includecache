@@ -39,8 +39,6 @@ cstring
 -
 errno.h
 -
-float.h
--
 
 ../mason_packages/headers/boost/1.67.0/include/boost/config/compiler/clang.hpp
 

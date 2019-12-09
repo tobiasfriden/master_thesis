@@ -7,6 +7,11 @@ void Simulator::reset(double x, double y, double new_yaw){
     _path_bearing = 0;
 }
 
+void Simulator::set_wind(double wind_spd, double wind_dir){
+    _wind_spd = wind_spd;
+    _wind_dir = wind_dir;
+}
+
 // Simulate transition between two waypoints
 double Simulator::simulate_waypoints(
     Vector2_d const& prev_wp,
@@ -156,9 +161,16 @@ Vector2_d Simulator::airspeed_vector() {
 
 // Calculate wind compensated groundspeed vector
 Vector2_d Simulator::groundspeed_vector() {
-    Vector2_d wind_vec(cosf(to_rad(_wind_dir)), sinf(to_rad(_wind_dir)));
-    wind_vec *= _wind_spd;
-    return airspeed_vector() + wind_vec;
+    return airspeed_vector() + wind_vector();
+}
+
+// Calculate wind vector
+Vector2_d Simulator::wind_vector(){
+    double wind_dir_rad = to_rad(_wind_dir);
+    double yaw_rad = to_rad(_yaw);
+    double err_factor = _wind_error*cosf(wind_dir_rad - yaw_rad);
+    double scale = _wind_spd*(1 + err_factor);
+    return scale*Vector2_d(cosf(wind_dir_rad), sinf(wind_dir_rad));
 }
 
 // Wind correction angle assuming convergence to path _yaw=0

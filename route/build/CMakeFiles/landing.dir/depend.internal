@@ -161,6 +161,7 @@ CMakeFiles/landing.dir/landing.cpp.o
  /s2geometry/src/s2/util/units/length-units.h
  /s2geometry/src/s2/util/units/physical-units.h
  /s2geometry/src/s2/value_lexicon.h
+ /usr/local/include/casadi/casadi.hpp
  /usr/local/include/casadi/core/calculus.hpp
  /usr/local/include/casadi/core/callback.hpp
  /usr/local/include/casadi/core/casadi_common.hpp
@@ -168,21 +169,42 @@ CMakeFiles/landing.dir/landing.cpp.o
  /usr/local/include/casadi/core/casadi_interrupt.hpp
  /usr/local/include/casadi/core/casadi_limits.hpp
  /usr/local/include/casadi/core/casadi_logger.hpp
+ /usr/local/include/casadi/core/casadi_meta.hpp
  /usr/local/include/casadi/core/casadi_misc.hpp
  /usr/local/include/casadi/core/casadi_types.hpp
+ /usr/local/include/casadi/core/code_generator.hpp
+ /usr/local/include/casadi/core/conic.hpp
+ /usr/local/include/casadi/core/core.hpp
+ /usr/local/include/casadi/core/dae_builder.hpp
  /usr/local/include/casadi/core/dm.hpp
  /usr/local/include/casadi/core/dm_fwd.hpp
+ /usr/local/include/casadi/core/dple.hpp
  /usr/local/include/casadi/core/exception.hpp
+ /usr/local/include/casadi/core/expm.hpp
+ /usr/local/include/casadi/core/external.hpp
  /usr/local/include/casadi/core/function.hpp
  /usr/local/include/casadi/core/generic_expression.hpp
  /usr/local/include/casadi/core/generic_matrix.hpp
  /usr/local/include/casadi/core/generic_type.hpp
+ /usr/local/include/casadi/core/global_options.hpp
+ /usr/local/include/casadi/core/im.hpp
+ /usr/local/include/casadi/core/im_fwd.hpp
+ /usr/local/include/casadi/core/importer.hpp
+ /usr/local/include/casadi/core/integration_tools.hpp
+ /usr/local/include/casadi/core/integrator.hpp
+ /usr/local/include/casadi/core/interpolant.hpp
+ /usr/local/include/casadi/core/linsol.hpp
  /usr/local/include/casadi/core/matrix_decl.hpp
  /usr/local/include/casadi/core/matrix_fwd.hpp
  /usr/local/include/casadi/core/mx.hpp
+ /usr/local/include/casadi/core/nlp_builder.hpp
+ /usr/local/include/casadi/core/nlp_tools.hpp
+ /usr/local/include/casadi/core/nlpsol.hpp
  /usr/local/include/casadi/core/nonzeros.hpp
  /usr/local/include/casadi/core/optistack.hpp
+ /usr/local/include/casadi/core/polynomial.hpp
  /usr/local/include/casadi/core/printable.hpp
+ /usr/local/include/casadi/core/rootfinder.hpp
  /usr/local/include/casadi/core/runtime/casadi_axpy.hpp
  /usr/local/include/casadi/core/runtime/casadi_bfgs.hpp
  /usr/local/include/casadi/core/runtime/casadi_bilin.hpp
@@ -236,11 +258,16 @@ CMakeFiles/landing.dir/landing.cpp.o
  /usr/local/include/casadi/core/runtime/casadi_vfmax.hpp
  /usr/local/include/casadi/core/runtime/casadi_vfmin.hpp
  /usr/local/include/casadi/core/runtime/shared.hpp
+ /usr/local/include/casadi/core/serializer.hpp
  /usr/local/include/casadi/core/serializing_stream.hpp
  /usr/local/include/casadi/core/shared_object.hpp
  /usr/local/include/casadi/core/slice.hpp
  /usr/local/include/casadi/core/sparsity.hpp
  /usr/local/include/casadi/core/sparsity_interface.hpp
  /usr/local/include/casadi/core/submatrix.hpp
+ /usr/local/include/casadi/core/sx.hpp
  /usr/local/include/casadi/core/sx_elem.hpp
  /usr/local/include/casadi/core/sx_fwd.hpp
+ /usr/local/include/casadi/core/variable.hpp
+ /usr/local/include/casadi/core/xml_file.hpp
+ /usr/local/include/casadi/core/xml_node.hpp

@@ -16,81 +16,82 @@ Database file #2: myrefs.bib
 Warning--I'm ignoring Bergman_lic's extra "institution" field
 --line 79 of file myrefs.bib
 Warning--entry type for "hlut" isn't style-file defined
---line 402 of file myrefs.bib
+--line 409 of file myrefs.bib
 Warning--entry type for "arduplane" isn't style-file defined
---line 621 of file myrefs.bib
+--line 657 of file myrefs.bib
 Warning--entry type for "arduplane_l1" isn't style-file defined
---line 629 of file myrefs.bib
+--line 665 of file myrefs.bib
 Warning--entry type for "ardupilot_sitl" isn't style-file defined
---line 637 of file myrefs.bib
+--line 673 of file myrefs.bib
 Warning--entry type for "ardupilot_land" isn't style-file defined
---line 653 of file myrefs.bib
+--line 689 of file myrefs.bib
+Warning--entry type for "ardupilot_auto" isn't style-file defined
+--line 697 of file myrefs.bib
 Warning--entry type for "px4_ecl_ekf" isn't style-file defined
---line 661 of file myrefs.bib
+--line 705 of file myrefs.bib
 Warning--entry type for "jsbsim" isn't style-file defined
---line 669 of file myrefs.bib
+--line 713 of file myrefs.bib
 Warning--entry type for "mavros" isn't style-file defined
---line 685 of file myrefs.bib
+--line 729 of file myrefs.bib
 Warning--entry type for "ros" isn't style-file defined
---line 693 of file myrefs.bib
+--line 737 of file myrefs.bib
 Warning--entry type for "mavlink" isn't style-file defined
---line 700 of file myrefs.bib
+--line 744 of file myrefs.bib
 Warning--entry type for "s2geo" isn't style-file defined
---line 714 of file myrefs.bib
+--line 758 of file myrefs.bib
 Warning--to sort, need author or key in jsbsim
 Warning--to sort, need author or key in s2geo
 Warning--to sort, need author or key in mavlink
 Warning--to sort, need author or key in ros
 Warning--empty chapter and pages in wind_hellman
 Warning--empty publisher in wind_hellman
+Warning--empty publisher in graph_theory
 Warning--empty school in uav_dynamics_wind
-Warning--empty booktitle in uav_dynamics_modeling
 Warning--empty publisher in planning_algorithms
 Warning--empty booktitle in rrt
 Warning--empty chapter and pages in l1_controller
 Warning--empty publisher in l1_controller
 Warning--empty year in l1_controller
 Warning--empty year in l1_controller
-Warning--empty school in fighter_aircraft_mpc
-You've used 38 entries,
+You've used 41 entries,
             2773 wiz_defined-function locations,
-            1358 strings with 26056 characters,
-and the built_in function-call counts, 15414 in all, are:
-= -- 1385
-> -- 718
-< -- 25
-+ -- 257
-- -- 216
-* -- 1196
-:= -- 2294
-add.period$ -- 133
-call.type$ -- 38
-change.case$ -- 180
-chr.to.int$ -- 35
-cite$ -- 95
-duplicate$ -- 744
-empty$ -- 1401
-format.name$ -- 262
-if$ -- 3291
-int.to.chr$ -- 4
+            1377 strings with 26528 characters,
+and the built_in function-call counts, 17037 in all, are:
+= -- 1531
+> -- 807
+< -- 27
++ -- 288
+- -- 243
+* -- 1335
+:= -- 2526
+add.period$ -- 142
+call.type$ -- 41
+change.case$ -- 197
+chr.to.int$ -- 37
+cite$ -- 100
+duplicate$ -- 816
+empty$ -- 1541
+format.name$ -- 291
+if$ -- 3642
+int.to.chr$ -- 5
 int.to.str$ -- 1
-missing$ -- 27
-newline$ -- 217
-num.names$ -- 136
-pop$ -- 434
+missing$ -- 31
+newline$ -- 232
+num.names$ -- 148
+pop$ -- 471
 preamble$ -- 1
-purify$ -- 148
+purify$ -- 162
 quote$ -- 0
-skip$ -- 565
+skip$ -- 625
 stack$ -- 0
-substring$ -- 463
-swap$ -- 94
-text.length$ -- 3
+substring$ -- 551
+swap$ -- 107
+text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 398
-warning$ -- 15
-while$ -- 125
+type$ -- 426
+warning$ -- 14
+while$ -- 141
 width$ -- 0
-write$ -- 513
+write$ -- 553
 (There were 27 warnings)

@@ -10,8 +10,6 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/usr/local/include/ompl-1.5"
-  "/usr/include/eigen3"
   "../"
   "/nomad/src"
   "/nomad/ext/sgtelib/src"
@@ -24,6 +22,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
+  "/code/build/CMakeFiles/opt.dir/DependInfo.cmake"
   "/code/build/CMakeFiles/simulation.dir/DependInfo.cmake"
   "/code/build/s2geometry/CMakeFiles/s2.dir/DependInfo.cmake"
   )

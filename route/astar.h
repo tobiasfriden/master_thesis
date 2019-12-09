@@ -19,6 +19,6 @@ std::vector<Coordinate> astar(
     double inflation
 );
 
-std::vector<Coordinate> filter_solution(std::vector<Coordinate> pathVec);
+std::vector<Coordinate> filter_solution(const Obstacles& obst, Simulator& sim, std::vector<Coordinate> pathVec);
 
 #endif

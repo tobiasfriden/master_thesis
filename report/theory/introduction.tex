@@ -54,14 +54,14 @@ Motion planning refers to the task of finding a feasible path between a initial 
 
 \subsubsection{Sampling based motion planning}
 Many motion planning techniques are based on discrete sampling of the continuous state - and action space. These methods are either based on 
-random sampling, such as in Probabilistic Roadmaps \cite{prm} or Rapidly Exploring Random Trees \cite{rrt} while others such as Hybrid A-star \cite{hybrid_astar} use 
+random sampling, such as in Probabilistic Roadmaps \cite{prm} or Rapidly Exploring Random Trees \cite{rrt} while others such as Hybrid $A^*$ \cite{hybrid_astar} use 
 deterministic sampling.
 
-In \cite{2_phase_uav} the A-star algorithm \cite{astar} is used to find kinematically feasible trajectories for fixed-wing UAVs with 
+In \cite{2_phase_uav} the $A^*$ algorithm \cite{astar} is used to find kinematically feasible trajectories for fixed-wing UAVs with 
 a maximum turn rate while avoiding obstacles. The feasibility of the resulting path is ensured by aligning the dimensions of the 
 sampled grid with model parameters of the given UAV.
 
-In \cite{wind_astar} the results in \cite{optimal_path_trochoidal} are used together with A-star to generate time-optimal trajectories in the 
+In \cite{wind_astar} the results in \cite{optimal_path_trochoidal} are used together with $A^*$ to generate time-optimal trajectories in the 
 presence of wind, while also avoiding obstacles. They further define the region for where air-relative Dubins paths are not time-optimal 
 based on the results in \cite{optimal_path_target} and use these results to modify the heuristic function.
 

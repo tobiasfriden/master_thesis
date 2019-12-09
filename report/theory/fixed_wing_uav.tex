@@ -4,8 +4,7 @@
 Fixed-wind UAVs are receiving increasing commercial and research interest, and offer a number of advantages in many use-cases. In the following sections a thorough description of
 general fixed-wing kinematics and control as well as a description of the specific platform used in this work will be presented. 
 We begin with establishing some common definitions and terminology which will be used throughout this thesis. These definitions are 
- used in many other works related to fixed-wing aircraft, such as \cite{uav_dynamics_wind}, \cite{uav_dynamics_modeling}, 
-\cite{fighter_aircraft_mpc}. 
+ used in many other works related to fixed-wing aircraft, such as \cite{uav_dynamics_wind}. 
 
 \subsection{Coordinate reference frames}
 Four different coordinate frames are relevant to consider for UAV applications in wind: the inertial frame which is 
@@ -50,9 +49,9 @@ fixed in the earth, the air-relative frame, the body frame and the wind referenc
     The inertial frame, denoted with subscript $I$ is fixed relative to the earth.
     A position vector in the inertial frame is defined in the NED order as
     \begin{equation}
-        \vec{p}_I = (p_N, p_E, -p_H)
+        \vec{p}_I = (x_N, y_E, -z_H)
     \end{equation}
-    where $p_N$ points in the north direction, $p_E$ points east and $p_H$ points down towards the earth,
+    where $x_N$ points in the north direction, $y_E$ points east and $z_H$ points down towards the earth,
     in order to form a right hand positive coordinate system.
 \end{definition}
 
@@ -100,7 +99,7 @@ the \textit{pitch angle} $\theta$ is rotation around the east inertial axis and
 the \textit{yaw angle} $\psi$ is rotation around the downwards inertial axis.
 
 The relationship between coordinates in the body frame and inertial frame is given
- by the rotation matrix
+in \cite{sensor_fusion} as the rotation matrix 
 
 \begin{equation}\label{eq:r_i_b}
 \mathcal{R}^I_B = \mathcal{R}^x_\phi\mathcal{R}^y_\theta\mathcal{R}^z_\psi\\
@@ -123,8 +122,7 @@ The relationship between coordinates in the body frame and inertial frame is giv
 \end{equation}  
 \end{definition}
 
-This attitude representation is not defined for $\theta=\pm\pi/2$. However, such attitudes
- were deemed very unlikely in this work as the main focus is on level flight scenarios.
+This attitude representation is not defined for $\theta=\pm\pi/2$.
 
 \subsection{Fixed-wing UAV}
 A fixed-wing UAV is equipped with two horizontal wings that are fixed in the body frame.
@@ -150,19 +148,17 @@ in each time-step which minimizes the \textit{cross-track error}
 \begin{equation}
     d(t)=\min\|\vec{p}_{I,UAV}(t)-\vec{p}_{I,traj}\|
 \end{equation}
-where $\vec{p}_{I,traj}$ is any point on the trajectory. In this thesis, the trajectories to follow are 
-assumed to consist of piecewise linear segments. We also chose to study the trajectory following problem 
-only in the 2-dimensional $(p_N,p_E)$ frame.
+where $\vec{p}_{I,traj}$ is any point on the trajectory. 
 
 \subsection{Kinematic model}
-When designing trajectory-following controllers for fixed-wing UAVs, the following simple kinematic model is commonly used:
+A kinematic model for fixed-wing UAV trajectory following in wind is introduced in \cite{uav_dynamics_wind} as:
 \begin{align}\label{eq:traj_model}
-    \dot{p}_N &= V_a\cos\psi + W\cos\psi_w \\
-    \dot{p}_E &= V_a\sin\psi + W\sin\psi_w \\
+    \dot{x}_N &= V_a\cos\psi + W\cos\psi_w \\
+    \dot{y}_E &= V_a\sin\psi + W\sin\psi_w \\
     \dot{\psi} &= \frac{g}{V_a}\tan\phi
 \end{align}
-where $V_a$ is the air-relative speed, $\psi$ is the inertial-frame yaw angle, $W$ is the wind magnitude, $\psi_w$ is the wind direction and $\phi$ is the roll angle. The dynamic equation for the roll angle is 
-defined as
+where $V_a$ is the air-relative speed, $\psi$ is the inertial-frame yaw angle, $W$ is the wind magnitude, $\psi_w$ is the wind direction and $\phi$ is the roll angle.
+Dynamics in the roll angle $\phi$ can be included as
 \begin{align}
     \dot{\phi} = f_\phi(\phi-\phi^c)
 \end{align}
@@ -181,11 +177,11 @@ coordinate frame which is aligned with the path segment to follow, as shown in F
             \begin{tikzpicture}
                 \Drone{2}{1}{65}
                 \coordinate (test) at (50:2);
-                \draw[myaxis] (0, 0) -- node[at end, left]{$p_N$} (0, 2);
-                \draw[myaxis] (0,0) -- node[at end, below]{$p_E$} (2, 0);
+                \draw[myaxis] (0, 0) -- node[at end, left]{$x_N$} (0, 2);
+                \draw[myaxis] (0,0) -- node[at end, below]{$y_E$} (2, 0);
 
-                \draw[myaxis] (0, 0) -- node[at end, left]{$p_{N,s}$} (test);
-                \draw[myaxis] (0,0) -- node[at end, below]{$p_{E,s}$} (-40:2);
+                \draw[myaxis] (0, 0) -- node[at end, left]{$x_{N,s}$} (test);
+                \draw[myaxis] (0,0) -- node[at end, below]{$y_{E,s}$} (-40:2);
                 \draw[myaxis](0,0.75) arc(90:50:0.75) node[midway, above]{$\psi_s$};
                 \draw[dashed](0, 0) -- (50:4);
                 \draw[dashed](2,1) -- node[midway, anchor=south west]{$d$} (test);
@@ -197,7 +193,7 @@ coordinate frame which is aligned with the path segment to follow, as shown in F
 
 The relevant equations for the control problem in this frame become
 \begin{align}
-    \dot{d}\equiv\dot{p}_{E,s} &= V_a\sin(\psi-\psi_s) + W\sin(\psi_w-\psi_s)\\
+    \dot{d}\equiv\dot{y}_{E,s} &= V_a\sin(\psi-\psi_s) + W\sin(\psi_w-\psi_s)\\
     \dot{\psi} &= \frac{g}{V_a}\tan\phi
 \end{align}
 Assuming that $d=0$ and $\dot{d}=0$, we get
@@ -210,7 +206,7 @@ This means that the cross-track error is minimized when $\psi$ converges to
 \end{equation}
 In the case of no wind, this simplifies to $\psi_{wca}=\psi_s$. In windy conditions however, the wind 
 has to be compensated with a constant offset which depends on wind speed, direction and desired 
-heading $\psi_s$. $\psi_{wca}$ is called the \textit{wind correction angle}.
+heading $\psi_s$. $\psi_{wca}$ is called the \textit{wind correction angle} \cite{uav_dynamics_wind}.
 
 \section{ArduPlane autopilot}
 The ArduPlane autopilot is an open source autopilot for fixed-wing UAVs \cite{arduplane}. 
@@ -247,10 +243,13 @@ where $\vec{p}$ is the UAV position and $\psi$ is the UAV yaw angle.
         \node[anchor=300] at (drone) {$\vec{p}$};
         \draw[my_v] (drone) -- node[above, near end, anchor=south east]{$\vec{v}$} ++ ({atan(2)}:2.5);
 
+        \draw[->] (drone) -- node[right, at end]{$a^c$}++ (-45:1);
+
         \draw[->] ([yshift=0.7cm]drone) arc(90:{atan(2)}:0.7) node[above,midway]{$\psi$};
         \draw[dashed] (drone) --++ (0,1);
         \draw[->] (drone) ++ (0.5,1) arc({atan(2)}:{atan(0.2)}:{sqrt(1.25)}) node[midway,anchor=223]{$\eta$};
         
+
         \node[anchor=north west] at (origin) {$\vec{p}_s$};
 
         \node[anchor=north west] at (goal) {$\vec{p}_g$};
@@ -283,7 +282,14 @@ In the ArduPilot implementation, the distance $L_1$ is calculated as
 where $V=|\vec{v}|$, $\zeta$ is the damping factor and $\Delta T$ is the update period of the controller \cite{arduplane_l1}.
 Wind effects are compensated by using the inertial frame velocity vector 
 \begin{equation}
-    \vec{v} = (V_a\cos\psi + W\cos\psi_w, V_a\sin\psi + W\sin\psi_w)
+    \vec{v} = V_a\begin{bmatrix}
+        \cos\psi \\
+        \sin\psi
+    \end{bmatrix}
+    + W\begin{bmatrix}
+        \cos\psi_w\\
+        \sin\psi_w
+    \end{bmatrix}
 \end{equation}
  In each time step, the control law corresponds to following a circular segment with radius
  \begin{equation}
@@ -343,14 +349,14 @@ energy is added to the system. By changing the pitch angle using the elevators, 
 between kinetic and potential energy can be modified. 
 \fi
 
-\subsection{Mission representation and flight modes}
+\subsection{Mission representation and flight modes}\label{sec:mission}
 A \textit{mission} $\mathcal{M}$ is defined as 
 \begin{equation}
     \mathcal{M} = \{\vec{p}_1, \hdots, \vec{p}_n\}
 \end{equation}
 i. e. a sequence of $n$ \textit{waypoints} represented in the inertial frame as 
 \begin{equation}
-    \vec{p}=(p_N, p_E, -p_H, c_{wp})
+    \vec{p}=(x_N, y_E, -z_H, c_{wp})
 \end{equation}
 where $c_{wp}$ represents the waypoint command. There are many different waypoint commands available
 in ArduPlane, but this work will be focused on 
@@ -369,7 +375,7 @@ where $R_{wp}$ is defined by the user, or passed when
     \frac{\|\vec{p}_{UAV}\cdot \vec{p}_{wp}\|}{\|\vec{p}_{wp}\|}
      \geq 1
 \end{equation}
-where $\vec{p}_{UAV}=\vec{p}-\vec{p}_i$ and $\vec{p}_{wp}=\vec{p}_{i+1}-\vec{p}_i$.
+where $\vec{p}_{UAV}=\vec{p}-\vec{p}_i$ and $\vec{p}_{wp}=\vec{p}_{i+1}-\vec{p}_i$ \cite{ardupilot_auto}.
 \subsubsection{Land mode}
 In \textit{Land} mode, the plane will attempt to land at a given coordinate. The landing approach 
 is divided into two different stages, the \textit{approach} stage and \textit{flare} stage.
@@ -377,5 +383,5 @@ is divided into two different stages, the \textit{approach} stage and \textit{fl
 During the approach stage, the UAV tries to accomplish the commanded \textit{glide slope}, which is
 dependent on the previous waypoint position relative to the landing point. When the altitude decreases
 below $h_{flare}$, it enters the flare stage which means the throttle is completely turned off. 
-During this stage the UAV will simply try to hold a target descent rate $\dot{h}_{flare}$ which is
+During this stage the UAV will try to hold a target descent rate $\dot{h}_{flare}$ which is
 defined by the user \cite{ardupilot_land}.
