@@ -18,7 +18,6 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../mason_packages/headers/rapidjson/1.1.0/include"
   "../mason_packages/headers/geojson/0.4.3/include"
   "/s2geometry/src"
-  "../mason_packages/headers/boost/1.67.0/include"
   "/usr/local/include"
   )
 

@@ -28,38 +28,42 @@ add_library(nomad SHARED IMPORTED GLOBAL)
 set_property(TARGET nomad PROPERTY IMPORTED_LOCATION "/nomad/builds/release/lib/libnomad.so")
 
 add_library(simulation simulation.cpp)
-target_link_libraries(simulation PUBLIC s2)
-target_add_mason_package(simulation PUBLIC variant)
-target_add_mason_package(simulation PUBLIC geometry)
-target_add_mason_package(simulation PUBLIC rapidjson)
-target_add_mason_package(simulation PUBLIC geojson)
+target_link_libraries(simulation s2)
+target_add_mason_package(simulation variant)
+target_add_mason_package(simulation geometry)
+target_add_mason_package(simulation rapidjson)
+target_add_mason_package(simulation geojson)
 
 add_library(opt opt.cpp)
-target_link_libraries(opt PUBLIC simulation)
-target_link_libraries(opt PUBLIC nomad)
+target_link_libraries(opt
+    simulation
+    nomad
+)
 
 add_library(motion_primitive motion_primitive.cpp)
-target_link_libraries(motion_primitive PUBLIC simulation)
-target_link_libraries(motion_primitive PUBLIC opt)
-target_link_libraries(motion_primitive PUBLIC nomad)
-target_add_mason_package(motion_primitive PUBLIC boost)
+target_link_libraries(motion_primitive
+    simulation
+    opt
+    nomad
+)
 
 add_executable(mp mp.cpp)
 target_link_libraries(mp PUBLIC motion_primitive)
 
 add_library(obstacle obstacle.cpp)
-target_link_libraries(obstacle PUBLIC s2)
-target_add_mason_package(obstacle PUBLIC variant)
-target_add_mason_package(obstacle PUBLIC geometry)
-target_add_mason_package(obstacle PUBLIC rapidjson)
-target_add_mason_package(obstacle PUBLIC geojson)
+target_link_libraries(obstacle s2)
+target_add_mason_package(obstacle variant)
+target_add_mason_package(obstacle geometry)
+target_add_mason_package(obstacle rapidjson)
+target_add_mason_package(obstacle geojson)
 
 add_library(graph graph.cpp)
-target_link_libraries(graph PUBLIC s2)
-target_link_libraries(graph PUBLIC simulation)
-target_link_libraries(graph PUBLIC motion_primitive)
-target_link_libraries(graph PUBLIC obstacle)
-target_link_libraries(graph PUBLIC ${BOOST_LIBRARIES})
+target_link_libraries(graph 
+    s2
+    motion_primitive
+    obstacle
+    ${BOOST_LIBRARIES}
+)
 
 add_library(hlut hlut.cpp)
 target_link_libraries(hlut PUBLIC graph)
@@ -68,36 +72,40 @@ add_library(astar astar.cpp)
 target_link_libraries(astar PUBLIC graph)
 
 add_library(landing landing.cpp)
-target_link_libraries(landing PUBLIC obstacle)
-target_link_libraries(landing PUBLIC s2)
-target_link_libraries(landing PUBLIC casadi)
+target_link_libraries(landing
+    obstacle
+    s2
+    casadi
+)
 
 add_executable(gen_hlut gen_hlut.cpp)
 target_link_libraries(gen_hlut PUBLIC hlut)
 
 add_executable(route main.cpp)
 
-target_link_libraries(route PUBLIC astar)
-target_link_libraries(route PUBLIC s2)
-target_add_mason_package(route PUBLIC variant)
-target_add_mason_package(route PUBLIC geometry)
-target_add_mason_package(route PUBLIC rapidjson)
-target_add_mason_package(route PUBLIC geojson)
-target_link_libraries(route PUBLIC simulation)
-target_link_libraries(route PUBLIC motion_primitive)
-target_link_libraries(route PUBLIC hlut)
-target_link_libraries(route PUBLIC obstacle)
-target_link_libraries(route PUBLIC landing)
-target_link_libraries(route PUBLIC ${BOOST_LIBRARIES})
-target_link_libraries(route PUBLIC casadi)
-
-add_executable(sim sim.cpp)
-target_link_libraries(sim PUBLIC simulation)
-target_link_libraries(sim PUBLIC s2)
-target_link_libraries(sim PUBLIC opt)
+target_link_libraries(route
+    astar
+    motion_primitive
+    hlut
+    obstacle
+    landing
+    s2
+    ${BOOST_LIBRARIES}
+    casadi
+)
+target_add_mason_package(route variant)
+target_add_mason_package(route geometry)
+target_add_mason_package(route rapidjson)
+target_add_mason_package(route geojson)
 
 add_executable(opt_test opt_test.cpp)
-target_link_libraries(opt_test PUBLIC simulation)
-target_link_libraries(opt_test PUBLIC nomad)
-target_link_libraries(opt_test PUBLIC opt)
+target_link_libraries(opt_test 
+    simulation
+    opt
+    nomad
+)
 
+add_executable(improve_viz improve_viz.cpp)
+target_link_libraries(improve_viz
+    simulation
+)

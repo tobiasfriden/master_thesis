@@ -8,9 +8,9 @@
 
 void set_params(NOMAD::Parameters &p);
 
-class SimEvaluator : public NOMAD::Multi_Obj_Evaluator {
+class SimEvaluator : public NOMAD::Evaluator {
 public:
-    SimEvaluator(const NOMAD::Parameters &p) : NOMAD::Multi_Obj_Evaluator(p) {};
+    SimEvaluator(const NOMAD::Parameters &p) : NOMAD::Evaluator(p) {};
     ~SimEvaluator() {};
 
     void set_simulator_params(double airspeed, double wind_spd, double wind_dir, double yrate_max) {
@@ -34,7 +34,7 @@ public:
     }
 
     Vector3_d get_cost_and_error(double x_goal, double y_goal, double wind_scale){
-        sim.set_wind(wind_scale*Constants::wind_spd(), Constants::wind_dir());
+        sim.set_wind(wind_scale*Constants::wind_spd(), sim.wind_dir());
         sim.reset(0, 0, 0);
         Vector2_d start(0, 0);
         Vector2_d goal(x_goal, y_goal);
@@ -79,10 +79,12 @@ public:
         double high_hdg_error = fabs(high_vals[1] - goal_hdg);
         high_hdg_error = fmin(high_hdg_error, 360-high_hdg_error);
 
-        x.set_bb_output(0, low_vals[0]);
-        x.set_bb_output(1, high_vals[0]);
-        x.set_bb_output(2, low_hdg_error-hdg_error);
-        x.set_bb_output(3, high_hdg_error-hdg_error);
+        // x.set_bb_output(0, low_vals[0]);
+        // x.set_bb_output(1, high_vals[0]);
+        // x.set_bb_output(2, low_hdg_error-hdg_error);
+        // x.set_bb_output(3, high_hdg_error-hdg_error);
+        x.set_bb_output(0, std::max(low_vals[0], high_vals[0]));
+        x.set_bb_output(1, std::max(low_hdg_error, high_hdg_error) - hdg_error);
         if(log){
             out << x.value(0) << " " << x.value(1) << std::endl;
         }

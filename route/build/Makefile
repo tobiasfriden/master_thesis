@@ -183,6 +183,19 @@ mp/fast:
 .PHONY : mp/fast
 
 #=============================================================================
+# Target rules for targets named motion_primitive
+
+# Build rule for target.
+motion_primitive: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 motion_primitive
+.PHONY : motion_primitive
+
+# fast build rule for target.
+motion_primitive/fast:
+	$(MAKE) -f CMakeFiles/motion_primitive.dir/build.make CMakeFiles/motion_primitive.dir/build
+.PHONY : motion_primitive/fast
+
+#=============================================================================
 # Target rules for targets named simulation
 
 # Build rule for target.
@@ -220,32 +233,6 @@ hlut: cmake_check_build_system
 hlut/fast:
 	$(MAKE) -f CMakeFiles/hlut.dir/build.make CMakeFiles/hlut.dir/build
 .PHONY : hlut/fast
-
-#=============================================================================
-# Target rules for targets named motion_primitive
-
-# Build rule for target.
-motion_primitive: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 motion_primitive
-.PHONY : motion_primitive
-
-# fast build rule for target.
-motion_primitive/fast:
-	$(MAKE) -f CMakeFiles/motion_primitive.dir/build.make CMakeFiles/motion_primitive.dir/build
-.PHONY : motion_primitive/fast
-
-#=============================================================================
-# Target rules for targets named sim
-
-# Build rule for target.
-sim: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 sim
-.PHONY : sim
-
-# fast build rule for target.
-sim/fast:
-	$(MAKE) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/build
-.PHONY : sim/fast
 
 #=============================================================================
 # Target rules for targets named opt_test
@@ -324,6 +311,19 @@ route: cmake_check_build_system
 route/fast:
 	$(MAKE) -f CMakeFiles/route.dir/build.make CMakeFiles/route.dir/build
 .PHONY : route/fast
+
+#=============================================================================
+# Target rules for targets named improve_viz
+
+# Build rule for target.
+improve_viz: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 improve_viz
+.PHONY : improve_viz
+
+# fast build rule for target.
+improve_viz/fast:
+	$(MAKE) -f CMakeFiles/improve_viz.dir/build.make CMakeFiles/improve_viz.dir/build
+.PHONY : improve_viz/fast
 
 #=============================================================================
 # Target rules for targets named s2testing
@@ -484,6 +484,33 @@ hlut.s: hlut.cpp.s
 hlut.cpp.s:
 	$(MAKE) -f CMakeFiles/hlut.dir/build.make CMakeFiles/hlut.dir/hlut.cpp.s
 .PHONY : hlut.cpp.s
+
+improve_viz.o: improve_viz.cpp.o
+
+.PHONY : improve_viz.o
+
+# target to build an object file
+improve_viz.cpp.o:
+	$(MAKE) -f CMakeFiles/improve_viz.dir/build.make CMakeFiles/improve_viz.dir/improve_viz.cpp.o
+.PHONY : improve_viz.cpp.o
+
+improve_viz.i: improve_viz.cpp.i
+
+.PHONY : improve_viz.i
+
+# target to preprocess a source file
+improve_viz.cpp.i:
+	$(MAKE) -f CMakeFiles/improve_viz.dir/build.make CMakeFiles/improve_viz.dir/improve_viz.cpp.i
+.PHONY : improve_viz.cpp.i
+
+improve_viz.s: improve_viz.cpp.s
+
+.PHONY : improve_viz.s
+
+# target to generate assembly for a file
+improve_viz.cpp.s:
+	$(MAKE) -f CMakeFiles/improve_viz.dir/build.make CMakeFiles/improve_viz.dir/improve_viz.cpp.s
+.PHONY : improve_viz.cpp.s
 
 landing.o: landing.cpp.o
 
@@ -674,33 +701,6 @@ opt_test.cpp.s:
 	$(MAKE) -f CMakeFiles/opt_test.dir/build.make CMakeFiles/opt_test.dir/opt_test.cpp.s
 .PHONY : opt_test.cpp.s
 
-sim.o: sim.cpp.o
-
-.PHONY : sim.o
-
-# target to build an object file
-sim.cpp.o:
-	$(MAKE) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/sim.cpp.o
-.PHONY : sim.cpp.o
-
-sim.i: sim.cpp.i
-
-.PHONY : sim.i
-
-# target to preprocess a source file
-sim.cpp.i:
-	$(MAKE) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/sim.cpp.i
-.PHONY : sim.cpp.i
-
-sim.s: sim.cpp.s
-
-.PHONY : sim.s
-
-# target to generate assembly for a file
-sim.cpp.s:
-	$(MAKE) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/sim.cpp.s
-.PHONY : sim.cpp.s
-
 simulation.o: simulation.cpp.o
 
 .PHONY : simulation.o
@@ -739,18 +739,18 @@ help:
 	@echo "... install"
 	@echo "... obstacle"
 	@echo "... mp"
+	@echo "... motion_primitive"
 	@echo "... simulation"
 	@echo "... edit_cache"
 	@echo "... opt"
 	@echo "... hlut"
-	@echo "... motion_primitive"
-	@echo "... sim"
 	@echo "... opt_test"
 	@echo "... astar"
 	@echo "... landing"
 	@echo "... graph"
 	@echo "... gen_hlut"
 	@echo "... route"
+	@echo "... improve_viz"
 	@echo "... rebuild_cache"
 	@echo "... list_install_components"
 	@echo "... s2testing"
@@ -769,6 +769,9 @@ help:
 	@echo "... hlut.o"
 	@echo "... hlut.i"
 	@echo "... hlut.s"
+	@echo "... improve_viz.o"
+	@echo "... improve_viz.i"
+	@echo "... improve_viz.s"
 	@echo "... landing.o"
 	@echo "... landing.i"
 	@echo "... landing.s"
@@ -790,9 +793,6 @@ help:
 	@echo "... opt_test.o"
 	@echo "... opt_test.i"
 	@echo "... opt_test.s"
-	@echo "... sim.o"
-	@echo "... sim.i"
-	@echo "... sim.s"
 	@echo "... simulation.o"
 	@echo "... simulation.i"
 	@echo "... simulation.s"

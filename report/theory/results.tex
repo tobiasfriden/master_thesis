@@ -1,8 +1,7 @@
 \chapter{Results}\label{cha:results}
-\todo[inline]{Att lägga till: Execution time för planeraren, robusthet under varierande vind, förhoppningsvis flygningar med riktig drönare}
-The proposed framework was evaluated by performing a number of simulations in the ArduPlane SITL environment, in different wind conditions. 
-Some resulting landings can be seen in Figure \ref{fig:result}. The parameters used during these simulations are summarized in Table \ref{tab:sim_params}.
-The red dots correspond to the reference waypoints created by the motion planner, and the blue line is the actual path travelled by the UAV.
+\section{Simulation experiments}
+The proposed framework was evaluated by performing a number of simulations in the ArduPlane \ac{sitl} environment, in different wind conditions. 
+Some resulting landings can be seen in Figure \ref{fig:sim_sol_0}-\ref{fig:sim_sol_270}. The parameters used during these simulations are summarized in Table \ref{tab:sim_params}.
 
 \begin{table}[H]
     \begin{center}
@@ -10,25 +9,23 @@ The red dots correspond to the reference waypoints created by the motion planner
             \hline
             \textbf{Parameter} & \textbf{Value} & \textbf{Description}\\
             \hline
-            $x_i$ & $(0,0,0\degree)$ & Initial state \\
+            $x_0$ & $(0,0,0\degree)$ & Initial state \\
             \hline
-            $V_a$ & 14 m/s & Airspeed \\
+            $\airspd$ & 14 m/s & Airspeed \\
             \hline
-            $W$ & 5 m/s & Wind speed \\
+            $\windspd$ & 5 m/s & Wind speed \\
             \hline
-            $h$ & 40 m & Initial altitude \\
+            $h_0$ & 40 m & Initial altitude \\
             \hline
-            $h_A$ & 10 m & Landing area safety altitude \\
+            $h_{\text{safe}}$ & 10 m & Landing area safety altitude \\
             \hline
-            $h_{flare}$ & 3 m & Flare altitude \\
+            $\flarealt$ & 3 m & Flare altitude \\
             \hline
-            $\dot{h}_{flare}$ & 0.5 m/s & Flare sink-rate\\
+            $\flaresink$ & 0.5 m/s & Flare sink-rate\\
             \hline
-            $\dot{h}_{max}$ & 3 m/s & Maximum sink-rate \\
+            $\dot{h}_{\text{max}}$ & 3 m/s & Maximum sink-rate \\
             \hline
-            $\dot{\psi}_{max}$ & $17\degree$/s & Maximum yaw-rate\\
-            \hline
-            $\lambda$ & 20 & Weight factor in Equation \eqref{eq:opt_problem_land} \\
+            $\dot{\psi}_{\text{max}}$ & $17\degree$/s & Maximum rate of turn\\
             \hline
             $\psi_{L,d}$ & $10\degree$ & Approach direction discretization \\
             \hline
@@ -38,43 +35,51 @@ The red dots correspond to the reference waypoints created by the motion planner
     \label{tab:sim_params}
 \end{table}
 
-\begin{figure}
-    
-    \subfloat[$\psi_w=0\degree$]{
-        \includegraphics[width=.48\linewidth]{sol_0}
-    }
-    \subfloat[$\psi_w=90\degree$]{
-        \includegraphics[width=.48\linewidth]{sol_90}
-    }\\
-    \subfloat[$\psi_w=180\degree$]{
-        \includegraphics[width=.48\linewidth]{sol_180}
-    }
-    \subfloat[$\psi_w=270\degree$]{
-        \includegraphics[width=.48\linewidth]{sol_270}
-    }
-    \caption{Resulting landing procedures for different wind directions, $W=5$ m/s}
-    \label{fig:result}
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{sol_0}
+    \caption{Landing sequence and altitude profile for $\winddir=0\degree$}
+    \label{fig:sim_sol_0}
 \end{figure}
 
-The calculated optimal landing parameters are summarized in Table \ref{tab:opt_land_param}. The distance $|R_a-R_b|$ corresponds to the total distance between the landing points,
-and the distance $|R_c-R_c|$ corresponds to the distance from the landing to the center of $\mathcal{A}$.
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{sol_90}
+    \caption{Landing sequence and altitude profile for $\winddir=90\degree$}
+\end{figure}
 
-\begin{table}
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{sol_180}
+    \caption{Landing sequence and altitude profile for $\winddir=180\degree$}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{sol_270}
+    \caption{Landing sequence and altitude profile for $\winddir=270\degree$}
+    \label{fig:sim_sol_270}
+\end{figure}
+
+
+Some relevant properties of the different solutions are summarized in Table \ref{tab:opt_land_param}. $\psi_L^*$ and $R_a^*-R_l^*$ is the optimal approach direction and total landing distance for each given $\winddir$. $h_A^*$ and $|R_l^*-R_c|$ is the calculated entry altitude and distance from the landing point to the center of $\landing$. 
+$h_A$ is the actual entry altitude and $|R_l-R_l^*|$ the distance from the calculated landing point to the actual touchdown point of the \ac{uav}, both obtained from the simulation. Finally, $T$ is the
+execution time of the entire landing sequence calculation.
+
+\begin{table}[H]
     \begin{center}
-        \begin{tabular}{|c|c|c|c|c|}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
             \hline
-            $\psi_w$ & $\psi_L^*$ & $|R_a^*-R_b^*|$ & $|R_b^*-R_c|$\\
+            $\mathbf{\winddir}$ & $\mathbf{\psi_L^*}$ & $\mathbf{R_a^*-R_l^*}$ & $\mathbf{h_A^*}$ & $\mathbf{h_A}$ & $\mathbf{|R_l^*-R_c|}$ & $\mathbf{|R_l-R_l^*|}$ & $\mathbf{T}$\\
             \hline
-            $0\degree$ & $230\degree$ & 209.8 m & 42.2 m \\
+            $0\degree$ & $120\degree$ & 272 m & 17.09 m & 9.4 m & 0.95 m & 4.84 m & 0.04 s \\
             \hline
-            $90\degree$ & $250\degree$ & 173.4 m & 13.5 m \\
+            $90\degree$ & $300\degree$ & 232 m & 19.45 m & 12.68 m & 1.49 m & 5.87 m & 0.32 s \\
             \hline
-            $180\degree$ & $320\degree$ & 195.5 m & 14.4 m  \\
+            $180\degree$ & $320\degree$ & 244 m & 19.64 m & 11.5 m & 1.44 m & 1.48 m & 0.97 s \\
             \hline
-            $270\degree$ & $70\degree$ & 173.4 m & 13.5 m  \\
+            $270\degree$ & $110\degree$ & 222 m & 20.4 m & 13.76 m & 1.71 m & 5.92 m & 0.08 s \\
             \hline
         \end{tabular}
     \end{center}
-    \caption{Optimal landing parameters}
+    \caption{Landing sequence solution properties}
     \label{tab:opt_land_param}
 \end{table}
+
+\section{Real flight experiments}

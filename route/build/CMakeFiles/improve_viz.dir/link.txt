@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/improve_viz.dir/improve_viz.cpp.o  -o improve_viz -Wl,-rpath,/code/build:/code/build/s2geometry libsimulation.so s2geometry/libs2.so -lssl -lcrypto -lpthread 

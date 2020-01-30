@@ -24,7 +24,7 @@ std::vector<Coordinate> astar(
     ClosedSet closed_set;
     Frontier frontier;
     std::vector<Coordinate> nbrVec;
-    std::vector<Coordinate> pathVec;
+    std::vector<Coordinate> path_vec;
     Vector2_d from(0, 0);
 
     Coordinate start(from, from, 0, 0, 0);
@@ -39,7 +39,7 @@ std::vector<Coordinate> astar(
         
         if(frontier.empty()) {
             std::cout << "No path found" << std::endl;
-            return pathVec;
+            return path_vec;
         }
 
         Node::Ptr current = frontier.top();
@@ -87,7 +87,7 @@ std::vector<Coordinate> astar(
             auto f = np -> coord.get_states(origin);
             std::copy(f.begin(), f.end(), std::back_inserter(fc));
             while(np != nullptr) {
-                pathVec.push_back(np -> coord);
+                path_vec.push_back(np -> coord);
                 f = np->coord.get_states(origin);
                 std::copy(f.begin(), f.end(), std::back_inserter(fc));
                 np = np -> parent;
@@ -97,8 +97,8 @@ std::vector<Coordinate> astar(
             out << mapbox::geojson::stringify(fc);
             out.close();
             closed_set.save("../visited.txt");
-            std::reverse(pathVec.begin(), pathVec.end());
-            return pathVec;
+            std::reverse(path_vec.begin(), path_vec.end());
+            return path_vec;
         }
         auto coords = current -> coord.get_neighbours(sim, primitives, obst);
         //auto coords = current -> coord.get_mp_neighbours(primitives, obst, sim.wind_dir());
@@ -119,39 +119,52 @@ std::vector<Coordinate> astar(
     }
 }
 
+std::vector<double> get_init_bearings(
+    Simulator& sim,
+    std::vector<Coordinate> path_vec
+) {
+    std::vector<double> bearing_vec;
+    Coordinate coord = path_vec.front();
+    bearing_vec.push_back(coord.bearing());
+    sim.reset(coord.position().x(), coord.position().y(), coord.heading());
+
+    for(int i=1; i<path_vec.size(); i++){
+        Coordinate next = path_vec[i];
+
+        sim.simulate_waypoints(coord.waypoint(), next.waypoint());
+        bearing_vec.push_back(sim.path_bearing());
+        coord = next;
+    }
+
+    return bearing_vec;
+}
+
 Coordinate find_best_next_coord(
     const Obstacles& obst,
     Simulator& sim,
     std::vector<Coordinate> path_vec,
+    std::vector<double> init_bearings,
     Coordinate coord
 ){
     Coordinate best_coord = path_vec.front();
-    Coordinate prev = path_vec.front();
 
     Vector2_d start = coord.position();
     Vector2_d start_waypoint = coord.waypoint();
-    for(auto it = path_vec.begin()+1; it != path_vec.end(); it++){
+    for(int i=1; i < path_vec.size(); i++){
         sim.reset(start.x(), start.y(), coord.heading());
-        Coordinate next = *it;
-        double dist = get_distance_NE(prev.waypoint(), next.waypoint()).Norm();
-        //std::cout << dist << std::endl;
-        if(dist < 30){
-            prev = next;
-            continue;
-        }
-        if(false && obst.in_collision(start_waypoint, next.waypoint())){
-            prev = next;
+        Coordinate next = path_vec[i];
+        if(obst.in_collision(start_waypoint, next.waypoint())){
             continue;
         }
 
-        double goal_hdg = bearing_to(prev.waypoint(), next.waypoint());
+        double goal_hdg = init_bearings[i];
         sim.simulate_waypoints(start_waypoint, next.waypoint());
-        double hdg_error = std::abs(goal_hdg - sim.path_bearing());
+        double hdg_error = std::abs(goal_hdg - sim.yaw());
         hdg_error = std::min(hdg_error, std::abs(hdg_error - 360));
-        if(hdg_error < 5 && std::abs(sim.xtrack_error()) < Constants::xtrack_error()){
+        std::cout << "hdg_error: " << hdg_error << std::endl;
+        if(hdg_error < Constants::hdg_error() && std::abs(sim.xtrack_error()) < 2*Constants::xtrack_error()){
             best_coord = next;
         }
-        prev = next;
     }
     return best_coord;
 }
@@ -159,25 +172,39 @@ Coordinate find_best_next_coord(
 std::vector<Coordinate> filter_solution(
     const Obstacles& obst,
     Simulator& sim,
-    std::vector<Coordinate> pathVec
+    std::vector<Coordinate> path_vec
 ){
+    std::vector<double> init_bearings = get_init_bearings(sim, path_vec);
+    std::cout << "path vec: " << path_vec.size() << std::endl;
+    std::cout << "hdfgs: " << init_bearings.size() << std::endl;
     std::vector<Coordinate> filtered;
-    filtered.push_back(pathVec.front());
-    for(auto it = pathVec.begin(); it != pathVec.end(); it++){
+    filtered.push_back(path_vec.front());
+    for(int i=0; i<path_vec.size(); i++){
         Coordinate best = find_best_next_coord(
             obst,
             sim,
-            std::vector<Coordinate>(it+1, pathVec.end()),
-            *it
+            std::vector<Coordinate>(
+                path_vec.begin() + i,
+                path_vec.end()
+            ),
+            std::vector<double>(
+                init_bearings.begin() + i,
+                init_bearings.end()
+            ),
+            path_vec[i]
         );
         filtered.push_back(best);
-        if(best == pathVec.back()){
+        if(best == path_vec.back()){
             break;
         }
-        while(*it != best){
-            it++;
+        std::cout << "index: " << i;
+        while(path_vec[i] != best && i<path_vec.size()){
+            i++;
         }
-        it--;
+        std::cout << " best: " << i << std::endl;
+        if(i == path_vec.size() -1){
+            std::cerr << "error: reached end of path" << std::endl;
+        }
     }   
     return filtered;
 }

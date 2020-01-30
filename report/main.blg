@@ -2,9 +2,9 @@ This is BibTeX, Version 0.99d (TeX Live 2019)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: main.aux
 The style file: plainnat.bst
+A level-1 auxiliary file: notation.aux
 A level-1 auxiliary file: theory/introduction.aux
 A level-1 auxiliary file: theory/fixed_wing_uav.aux
-A level-1 auxiliary file: theory/wind_estimate.aux
 A level-1 auxiliary file: theory/motion_planning.aux
 A level-1 auxiliary file: theory/planning_wind.aux
 A level-1 auxiliary file: theory/optimal_landing.aux
@@ -18,33 +18,37 @@ Warning--I'm ignoring Bergman_lic's extra "institution" field
 Warning--entry type for "hlut" isn't style-file defined
 --line 409 of file myrefs.bib
 Warning--entry type for "arduplane" isn't style-file defined
---line 657 of file myrefs.bib
+--line 690 of file myrefs.bib
 Warning--entry type for "arduplane_l1" isn't style-file defined
---line 665 of file myrefs.bib
+--line 698 of file myrefs.bib
 Warning--entry type for "ardupilot_sitl" isn't style-file defined
---line 673 of file myrefs.bib
+--line 706 of file myrefs.bib
 Warning--entry type for "ardupilot_land" isn't style-file defined
---line 689 of file myrefs.bib
+--line 722 of file myrefs.bib
 Warning--entry type for "ardupilot_auto" isn't style-file defined
---line 697 of file myrefs.bib
+--line 730 of file myrefs.bib
 Warning--entry type for "px4_ecl_ekf" isn't style-file defined
---line 705 of file myrefs.bib
+--line 738 of file myrefs.bib
 Warning--entry type for "jsbsim" isn't style-file defined
---line 713 of file myrefs.bib
+--line 746 of file myrefs.bib
 Warning--entry type for "mavros" isn't style-file defined
---line 729 of file myrefs.bib
+--line 762 of file myrefs.bib
 Warning--entry type for "ros" isn't style-file defined
---line 737 of file myrefs.bib
+--line 770 of file myrefs.bib
 Warning--entry type for "mavlink" isn't style-file defined
---line 744 of file myrefs.bib
+--line 777 of file myrefs.bib
 Warning--entry type for "s2geo" isn't style-file defined
---line 758 of file myrefs.bib
+--line 791 of file myrefs.bib
+Warning--entry type for "parrot" isn't style-file defined
+--line 832 of file myrefs.bib
+Warning--entry type for "pixracer" isn't style-file defined
+--line 839 of file myrefs.bib
 Warning--to sort, need author or key in jsbsim
+Warning--to sort, need author or key in parrot
+Warning--to sort, need author or key in pixracer
 Warning--to sort, need author or key in s2geo
 Warning--to sort, need author or key in mavlink
 Warning--to sort, need author or key in ros
-Warning--empty chapter and pages in wind_hellman
-Warning--empty publisher in wind_hellman
 Warning--empty publisher in graph_theory
 Warning--empty school in uav_dynamics_wind
 Warning--empty publisher in planning_algorithms
@@ -53,45 +57,46 @@ Warning--empty chapter and pages in l1_controller
 Warning--empty publisher in l1_controller
 Warning--empty year in l1_controller
 Warning--empty year in l1_controller
-You've used 41 entries,
+Warning--empty journal in rascal
+You've used 46 entries,
             2773 wiz_defined-function locations,
-            1377 strings with 26528 characters,
-and the built_in function-call counts, 17037 in all, are:
-= -- 1531
-> -- 807
-< -- 27
-+ -- 288
-- -- 243
-* -- 1335
-:= -- 2526
-add.period$ -- 142
-call.type$ -- 41
-change.case$ -- 197
-chr.to.int$ -- 37
-cite$ -- 100
-duplicate$ -- 816
-empty$ -- 1541
-format.name$ -- 291
-if$ -- 3642
+            1402 strings with 27228 characters,
+and the built_in function-call counts, 19303 in all, are:
+= -- 1750
+> -- 906
+< -- 31
++ -- 323
+- -- 273
+* -- 1499
+:= -- 2823
+add.period$ -- 158
+call.type$ -- 46
+change.case$ -- 223
+chr.to.int$ -- 42
+cite$ -- 113
+duplicate$ -- 930
+empty$ -- 1750
+format.name$ -- 328
+if$ -- 4163
 int.to.chr$ -- 5
 int.to.str$ -- 1
-missing$ -- 31
-newline$ -- 232
-num.names$ -- 148
-pop$ -- 471
+missing$ -- 33
+newline$ -- 257
+num.names$ -- 160
+pop$ -- 531
 preamble$ -- 1
-purify$ -- 162
+purify$ -- 182
 quote$ -- 0
-skip$ -- 625
+skip$ -- 729
 stack$ -- 0
-substring$ -- 551
-swap$ -- 107
-text.length$ -- 5
+substring$ -- 634
+swap$ -- 132
+text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 426
-warning$ -- 14
-while$ -- 141
+type$ -- 486
+warning$ -- 15
+while$ -- 155
 width$ -- 0
-write$ -- 553
-(There were 27 warnings)
+write$ -- 617
+(There were 30 warnings)

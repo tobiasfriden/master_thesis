@@ -1,6 +1,6 @@
 \section{Fixed-wing dynamics}
 This first section will give the reader a quick overview of some common definitions and terminology. 
-A general purpose 6-DOF model of a fixed-wing UAV will also be derived. 
+A general purpose 6-DOF model of a fixed-wing \ac{uav} will also be derived. 
 \subsection{General definitions and terminology}
 We begin with establishing some common definitions and
  terminology which will be used throughout this thesis. These definitions are 
@@ -9,13 +9,13 @@ We begin with establishing some common definitions and
 
 \subsubsection{Coordinate reference frames}
 Three different coordinate reference frames are used, an inertial frame, a body frame and a wind reference frame.
-This is convenient since some sensors, like GPS report their values in the inertial frame
- while others, like IMU sensors report values in the body frame. Other advantages of the different references
+This is convenient since some sensors, like \ac{gps} report their values in the inertial frame
+ while others, like \ac{imu} sensors report values in the body frame. Other advantages of the different references
 will be made apparent when formulating the dynamic equations.
 
 \begin{definition}[Inertial frame]
     The inertial frame, denoted with subscript $I$ is fixed relative to the earth.
-    A position vector in the intertial frame is defined in the NED order as
+    A position vector in the inertial frame is defined in the \ac{ned} order as
     \begin{equation}
         \vec{p}_I = (x_N, y_E, -z_H)
     \end{equation}
@@ -24,27 +24,27 @@ will be made apparent when formulating the dynamic equations.
 \end{definition}
 
 \begin{definition}[Body frame]
-    The body frame, denoted with subscript $B$ is fixed in the UAV center of gravity.
+    The body frame, denoted with subscript $B$ is fixed in the \ac{uav} center of gravity.
     A position vector in the body frame is defined as
     \begin{equation}
         \vec{p}_B = (x, y, z)
     \end{equation}
-    where $x$ points forward through the UAV, $y$ points to the right and $z$ points down as shown in Figure TODO
+    where $x$ points forward through the \ac{uav}, $y$ points to the right and $z$ points down as shown in Figure TODO
 \end{definition}
 
 \begin{definition}[Wind reference frame]
-    The wind reference frame, denoted with subscript $W$ is related to the current direction of motion
+    The wind reference frame, denoted with subscript $\windspd$ is related to the current direction of motion
     through the air.
     A position vector in the wind reference frame is defined as
     \begin{equation}
         \vec{p}_W = (x_w, y_w, z_w)
     \end{equation}
-    where $x_w$ points in the same direction as the current velocity vector $\vec{v}_I$, 
+    where $x_w$ points in the same direction as the current velocity vector $\vel_I$, 
     $y_w$ points to the right of $x_w$ and $z$ points down relative $x_w$ and $y_w$.
 \end{definition}
 
 \subsubsection{Attitude representation}
-The attitude of the UAV is represented by the \textit{Euler angles}. 
+The attitude of the \ac{uav} is represented by the \textit{Euler angles}. 
 
 \begin{definition}[Euler angles]
 The Euler angle vector is defined as
@@ -87,16 +87,16 @@ The \textit{aerodynamic angles} relate the wind reference frame to the other coo
 \begin{definition}[Aerodynamic angles]
 We first define the body frame velocity vector as 
 \begin{equation}
-    \vec{v}_B=(u, v, w)
+    \vel_B=(u, v, w)
 \end{equation}
 The \textit{angle of attack} $\alpha$ and \textit{side slip} $\beta$ are then defined as
 \begin{equation}
     \alpha=\arctan\frac{w}{u}
 \end{equation}
 \begin{equation}
-    \beta=\arcsin\frac{v}{V_a}
+    \beta=\arcsin\frac{v}{\airspd}
 \end{equation}
-where $V_a=\sqrt{u^2+v^2+w^2}$
+where $\airspd=\sqrt{u^2+v^2+w^2}$
 \end{definition}
 
 
@@ -106,7 +106,7 @@ equations are based on the following common state representation:
 \begin{equation}
     \vec{x}=
     \begin{bmatrix}
-        \vec{p}_I & \vec{v}_B & \vec{\Phi} & \vec{\omega}
+        \vec{p}_I & \vel_B & \vec{\Phi} & \vec{\omega}
     \end{bmatrix}
 \end{equation}
 where $\vec{\omega}=(p, q, r)$ are the angular rates in the body reference frame. These can be divided
@@ -114,13 +114,13 @@ into translational and rotational dynamics which are presented separately.
 \subsubsection{Translational dynamics}
 The dynamic equation for the position $\vec{p}_I$ is directly given as
 \begin{equation}\label{eq:dynamic_first}
-    \dot{\vec{p}}_I=\mathcal{R}^I_B\vec{v}_B
+    \dot{\vec{p}}_I=\mathcal{R}^I_B\vel_B
 \end{equation}
 Furthermore, Newtons second law of motion gives 
 \begin{equation}\label{eq:uav_force}
-    \vec{F}_{tot}=m\dot{\vec{v}}_B + \vec{\omega}\times m\vec{v}_B 
+    \vec{F}_{tot}=m\dot{\vel}_B + \vec{\omega}\times m\vel_B 
 \end{equation}
-where $m$ is the UAV mass and $\vec{F}_{tot}$ is the sum of all forces working on the UAV.
+where $m$ is the \ac{uav} mass and $\vec{F}_{tot}$ is the sum of all forces working on the \ac{uav}.
 These can be divided into
 \begin{equation}
     \vec{F}_{tot}=\vec{F}_g+\vec{F}_{aero}+\vec{F}_{thr}
@@ -197,38 +197,38 @@ constants mainly dependent on the aerodynamic angles \cite{uav_dynamics_wind}. \
 
 \subsubsection{Wind effects}
 The dynamic equations derived in \eqref{eq:dynamic_first}-\eqref{eq:dynamic_last} are under
-the assumption that the air through which the UAV is travelling is at rest relative to the earth.
-During real flights, wind will cause the air to move which has non-negligible effects on the UAV.
+the assumption that the air through which the \ac{uav} is travelling is at rest relative to the earth.
+During real flights, wind will cause the air to move which has non-negligible effects on the \ac{uav}.
 The wind vector is often defined in the inertial frame as
 \begin{equation}
-    \vec{w}=(w_N, w_E, w_H)
+    \windvec=(w_N, w_E, w_H)
 \end{equation}
-$\vec{w}$ can be decomposed to
+$\windvec$ can be decomposed to
 \begin{equation}
-    \vec{w}=\vec{w}_{m}+\vec{w}_s
+    \windvec=\windvec_{m}+\windvec_s
 \end{equation}
-where $\vec{w}_m$ is the mean wind and $\vec{w}_s$ is some stochastic process \cite{spline_trajectory}. In this work,
+where $\windvec_m$ is the mean wind and $\windvec_s$ is some stochastic process \cite{spline_trajectory}. In this work,
 we only consider the mean wind.
-The mean wind magnitude $W=|\vec{w}|$ varies with altitude as
+The mean wind magnitude $\windspd=|\windvec|$ varies with altitude as
 \begin{equation}
-    W(h)=W_{10}(\frac{h}{h_{10}})^a
+    \windspd(h)=W_{10}(\frac{h}{h_{10}})^a
 \end{equation}
 where $W_{10}$ is the wind measured at $h=10$ meters and $a$ is the Hellman exponent, which depends on
 the shape and coastal location of the underlying terrain \cite{uav_dynamics_wind}. The wind can be 
 incorporated in the dynamic equations of motion by extending \eqref{eq:dynamic_first} to
 \begin{equation}
-    \dot{\vec{p}}=\mathcal{R}^I_B\vec{v}_B+\vec{w}
+    \dot{\vec{p}}=\mathcal{R}^I_B\vel_B+\windvec
 \end{equation}
-Also, we need to extend \eqref{eq:uav_force} by replacing $\vec{v}_B$ with
+Also, we need to extend \eqref{eq:uav_force} by replacing $\vel_B$ with
 \begin{equation}
-    \vec{v}_g = \vec{v}_B + \vec{w}_B
+    \vel_g = \vel_B + \windvec_B
 \end{equation} 
-where $\vec{v}_g$ is the body-fixed velocity relative the ground and $\vec{w}_B$ is the
+where $\vel_g$ is the body-fixed velocity relative the ground and $\windvec_B$ is the
 wind vector in the body frame.
 
 \subsubsection{Complete dynamics model}
 The complete dynamic model is given by combining the above equations. It will not be 
-written out here, but is given in e. g. \cite{uav_dynamics_wind}. The dynamics are clearly nonlinear and quite complex. Extensive modeling and experimentation, such as described in \cite{aerodynamic_parameters}
+written out here, but is given in \eg \cite{uav_dynamics_wind}. The dynamics are clearly nonlinear and quite complex. Extensive modeling and experimentation, such as described in \cite{aerodynamic_parameters}
 is needed to identify the different parameters which describe the behaviour of a specific airframe.
 
 It is often interesting to study the \textit{longitudal} and \textit{lateral} dynamics
@@ -250,7 +250,7 @@ in the wind reference frame the longitudal dynamics become
     \dot{q}&=\frac{M_y}{I_{yy}} \\
     \dot{\alpha}&=\dot{\theta}-\dot{\gamma}=q-\frac{1}{mV}[T\sin\alpha + L - mg\cos\gamma]
 \end{align}
-Assuming level flight in the longitudal direction, i. e. $u$, $V$ and $z_H$ are constant, the lateral dynamics can be formulated as
+Assuming level flight in the longitudal direction, \ie\  $u$, $V$ and $z_H$ are constant, the lateral dynamics can be formulated as
 \begin{align}
     \dot{y}_E &= u\sin\psi + v\cos\phi\cos\psi \\
     \dot{\psi} &= r\cos\phi \\

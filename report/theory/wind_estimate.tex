@@ -1,34 +1,11 @@
 \chapter{Wind field definition and estimation}\label{cha:wind}
-\section{Wind field definition}
-The wind field is commonly defined as a time and spatially dependent vector field
-\begin{equation}
-    \vec{w}(x_N,y_E,z_H,t)=
-    \begin{bmatrix}
-        w_N(x_N,y_E,z_H,t) \\
-        w_E(x_N,y_E,z_H,t) \\
-        w_H(x_N,y_E,z_H,t)
-    \end{bmatrix}
-\end{equation}
-In this thesis, the vertical component $w_H$ will be neglected and the wind vector is written as 
-\begin{equation}
-    \vec{w}=W\begin{bmatrix}
-        \cos\psi_w\\
-        \sin\psi_w
-    \end{bmatrix}
-\end{equation}
-where $W$ is the wind magnitude and $\psi_w$ is the wind direction. The dependency on position and time will from now on not be written out explicitly for simplicity.
-The wind field can be decomposed as
-\begin{equation}
-    \vec{w} = \bar{\vec{w}} + \vec{w}_s
-\end{equation}
-where $\bar{\vec{w}}$ is the mean wind field and $\vec{w}_s$ is described by some stochastic process.
 
-\subsection{Wind gradient}
-The wind magnitude $W$ is dependent on the altitude above ground $h$. A simplified model of this relationship is 
+\subsection{Wind altitude dependency}
+The wind magnitude $\windspd$ is dependent on the altitude above ground $h$. A simplified model of this relationship is 
 \begin{equation}
-    W(h)=W_{0}\left(\frac{h}{h_0}\right)^a
+    \windspd(h)=W_{0}\left(\frac{h}{h_0}\right)^a
 \end{equation}
-where $W_{0}$ is wind measured at a reference height $h_0$, often 10 meters and $a$ is the Hellman exponent. $a$ is dependent on parameters such as the 
+where $W_{0}$ is wind measured at a reference height $h_0$ - often 10 meters - and $a$ is the Hellman exponent. $a$ is dependent on parameters such as the 
 roughness of the terrain and if the location is coastal or not \cite{wind_hellman}.
 \subsection{Turbulence}
 The stochastic components of wind is often modeled using \textit{Dryden's Gust Model} which is stochastic process with spectral density 
@@ -49,27 +26,41 @@ $L_w=h$ and the intensity is $\sigma_w=0.1W_{20}$ where $W_{20}$ is the wind mag
 where $h$ is measured in feet \cite{wind_direct_computation}.
 
 \section{Wind estimation}
-Wind field estimation techniques are important for efficiently handling the effects of winds on UAVs. 
-Fixed-wing UAVs are often equipped with a \textit{pitot-tube} sensor which makes it possible to measure the 
-true airspeed (TAS) of the UAV through the surrounding air.
+Wind field estimation techniques are important for efficiently handling the effects of winds on \acp{uav}. 
+This estimation is often performed by comparing the inertial velocity of the \ac{uav} to the velocity relative to the air.
+\subsection{Airspeed measurement}
+Fixed-wing \acp{uav} are often equipped with a \textit{pitot-tube} sensor to measure airspeed.
+Such a sensor consists of a metallic tube together with a sensor which measures the dynamic pressure $\Delta P$ of 
+the air which flows through the tube. This measurement is related to the velocity of the air flow $V_{\text{pitot}}$ through 
+Bernoulli's Equation as 
+\begin{equation}
+    V^2_{\text{pitot}} = K\frac{2\Delta P}{\rho}
+\end{equation}
+where $\rho$ is the density of the air. $K$ is a correction factor which compensates for calibration errors and 
+generalizations such as assuming a perfect gas and constant temperature. Assuming that the sensor is mounted 
+along the $x$ axis in the body frame, the airspeed is related to $V_{\text{pitot}}$ in \cite{pitot} as
+\begin{equation}
+    \airspd^2=\frac{V^2_{\text{pitot}}}{\cos\alpha\cos\beta}=\frac{2K\Delta P}{\rho\cos\alpha\cos\beta}
+\end{equation}  
+
 \subsection{Direct computation of wind field}
-If the inertial velocity vector $\vec{v}_I$ can be measured, e. g. with the GPS system of the UAV the wind vector can be 
+If the inertial velocity vector $\vel$ can be measured, \eg\ with the \ac{gps} of the \ac{uav} the wind vector can be 
 computed directly as 
 \begin{equation}
-    \vec{w} = \vec{v}_I - (\mathcal{R}^I_B)^{-1}\vec{v}_B
+    \windvec = \vel - \airvec
 \end{equation}
-where $\mathcal{R}^I_B$ is given by Equation \eqref{eq:r_i_b}. Assuming level flight, it is shown in \cite{wind_direct_computation} that 
+which is given by the relationship illustrated in Figure \ref{fig:wind_triangle}. Assuming level flight, it is shown in \cite{wind_direct_computation} that 
 the measurement error is
 \begin{equation}
-    e^2=\sigma_{\dot{x}_N}^2+\sigma_{\dot{y}_E}^2+\sigma_{\dot{z}_H}^2+\sigma_{V_a}^2 + V_a^2(\sigma_{\theta}^2+\sigma_{\alpha}^2+\sigma_{\beta}^2+\sigma_{\psi}^2)
+    e^2=\sigma_{\dot{x}_N}^2+\sigma_{\dot{y}_E}^2+\sigma_{\dot{z}_H}^2+\sigma_{\airspd}^2 + \airspd^2(\sigma_{\theta}^2+\sigma_{\alpha}^2+\sigma_{\beta}^2+\sigma_{\psi}^2)
 \end{equation}
-In standard unaided GPS systems, the measurement error is approximately 0.1 m/s. Assuming the measurement error of $V_a$ is 0.2 m/s and angles 
+In standard unaided \ac{gps} systems, the measurement error is approximately 0.1 m/s. Assuming the measurement error of $\airspd$ is 0.2 m/s and angles 
 can be measured up to $1\degree$ precision, the error becomes $e^2=0.07+0.0012V_a^2$. If the airspeed is 16 m/s this corresponds to a measurement error of 
 $e=0.61$ m/s.
 \subsection{Estimation using Extended Kalman Filter}\label{sec:wind_ekf}
-A more robust approach is to use an Extended Kalman Filter (EKF) to measure vehicle states. These are 
-commonly used in autonomous systems to fuse measurements from many different sensors such as GPS, Inertial Measurement Units (IMU) and barometers. 
-A thorough reference on the underlying theory of EKFs is given in \cite{sensor_fusion}.
+A more robust approach is to use an \ac{ekf} to measure vehicle states. These are 
+commonly used in autonomous systems to fuse measurements from many different sensors such as a \ac{gps}, \ac{imu} and barometer. 
+A thorough reference on the underlying theory of \acp{ekf} is given in \cite{sensor_fusion}.
 
-The ArduPlane EKF implementation uses 24 different states such as attitude, velocity, position, sensor biases and wind. The different process models and 
+The ArduPlane \ac{ekf} implementation uses 24 different states such as attitude, velocity, position, sensor biases and wind. The different process models and 
 measurement equations are presented in \cite{px4_ecl_ekf}.

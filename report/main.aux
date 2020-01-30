@@ -18,65 +18,82 @@
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \catcode `"\active 
 \bibstyle{plainnat}
+\AC@reset@newl@bel
 \babel@aux{english}{}
 \babel@aux{english}{}
 \babel@aux{english}{}
+\newacro{uav}[\AC@hyperlink{uav}{\textsc  {uav}}]{Unmanned Aerial Vehicle}
+\newacro{ned}[\AC@hyperlink{ned}{\textsc  {ned}}]{North East Down}
+\newacro{cog}[\AC@hyperlink{cog}{\textsc  {cog}}]{Course Over Ground}
+\newacro{gps}[\AC@hyperlink{gps}{\textsc  {gps}}]{Global Positioning System}
+\newacro{imu}[\AC@hyperlink{imu}{\textsc  {imu}}]{Inertial Measurement Unit}
+\newacro{ekf}[\AC@hyperlink{ekf}{\textsc  {ekf}}]{Extended Kalman Filter}
+\newacro{hlut}[\AC@hyperlink{hlut}{\textsc  {hlut}}]{Heuristic Look-Up Table}
+\newacro{mads}[\AC@hyperlink{mads}{\textsc  {mads}}]{Mesh Adaptive Direct Search}
+\newacro{ma}[\AC@hyperlink{ma}{\textsc  {ma}}]{Moving Average}
+\newacro{sitl}[\AC@hyperlink{sitl}{\textsc  {sitl}}]{Software In The Loop}
+\newacro{ipopt}[\AC@hyperlink{ipopt}{\textsc  {ipopt}}]{Interior Point Optimization}
 \babel@aux{english}{}
 \babel@aux{english}{}
+\acronymused{uav}
+\AC@undonewlabel{acro:uav}
+\newlabel{acro:uav}{{}{v}{}{section*.2}{}}
+\acronymused{uav}
+\acronymused{uav}
+\@input{notation.aux}
 \@input{theory/introduction.aux}
 \@input{theory/fixed_wing_uav.aux}
-\@input{theory/wind_estimate.aux}
 \@input{theory/motion_planning.aux}
 \@input{theory/planning_wind.aux}
-\pgfsyspdfmark {pgfid8}{15833393}{26838944}
 \@input{theory/optimal_landing.aux}
-\pgfsyspdfmark {pgfid10}{15833393}{25269675}
 \@input{theory/implementation.aux}
-\pgfsyspdfmark {pgfid13}{15833393}{24862385}
-\pgfsyspdfmark {pgfid15}{14901054}{12879078}
 \@input{theory/results.aux}
-\pgfsyspdfmark {pgfid16}{15833393}{24833195}
 \@input{theory/discussion.aux}
 \bibdata{IEEEfull,myrefs}
 \bibcite{jsbsim}{{1}{2019}{{jsb}}{{}}}
 \bibcite{mavlink}{{2}{2019}{{mav}}{{}}}
-\bibcite{ros}{{3}{2019}{{ros}}{{}}}
-\bibcite{s2geo}{{4}{2019}{{s2g}}{{}}}
-\bibcite{casadi}{{5}{2019}{{Andersson et~al.}}{{Andersson, Gillis, Horn, Rawlings, and Diehl}}}
-\bibcite{mads}{{6}{2006}{{Audet and Dennis}}{{}}}
-\bibcite{bi_mads}{{7}{2008}{{Audet et~al.}}{{Audet, Savard, and Zghal}}}
-\bibcite{wind_hellman}{{8}{2011}{{Bauelos-Ruedas et~al.}}{{Bauelos-Ruedas, Angeles-Camacho, and Rios-Marcuello}}}
+\bibcite{parrot}{{3}{2019}{{par}}{{}}}
+\bibcite{pixracer}{{4}{2019}{{pix}}{{}}}
+\bibcite{ros}{{5}{2019}{{ros}}{{}}}
+\bibcite{s2geo}{{6}{2019}{{s2g}}{{}}}
+\bibcite{casadi}{{7}{2019}{{Andersson et~al.}}{{Andersson, Gillis, Horn, Rawlings, and Diehl}}}
+\bibcite{mads}{{8}{2006}{{Audet and Dennis}}{{}}}
 \bibcite{Bergman_lic}{{9}{2019}{{Bergman}}{{}}}
 \bibcite{graph_theory}{{10}{1976}{{Bondy et~al.}}{{}}}
 \bibcite{uav_dynamics_wind}{{11}{2013}{{Brezoescu}}{{}}}
-\bibcite{hybrid_astar}{{12}{2010}{{Dolgov et~al.}}{{Dolgov, Thrun, Montemerlo, and Diebel}}}
-\@writefile{toc}{\contentsline {chapter}{Bibliography}{49}{appendix*.37}\protected@file@percent }
-\bibcite{dubins}{{13}{1957}{{Dubins}}{{}}}
-\bibcite{mavros}{{14}{2019}{{Ermakov}}{{}}}
-\bibcite{survey_landing}{{15}{2014}{{{Gautam} et~al.}}{{{Gautam}, {Sujit}, and {Saripalli}}}}
-\bibcite{sensor_fusion}{{16}{2010}{{Gustafsson}}{{}}}
-\bibcite{astar}{{17}{1968}{{{Hart} et~al.}}{{{Hart}, {Nilsson}, and {Raphael}}}}
-\bibcite{2_phase_uav}{{18}{2007}{{{Hwangbo} et~al.}}{{{Hwangbo}, {Kuffner}, and {Kanade}}}}
-\bibcite{prm}{{19}{1996}{{{Kavraki} et~al.}}{{{Kavraki}, {Svestka}, {Latombe}, and {Overmars}}}}
-\bibcite{hlut}{{20}{2006}{{{Knepper} and {Kelly}}}{{}}}
-\bibcite{planning_algorithms}{{21}{2006}{{La~Valle}}{{}}}
-\bibcite{wind_direct_computation}{{22}{2011}{{Langelaan et~al.}}{{Langelaan, Alley, and Neidhoefer}}}
-\bibcite{rrt}{{23}{1998}{{LaValle}}{{}}}
-\bibcite{nomad}{{24}{2011}{{Le~Digabel}}{{}}}
-\bibcite{rrt_uav}{{25}{2014}{{{Lee} and {Shim}}}{{}}}
-\bibcite{anytime_astar}{{26}{2004}{{Likhachev et~al.}}{{Likhachev, Gordon, and Thrun}}}
-\bibcite{optimal_path_target}{{27}{2005}{{Mcgee et~al.}}{{Mcgee, Spry, and Hedrick}}}
-\bibcite{ardupilot_auto}{{28}{2019{}}{{open~source autopilot}}{{}}}
-\bibcite{ardupilot_land}{{29}{2019{}}{{open~source autopilot}}{{}}}
-\bibcite{ardupilot_sitl}{{30}{2019{}}{{open~source autopilot}}{{}}}
-\bibcite{arduplane}{{31}{2019{}}{{open~source autopilot}}{{}}}
-\bibcite{arduplane_l1}{{32}{2019{}}{{open~source autopilot}}{{}}}
-\bibcite{l1_controller}{{33}{}{{Park et~al.}}{{Park, Deyst, and How}}}
-\bibcite{landing_on_vehicle}{{34}{2016}{{Persson}}{{}}}
-\bibcite{state_lattice_planning}{{35}{2009}{{Pivtoraiko et~al.}}{{Pivtoraiko, Knepper, and Kelly}}}
-\bibcite{derivative_free_opt}{{36}{2013}{{Rios and Sahinidis}}{{}}}
-\bibcite{px4_ecl_ekf}{{37}{2019}{{Riseborough}}{{}}}
-\bibcite{course_hdg_wind}{{38}{2010}{{Rysdyk}}{{}}}
-\bibcite{wind_astar}{{39}{2013}{{Selecky et~al.}}{{Selecky, V\IeC {\'a}\IeC {\v n}a, Rollo, and Meiser}}}
-\bibcite{optimal_path_trochoidal}{{40}{2009}{{Techy and Woolsey}}{{}}}
-\bibcite{emergency_landing}{{41}{2015}{{Warren et~al.}}{{Warren, Mejias, Kok, Yang, Gonzalez, and Upcroft}}}
+\bibcite{pitot}{{12}{2011}{{{Cho} et~al.}}{{{Cho}, {Kim}, {Lee}, and {Kee}}}}
+\bibcite{multiple_shooting}{{13}{2006}{{Diehl et~al.}}{{Diehl, Bock, Diedam, and Wieber}}}
+\@writefile{toc}{\contentsline {chapter}{Bibliography}{51}{appendix*.39}\protected@file@percent }
+\bibcite{hybrid_astar}{{14}{2010}{{Dolgov et~al.}}{{Dolgov, Thrun, Montemerlo, and Diebel}}}
+\bibcite{dubins}{{15}{1957}{{Dubins}}{{}}}
+\bibcite{mavros}{{16}{2019}{{Ermakov}}{{}}}
+\bibcite{survey_landing}{{17}{2014}{{{Gautam} et~al.}}{{{Gautam}, {Sujit}, and {Saripalli}}}}
+\bibcite{sensor_fusion}{{18}{2010}{{Gustafsson}}{{}}}
+\bibcite{astar}{{19}{1968}{{{Hart} et~al.}}{{{Hart}, {Nilsson}, and {Raphael}}}}
+\bibcite{2_phase_uav}{{20}{2007}{{{Hwangbo} et~al.}}{{{Hwangbo}, {Kuffner}, and {Kanade}}}}
+\bibcite{prm}{{21}{1996}{{{Kavraki} et~al.}}{{{Kavraki}, {Svestka}, {Latombe}, and {Overmars}}}}
+\bibcite{hlut}{{22}{2006}{{{Knepper} and {Kelly}}}{{}}}
+\bibcite{planning_algorithms}{{23}{2006}{{La~Valle}}{{}}}
+\bibcite{wind_direct_computation}{{24}{2011}{{Langelaan et~al.}}{{Langelaan, Alley, and Neidhoefer}}}
+\bibcite{rrt}{{25}{1998}{{LaValle}}{{}}}
+\bibcite{nomad}{{26}{2011}{{Le~Digabel}}{{}}}
+\bibcite{rrt_uav}{{27}{2014}{{{Lee} and {Shim}}}{{}}}
+\bibcite{anytime_astar}{{28}{2004}{{Likhachev et~al.}}{{Likhachev, Gordon, and Thrun}}}
+\bibcite{optimal_path_target}{{29}{2005}{{Mcgee et~al.}}{{Mcgee, Spry, and Hedrick}}}
+\bibcite{ardupilot_auto}{{30}{2019{}}{{open~source autopilot}}{{}}}
+\bibcite{ardupilot_land}{{31}{2019{}}{{open~source autopilot}}{{}}}
+\bibcite{ardupilot_sitl}{{32}{2019{}}{{open~source autopilot}}{{}}}
+\bibcite{arduplane}{{33}{2019{}}{{open~source autopilot}}{{}}}
+\bibcite{arduplane_l1}{{34}{2019{}}{{open~source autopilot}}{{}}}
+\bibcite{l1_controller}{{35}{}{{Park et~al.}}{{Park, Deyst, and How}}}
+\bibcite{landing_on_vehicle}{{36}{2016}{{Persson}}{{}}}
+\bibcite{state_lattice_planning}{{37}{2009}{{Pivtoraiko et~al.}}{{Pivtoraiko, Knepper, and Kelly}}}
+\bibcite{derivative_free_opt}{{38}{2013}{{Rios and Sahinidis}}{{}}}
+\bibcite{px4_ecl_ekf}{{39}{2019}{{Riseborough}}{{}}}
+\bibcite{course_hdg_wind}{{40}{2010}{{Rysdyk}}{{}}}
+\bibcite{wind_astar}{{41}{2013}{{Selecky et~al.}}{{Selecky, V\IeC {\'a}\IeC {\v n}a, Rollo, and Meiser}}}
+\bibcite{optimal_path_trochoidal}{{42}{2009}{{Techy and Woolsey}}{{}}}
+\bibcite{rascal}{{43}{2015}{{Vogeltanz and Ja{\v {s}}ek}}{{}}}
+\bibcite{emergency_landing}{{44}{2015}{{Warren et~al.}}{{Warren, Mejias, Kok, Yang, Gonzalez, and Upcroft}}}
+\bibcite{ipopt}{{45}{2006}{{W\IeC {\"a}chter and Biegler}}{{}}}
+\bibcite{obstacle_optimization_hybrid}{{46}{2018}{{{Zhang} et~al.}}{{{Zhang}, {Liniger}, {Sakai}, and {Borrelli}}}}

@@ -13,7 +13,6 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../"
   "/nomad/src"
   "/nomad/ext/sgtelib/src"
-  "../mason_packages/headers/boost/1.67.0/include"
   "../mason_packages/headers/variant/1.1.4/include"
   "../mason_packages/headers/geometry/1.0.0/include"
   "../mason_packages/headers/rapidjson/1.1.0/include"

@@ -1,4 +1,4 @@
-\begin{thebibliography}{41}
+\begin{thebibliography}{46}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -13,6 +13,15 @@ Jsbsim - an open source, platform-independent, flight dynamics \& control
 \bibitem[mav(2019)]{mavlink}
 Mavlink - micro air vehicle communication protocol, 2019.
 \newblock URL \url{http://mavlink.io}.
+
+\bibitem[par(2019)]{parrot}
+Parrot disco fpv, 2019.
+\newblock URL \url{https://www.parrot.com/us/drones/parrot-disco-fpv}.
+
+\bibitem[pix(2019)]{pixracer}
+Pixracer autpilot, 2019.
+\newblock URL
+  \url{https://docs.px4.io/v1.9.0/en/flight_controller/pixracer.html}.
 
 \bibitem[ros(2019)]{ros}
 Ros - robotic operating system, 2019.
@@ -38,23 +47,6 @@ Charles Audet and J.~Dennis.
 \newblock \emph{SIAM Journal on Optimization}, 17:\penalty0 188--217, 01 2006.
 \newblock \doi{10.1137/060671267}.
 
-\bibitem[Audet et~al.(2008)Audet, Savard, and Zghal]{bi_mads}
-Charles Audet, Gilles Savard, and Walid Zghal.
-\newblock Multiobjective optimization through a series of single-objective
-  formulations.
-\newblock \emph{SIAM Journal on Optimization}, 19\penalty0 (1):\penalty0
-  188--210, 2008.
-
-\bibitem[Bauelos-Ruedas et~al.(2011)Bauelos-Ruedas, Angeles-Camacho, and
-  Rios-Marcuello]{wind_hellman}
-Francisco Bauelos-Ruedas, Cesar Angeles-Camacho, and Sebastian Rios-Marcuello.
-\newblock \emph{Methodologies Used in the Extrapolation of Wind Speed Data at
-  Different Heights and Its Impact in the Wind Energy Resource Assessment in a
-  Region}.
-\newblock 06 2011.
-\newblock ISBN 978-953-307-483-2.
-\newblock \doi{10.5772/20669}.
-
 \bibitem[Bergman(2019)]{Bergman_lic}
 Kristoffer Bergman.
 \newblock On motion planning using numerical optimal control, 2019.
@@ -69,6 +61,21 @@ John~Adrian Bondy et~al.
 Cornel-Alexandru Brezoescu.
 \newblock \emph{Small lightweight aircraft navigation in the presence of wind}.
 \newblock PhD thesis, 2013.
+
+\bibitem[{Cho} et~al.(2011){Cho}, {Kim}, {Lee}, and {Kee}]{pitot}
+A.~{Cho}, J.~{Kim}, S.~{Lee}, and C.~{Kee}.
+\newblock Wind estimation and airspeed calibration using a uav with a
+  single-antenna gps receiver and pitot tube.
+\newblock \emph{IEEE Transactions on Aerospace and Electronic Systems},
+  47\penalty0 (1):\penalty0 109--117, January 2011.
+\newblock ISSN 2371-9877.
+\newblock \doi{10.1109/TAES.2011.5705663}.
+
+\bibitem[Diehl et~al.(2006)Diehl, Bock, Diedam, and Wieber]{multiple_shooting}
+Moritz Diehl, Hans~Georg Bock, Holger Diedam, and P-B Wieber.
+\newblock Fast direct multiple shooting algorithms for optimal robot control.
+\newblock In \emph{Fast motions in biomechanics and robotics}, pages 65--93.
+  Springer, 2006.
 
 \bibitem[Dolgov et~al.(2010)Dolgov, Thrun, Montemerlo, and
   Diebel]{hybrid_astar}
@@ -157,7 +164,7 @@ Steven~M. LaValle.
 
 \bibitem[{Le~Digabel}(2011)]{nomad}
 S.~{Le~Digabel}.
-\newblock Algorithm 909: {NOMAD}: Nonlinear optimization with the {MADS}
+\newblock Algorithm 909: {NOMAD}: Nonlinear optimization with the mads
   algorithm.
 \newblock \emph{{ACM} Transactions on Mathematical Software}, 37\penalty0
   (4):\penalty0 1--15, 2011.
@@ -265,6 +272,11 @@ Laszlo Techy and Craig Woolsey.
   DYNAM}, 32:\penalty0 1736--1746, 11 2009.
 \newblock \doi{10.2514/1.44580}.
 
+\bibitem[Vogeltanz and Ja{\v{s}}ek(2015)]{rascal}
+Tom{\'a}{\v{s}} Vogeltanz and Roman Ja{\v{s}}ek.
+\newblock Jsbsim library for flight dynamics modelling of a mini-uav.
+\newblock 2015.
+
 \bibitem[Warren et~al.(2015)Warren, Mejias, Kok, Yang, Gonzalez, and
   Upcroft]{emergency_landing}
 Michael Warren, Luis Mejias, Jonathan Kok, Xilin Yang, Luis Gonzalez, and Ben
@@ -273,5 +285,20 @@ Michael Warren, Luis Mejias, Jonathan Kok, Xilin Yang, Luis Gonzalez, and Ben
   Planning and control.
 \newblock \emph{Journal of Field Robotics}, 32:\penalty0 1114--1140, 12 2015.
 \newblock \doi{10.1002/rob.21641}.
+
+\bibitem[Wächter and Biegler(2006)]{ipopt}
+Andreas Wächter and Lorenz Biegler.
+\newblock On the implementation of an interior-point filter line-search
+  algorithm for large-scale nonlinear programming.
+\newblock \emph{Mathematical programming}, 106:\penalty0 25--57, 03 2006.
+\newblock \doi{10.1007/s10107-004-0559-y}.
+
+\bibitem[{Zhang} et~al.(2018){Zhang}, {Liniger}, {Sakai}, and
+  {Borrelli}]{obstacle_optimization_hybrid}
+X.~{Zhang}, A.~{Liniger}, A.~{Sakai}, and F.~{Borrelli}.
+\newblock Autonomous parking using optimization-based collision avoidance.
+\newblock In \emph{2018 IEEE Conference on Decision and Control (CDC)}, pages
+  4327--4332, Dec 2018.
+\newblock \doi{10.1109/CDC.2018.8619433}.
 
 \end{thebibliography}

@@ -14,11 +14,14 @@ Vector2_i grid_search(int num_cells, int step, float wind_dir, float goal_hdg){
             sim.reset(0, 0, 0);
             goal = Vector2_d(i*step, j*step);
             cost = sim.simulate_waypoints(start, goal);
-            cost += fabs(sim.xtrack_error())*Constants::xtrack_w();
+            
+            double xtrack_error = std::abs(sim.xtrack_error()) - Constants::xtrack_error();
+            xtrack_error = std::max(xtrack_error, 0.0);
+            cost += xtrack_error*Constants::xtrack_w();
+            
             double hdg_error = std::abs(sim.path_bearing() - goal_hdg);
             hdg_error = std::min(hdg_error, std::abs(360-hdg_error));
             if(hdg_error < Constants::hdg_error() &&
-               std::abs(sim.xtrack_error()) < Constants::xtrack_error() &&
                cost < best_cost){
                 best_cost = cost;
                 best_x = step*i;
@@ -64,10 +67,11 @@ void MotionPrimitiveSet::generate(bool log){
                 Constants::yrate()
             );
             se.set_goal(goal_hdg, Constants::hdg_error(), Constants::xtrack_error());
-            mads.multi_run();
-            auto front = mads.get_pareto_front();
-            if(!front -> empty()){
-                Vector2_d best_wp = se.get_best_pareto_point(front);
+            mads.run();
+            auto sol = mads.get_best_feasible();
+            //auto front = mads.get_pareto_front();
+            if(sol){
+                Vector2_d best_wp(sol -> value(0), sol -> value(1));
                 se.sim.reset(0, 0, 0);
                 double cost = se.sim.simulate_waypoints(Vector2_d(0, 0), best_wp);
                 save(MotionPrimitive(
@@ -87,11 +91,6 @@ void MotionPrimitiveSet::generate(bool log){
                 }
             } else {
                 std::cout << "failed: " << wind_dir << " " << goal_hdg << std::endl;
-                // Vector2_i best = grid_search(150, 1, goal_hdg, wind_spd_, wind_dir);
-                // if(best[0] > 1 || best[1] > 1){
-                //     std::cout << "found sol with gridsearch: " << best << std::endl;
-                //     save(best[0], best[1], goal_hdg, wind_dir);
-                // }
                 fail++;
             }
         }

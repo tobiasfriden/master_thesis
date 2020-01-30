@@ -1,0 +1,17 @@
+Distance from LAND point=5.87m
+R_a-R_b: 231.787
+R_f: 115.894
+R_b: 1.49062
+h1.72362
+velocity: 9.98781
+h_a: 19.4523
+approach point: [-571.847, 311.045]
+heuristic estimate: 1117.88
+Path found in: 0.321493
+best heading: 300
+
+650:2977
+2150
+ha 12.6823
+err_land:  5.8743387423961995
+err_h:  12.68234634399414

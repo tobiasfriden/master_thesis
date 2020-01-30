@@ -52,6 +52,23 @@ double best_approach_heading(Landing& land, const Obstacles& obst, const HLUT& h
     return best_hdg;
 }
 
+void print_sol(S2LatLng origin, std::vector<Coordinate> path, std::string file){
+
+    std::ofstream out;
+    out.open(file);
+
+    feature_collection points;
+    for(auto p : path) {
+        feature f;
+        auto wp = p.waypoint();
+        auto ll = offset(origin, wp.x(), wp.y());
+        f.geometry = point(ll.lng().degrees(), ll.lat().degrees());
+        points.push_back(f);
+    }
+    out << stringify(points) << std::endl;
+    out.close();
+}
+
 int main(int argc, char**argv){
 
     S2LatLng origin = offset(S2LatLng::FromDegrees(57.6432, 11.8630), Constants::start_offset(), 0);
@@ -84,24 +101,13 @@ int main(int argc, char**argv){
         std::cerr << "goal in collision" << std::endl;
     }
     auto path = astar(sim, primitives, hlut, obst, origin, goal, best_hdg, 1);
-    //if(path.size() > 2) path = filter_solution(obst, sim, path);
+    print_sol(origin, path, "../sol_unfiltered.txt");
+    if(path.size() > 2) path = filter_solution(obst, sim, path);
     path.pop_back();
     path.push_back(Coordinate(approach[0].x(), approach[0].y(), 0));
     path.push_back(Coordinate(approach[1].x(), approach[1].y(), 0));
 
-    std::ofstream out;
-    out.open("../sol.txt");
-
-    feature_collection points;
-    for(auto p : path) {
-        feature f;
-        auto wp = p.waypoint();
-        auto ll = offset(origin, wp.x(), wp.y());
-        f.geometry = point(ll.lng().degrees(), ll.lat().degrees());
-        points.push_back(f);
-    }
-    out << stringify(points) << std::endl;
-    out.close();
+    print_sol(origin, path, "../sol.txt");
 
     std::vector<Vector2_d> mission;
     std::transform(

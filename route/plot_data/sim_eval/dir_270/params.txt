@@ -1,0 +1,15 @@
+Distance from LAND point=5.92m
+R_a-R_b: 222.217
+R_f: 111.108
+R_b: 1.71424
+h1.70238
+velocity: 9.45743
+h_a: 20.4094
+approach point: [-381.282, -95.6023]
+heuristic estimate: 754.811
+found in goal expansion
+Path found in: 0.0753486
+best heading: 110
+650:2443
+err_land:  8.909485929400688
+err_h:  13.766312599182129

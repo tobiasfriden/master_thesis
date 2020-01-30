@@ -1,5 +1,18 @@
 {
     "files.associations": {
+        "Dockerfile-rpi-base": "dockerfile",
+        "Dockerfile-rpi-dji": "dockerfile",
+        "Dockerfile-dev": "dockerfile",
+        "Dockerfile-rpi": "dockerfile",
+        "Dockerfile-sim": "dockerfile",
+        "Dockerfile-x86": "dockerfile",
+        "Dockerfile-launcher": "dockerfile",
+        "Dockerfile-rpi-apm": "dockerfile",
+        "Dockerfile-apm": "dockerfile",
+        "Dockerfile-base": "dockerfile",
+        "Dockerfile-dji": "dockerfile",
+        "Dockerfile-x86-base": "dockerfile",
+        "Dockerfile-x86-apm": "dockerfile",
         "__bit_reference": "cpp",
         "__config": "cpp",
         "__debug": "cpp",
@@ -86,7 +99,8 @@
         "cfenv": "cpp",
         "cinttypes": "cpp",
         "*.ipp": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "__node_handle": "cpp"
     },
     "git.ignoreLimitWarning": true,
     "C_Cpp.default.includePath": [

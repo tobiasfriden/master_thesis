@@ -38,9 +38,9 @@ namespace Constants{
     }
 
     // Primitives
-    static const int prim_hdg_size = 10;
+    static const int prim_hdg_size = 20;
     static const int prim_headings = 9;
-    static const int prim_headings_safe = 16;
+    static const int prim_headings_safe = 8;
 
     // Grid definition
     static const double cell_size = 10;
@@ -48,13 +48,16 @@ namespace Constants{
     static const double goal_size = 25;
 
     // HLUT definition
-    static const double hlut_size = 20;
+    static const double hlut_size = 10;
     static const double hlut_hdg = 20;
     double hlut_inner(){
         return read_env("HLUT_INNER");
     }
     double hlut_outer(){
         return read_env("HLUT_OUTER");
+    }
+    double hlut_entries(){
+        return read_env("HLUT_ENTRIES");
     }
 
     // Obstacles

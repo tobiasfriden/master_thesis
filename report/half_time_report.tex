@@ -39,8 +39,8 @@
     \mathrm{Arg}~#1
 }
 
-\DeclareMathOperator*{\argmax}{arg\,max}
-\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,\text{max}}
+\DeclareMathOperator*{\argmin}{arg\,\text{min}}
 
 \newcommand{\Drone}[3]{
   \draw[
@@ -96,7 +96,7 @@ Research questions:
                     \node[block, dashed, below of=init] (user){User};
                     \node[block, right of=init] (mp){Motion planning};
                     \node[block, right of=mp] (ctrl){Tracking controllers};
-                    \node[block, right of=ctrl] (uav){UAV};
+                    \node[block, right of=ctrl] (uav){\ac{UAV}};
         
                     \path[line] (user) -> node[midway, left]{Manual input} (init);
                     \path[line] (init) -> node[midway, above, align=left, yshift=.9cm]{High-level \\ commands} (mp);
@@ -114,9 +114,9 @@ Research questions:
 
 \begin{frame}{Kinematic model}
     \begin{align}\label{eq:traj_model}
-        \dot{x}_N &= V_a\cos\psi + W\cos\psi_w \\
-        \dot{y}_E &= V_a\sin\psi + W\sin\psi_w \\
-        \dot{\psi} &= \frac{g}{V_a}\tan\phi
+        \dot{x}_N &= \airspd\cos\psi + \windspd\cos\winddir \\
+        \dot{y}_E &= \airspd\sin\psi + \windspd\sin\winddir \\
+        \dot{\psi} &= \frac{g}{\airspd}\tan\phi
     \end{align}
     \begin{align}
         \dot{\phi} = f_\phi(\phi-\phi^c)
@@ -124,7 +124,7 @@ Research questions:
 \end{frame}
 
 \begin{frame}{Straight path following in wind}
-    \begin{figure}[H]
+    \begin{figure}
         \begin{center}
             \resizebox{.3\linewidth}{!}{
                 \tikzstyle{myaxis}=[
@@ -152,12 +152,12 @@ Research questions:
 
 \begin{frame}{Straight path following in wind (contd)}
     \begin{align}
-        \dot{d}\equiv\dot{p}_{E,s} &= V_a\sin(\psi-\psi_s) + W\sin(\psi_w-\psi_s)\\
-        \dot{\psi} &= \frac{g}{V_a}\tan\phi
+        \dot{d}\equiv\dot{p}_{E,s} &= \airspd\sin(\psi-\psi_s) + \windspd\sin(\winddir-\psi_s)\\
+        \dot{\psi} &= \frac{g}{\airspd}\tan\phi
     \end{align}
-    $d\approx0$, $\dot{d}\approx0$ means that $V_a\sin(\psi-\psi_s) + W\sin(\psi_w-\psi_s)=0$ so 
+    $d\approx0$, $\dot{d}\approx0$ means that $\airspd\sin(\psi-\psi_s) + \windspd\sin(\winddir-\psi_s)=0$ so 
     \begin{equation}\label{eq:wca}
-        \psi_{wca}\equiv-\arcsin\left(\frac{W}{V_a}\sin(\psi_w-\psi_s)\right) + \psi_s
+        \wca\equiv-\arcsin\left(\frac{\windspd}{\airspd}\sin(\winddir-\psi_s)\right) + \psi_s
     \end{equation}
 \end{frame}
 
@@ -183,7 +183,7 @@ Research questions:
                 \coordinate (ref) at (7,7);
                 
                 \node[anchor=300] at (drone) {$\vec{p}$};
-                \draw[my_v] (drone) -- node[above, near end, anchor=south east]{$\vec{v}$} ++ ({atan(2)}:2.5);
+                \draw[my_v] (drone) -- node[above, near end, anchor=south east]{$\vel$} ++ ({atan(2)}:2.5);
         
                 \draw[->] (drone) -- node[right, at end]{$a^c$}++ (-45:1);
 
@@ -216,17 +216,17 @@ Research questions:
 
 \begin{frame}{Trajectory following control law (contd)}
     \begin{equation}
-        \vec{v} = V_a\begin{bmatrix}
+        \vel = \airspd\begin{bmatrix}
             \cos\psi \\
             \sin\psi
         \end{bmatrix}
-        + W\begin{bmatrix}
-            \cos\psi_w\\
-            \sin\psi_w
+        + \windspd\begin{bmatrix}
+            \cos\winddir\\
+            \sin\winddir
         \end{bmatrix}
     \end{equation}
     \begin{equation}\label{eq:lat_acc}
-        a^{c}=2\frac{V^2}{L_1}\sin\eta, \quad V=\|\vec{v}\|
+        a^{c}=2\frac{V^2}{L_1}\sin\eta, \quad V=\|\vel\|
     \end{equation}
     \begin{equation}\label{eq:roll_cmd}
         \phi^{c}=\tan^{-1}(a^{c}/g)
@@ -246,13 +246,13 @@ Research questions:
 \begin{frame}{Closed loop system}
     \eqref{eq:traj_model} + \eqref{eq:roll_cmd} $\Rightarrow$
     \begin{equation}
-        \dot{\psi}=\frac{a^c(x, u)}{V_a}
+        \dot{\psi}=\frac{a^c(x, u)}{\airspd}
     \end{equation}
-    Physical constraint: $\dot{\psi}\leq\dot{\psi}_{max}$ $\Rightarrow$
+    Physical constraint: $\dot{\psi}\leq\dot{\psi}_{\text{max}}$ $\Rightarrow$
     \begin{equation}\label{eq:saturation}
         \underline{\dot{\psi}}(x, u)=\begin{cases}
-            a^c(x, u)/V_a & |a^c(x, u)/V_a| \leq \dot{\psi}_{max} \\
-            \text{sgn}(a^c(x, u)/V_a)\dot{\psi}_{max} & \text{otherwise}
+            a^c(x, u)/\airspd & |a^c(x, u)/\airspd| \leq \dot{\psi}_{\text{max}} \\
+            \text{sgn}(a^c(x, u)/\airspd)\dot{\psi}_{\text{max}} & \text{otherwise}
         \end{cases}
     \end{equation}
 \end{frame}
@@ -261,8 +261,8 @@ Research questions:
     \begin{equation}\label{eq:closed_loop}
         \dot{x}=f(x,u)=
         \begin{bmatrix}
-            V_a\cos\psi + W\cos\psi_w\\
-            V_a\sin\psi + W\sin\psi_w\\
+            \airspd\cos\psi + \windspd\cos\winddir\\
+            \airspd\sin\psi + \windspd\sin\winddir\\
             \underline{\dot{\psi}}(x, u)
         \end{bmatrix}
     \end{equation}
@@ -270,15 +270,15 @@ Research questions:
 
 \begin{frame}{Motion primitives}
     \begin{itemize}
-        \item Different motion primitives for different wind direction $\psi_w$
-        \item Different motion primitives for different wind speeds $W$
+        \item Different motion primitives for different wind direction $\winddir$
+        \item Different motion primitives for different wind speeds $\windspd$
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Motion primitives (contd)}
     Constraints on final course instead of heading where course is defined as 
     \begin{equation}
-        \psi_c(x) = \tan^{-1}\left(\frac{V_a\sin\psi + W\sin\psi_w}{V_a\cos\psi+W\cos\psi_w}\right)
+        \psi_c(x) = \tan^{-1}\left(\frac{\airspd\sin\psi + \windspd\sin\winddir}{\airspd\cos\psi+\windspd\cos\winddir}\right)
     \end{equation}
 \end{frame}
 
@@ -286,12 +286,12 @@ Research questions:
     \begin{subequations}
         \label{eq:opt_problem_mp_uav}
         \begin{alignat}{3}
-        &\min_{x(t),u,T}        &\qquad& J=|d(x(T), u)|^2 + |\psi_c(x(T))-\psi_d|^2 + \int_{0}^{T}V_a dt & \\
-        &\text{subject to} & & \psi(0)=\psi_{wca} &\\
-        & & & \psi_c(x(0))=0, \quad |\psi_c(x(T))-\psi_d| \leq \Delta\psi_{min} &\\
+        &\min_{x(t),u,T}        &\qquad& J=|d(x(T), u)|^2 + |\psi_c(x(T))-\psi_d|^2 + \int_{0}^{T}\airspd dt & \\
+        &\text{subject to} & & \psi(0)=\wca &\\
+        & & & \psi_c(x(0))=0, \quad |\psi_c(x(T))-\psi_d| \leq \Delta\psi_{\text{min}} &\\
         & & & \dot{x}=f(x(t), u) &\\
-        & & & x(t)\in\mathcal{X}& \\
-        & & & u\in\mathcal{U} &
+        & & & x(t)\in\states& \\
+        & & & u\in\actions &
         \end{alignat}
     \end{subequations}
 \end{frame}
@@ -301,7 +301,7 @@ Research questions:
         \begin{center}
             \includegraphics[width=.8\linewidth]{fig/J_opt_90.png}
         \end{center}
-        \caption{$J$ for $V_a=14$ m/s, $W=5$ m/s, $\psi_w=0\degree$, $\psi_d=90\degree$}
+        \caption{$J$ for $\airspd=14$ m/s, $\windspd=5$ m/s, $\winddir=0\degree$, $\psi_d=90\degree$}
     \end{figure}
 \end{frame}
 
@@ -312,24 +312,24 @@ Research questions:
         \label{eq:derivative_free_opt}
         \begin{alignat}{3}
         &\min_{x\in\mathbb{R}^n}        &\qquad& f: x \rightarrow \mathbb{R} & \\
-        &\text{subject to} & & x\in\mathcal{X}_{feasible} &\\
+        &\text{subject to} & & x\in\states_{feasible} &\\
         \end{alignat}
     \end{subequations}
 
-    Mesh-Adaptive Direct Search (MADS)
+    Mesh-Adaptive Direct Search (\ac{MADS})
 \end{frame}
 
 \begin{frame}{Resulting primitives}
     \begin{figure}
         \begin{center}
-            \subfloat[$\psi_w=0\degree$]{
+            \subfloat[$\winddir=0\degree$]{
                 \includegraphics[width=.48\linewidth]{fig/mp_0}
             }
-            \subfloat[$\psi_w=80\degree$]{
+            \subfloat[$\winddir=80\degree$]{
                 \includegraphics[width=.48\linewidth]{fig/mp_80}
             }
         \end{center}
-        \caption{Motion primitives for different wind directions, $W=5$ m/s}
+        \caption{Motion primitives for different wind directions, $\windspd=5$ m/s}
         \label{fig:motion_prims}
     \end{figure}
 \end{frame}
@@ -337,25 +337,25 @@ Research questions:
 \begin{frame}{Heuristic function}
     \begin{itemize}
         \item States defined in inertial frame
-        \item Cost is distance travelled by UAV in air-relative frame
-        \item Not equal to inertial frame distance if $W\neq0$
+        \item Cost is distance travelled by \ac{UAV} in air-relative frame
+        \item Not equal to inertial frame distance if $\windspd\neq0$
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Cost for straight line paths}
-    Assuming that $\psi_i=\psi_f=\psi_{wca}$:
+    Assuming that $\psi_i=\psi_f=\wca$:
     \begin{equation}
-        V_{\parallel}=\cos\psi_s(V_a\cos\psi_{wca}+W\cos\psi_w) + \sin\psi_s(V_a\sin\psi_{wca}+W\sin\psi_w)
+        V_{\parallel}=\cos\psi_s(\airspd\cos\wca+\windspd\cos\winddir) + \sin\psi_s(\airspd\sin\wca+\windspd\sin\winddir)
     \end{equation}
     \begin{equation}
-        s_A=\frac{V_a}{V_\parallel}\|\vec{p}_{i+1}-\vec{p}_{i}\|
+        s_A=\frac{\airspd}{V_\parallel}\|\vec{p}_{i+1}-\vec{p}_{i}\|
     \end{equation}
 \end{frame}
 
 \begin{frame}{Cost for arbitrary initial and final heading}
     \begin{itemize}
-        \item Dubin's path if $W=0$
-        \item No analytical solution if $W\neq0$
+        \item Dubin's path if $\windspd=0$
+        \item No analytical solution if $\windspd\neq0$
         \item Numerical solutions exist but computationally expensive
     \end{itemize}
 \end{frame}
@@ -363,7 +363,7 @@ Research questions:
 \begin{frame}{Heuristic Look-Up Table}
     \begin{itemize}
         \item Entries for different values of $\psi_i$ from $0\degree$ to $180\degree$
-        \item Different $W$ require new HLUT
+        \item Different $\windspd$ require new HLUT
         \item Generated with Dijkstra's Algorithm using motion primitives
     \end{itemize}
 \end{frame}
@@ -386,8 +386,8 @@ Research questions:
                     \draw (0,0) -- node[midway, below, anchor=north west]{$h_{HLUT}(x, x_p)$} (2,1);
         
                     \node[point] at (4,2){};
-                    \node[above] at (4,2){$x_f$};
-                    \draw[dashed] (2,1) -- node[midway,below, anchor=north west]{$h_s(x_p,x_f)$} (4,2);
+                    \node[above] at (4,2){$x_g$};
+                    \draw[dashed] (2,1) -- node[midway,below, anchor=north west]{$h_s(x_p,x_g)$} (4,2);
         
                     \node[anchor=west] at (-1.8,-1.75){HLUT available};
                 \end{tikzpicture}
@@ -417,14 +417,14 @@ Research questions:
                     \coordinate (a) at ($(center)+(-130:2)$);
                     \draw[fill=lightgray, rotate around={20:(1,1)}] (1,1) rectangle (4,2);
                     \draw[](0,1) -- ++ (80:1.5) -- ++ (20:1) -- ++ (45:0.75) -- (0,4) --++ (-2, -1.5) -- (-1,1) -- (0,1);
-                    \node at (-.5,2.5){$\mathcal{X}_{obst}$};
-                    \node at ($(center)+(-160:1)$){$\mathcal{A}$};
+                    \node at (-.5,2.5){$\xobst$};
+                    \node at ($(center)+(-160:1)$){$\landing$};
                     \draw (center) -- ++ (-130:2);
                     \node[point] at (center){};
                     \node[above] at (center){$\vec{p}_L$};
                     \node[point] at (a){};
                     \node[below] at (a){$\vec{p}_A$};
-                    \draw[my_v] ($(center)+(20:3)$) -- node[above]{$\vec{w}$} ++ (-1,0);
+                    \draw[my_v] ($(center)+(20:3)$) -- node[above]{$\windvec$} ++ (-1,0);
                     \Drone{-1}{0}{10}
                     \draw[dashed](-1,0) -- (a);            
                 \end{tikzpicture}
@@ -438,15 +438,15 @@ Research questions:
 \begin{frame}{Landing sequences (contd)}
     \begin{itemize}
         \item Approach: Descend at rate $\dot{h}$ given by $\vec{p}_A$ and $\vec{p}_L$
-        \item Flare: When below altitude $h_{flare}$, begin descending at fixed rate $\dot{h}_{flare}$
-        \item Has to enter landing area $\mathcal{A}$ above altitude $h_A$
+        \item Flare: When below altitude $\flarealt$, begin descending at fixed rate $\flaresink$
+        \item Has to enter landing area $\landing$ above altitude $h_A$
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Optimal landing sequence}
     Objectives:
     \begin{enumerate}
-        \item Land as closely to the center of $\mathcal{A}$ as possible
+        \item Land as closely to the center of $\landing$ as possible
         \item Land against the wind if possible
     \end{enumerate}
 \end{frame}
@@ -485,8 +485,8 @@ Research questions:
                     \draw[dashed] ($(-2.5,-2)+(.75,.5)$) -- ++ (1,0);
                     \draw ($(-2.5,-2)+(1.25,.5)$) arc(0:30:.5) node[midway, anchor=200]{$\psi_L$};
         
-                    \node at (3.5,.5){$\mathcal{A}$};
-                    \draw[my_v] (2, 4) -- node[left]{$\vec{w}$} ++ (0,-1);
+                    \node at (3.5,.5){$\landing$};
+                    \draw[my_v] (2, 4) -- node[left]{$\windvec$} ++ (0,-1);
                 \end{tikzpicture}
             }
         \end{center}
@@ -505,20 +505,20 @@ Research questions:
 
 \begin{frame}{Determining approach direction}
     \begin{equation}
-        V_L(\psi)=\cos\psi(V_a\cos\psi_{wca}+W\cos\psi_w) + \sin\psi(V_a\sin\psi_{wca}+W\sin\psi_w)
+        V_L(\psi)=\cos\psi(\airspd\cos\wca+\windspd\cos\winddir) + \sin\psi(\airspd\sin\wca+\windspd\sin\winddir)
     \end{equation}
     \begin{equation}
-        R_{min}(\psi)=V_L(\psi)\frac{h_A-h_{flare}}{\dot{h}_{max}}
+        R_{\text{min}}(\psi)=V_L(\psi)\frac{h_A-\flarealt}{\dot{h}_{\text{max}}}
     \end{equation}
     \begin{equation}
-        R_{flare}(\psi)=V_{L}(\psi)\frac{h_{flare}}{\dot{h}_{flare}}
+        R_{flare}(\psi)=V_{L}(\psi)\frac{\flarealt}{\flaresink}
     \end{equation}
 \end{frame}
 
 \begin{frame}{Determining approach direction (contd)}
     $L(\psi)$: Line from $\vec{p}_1$ in direction $\psi+180\degree$ with length $K$ for some $K\geq0$
     \begin{equation}
-        \{\psi_L\}_{feas}=\{\psi: (R(\psi)\geq R_{min}(\psi)+R_{flare}(\psi)) \cap (L(\psi)\notin \mathcal{X}_{obst})\}
+        \{\psi_L\}_{feas}=\{\psi: (R(\psi)\geq R_{\text{min}}(\psi)+R_{flare}(\psi)) \cap (L(\psi)\notin \xobst)\}
     \end{equation}
     \begin{equation}
         \psi_{L,opt} = \argmin_{\psi\in\{\psi_{L}\}_{feas}}R(\psi)
@@ -543,7 +543,7 @@ Research questions:
         h(R_a - 2R_c) \geq h_A
     \end{equation}
     \begin{equation}\label{eq:h_f_constraint}
-        h(R_a - R_{flare} - R_l) = h_{flare}
+        h(R_a - R_{flare} - R_l) = \flarealt
     \end{equation}
 \end{frame}
 
@@ -553,7 +553,7 @@ Research questions:
         \begin{alignat}{3}
         &\min_{R_a,R_l}        &\qquad& J=R_a^2 + \lambda|R_c-R_l|^2 & \\
         &\text{subject to} & & R_a,R_l\geq0 &\\
-        & & & \dot{h}(R_a, R_l)\leq \dot{h}_{max}\\
+        & & & \dot{h}(R_a, R_l)\leq \dot{h}_{\text{max}}\\
         & & & \eqref{eq:h_a_constraint} \nonumber\\
         & & & \eqref{eq:h_f_constraint} \nonumber
         \end{alignat}
@@ -573,13 +573,13 @@ Research questions:
                     \node[block, above of=mp] (gps){Positioning system};
                     \node[block, right of=mp] (traj){Waypoint controller};
         
-                    \path[line] (init) - > node{$\mathcal{A}$} (land); 
-                    \path[line] (obst) - > node[midway, right]{$\mathcal{X}_{obst}$} (land);
-                    \path[line] (obst) - > node[midway, right]{$\mathcal{X}_{obst}$} (mp);
-                    \path[line] (wind) - > node[midway, right]{$\vec{w}$} (land);
-                    \path[line] (wind) - > node[midway, right]{$\vec{w}$} (mp);
-                    \path[line] (land) - > node[midway]{$x_f$} (mp);
-                    \path[line] (gps) - > node[midway, right]{$x_i$} (mp);
+                    \path[line] (init) - > node{$\landing$} (land); 
+                    \path[line] (obst) - > node[midway, right]{$\xobst$} (land);
+                    \path[line] (obst) - > node[midway, right]{$\xobst$} (mp);
+                    \path[line] (wind) - > node[midway, right]{$\windvec$} (land);
+                    \path[line] (wind) - > node[midway, right]{$\windvec$} (mp);
+                    \path[line] (land) - > node[midway]{$x_g$} (mp);
+                    \path[line] (gps) - > node[midway, right]{$x_0$} (mp);
                     \path[line] (mp) - > node[midway]{$\mathcal{M}$} (traj);
                 \end{tikzpicture}
             }
@@ -592,13 +592,13 @@ Research questions:
 \begin{frame}{Results}
     \begin{figure}
     
-        \subfloat[$\psi_w=0\degree$]{
+        \subfloat[$\winddir=0\degree$]{
             \includegraphics[width=.48\linewidth]{fig/sol_0}
         }
-        \subfloat[$\psi_w=90\degree$]{
+        \subfloat[$\winddir=90\degree$]{
             \includegraphics[width=.48\linewidth]{fig/sol_90}
         }
-        \caption{Resulting landing procedures for different wind directions, $W=5$ m/s}
+        \caption{Resulting landing procedures for different wind directions, $\windspd=5$ m/s}
         \label{fig:result}
     \end{figure}
 \end{frame}
@@ -606,13 +606,13 @@ Research questions:
 \begin{frame}{Results (contd)}
     \begin{figure}
     
-        \subfloat[$\psi_w=0\degree$]{
+        \subfloat[$\winddir=0\degree$]{
             \includegraphics[width=.48\linewidth]{fig/sol_180}
         }
-        \subfloat[$\psi_w=90\degree$]{
+        \subfloat[$\winddir=90\degree$]{
             \includegraphics[width=.48\linewidth]{fig/sol_270}
         }
-        \caption{Resulting landing procedures for different wind directions, $W=5$ m/s}
+        \caption{Resulting landing procedures for different wind directions, $\windspd=5$ m/s}
         \label{fig:result}
     \end{figure}
 \end{frame}

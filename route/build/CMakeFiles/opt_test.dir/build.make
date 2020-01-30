@@ -91,11 +91,11 @@ opt_test_EXTERNAL_OBJECTS =
 opt_test: CMakeFiles/opt_test.dir/opt_test.cpp.o
 opt_test: CMakeFiles/opt_test.dir/build.make
 opt_test: libopt.so
+opt_test: /nomad/builds/release/lib/libnomad.so
 opt_test: libsimulation.so
 opt_test: s2geometry/libs2.so
 opt_test: /usr/lib/x86_64-linux-gnu/libssl.so
 opt_test: /usr/lib/x86_64-linux-gnu/libcrypto.so
-opt_test: /nomad/builds/release/lib/libnomad.so
 opt_test: CMakeFiles/opt_test.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable opt_test"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/opt_test.dir/link.txt --verbose=$(VERBOSE)

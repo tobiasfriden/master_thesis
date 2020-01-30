@@ -3,11 +3,12 @@
 void set_params(NOMAD::Parameters &p){
     p.set_DIMENSION(2);
 
-    std::vector<NOMAD::bb_output_type> bbot(4);
+    std::vector<NOMAD::bb_output_type> bbot(2);
     bbot[0] = NOMAD::OBJ;
-    bbot[1] = NOMAD::OBJ;
-    bbot[2] = NOMAD::EB;
-    bbot[3] = NOMAD::EB;
+    bbot[1] = NOMAD::EB;
+    // bbot[1] = NOMAD::OBJ;
+    // bbot[2] = NOMAD::EB;
+    // bbot[3] = NOMAD::EB;
     // bbot[4] = NOMAD::EB;
     // bbot[5] = NOMAD::EB;
     p.set_BB_OUTPUT_TYPE(bbot);
@@ -25,28 +26,4 @@ void set_params(NOMAD::Parameters &p){
     p.set_DIRECTION_TYPE(NOMAD::ORTHO_2);
 
     //p.set_F_TARGET(NOMAD::Point(2, Constants::xtrack_w()));
-}
-
-int main(int argc, char** argv) {
-    NOMAD::Display out(std::cout);
-    NOMAD::Parameters p(out);
-    set_params(p);
-
-    SimEvaluator se(p);
-    NOMAD::Mads mads(p, &se);
-
-    se.set_simulator_params(14, 7.5, 0, 0.3);
-    se.set_goal(180, 10, 5);
-    auto res = mads.run();
-    std::cout << se.sim.path_bearing() << std::endl;
-    std::cout << se.sim.xtrack_error() << std::endl;
-
-    Simulator sim(14, 7.5, 0, 0.3);
-    Vector2_d start(0, 0);
-    Vector2_d goal(-120, 1);
-    sim.simulate_waypoints(start, goal);
-    std::cout << std::endl;
-    std::cout << sim.path_bearing() << std::endl;
-    std::cout << sim.xtrack_error() << std::endl;
-    std::cout << get_distance_NE(start, sim.pos()) << std::endl;
 }

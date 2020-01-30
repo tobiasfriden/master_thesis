@@ -1,7 +1,7 @@
 \section{Wind}\label{sec:wind}
 Wind can have large effects on mission execution duration and energy consumption, and as such a reliable wind model is necessary to calculate an efficient route.
 
-Many authors have studied wind modeling in UAV as well as general airspace applications. A method for online wind field features such as shear and gust is presented in \cite{wind_estimation}. Uncertainty in wind can be handled by choosing the worst case scenario for energy consumption, creating a robust model \cite{wind_blackbox}. Meteorological forecast data can be represented by a continuous function by creating regression models for the north-south and east-west components. This approach is used in route optimization for commercial aircraft \cite{aircraft_trajectory_thesis}.
+Many authors have studied wind modeling in \ac{uav} as well as general airspace applications. A method for online wind field features such as shear and gust is presented in \cite{wind_estimation}. Uncertainty in wind can be handled by choosing the worst case scenario for energy consumption, creating a robust model \cite{wind_blackbox}. Meteorological forecast data can be represented by a continuous function by creating regression models for the north-south and east-west components. This approach is used in route optimization for commercial aircraft \cite{aircraft_trajectory_thesis}.
 
 Since the route optimization is performed offline in this thesis, the focus is on methods to predict the wind field using the current meteorological forecast and data collected from previous flights in the same geographical area.
 
@@ -47,9 +47,9 @@ where $G(\vec{r}_i,\vec{r}_j)$ is a Green's function depending on the data dimen
 \begin{equation}
     G(\vec{r}_i,\vec{r}_j)=-\frac{1}{8\pi}|\vec{r}_i-\vec{r}_j|
 \end{equation}
-Define $\vec{z}=(z_1,\ldots,z_N)^T$, $\vec{b}=(b_0 \ldots b_d)^T$, $\vec{w}=(w_1 \ldots w_N)^T$ and the matrices $K$ and $L$ where $K_{i,j}=G(\vec{r}_i,\vec{r}_j)$ and the $i$-th row of $L=(1\quad \vec{r}_i^T)$. The linear term in \eqref{eq:tps} lies in the null space of $J(f)$ so 
+Define $\vec{z}=(z_1,\ldots,z_N)^T$, $\vec{b}=(b_0 \ldots b_d)^T$, $\windvec=(w_1 \ldots w_N)^T$ and the matrices $K$ and $L$ where $K_{i,j}=G(\vec{r}_i,\vec{r}_j)$ and the $i$-th row of $L=(1\quad \vec{r}_i^T)$. The linear term in \eqref{eq:tps} lies in the null space of $J(f)$ so 
 \begin{equation}\label{eq:tps_null}
-    L^T\vec{w}=0
+    L^T\windvec=0
 \end{equation}
 Equations \eqref{eq:tps} and \eqref{eq:tps_null} can be written on matrix form as
 \begin{equation}\label{eq:tps_closed_form}
@@ -58,7 +58,7 @@ Equations \eqref{eq:tps} and \eqref{eq:tps_null} can be written on matrix form a
         L^T & 0
     \end{bmatrix}
     \begin{bmatrix}
-        \vec{w} \\
+        \windvec \\
         \vec{b}
     \end{bmatrix}
     =
@@ -69,44 +69,44 @@ Equations \eqref{eq:tps} and \eqref{eq:tps_null} can be written on matrix form a
 \end{equation}
 which has a closed form solution if $L$ is of full rank.
 \subsection{Wind Modeling using \abbrTPS}
-The Swedish Meteorology and Hydrology Institute (SMHI) use Numerical Weather Prediction (NWP) to forecast weather conditions four times a day on a $2.5\times2.5$ km grid with 65 altitude levels. However, this model does not capture wind variations on a scale smaller than 2.5 km which might be relevant for UAV route optimization.
+The Swedish Meteorology and Hydrology Institute (SMHI) use Numerical Weather Prediction (NWP) to forecast weather conditions four times a day on a $2.5\times2.5$ km grid with 65 altitude levels. However, this model does not capture wind variations on a scale smaller than 2.5 km which might be relevant for \ac{uav} route optimization.
 
 The actual wind vector in an arbitrary coordinate $(\lambda,\phi)$ and altitude $h$ is decomposed as 
 \begin{equation}
-    \vec{w}(\lambda,\phi,h)=\vec{w}_F + \vec{w}_B
+    \windvec(\lambda,\phi,h)=\windvec_F + \windvec_B
 \end{equation}
-where $\vec{w}_F$ is the forecasted wind vector for this grid cell and $\vec{w}_B$ is the wind bias in the given coordinate.
+where $\windvec_F$ is the forecasted wind vector for this grid cell and $\windvec_B$ is the wind bias in the given coordinate.
 
 To derive the wind model, the following assumptions are made.
 
 \begin{assumption}
-The UAV altitude is constant during the entire route, which implies that wind variations depending on altitude can be excluded from the wind model.
+The \ac{uav} altitude is constant during the entire route, which implies that wind variations depending on altitude can be excluded from the wind model.
 \end{assumption}
 
 \begin{assumption}
-The wind magnitude $W=|\vec{w}|$ and direction $\theta_w=\Arg{\vec{w}}$ are uncorrelated.
+The wind magnitude $\windspd=|\windvec|$ and direction $\theta_w=\Arg{\windvec}$ are uncorrelated.
 \end{assumption}
 
 \begin{assumption}
-The wind bias vector is dependent on the coordinate $(\lambda,\phi)$ and wind forecast $\vec{w}_F$, i.e.
+The wind bias vector is dependent on the coordinate $(\lambda,\phi)$ and wind forecast $\windvec_F$, i.e.
 \begin{equation}
-    \vec{w}_B=f(\lambda,\phi,\vec{w}_F)
+    \windvec_B=f(\lambda,\phi,\windvec_F)
 \end{equation}
 \end{assumption}
 
 Given these assumptions, the wind model can be defined.
 
 \begin{definition}[Wind model]
-    The wind vector $\vec{w}(\lambda,\phi)$ is modelled as
+    The wind vector $\windvec(\lambda,\phi)$ is modelled as
     \begin{equation}
-        \vec{w}=W(\cos\theta_w,\sin\theta_w)
+        \windvec=\windspd(\cos\theta_w,\sin\theta_w)
     \end{equation}
     where
     \begin{equation}
         \left\{
         \begin{aligned}
-            W &= |\vec{w}_F| + f_W(\lambda,\phi,|\vec{w}_F|) \\
-            \theta_w &= \Arg{\vec{w}_F} + f_\theta(\lambda,\phi,\Arg{\vec{w}_F}) 
+            \windspd &= |\windvec_F| + f_W(\lambda,\phi,|\windvec_F|) \\
+            \theta_w &= \Arg{\windvec_F} + f_\theta(\lambda,\phi,\Arg{\windvec_F}) 
         \end{aligned}
         \right.
     \end{equation}
@@ -114,16 +114,16 @@ Given these assumptions, the wind model can be defined.
 \end{definition}
 
 \subsection{Data collection and model evaluation}
-To create and evaluate the wind model, real flight data has to be collected. By equipping the UAV with a \textit{pitot probe}, the actual wind can be measured as
+To create and evaluate the wind model, real flight data has to be collected. By equipping the \ac{uav} with a \textit{pitot probe}, the actual wind can be measured as
 \begin{equation}
-    \vec{w}=\vec{v} + \vec{v}_a
+    \windvec=\vel + \vel_a
 \end{equation}
-where $\vec{v}$ is the ground speed measured by GPS and $\vec{v}_a$ is the airspeed \cite{spline_trajectory}. The current wind forecast $\vec{v}_F$ is obtained from SMHI \cite{smhi}. By collecting $N$ measurements from different coordinates and wind conditions, the interpolation points are
+where $\vel$ is the ground speed measured by \ac{gps} and $\vel_a$ is the airspeed \cite{spline_trajectory}. The current wind forecast $\vel_F$ is obtained from SMHI \cite{smhi}. By collecting $N$ measurements from different coordinates and wind conditions, the interpolation points are
 \begin{equation}
     \left\{
     \begin{aligned}
-        z_{j}&=|\vec{w}_j| - |\vec{w}_F| \\
-        \vec{r}_{j}&=(\lambda_j,\phi_j,|\vec{w}_F|)
+        z_{j}&=|\windvec_j| - |\windvec_F| \\
+        \vec{r}_{j}&=(\lambda_j,\phi_j,|\windvec_F|)
     \end{aligned}
     \right.
     \quad j=1,\ldots,N
@@ -132,8 +132,8 @@ for the magnitude bias and
 \begin{equation}
     \left\{
     \begin{aligned}
-        z_{j}&=\Arg{\vec{w}_j} - \Arg{\vec{w}_F} \\
-        \vec{r}_{j}&=(\lambda_j,\phi_j,\Arg{\vec{w}_F})
+        z_{j}&=\Arg{\windvec_j} - \Arg{\windvec_F} \\
+        \vec{r}_{j}&=(\lambda_j,\phi_j,\Arg{\windvec_F})
     \end{aligned}
     \right.
     \quad j=1,\ldots,N

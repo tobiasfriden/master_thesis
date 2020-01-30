@@ -17,6 +17,8 @@
 \usepackage{algpseudocode}
 \usepackage{todonotes}
 \usepackage{subfig}
+\usepackage[nolist]{acronym}
+
 \usetikzlibrary{calc}
 \usetikzlibrary{plotmarks}
 \usetikzlibrary{shapes}
@@ -35,8 +37,34 @@
     \mathrm{Arg}~#1
 }
 
-\DeclareMathOperator*{\argmax}{arg\,max}
-\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\myacro}[2]{
+  \acro{#1}[\textabbr{#1}]{#2}
+}
+
+\newcommand{\windvec}{\vec{w}}
+\newcommand{\windspd}{W}
+\newcommand{\winddir}{\psi_w}
+\newcommand{\wca}{\psi_{\text{wca}}}
+\newcommand{\airvec}{\vel_a}
+\newcommand{\airspd}{V_a}
+\newcommand{\vel}{\vec{v}}
+\newcommand{\cog}{\psi_{\text{cog}}}
+\newcommand{\flarealt}{h_{\text{flare}}}
+\newcommand{\flaresink}{\dot{h}_{\text{flare}}}
+\newcommand{\states}{\mathcal{X}}
+\newcommand{\xfree}{\states_{\text{free}}}
+\newcommand{\xobst}{\states_{\text{obst}}}
+\newcommand{\actions}{\mathcal{U}}
+\newcommand{\inputs}{\actions_s}
+\newcommand{\landing}{\mathcal{A}}
+\newcommand{\eg}{\emph{e.g.}}
+\newcommand{\ie}{\emph{i.e.}}
+
+\DeclareMathOperator*{\argmax}{arg\,\text{max}}
+\DeclareMathOperator*{\argmin}{arg\,\text{min}}
+\DeclareMathOperator*{\atan2}{atan2}
+\DeclareMathOperator*{\taninv}{arctan}
+\DeclareMathOperator*{\asin}{arcsin}
 
 \newcommand{\Drone}[3]{
   \draw[
@@ -65,6 +93,20 @@ text width=5em, text centered, rounded corners, minimum height=4em]
 \begin{document}
 \selectlanguage{english}
 
+\begin{acronym}
+  \myacro{uav}{Unmanned Aerial Vehicle}
+  \myacro{ned}{North East Down}
+  \myacro{cog}{Course Over Ground}
+  \myacro{gps}{Global Positioning System}
+  \myacro{imu}{Inertial Measurement Unit}
+  \myacro{ekf}{Extended Kalman Filter}
+  \myacro{hlut}{Heuristic Look-Up Table}
+  \myacro{mads}{Mesh Adaptive Direct Search}
+  \myacro{ma}{Moving Average}
+  \myacro{sitl}{Software In The Loop}
+  \myacro{ipopt}{Interior Point Optimization}
+\end{acronym}
+
 \frontmatter
 \maketitle
 
@@ -75,13 +117,12 @@ text width=5em, text centered, rounded corners, minimum height=4em]
 %\include{tack}
 
 \tableofcontents
-%\include{notation}
+\include{notation}
 
 \mainmatter
 %\include{introduktion}
 \include{theory/introduction}
 \include{theory/fixed_wing_uav}
-\include{theory/wind_estimate}
 \include{theory/motion_planning}
 \include{theory/planning_wind}
 \include{theory/optimal_landing}

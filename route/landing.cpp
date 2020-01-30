@@ -150,6 +150,7 @@ Landing::line Landing::optimize(double hdg, double safety_h, double alt){
     double v = groundspeed(hdg);
     line points = intersection_points(hdg);
     double R_c = (points[0] - points[1]).Norm()/2;
+    std::cout << "Rc" << R_c << std::endl;
     std::cout << 2*R_c << std::endl;
     
     casadi::Opti opti;
@@ -166,16 +167,19 @@ Landing::line Landing::optimize(double hdg, double safety_h, double alt){
     casadi::MX R_f_real = v*h_f/_flare_sink_real;
     casadi::MX h_f_real = alt - h_dot_r/v*(R_a-R_b-R_f_real);
 
+    casadi::MX h_a = alt - slope*(R_a - 2*R_c);
+
     opti.subject_to(R_a >= 0);
     opti.subject_to(R_b >= 0);
     opti.subject_to(h_dot_r <= _max_sink);
     opti.subject_to(h_f <= 2*_flare_h);
     opti.subject_to(h_f_real <=  1.5*h_f);
+    opti.subject_to(h_a >= safety_h);
 
     opti.set_initial(R_a, 100);//land_distance(hdg,alt));
     opti.set_initial(R_b, 0);
 
-    opti.minimize(pow(R_a, 2) + 100*pow((R_b - R_c), 2));
+    opti.minimize(pow((R_b - R_c), 2) - pow(h_a - safety_h, 2));
 
     casadi::Dict plugin_opts;
     casadi::Dict solver_opts;
@@ -197,6 +201,7 @@ Landing::line Landing::optimize(double hdg, double safety_h, double alt){
         //std::cout << "R_b: " << static_cast<double>(R_b_opt) << std::endl;
         std::cout << "h" << sol.value(h_f_real - h_f) << std::endl;
         std::cout << "velocity: " << v << std::endl;
+        std::cout << "h_a: " << sol.value(h_a) << std::endl;
     } catch(const casadi::CasadiException& e){
         opti.debug().show_infeasibilities();
         throw e;

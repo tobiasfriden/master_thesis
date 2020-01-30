@@ -57,18 +57,21 @@ std::vector<Vector2_d> Simulator::simulate_mission(std::vector<Vector2_d> missio
     auto it = mission.begin();
     Vector2_d prev_wp = *it;
     it++;
+    double cost = 0;
     while(it != mission.end()) {
         Vector2_d next_wp = *it;
         while(!passed_point(_pos, prev_wp, next_wp)){
             if((next_wp-_pos).Norm() <= 1){
                 break;
             }
-            step(prev_wp, next_wp);
+            auto l = step(prev_wp, next_wp);
+            cost += l.Norm();
             trajectory.push_back(_pos);
         }
         prev_wp = next_wp;
         it++;
     }
+    std::cout << cost << std::endl;
     return trajectory;
 }
 
