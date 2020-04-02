@@ -100,7 +100,8 @@
         "cinttypes": "cpp",
         "*.ipp": "cpp",
         "valarray": "cpp",
-        "__node_handle": "cpp"
+        "__node_handle": "cpp",
+        "filesystem": "cpp"
     },
     "git.ignoreLimitWarning": true,
     "C_Cpp.default.includePath": [

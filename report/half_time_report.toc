@@ -1,0 +1,5 @@
+\babel@toc {english}{}
+\beamer@sectionintoc {1}{Problem description}{2}{0}{1}
+\beamer@sectionintoc {2}{Theory}{4}{0}{2}
+\beamer@sectionintoc {3}{Motion planning}{9}{0}{3}
+\beamer@sectionintoc {4}{Landing}{24}{0}{4}

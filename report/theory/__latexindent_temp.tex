@@ -1,0 +1,46 @@
+\chapter{Conclusions}\label{cha:discussion}
+\section{Results}
+In this work, a novel method to automatically generate landing sequences for fixed-wing \acp{uav} is proposed. 
+The method automatically handles many of the challenging aspects when specifying such a sequence manually, \eg\ determining the current 
+direction and speed of the wind.
+
+The method consists of two main components, the \textit{landing sequence calculation} and \textit{motion planner}. Both these components mainly rely on optimization-based methods. 
+To calculate the parameters determining the landing sequence, \ie\ when the \ac{uav} descends to the ground, a non-linear optimization problem is 
+formulated and solved numerically. The motion planner uses a set of precomputed waypoints together with sampling-based planning techniques to determine a plan which is feasible given the 
+\ac{uav} model and current wind conditions. To create the set of waypoints, an optimization problem is solved using derivative-free optimization.
+
+The results from simulation experiments indicate that the method successfully generates feasible landing 
+sequences in different wind conditions. The distance between the planned and actual landing point is negligible relative to the total distance of the landing sequence.
+The relative magnitude of the error in entry altitude is larger, but the \ac{uav} still manages to enter $\landing$ above the specified $h_{\text{safe}}$ in most cases. 
+The error between calculated entry altitude and actual entry altitude seems quite constant, at least in the simulated evaluations summarized in Table \ref{tab:opt_land_param}. 
+This implies that the error could be mitigated by estimating this offset and adding it to the desired $h_{\text{safe}}$. The error could also be mitigated by scaling the second term in the objective of 
+Equation \ref{eq:opt_problem_land} with some constant $\lambda_h>1$. The landing sequence generation is also quite fast, and a solution is found in well below 1 second in most cases.
+The method was also used in a real world scenario, which resulted in a successful landing. In this case however, the distance between planned touchdown point and the actual was significantly larger than 
+in the simulations. One reason for this, as can be seen in 
+
+
+The proposed method is quite general and could be implemented on any fixed-wing \ac{uav} which uses the trajectory controller described in Section \ref{sec:traj_controller}. 
+It would also be easy to extend it to support another controller, as the only requirement to create the input set $\inputs$ is that the closed-loop model of the system is written on the same form as 
+Equation \ref{eq:closed_loop}.
+
+\section{Limitations of the method}
+Constraining the control reference to consist of waypoints, \ie\ straight line-segments, limits the system from using more complex trajectories like the ones used in \cite{emergency_landing}. It also introduces some issues mentioned in Chapter \ref{cha:implementation}. 
+However, most popular autopilots such as Ardupilot use this formulation \cite{arduplane}. 
+
+Sampling methods contain inherent limitations, such as the 
+quality of the solution depending on the sampling resolution. In many cases, such as when generating a \ac{hlut} there is also a tradeoff between resolution and storage capacity. In the case of a 2-dimensional \ac{hlut} as in this thesis, the \ac{hlut} size scales quadratically with the sampling resolution used. 
+However, calculating analytical solutions in realtime is often infeasible due to high computational costs.
+
+A large limitation of the landing area definition in Chapter \ref{cha:landing} is the assumption that the terrain elevation is constant inside the landing area $\landing$. In 
+most real-world cases, such as landing in a slope, the terrain elevation varies. Including this factor in the landing sequence generation would enable landings in a much wider class of scenarios.
+
+\section{Future work}
+The landing sequence method depends on many different parameters, both airframe-specific such as $\dot{\psi}_{\text{max}}$ and general such as discretization step-sizes and wind speeds used for input generation.
+The goal of this thesis was mainly to evaluate the feasibility of the proposed method. Hence, most of those parameters were set to "good-enough" values which proved to be feasible but are not necessarily optimal. 
+A possible future work consists of tuning these parameters for the currently used \ac{uav} platform, which would require a number of real-world flight experiments in different wind conditions.
+It would also be interesting to study methods to efficiently and automatically estimate optimal values of these parameters, especially those specific to the airframe.
+
+As mentioned in the previous section, an important future work is to include terrain elevation in the landing sequence generation. Another important area is to 
+study how an additional system mounted on the \ac{uav} could automatically detect suitable landing areas, \eg\ using vision sensors and an elevation and obstacle database. 
+This would be a step towards truly autonomous fixed-wing \acp{uav}, as the system would be able to perform a safe landing without any pilot input. It could also be used to perform 
+emergency landings if the command and control link to the pilot is lost.

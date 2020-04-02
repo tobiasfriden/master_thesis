@@ -1,8 +1,10 @@
 /code/build/CMakeFiles/install/strip.dir
 /code/build/CMakeFiles/install/local.dir
+/code/build/CMakeFiles/list_install_components.dir
 /code/build/CMakeFiles/install.dir
 /code/build/CMakeFiles/obstacle.dir
 /code/build/CMakeFiles/mp.dir
+/code/build/CMakeFiles/mission.dir
 /code/build/CMakeFiles/motion_primitive.dir
 /code/build/CMakeFiles/simulation.dir
 /code/build/CMakeFiles/edit_cache.dir
@@ -16,7 +18,6 @@
 /code/build/CMakeFiles/route.dir
 /code/build/CMakeFiles/improve_viz.dir
 /code/build/CMakeFiles/rebuild_cache.dir
-/code/build/CMakeFiles/list_install_components.dir
 /code/build/s2geometry/CMakeFiles/install/strip.dir
 /code/build/s2geometry/CMakeFiles/install/local.dir
 /code/build/s2geometry/CMakeFiles/s2testing.dir

@@ -53,7 +53,7 @@ double Simulator::simulate_waypoints(
 
 std::vector<Vector2_d> Simulator::simulate_mission(std::vector<Vector2_d> mission) {
     std::vector<Vector2_d> trajectory;
-    reset(mission[0].x(), mission[0].y(), 0);
+    //reset(mission[0].x(), mission[0].y(), 0);
     auto it = mission.begin();
     Vector2_d prev_wp = *it;
     it++;
@@ -61,7 +61,7 @@ std::vector<Vector2_d> Simulator::simulate_mission(std::vector<Vector2_d> missio
     while(it != mission.end()) {
         Vector2_d next_wp = *it;
         while(!passed_point(_pos, prev_wp, next_wp)){
-            if((next_wp-_pos).Norm() <= 1){
+            if((next_wp-_pos).Norm() <= 10){
                 break;
             }
             auto l = step(prev_wp, next_wp);

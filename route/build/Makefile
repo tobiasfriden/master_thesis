@@ -80,6 +80,16 @@ install/local/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
@@ -113,16 +123,6 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
-
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -181,6 +181,19 @@ mp: cmake_check_build_system
 mp/fast:
 	$(MAKE) -f CMakeFiles/mp.dir/build.make CMakeFiles/mp.dir/build
 .PHONY : mp/fast
+
+#=============================================================================
+# Target rules for targets named mission
+
+# Build rule for target.
+mission: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 mission
+.PHONY : mission
+
+# fast build rule for target.
+mission/fast:
+	$(MAKE) -f CMakeFiles/mission.dir/build.make CMakeFiles/mission.dir/build
+.PHONY : mission/fast
 
 #=============================================================================
 # Target rules for targets named motion_primitive
@@ -566,6 +579,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/route.dir/build.make CMakeFiles/route.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+mission.o: mission.cpp.o
+
+.PHONY : mission.o
+
+# target to build an object file
+mission.cpp.o:
+	$(MAKE) -f CMakeFiles/mission.dir/build.make CMakeFiles/mission.dir/mission.cpp.o
+.PHONY : mission.cpp.o
+
+mission.i: mission.cpp.i
+
+.PHONY : mission.i
+
+# target to preprocess a source file
+mission.cpp.i:
+	$(MAKE) -f CMakeFiles/mission.dir/build.make CMakeFiles/mission.dir/mission.cpp.i
+.PHONY : mission.cpp.i
+
+mission.s: mission.cpp.s
+
+.PHONY : mission.s
+
+# target to generate assembly for a file
+mission.cpp.s:
+	$(MAKE) -f CMakeFiles/mission.dir/build.make CMakeFiles/mission.dir/mission.cpp.s
+.PHONY : mission.cpp.s
+
 motion_primitive.o: motion_primitive.cpp.o
 
 .PHONY : motion_primitive.o
@@ -736,9 +776,11 @@ help:
 	@echo "... depend"
 	@echo "... install/strip"
 	@echo "... install/local"
+	@echo "... list_install_components"
 	@echo "... install"
 	@echo "... obstacle"
 	@echo "... mp"
+	@echo "... mission"
 	@echo "... motion_primitive"
 	@echo "... simulation"
 	@echo "... edit_cache"
@@ -752,7 +794,6 @@ help:
 	@echo "... route"
 	@echo "... improve_viz"
 	@echo "... rebuild_cache"
-	@echo "... list_install_components"
 	@echo "... s2testing"
 	@echo "... s2"
 	@echo "... term_index"
@@ -778,6 +819,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... mission.o"
+	@echo "... mission.i"
+	@echo "... mission.s"
 	@echo "... motion_primitive.o"
 	@echo "... motion_primitive.i"
 	@echo "... motion_primitive.s"

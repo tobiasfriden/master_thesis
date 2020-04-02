@@ -129,6 +129,7 @@ public:
     void load_binary(std::string base_path);
     void save_binary(std::string base_path);
     void save_visual(std::string path, double start_hdg, double goal_hdg);
+    int size(){return lookup.size();};
 private:
     void dijkstra_search(MotionPrimitiveSet& primitives, double start_hdg);
     void astar_search(MotionPrimitiveSet& primitives, double start_hdg, const Coordinate& goal);

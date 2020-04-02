@@ -92,6 +92,7 @@ def plot_prims_from_file(path="", color="blue", axis=None):
             wp = vals[0]
             x, y = wp.split(',')
             axis.scatter(float(y), float(x), color='red')
+            axis.plot([0, float(y)], [0, float(x)], color="red", linestyle=":")
             for val in vals[1:]:
                 x, y = val.split(',')
                 prim = np.append(prim, np.array([float(x), float(y)]).reshape(1, -1), axis=0)
@@ -155,13 +156,16 @@ def grid_main():
     plt.show()
 
 def prim_diff_main():
+    rc('text', usetex=True)
     sim_1 = simulate_primitive(-180, 0, wind_dir=90, wind_spd=5, init_yaw=5)
     sim_2 = simulate_primitive(-180, 0, wind_dir=90, wind_spd=5, init_yaw=-5)
     _, ax = plt.subplots()
-    plot_primitive(sim_1, ax=ax, label='$\psi_i=5\degree$')
-    plot_primitive(sim_2, ax=ax, label='$\psi_i=-5\degree$')
+    plot_primitive(sim_1, ax=ax, label="$\psi_0=5$")
+    plot_primitive(sim_2, ax=ax, label="$\psi_0=-5$")
+    ax.scatter(0, -180, color="red", label="reference")
+    ax.plot([0,0], [0,-180], color="red", linestyle=":")
     wind_rad = np.pi/2
-    ax.quiver(100,-150, np.sin(wind_rad), np.cos(wind_rad), scale=10, label='wind')
+    plot_wind(ax, 90, 100, -150)
     ax.set_xlabel('$y_E$ [m]')
     ax.set_ylabel('$x_N$ [m]')
 
@@ -180,11 +184,12 @@ def prim_main():
     plot_prims_from_file(path="_low", color=cmap(0), axis=ax)
     plot_prims_from_file(axis=ax, color=cmap(0.1))
     plot_prims_from_file(path="_high", color=cmap(0.2), axis=ax)
+    plt.scatter(0, 0, color="red")
     ax.axis('equal')
 
-    wind_dir = np.radians(80)
     wind_dir = np.radians(0)
-    plot_wind(ax, 80, 0, -160)
+    wind_dir = np.radians(0)
+    plot_wind(ax, 0, 0, -160)
     test = ax.scatter([], [], color='red')
     legend_elements = [
         Line2D([0], [0], color=cmap(0)), 
@@ -267,12 +272,26 @@ def read_log(path):
             }]
     return log
 
+def read_sim(path):
+    sim = []
+    with open(path) as json_file:
+        json_obj = json.load(json_file)
+        for feature in json_obj["features"]:
+            lng, lat = feature["geometry"]["coordinates"]
+            sim += [{
+                "lat": lat,
+                "lng": lng
+            }]
+    return sim
+
 def find_entry_idx(local_path):
     best_idx = 0
     best_diff = np.inf
 
-    center_point = [-456.699, 111.603]
-    Rc = 101.543
+    #center_point = [-456.699, 111.603]
+    #Rc = 101.543
+    Rc = 109.11
+    center_point = [37.21042763, -36.647221830]
 
     for (i, p) in enumerate(local_path):
         dist = np.linalg.norm(p - center_point)
@@ -282,45 +301,98 @@ def find_entry_idx(local_path):
             best_idx = i
     return best_idx
 
-ofs = 650
-land_ofs = 1750
-end_ofs = 2460
-wind_dir = 270
-base_dir = 'route/plot_data/sim_eval/dir_{}'.format(wind_dir)
-origin = offset([57.6432, 11.8630], 400, 0)
+def find_idx(local_path, point):
+    best_idx = 0
+    best_diff = np.inf
+    for (i, p) in enumerate(local_path):
+        diff = np.linalg.norm(p - point)
+        if diff < best_diff:
+            best_diff = diff
+            best_idx = i
+    return best_idx
+
+wind_dir = 118.5
+#base_dir = 'route/plot_data/sim_eval/dir_{}'.format(wind_dir)
+base_dir = 'route/plot_data/real_eval'
+#origin = offset([57.6432, 11.8630], 400, 0)
+origin = [57.485744, 11.931237]
+end_ofs = 1938
 
 def get_alt():
     alt = []
+    ts = []
     with open('{}/log.csv'.format(base_dir)) as csv_file:
         csv_reader = csv.DictReader(csv_file)
+        first = True
         for row in csv_reader:
+            if first:
+                init_ts = float(row["TimeUS"])
+                first = False
             alt += [float(row['RelHomeAlt'])]
-    return alt
+            ts += [(float(row["TimeUS"]) - init_ts)/1e6]
+    return alt, ts
 
-def alt_profile_main(ax):
+def get_wind(init_idx = 0):
+    wind_spd = []
+    wind_dir = []
+    ts = []
+    with open('{}/log.csv'.format(base_dir)) as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        first = True
+        for (i, row) in enumerate(csv_reader):
+            if i >= init_idx:
+                if first:
+                    init_ts = float(row["TimeUS"])
+                    first = False
+                wind_spd += [float(row['WindSpd'])]
+                wind_dir += [float(row['WindDir'])]
+                ts += [(float(row["TimeUS"]) - init_ts)/1e6]
+    return wind_spd, wind_dir, ts
+
+def get_landed_idx():
+    best_ts = 0
+    with open('{}/stat.csv'.format(base_dir)) as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        for row in csv_reader:
+            if int(row["isFlying"]) > 0:
+                best_ts = int(row["TimeUS"])
+    best_idx = 0
+    best_diff = np.inf
+    with open('{}/log.csv'.format(base_dir)) as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        for (i, row) in enumerate(csv_reader):
+            diff = np.abs(int(row["TimeUS"]) - best_ts)
+            if diff < best_diff:
+                best_diff = diff
+                best_idx = i
+    return best_idx
+
+def alt_profile_main(ax, land_ofs, end_ofs):
     rc('text', usetex=True)
     log = read_log('{}/log.csv'.format(base_dir))
-    alt = get_alt()
+    alt, ts = get_alt()
 
     local_path = local_points(origin, log)
     entry_idx = find_entry_idx(local_path)
     print("err_h: ", alt[entry_idx])
 
-    s_alt = [10]*(entry_idx - land_ofs) + [0]*(end_ofs-entry_idx)
-    ax.plot(alt[land_ofs:end_ofs], label="$h$")
-    ax.plot(s_alt, label="$h_{safe}$")
+    ts_0 = []
+    for t in ts[land_ofs:end_ofs]:
+        ts_0 += [t - ts[land_ofs]]
 
-    ax.get_xaxis().set_ticks([])
-    ax.set_ylabel("$h [m]$")
+
+    s_alt = [10]*(entry_idx) + [0]*(end_ofs-entry_idx)
+    print(len(alt))
+    print(len(s_alt))
+    ax.plot(ts_0, alt[land_ofs:end_ofs], label="$h$")
+    ax.plot(ts_0, s_alt[land_ofs:end_ofs], label="$h_{safe}$")
+
+    ax.set_xlabel("$t$ [s]")
+    ax.set_ylabel("$h$ [m]")
     ax.legend()
 
-def sim_main(ax):
+def sim_main(ax, local_wps, local_path, local_path_sim, start_ofs, end_ofs):
     rc('text', usetex=True)
-
-    wps = get_solution_wps('{}/sol.txt'.format(base_dir))
-    log = read_log('{}/log.csv'.format(base_dir))
-    local_wps = local_points(origin, wps)
-    local_path = local_points(origin, log)
     x, y, w, h, r = read_landing(base_dir)
     obst = read_obstacles(base_dir)
 
@@ -333,61 +405,54 @@ def sim_main(ax):
 
     ax.scatter(local_wps[:, 1], local_wps[:, 0], label="reference", color="red")
     ax.plot(local_wps[:, 1], local_wps[:, 0], color="red", linestyle=':')
-    ax.scatter(local_wps[-2, 1], local_wps[-2, 0], color="black", marker="x", label="$\mathbf{p}_A$", zorder=100)
-    ax.scatter(local_wps[-1, 1], local_wps[-1, 0], color="black", marker="*", label="$\mathbf{p}_L$", zorder=100)
+    ax.scatter(local_wps[-2, 1], local_wps[-2, 0], color="black", marker="x", label="$\mathbf{p}_a$", zorder=100)
+    ax.scatter(local_wps[-1, 1], local_wps[-1, 0], color="black", marker="*", label="$\mathbf{p}_l$", zorder=100)
+    ax.scatter(local_wps[0, 1], local_wps[0, 0], color="black", marker="+", label="$\mathbf{p}_{loiter}$", zorder=100)
 
-    ax.plot(local_path[ofs:end_ofs, 1], local_path[ofs:end_ofs, 0], label="trajectory")
-
+    ax.plot(local_path[start_ofs:end_ofs, 1], local_path[start_ofs:end_ofs, 0], label="trajectory")
+    ax.plot(local_path_sim[:,1], local_path_sim[:, 0], linestyle=":", label="simulated")
     print("err_land: ", np.linalg.norm(local_wps[-1] - local_path[end_ofs]))
-    plot_wind(ax, wind_dir, -100, -600)
+    plot_wind(ax, wind_dir, -100, 150)
 
     ax.set_xlabel('$y_E$ [m]')
     ax.set_ylabel('$x_N$ [m]')
+    ax.axis('equal')
     ax.legend()
 
-def main():
-    fig, ax = plt.subplots(1, 2, figsize=(12,5))
-    sim_main(ax[0])
-    alt_profile_main(ax[1])
+def wind_main():
+    rc('text', usetex=True)
+    wind_spd, wind_dir, ts = get_wind(880)
+    _, ax = plt.subplots(1, 2, figsize=(12,5))
+
+    ax[0].plot(ts, wind_spd)
+    ax[0].set_ylabel('$W$ [m/s]')
+    ax[0].set_xlabel('$t$ [s]')
+
+    ax[1].plot(ts, wind_dir)
+    ax[1].set_ylabel('$\psi_w$ [deg]')
+    ax[1].set_xlabel('$t$ [s]')
+
     plt.show()
 
-# def main():
-#     rc('text', usetex=True)
-#     wp_df = pd.read_csv('results.csv')
-#     land = wp_df[wp_df.FlightTime == wp_df.FlightTime.unique()[-4]].reset_index(drop=True).copy()
-#     wps = get_solution_wps()
-#     obst = read_obstacles()
-#     x, y, w, h, r = read_landing()
+    
 
-#     origin = [wps[0]['lat'], wps[0]['lng']]
-#     local_path = np.zeros((land.shape[0], 2))
-#     for i,row in land.iterrows():
-#         local_path[i, :] = get_distance_NE(origin, [row.Lat, row.Lng])
-#     local_wps = np.zeros((len(wps), 2))
-#     for i, wp in enumerate(wps):
-#         local_wps[i, :] = get_distance_NE(origin, [wp['lat'], wp['lng']])
+def main():
+    rc('text', usetex=True)
+    wps = get_solution_wps('{}/sol.txt'.format(base_dir))
+    log = read_log('{}/log.csv'.format(base_dir))
+    sim = read_sim('route/simulated_mission.txt')
+    local_wps = local_points(origin, wps)
+    local_path = local_points(origin, log)
+    local_path_sim = local_points(origin, sim)
 
-#     fig, ax = plt.subplots()
-#     for i, o in enumerate(obst):
-#         if i==0:
-#             ax.add_patch(Polygon(o, alpha=0.5, facecolor='red', label='$\mathcal{X}_{obst}$'))
-#         else:
-#             ax.add_patch(Polygon(o, alpha=0.5, facecolor='red'))
-#     ax.add_patch(Rectangle((y,x), w, h, r, alpha=0.5, color='green', label='$\mathcal{A}$'))
+    start_ofs = 1300# find_idx(local_path, local_wps[0])
+    land_ofs = find_idx(local_path, local_wps[-2])
 
-#     ax.scatter(local_wps[:, 1], local_wps[:, 0], color='red')
-#     ax.plot(local_wps[:, 1], local_wps[:, 0], color='red', label='reference')
-#     ax.plot(local_path[:, 1], local_path[:, 0], label='trajectory')
-#     ax.axis('equal')
-#     wind_dir = np.radians(90)
-#     ax.quiver(-400, -300, np.sin(wind_dir), np.cos(wind_dir), scale=10, label='$\mathbf{w}$')
-
-#     ax.set_xlabel('$p_E$')
-#     ax.set_ylabel('$p_N$')
-#     plt.legend()
-#     plt.show()
-
-
+    _, ax = plt.subplots(1, 2, figsize=(12,5))
+    sim_main(ax[0], local_wps, local_path, local_path_sim, start_ofs, end_ofs)
+    
+    alt_profile_main(ax[1], land_ofs, end_ofs)
+    plt.show()
 
 if __name__ == '__main__':
     main()

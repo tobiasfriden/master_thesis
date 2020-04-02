@@ -1,71 +1,36 @@
 \relax 
 \providecommand\hyper@newdestlabel[2]{}
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Implementation}{39}{chapter.6}\protected@file@percent }
+\citation{s2geo}
+\citation{nomad}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Implementation}{43}{chapter.6}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{cha:implementation}{{6}{39}{Implementation}{chapter.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}System overview}{39}{section.6.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces System overview\relax }}{39}{figure.caption.28}\protected@file@percent }
-\newlabel{fig:sys_overview}{{6.1}{39}{System overview\relax }{figure.caption.28}{}}
-\acronymused{uav}
-\citation{ardupilot_sitl}
-\citation{jsbsim}
-\citation{rascal}
-\citation{parrot}
-\citation{pixracer}
-\citation{arduplane}
-\citation{s2geo}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces \ac {uav} platform used for real flight experiments\relax }}{40}{figure.caption.29}\protected@file@percent }
-\acronymused{uav}
-\newlabel{fig:parrot}{{6.2}{40}{\ac {uav} platform used for real flight experiments\relax }{figure.caption.29}{}}
-\acronymused{uav}
-\acronymused{uav}
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Simulation environment}{40}{section.6.2}\protected@file@percent }
-\AC@undonewlabel{acro:sitl}
-\newlabel{acro:sitl}{{6.2}{40}{Simulation environment}{section.6.2}{}}
-\acronymused{sitl}
-\acronymused{uav}
-\acronymused{uav}
-\@writefile{toc}{\contentsline {section}{\numberline {6.3}\ac {uav} platform}{40}{section.6.3}\protected@file@percent }
-\acronymused{uav}
-\acronymused{uav}
-\citation{casadi}
-\citation{nomad}
-\@writefile{toc}{\contentsline {section}{\numberline {6.4}Obstacle avoidance}{41}{section.6.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.5}Wind estimation}{41}{section.6.5}\protected@file@percent }
-\acronymused{ekf}
-\AC@undonewlabel{acro:ma}
-\newlabel{acro:ma}{{6.5}{41}{Wind estimation}{section.6.5}{}}
-\acronymused{ma}
-\@writefile{toc}{\contentsline {section}{\numberline {6.6}Landing sequence calculation}{41}{section.6.6}\protected@file@percent }
-\acronymused{ipopt}
-\@writefile{toc}{\contentsline {section}{\numberline {6.7}Motion planner}{41}{section.6.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.7.1}Input set generation}{41}{subsection.6.7.1}\protected@file@percent }
+\newlabel{cha:implementation}{{6}{43}{Implementation}{chapter.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Obstacle avoidance}{43}{section.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Input set generation}{43}{section.6.2}\protected@file@percent }
 \acronymused{mads}
 \acronymused{cog}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces Inputs for different wind directions, $W\in [3.75, 6.25]$ m/s\relax }}{42}{figure.caption.30}\protected@file@percent }
-\newlabel{fig:motion_prims}{{6.3}{42}{Inputs for different wind directions, $\windspd \in [3.75, 6.25]$ m/s\relax }{figure.caption.30}{}}
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {$\psi _w=0\ensuremath {\SI@fstyle {\no@qsk \ensuremath {^{\circ }}}}$}}}{42}{subfigure.3.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {$\psi _w=80\ensuremath {\SI@fstyle {\no@qsk \ensuremath {^{\circ }}}}$}}}{42}{subfigure.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.7.2}State-space discretization}{43}{subsection.6.7.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.7.3}State expansions}{43}{subsection.6.7.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Handling perpendicular winds}{43}{section*.31}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.7.4}Heuristic Lookup Table}{43}{subsection.6.7.4}\protected@file@percent }
-\acronymused{hlut}
-\acronymused{hlut}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces Inputs for different wind directions, $W\in [3.75, 6.25]$ m/s\relax }}{44}{figure.caption.32}\protected@file@percent }
+\newlabel{fig:motion_prims}{{6.1}{44}{Inputs for different wind directions, $\windspd \in [3.75, 6.25]$ m/s\relax }{figure.caption.32}{}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Inputs generated for $\psi _w=0\ensuremath {\SI@fstyle {\no@qsk \ensuremath {^{\circ }}}}$}}}{44}{subfigure.1.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Inputs generated for $\psi _w=80\ensuremath {\SI@fstyle {\no@qsk \ensuremath {^{\circ }}}}$}}}{44}{subfigure.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}State-space discretization}{45}{section.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.4}State expansions}{45}{section.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.1}Handling perpendicular winds}{45}{subsection.6.4.1}\protected@file@percent }
 \citation{mavlink}
 \citation{mavros}
 \citation{ros}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.4}{\ignorespaces Large cross track error for $\Delta \psi _{\text  {cog}}\approx 180\ensuremath  {\SI@fstyle  {\no@qsk  \ensuremath  {^{\circ }}}}$ when the wind is perpendicular to \ac {uav} motion\relax }}{44}{figure.caption.32}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces Large cross track error for $\Delta \psi _{\text  {cog}}\approx 180\ensuremath  {\SI@fstyle  {\no@qsk  \ensuremath  {^{\circ }}}}$ when the wind is perpendicular to \ac {uav} motion\relax }}{46}{figure.caption.33}\protected@file@percent }
 \acronymused{uav}
-\newlabel{fig:hdg_diff_wind}{{6.4}{44}{Large cross track error for $\Delta \cog \approx 180\degree $ when the wind is perpendicular to \ac {uav} motion\relax }{figure.caption.32}{}}
+\newlabel{fig:hdg_diff_wind}{{6.2}{46}{Large cross track error for $\Delta \cog \approx 180\degree $ when the wind is perpendicular to \ac {uav} motion\relax }{figure.caption.33}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.5}Heuristic Lookup Table}{46}{section.6.5}\protected@file@percent }
 \acronymused{hlut}
 \acronymused{hlut}
 \acronymused{hlut}
 \acronymused{hlut}
-\@writefile{toc}{\contentsline {section}{\numberline {6.8}Waypoint controller}{44}{section.6.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.6}Waypoint controller}{46}{section.6.6}\protected@file@percent }
 \@setckpt{theory/implementation}{
-\setcounter{page}{45}
+\setcounter{page}{48}
 \setcounter{equation}{5}
 \setcounter{enumi}{2}
 \setcounter{enumii}{0}
@@ -76,12 +41,12 @@
 \setcounter{rt@toplevel}{0}
 \setcounter{part}{0}
 \setcounter{chapter}{6}
-\setcounter{section}{8}
+\setcounter{section}{6}
 \setcounter{subsection}{0}
 \setcounter{subsubsection}{0}
 \setcounter{paragraph}{0}
 \setcounter{subparagraph}{0}
-\setcounter{figure}{4}
+\setcounter{figure}{2}
 \setcounter{table}{0}
 \setcounter{parentequation}{15}
 \setcounter{CPROT@family}{1}
@@ -98,7 +63,7 @@
 \setcounter{caption@flags}{0}
 \setcounter{ContinuedFloat}{0}
 \setcounter{Item}{4}
-\setcounter{bookmark@seq@number}{74}
+\setcounter{bookmark@seq@number}{71}
 \setcounter{lofdepth}{1}
 \setcounter{lotdepth}{1}
 \setcounter{KVtest}{1}
@@ -114,8 +79,8 @@
 \setcounter{@ppsavesec}{0}
 \setcounter{@ppsaveapp}{0}
 \setcounter{algorithm}{3}
-\setcounter{ALG@line}{20}
-\setcounter{ALG@rem}{20}
+\setcounter{ALG@line}{18}
+\setcounter{ALG@rem}{18}
 \setcounter{ALG@nested}{0}
 \setcounter{ALG@Lnr}{2}
 \setcounter{ALG@blocknr}{10}

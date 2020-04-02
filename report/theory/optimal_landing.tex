@@ -1,8 +1,8 @@
 \chapter{Robust landing sequences}\label{cha:landing}
 \section{Problem formulation}
-The problem of landing a fixed-wing \ac{uav} on a runway was studied in many previous works, \eg \cite{emergency_landing} and \cite{landing_on_vehicle}. However, small and light-weight \acp{uav} such as the ones studied 
+The problem of landing a fixed-wing \ac{uav} on a runway was studied in many previous works, \eg\ \cite{emergency_landing} and \cite{landing_on_vehicle}. However, small and light-weight \acp{uav} such as the ones studied 
 in this thesis can land in any area as long as the ground is flat enough. The main issue is instead that there might be obstacles such as trees around the landing area which limit the possible 
-approach directions. Wind also plays an essential role, since landing in tailwind enables much shorter approach paths relative to the ground.
+approach directions. Wind also plays an essential role, since landing in headwind enables much shorter approach paths relative to the ground.
 
 \begin{figure}
     \begin{center}
@@ -15,15 +15,15 @@ approach directions. Wind also plays an essential role, since landing in tailwin
             \node at ($(center)+(-160:1)$){$\landing$};
             \draw (center) -- ++ (-130:2);
             \node[point] at (center){};
-            \node[above] at (center){$\vec{p}_L$};
+            \node[above] at (center){$\vec{p}_l$};
             \node[point] at (a){};
-            \node[below] at (a){$\vec{p}_A$};
+            \node[below] at (a){$\vec{p}_a$};
             \draw[my_v] ($(center)+(20:3)$) -- node[above]{$\windvec$} ++ (-1,0);
             \Drone{-1}{0}{10}
             \draw[dashed](-1,0) -- (a);            
         \end{tikzpicture}
     \end{center}
-    \caption{Landing sequence definition}
+    \caption{Landing sequence problem definition. The goal is to find the approach point $\vec{p}_a$ and landing point $\vec{p}_l$ which lands the \ac{uav} in the specified landing area $\landing$. The \ac{uav} is not permitted to fly above obstacle regions in $\xobst$.}
     \label{fig:land}          
 \end{figure}
 
@@ -32,33 +32,13 @@ defined as a rectangular region with walls of height $h_{\text{safe}}$, and to e
 There might also be obstacle regions $\xobst$ around the landing area where the \ac{uav} is not permitted to fly. The problem definition is illustrated in Figure \ref{fig:land}.
 
 \section{Landing sequence}
-A landing sequence for fixed-wing \acp{uav} is defined by an approach point $\vec{p}_A$ and landing point $\vec{p}_L$. These points 
-define an approach direction $\psi_L$. The landing velocity $V_L$ depends on $\psi_L$, the airspeed $\airspd$ and current wind as 
+A landing sequence for fixed-wing \acp{uav} is defined by an approach point $\vec{p}_a$ and landing point $\vec{p}_l$. These points 
+define an approach direction $\psi_l$. The landing velocity $V_l$ depends on $\psi_l$, the airspeed $\airspd$ and current wind as 
 \begin{equation}
-    V_L=\cos\psi_L(\airspd\cos\wca+\windspd\cos\winddir) + \sin\psi_L(\airspd\sin\wca+\windspd\sin\winddir)
+    V_l=\cos\psi_l(\airspd\cos\wca+\windspd\cos\winddir) + \sin\psi_l(\airspd\sin\wca+\windspd\sin\winddir)
 \end{equation}
 The landing sequence is divided into an approach phase and a flare phase, which are illustrated in Figure \ref{fig:land_alt}.
-During the approach phase, the autopilot commands an approach sink-rate
-\begin{equation}\label{eq:sink_rate}
-    \dot{h}_{cmd}=\frac{h_0-\flarealt}{\|\vec{p}_A-\vec{p}_L\|-R_{\text{flare}}}V_L
-\end{equation}
-where $h_0$ is the initial altitude, $\flarealt$ is the flare altitude and $R_{\text{flare}}$ is the flare distance.
-To ensure smooth landing, the flare phase is activated once the \ac{uav} reaches the altitude $\flarealt$ above the ground. 
-In this mode it instead tries to achieve a pre-defined flare sink-rate 
-\begin{equation}
-    \dot{h}=\flaresink
-\end{equation}
-which means that the flare distance is given by
-\begin{equation}\label{eq:R_flare}
-    R_{\text{flare}}=\flarealt\frac{V_L}{\flaresink}
-\end{equation}
-Due to physical limitations in the system, the landing sequence has to be defined such that 
-\begin{equation}\label{eq:sink_constraint}
-    \dot{h}_{cmd}\leq\dot{h}_{\text{max}}
-\end{equation}
-for some constant $\dot{h}_{\text{max}}$ during the approach.
-
-\begin{figure}
+\begin{figure}[H]
     \begin{center}
         \begin{tikzpicture}
             \draw[-|] (0,0) -- node[at end, left]{$h_0$} (0,5);
@@ -75,17 +55,36 @@ for some constant $\dot{h}_{\text{max}}$ during the approach.
     \caption{Altitude profile of a fixed-wing landing sequence}
     \label{fig:land_alt}
 \end{figure}
+During the approach phase, the autopilot commands an approach sink-rate
+\begin{equation}\label{eq:sink_rate}
+    \dot{h}_{\text{cmd}}=\frac{h_0-\flarealt}{\|\vec{p}_a-\vec{p}_l\|-R_{\text{flare}}}V_l
+\end{equation}
+where $h_0$ is the initial altitude, $\flarealt$ is the flare altitude and $R_{\text{flare}}$ is the flare distance.
+To ensure a sufficiently low touchdown speed, the flare phase is activated once the \ac{uav} reaches the altitude $\flarealt$ above the ground. 
+In this mode it instead tries to achieve a pre-defined constant flare sink-rate 
+\begin{equation}
+    \dot{h}_{\text{cmd}}=\flaresink
+\end{equation}
+which means that the flare distance is given by
+\begin{equation}\label{eq:R_flare}
+    R_{\text{flare}}=\flarealt\frac{V_l}{\flaresink}.
+\end{equation}
+Due to physical limitations in the system, the landing sequence has to be defined such that 
+\begin{equation}\label{eq:sink_constraint}
+    \dot{h}_{\text{cmd}}\leq\dot{h}_{\text{max}}
+\end{equation}
+for some constant $\dot{h}_{\text{max}}$ during the approach.
 
 \section{Calculating a landing sequence}
-The goal of the landing sequence generation is to ensure safe landing in the specified area $\landing$. There are two important measures to 
-discuss regarding the safety of a landing sequence, the altitude of the \ac{uav} when entering $\landing$ and the distance from the landing point to the center of $\landing$. 
-If the entry altitude is too low, there is a risk of colliding with surrounding obstacles and if the distance to the center is too large, the \ac{uav} will not land in the designated area. 
-Thus, by minimizing these two errors the safety of the landing sequence is maximized. This also maximizes the robustness to other errors such as 
+The goal of the landing sequence generation is to ensure safe landing in the designated area $\landing$. Two important measures to 
+consider regarding the safety of a landing sequence are the altitude of the \ac{uav} when entering $\landing$ and the distance from the landing point to the center of $\landing$. 
+If the entry altitude is too low, there is a risk of colliding with surrounding obstacles and if the distance to the center is too large, the \ac{uav} will not land in $\landing$. 
+Hence, by minimizing these two measures the safety of the landing sequence is likely to be improved. This also improves the robustness to other disturbances such as 
 variations in wind speed.
 
-Since a partial goal of the landing sequence is to land as closely as possible to the center point $\vec{p}_c$ of the landing area $\landing$, any 
-landing sequence is defined by placing $\vec{p}_A$ and $\vec{p}_L$ along a line which passes through $\vec{p}_C$ and points in the direction given by $\psi_L$.
-This fact can be used to divide the problem in two parts, where first the best $\psi_L$ is determined and then $\vec{p}_A$ and $\vec{p}_L$ based on the chosen direction.
+Since a partial goal of the landing sequence is to land as closely as possible to the center point $\vec{p}_c$ of $\landing$, any 
+landing sequence is defined by placing $\vec{p}_a$ and $\vec{p}_l$ along a line which passes through $\vec{p}_c$ and points in the direction given by $\psi_l$.
+This fact can be used to divide the problem in two parts, where first the best $\psi_l$ is determined and then $\vec{p}_a$ and $\vec{p}_l$ based on the chosen direction.
 
 \begin{figure}
     \begin{center}
@@ -107,49 +106,49 @@ This fact can be used to divide the problem in two parts, where first the best $
             \node[above] at (center){$\vec{p}_c$};
 
             \draw[dashed] ($(p1)+(-3,-2)$) -- (p2);
-            \node[below] at (pa){$\vec{p}_A$};
+            \node[below] at (pa){$\vec{p}_a$};
             \node[point] at (pa){};
 
-            \node[above] at (pl){${\vec{p}_L}$};
+            \node[above] at (pl){${\vec{p}_l}$};
             \node[point] at (pl){};
 
             \draw[line width=1.5pt] (pa) -- (pl);
 
             \Drone{-2.5}{-2}{30};
             \draw[dashed] ($(-2.5,-2)+(.75,.5)$) -- ++ (1,0);
-            \draw ($(-2.5,-2)+(1.25,.5)$) arc(0:30:.5) node[midway, anchor=200]{$\psi_L$};
+            \draw ($(-2.5,-2)+(1.25,.5)$) arc(0:30:.5) node[midway, anchor=200]{$\psi_l$};
 
             \node at (3.5,.5){$\landing$};
             \draw[my_v] (2, 4) -- node[left]{$\windvec$} ++ (0,-1);
         \end{tikzpicture}
     \end{center}
-    \caption{Variables determining a landing sequence}
+    \caption{Variables determining a landing sequence. Given an approach direction $\psi_l$, a line going through the center of the landing area $\vec{p}_c$ will cross the edges of $\landing$ in exactly two points, $\vec{p}_1$ and $\vec{p}_2$.}
     \label{fig:opt_landing}
 \end{figure}
 
 \subsection{Determining the approach direction}
 Any line through $\vec{p}_c$ with a given direction will cross the walls of $\landing$ in exactly two points $\vec{p}_1$ and $\vec{p}_2$, as is illustrated in Figure \ref{fig:opt_landing}. 
-We thus have the following constraints to consider:
+Thus, the following constraints must be considered:
 \begin{itemize}
     \item The distance $\|\vec{p}_1-\vec{p}_2\|$ has to be large enough such that the altitude $h$ in $\vec{p}_1$ is larger than $h_{\text{safe}}$ while allowing 
-    the constraint \eqref{eq:sink_constraint} to be satisfied
-    \item The approach direction $\psi_L$ has to be chosen such that the initial trajectory up until $\vec{p}_A$ is not inside $\xobst$
+    the constraint \eqref{eq:sink_constraint} to be satisfied.
+    \item The approach direction $\psi_l$ has to be chosen such that a trajectory from any starting state to $\vec{p}_a$ is possible without entering $\xobst$.
 \end{itemize}
-To find the minimum feasible distance, the altitude of the \ac{uav} when entering $\landing$ is denoted $h_A$.
-Assuming that $h_A=h_{\text{safe}}$, the minimum feasible distance to the flare point is given by
+To find the minimum feasible distance, the altitude of the \ac{uav} when entering $\landing$ is denoted $h_e$.
+Assuming that $h_e=h_{\text{safe}}$, the minimum feasible distance to the flare point is given by
 \begin{equation}
-    R_{\text{min}}=(h_{\text{safe}}-\flarealt)\frac{V_L}{\dot{h}_{\text{max}}}
+    R_{\text{min}}=(h_{\text{safe}}-\flarealt)\frac{V_l}{\dot{h}_{\text{max}}}.
 \end{equation}
-To ensure landing in $\landing$ it is thus required that 
+To ensure landing in $\landing$ it is hence required that 
 \begin{equation}
     \|\vec{p}_1-\vec{p}_2\|\geq R_{\text{min}}+R_{\text{flare}}
 \end{equation}
 where $R_{\text{flare}}$ is given by Equation \eqref{eq:R_flare}. To ensure the second constraint, a simple approach is to 
-create lines starting in $\vec{p}_c$ with length $K(R_{\text{min}}+R_{\text{flare}})$ and direction $\psi_L+180\degree$ for some $K\geq0.5$ and different discrete values of $\psi_L$. 
-The set of feasible approach directions $\{\psi_{L}\}_{\text{feas}}$ can then be found by checking each corresponding line for intersections with $\xobst$. Finally, the approach direction is 
+create lines starting in $\vec{p}_c$ with length $K(R_{\text{min}}+R_{\text{flare}})$ and direction $\psi_l+180\degree$ for some $K\geq0.5$ and different discrete values of $\psi_l$. 
+The set of feasible approach directions $\{\psi_l\}_{\text{feas}}$ can then be found by checking each corresponding line for intersections with $\xobst$. Finally, the approach direction is 
 chosen as 
 \begin{equation}
-    \psi_{L}^* = \argmin_{\psi\in\{\psi_{L}\}_{\text{feas}}}R(\psi)
+    \psi_l^* = \argmin_{\psi\in\{\psi_l\}_{\text{feas}}}R(\psi)
 \end{equation}
 where
 \begin{equation}
@@ -157,42 +156,40 @@ where
 \end{equation}
 
 \subsection{Determining the approach points}
-After fixing the approach direction to $\psi_L=\psi_{L}^*$ the next step is to calculate the values of $\vec{p}_A$ and $\vec{p}_L$. 
+After fixing the approach direction to $\psi_l=\psi_l^*$ the next step is to calculate the values of $\vec{p}_a$ and $\vec{p}_l$. 
 Since the approach direction is fixed, the remaining variables can be redefined as 
 \begin{subequations}
     \begin{align}
-        R_a&=(\vec{p}_A-\vec{p}_2)\cdot\hat{l}\\
-        R_l&=(\vec{p}_L-\vec{p}_2)\cdot\hat{l}
+        R_a&=(\vec{p}_a-\vec{p}_2)\cdot\hat{l}\\
+        R_l&=(\vec{p}_l-\vec{p}_2)\cdot\hat{l}
     \end{align}
 \end{subequations}
-where $\hat{l}$ is a unit vector pointing in the direction $\psi_L+180\degree$. This definition ensures landing in $\landing$ as long as $0\leq R_l\leq 2R_c$, where
+where $\hat{l}$ is a unit vector pointing in the direction $\psi_l+180\degree$. This definition ensures landing in $\landing$ as long as $0\leq R_l\leq 2R_c$, where
 \begin{equation}
     R_c=\|\vec{p}_1-\vec{p}_2\|/2
 \end{equation} 
-The problem is thus finding $R_a$ and $R_l$ so that $|h_A-h_{\text{safe}}|$ is maximized and $|R_c-R_l|$ is minimized, while fulfilling the given constraints.
+The problem is thus finding $R_a$ and $R_l$ so that $|h_e-h_{\text{safe}}|$ is maximized and $|R_c-R_l|$ is minimized, while fulfilling the given constraints.
 From Equation \eqref{eq:sink_rate}, the commanded sink-rate is then
 \begin{equation}
-    \dot{h}_{\text{cmd}}=\frac{h_0-\flarealt}{R_a-R_l-R_{\text{flare}}}V_L
+    \dot{h}_{\text{cmd}}=\frac{h_0-\flarealt}{R_a-R_l-R_{\text{flare}}}V_l
 \end{equation}
 and the altitude during the approach is given by
 \begin{equation}
-    h(R) = h_0 - R\frac{\dot{h}_{\text{cmd}}}{V_L}=h_0-R\frac{h_0-\flarealt}{R_a-R_l-R_{\text{flare}}}
+    h(R) = h_0 - R\frac{\dot{h}_{\text{cmd}}}{V_l}=h_0-R\frac{h_0-\flarealt}{R_a-R_l-R_{\text{flare}}}
 \end{equation}
 where $h_0$ is the initial altitude. To ensure enough altitude when entering $\landing$, it is required that
 \begin{equation}\label{eq:h_a_constraint}
-    h_A=h(R_a-2R_c)\geq h_{\text{safe}}
+    h_e=h(R_a-2R_c)\geq h_{\text{safe}}
 \end{equation}
 The landing parameters can thus be calculated by solving the optimization problem
 \begin{subequations}
     \label{eq:opt_problem_land}
     \begin{alignat}{3}
-    &\min_{R_a,R_l}        &\qquad& J=|R_c-R_l|^2 - |h_A-h_{\text{safe}}|^2 & \\
+    &\min_{R_a,R_l}        &\qquad& J=|R_c-R_l|^2 - |h_e-h_{\text{safe}}|^2 & \\
     &\text{subject to} & & 0\leq R_l \leq 2R_c &\\
-    & & & \dot{h}_{\text{cmd}}=\frac{h_0-\flarealt}{R_a - R_l - R_{\text{flare}}}V_L\\
-    & & & h_A = h_0 - \frac{R_a - 2R_c}{R_a - R_l - R_{\text{flare}}}(h_0-\flarealt)\\
-    & & & \dot{h}_{\text{cmd}}\leq \dot{h}_{\text{max}}\\
-    & & & h_A\geq h_{\text{safe}}\\
+    & & & \frac{h_0-\flarealt}{R_a - R_l - R_{\text{flare}}}V_l\leq \dot{h}_{\text{max}}\\
+    & & & h_0 - \frac{R_a - 2R_c}{R_a - R_l - R_{\text{flare}}}(h_0-\flarealt)\geq h_{\text{safe}}
     \end{alignat}
 \end{subequations}
 
-This is a non-linear optimization problem with linear constraints, which can be solved with methods such as \ac{ipopt} \cite{ipopt}.
+This is a non-linear optimization problem with linear constraints. In this work, it was solved using the \acs{ipopt} solver \cite{ipopt}, which is implemented in the \textabbr{casadi} toolkit, a general toolkit for solving nonlinear optimization problems numerically \cite{casadi}.

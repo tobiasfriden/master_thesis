@@ -4,37 +4,72 @@
 \acp{uav} have many different applications, both in commercial 
 usecases such as construction and agriculture, but also in emergency response and personal use. 
 \acp{uav} are often primarily divided into two subclasses, multirotors and fixed-wing \acp{uav}. 
-While both types of \acp{uav} are becoming more and more autonomous through various research efforts, landing of fixed-wing \acp{uav} remains a challenging task which 
+While both types of \acp{uav} are becoming more and more autonomous through various research efforts, landing a fixed-wing \ac{uav} remains a challenging task which 
 normally requires manual input from an experienced pilot. For small and light-weight \acp{uav}, the presence of wind also acts as a major disturbance which needs to be taken into account when planning 
-the landing procedure.
+the landing sequence.
 \section{Scope}
-This section describes the overall scope of this thesis, as well as where limitations have been made.
+This section describes the overall scope of this thesis, the method used as well as where limitations have been made.
 \subsection{Problem formulation}
-The aim of this thesis is to develop a framework for automatically generating feasible 
-landing procedures for fixed-wing \acp{uav}, under the presence of winds. The landing procedure should be able to take the \ac{uav} 
+The aim of this thesis is to develop a method for automatically generating feasible 
+landing procedures for fixed-wing \acp{uav}, in the presence of wind. The landing sequence should be able to take the \ac{uav} 
 from an arbitrary initial position and land safely in a predefined landing area while fulfilling physical constraints of the system. 
 This thesis aims to answer the following questions:
 \begin{enumerate}
     \item How can sampling-based motion planning techniques be used to generate landing sequences for fixed-wing \acp{uav}?
     \item How can wind effects be taken into account when computing safe landing sequences?
 \end{enumerate}
-\subsection{Aim and delimitations}\label{sec:aims}
-The components of a general autonomous \ac{uav} are illustrated in Figure \ref{fig:autonomous}. The work in this thesis 
-is mainly focused on the motion planning component. However, the tracking controllers and parameters of the actual \ac{uav} have to be taken into account 
-to ensure feasibility of the generated path. Furthermore, the main focus of this thesis is \acp{uav} using the ArduPilot open source autopilot \cite{arduplane}.
 
-A large part of this thesis is concerned with the analysis of wind. 
-The wind is however assumed to be constant in space and time, and is defined as a constant vector with magnitude 
+\subsection{Method}
+The method proposed in this thesis consists of two main components, the \textit{landing sequence calculation} and the \textit{motion planner}. The goal of the landing sequence calculation is 
+to calculate a landing sequence which is used to land the \ac{uav} safely in a predefined landing area $\mathcal{A}$. When the landing sequence is calculated, the goal of the motion planner is to 
+calculate a sequence of waypoints $\mathcal{M}$ which, when executed with the tracking controller of the \ac{uav}, takes it from a starting location $x_0$ to a position where the landing sequence can be executed.
+
+Both these components must take the current wind $\windvec$ as well as any obstacles around the landing area into account. The wind is estimated using a wind estimation system onboard the \ac{uav}, while 
+obstacles are stored in an obstacle database $\xobst$. Finally, a positioning system onboard the \ac{uav} is used to determine the starting position sent to the motion planner. An overview of the different 
+components and their relationship is shown in Figure \ref{fig:sys_overview}.
+
+\begin{figure}[H]
+    \begin{center}
+        \begin{tikzpicture}[node distance = 3cm, auto]
+            \node[block] (init){Landing area input};
+            \node[block, right of=init] (land){Landing sequence calculation \\[0.075in] Chapter \ref{cha:landing}};
+            \node[block, below of=land] (obst){Obstacle database};
+            \node[block, above of=land] (wind){Wind estimation};
+            \node[block, right of=land] (mp){Motion planner \\[0.075in] Chapter \ref{cha:motion_planning_fw}};
+            \node[block, above of=mp] (gps){Positioning system};
+            \node[block, right of=mp] (traj){Waypoint controller};
+
+            \path[line] (init) - > node{$\landing$} (land); 
+            \path[line] (obst) - > node[midway, right]{$\xobst$} (land);
+            \path[line] (obst) - > node[midway, right]{$\xobst$} (mp);
+            \path[line] (wind) - > node[midway, right]{$\windvec$} (land);
+            \path[line] (wind) - > node[midway, right]{$\windvec$} (mp);
+            \path[line] (land) - > node[midway]{$x_g$} (mp);
+            \path[line] (gps) - > node[midway, right]{$x_0$} (mp);
+            \path[line] (mp) - > node[midway]{$\mathcal{M}$} (traj);
+        \end{tikzpicture}
+    \end{center}
+    \caption{An overview of the different components in the proposed method.}
+    \label{fig:sys_overview}
+\end{figure}
+
+\subsection{Limitations}\label{sec:aims}
+The components of a general autonomous \ac{uav} are illustrated in Figure \ref{fig:autonomous}. The work in this thesis 
+is mainly focused on the motion planning component. However, the tracking controllers and properties of the actual \ac{uav} have to be taken into account 
+to ensure feasibility of the generated path. Furthermore, the main focus of this thesis is \acp{uav} using the ArduPilot open source autopilot \cite{arduplane}, 
+since the implementation relies on the trajectory controller implemented in ArduPilot.
+
+A large part of this thesis is concerned with the analysis of wind, which is assumed to be constant in space and time. The wind is defined as a vector with magnitude 
 $\windspd$ and direction $\winddir$. The wind magnitude $\windspd$ will also be referred to as wind speed and $\winddir$ as wind direction. 
 
 \begin{figure}
     \begin{center}
         \begin{tikzpicture}[node distance = 3cm, auto]
-            \node[block] (init){Behaviour layer};
+            \node[block, very thin] (init){Behaviour layer};
             \node[block, dashed, below of=init] (user){User};
-            \node[block, right of=init] (mp){Motion planning};
-            \node[block, right of=mp] (ctrl){Tracking controllers};
-            \node[block, right of=ctrl] (uav){\ac{uav}};
+            \node[block, right of=init, very thick] (mp){Motion planning \\[0.075in] Chapter \ref{cha:motion_planning}};
+            \node[block, right of=mp, thick] (ctrl){Tracking controllers \\[0.075in] Chapter \ref{cha:fixed_wing_uav}};
+            \node[block, right of=ctrl, thick] (uav){\ac{uav} \\[0.075in] Chapter \ref{cha:fixed_wing_uav}};
 
             \path[line] (user) -> node[midway, left]{Manual input} (init);
             \path[line] (init) -> node[midway, above, align=left, yshift=.9cm]{High-level \\ commands} (mp);
@@ -42,42 +77,37 @@ $\windspd$ and direction $\winddir$. The wind magnitude $\windspd$ will also be 
             \path[line] (ctrl) -> node[midway, above, align=left, yshift=.9cm]{Actuator \\ outputs} (uav);
         \end{tikzpicture}
     \end{center}
-    \caption{Components of a general autonomous \ac{uav}}
+    \caption{Components of a general autonomous \ac{uav}. The main focus of this thesis is motion planning, but modeling of the tracking controllers and \ac{uav} is also discussed.}
     \label{fig:autonomous}
 \end{figure}
 
-\section{Outline}
-Chapter \ref{cha:fixed_wing_uav} introduces general concepts regarding fixed-wing \acp{uav} and wind, as well as the kinematic models and controllers studied in this thesis.
-Chapter \ref{cha:motion_planning} gives an overview of necessary motion planning theory. In Chapter \ref{cha:motion_planning_fw} the 
-a motion planning framework for fixed-wing \acp{uav} flying in wind is proposed.
-Chapter \ref{cha:landing} describes the landing procedure of a fixed-wing \ac{uav} and how optimal landing parameters can be calculated. 
-In Chapter \ref{cha:implementation} the implementation of the proposed framework on a real \ac{uav} platform is discussed. Chapter \ref{cha:results} presents experimental 
-results which are discussed in chapter \ref{cha:discussion}.
 \section{Related work}
 The following section presents previous work that is relevant to the subject of this thesis.
+
 \subsection{Motion planning}
 Motion planning refers to the task of finding a feasible path between an initial state and a goal state for a given system. 
 Since this is an important component of autonomous systems it has 
-received increasing research interest during the past decades, with an array of 
+received increasing research interest during the past decades, with a number of 
 different algorithms and methods available. 
 
-\subsubsection{Sampling based motion planning}
+\subsubsection{Sampling-based motion planning}
 Many motion planning techniques are based on discrete sampling of the continuous state and action space. These methods are either based on 
-random sampling, such as in Probabilistic Roadmaps \cite{prm} or Rapidly Exploring Random Trees \cite{rrt}, while others such as Hybrid $A^*$ \cite{hybrid_astar} use 
+random sampling - such as in Probabilistic Roadmaps \cite{prm} and Rapidly Exploring Random Trees \cite{rrt}, while others, such as Hybrid $A^*$ \cite{hybrid_astar}, use 
 deterministic sampling.
 
 In \cite{2_phase_uav} the $A^*$ algorithm \cite{astar} is used to find kinematically feasible trajectories for fixed-wing \acp{uav} with 
 a maximum turn rate while avoiding obstacles. The feasibility of the resulting path is ensured by aligning the dimensions of the 
 sampled grid with model parameters of the given \ac{uav}.
 
-In \cite{wind_astar} the results in \cite{optimal_path_trochoidal} are used together with $A^*$ to generate time-optimal trajectories in the 
-presence of wind, while also avoiding obstacles. They further use the results in \cite{optimal_path_target} to define a modified heuristic function which takes wind into account.
+In \cite{wind_astar} the results of \cite{optimal_path_trochoidal} are used together with $A^*$ to generate time-optimal trajectories in the 
+presence of wind, while also avoiding obstacles. The authors further use the results in \cite{optimal_path_target} to define a modified heuristic function which takes wind into account.
 
-A RRT-based motion planning framework for fixed-wing \acp{uav}, with constraints on both arrival time and final direction is proposed in \cite{rrt_uav}.
+An RRT-based motion planning framework for fixed-wing \acp{uav}, with constraints on both arrival time and final direction 
+is proposed in \cite{rrt_uav}.
 
 \subsubsection{Optimal control approach}
-The problem of finding time-optimal paths for fixed wing \acp{uav} in uniform winds is often used to formulate an optimal control problem which has been studied
-by different authors. In these works the following kinematic model is used:
+The problem of finding time-optimal paths for fixed wing \acp{uav} in uniform winds is often used to formulate an optimal control problem. 
+To formulate this problem the following kinematic model is used:
 \begin{equation}
     \dot{x}=f(x, u)=
     \begin{bmatrix}
@@ -86,22 +116,30 @@ by different authors. In these works the following kinematic model is used:
         u    
     \end{bmatrix} 
 \end{equation}
-where the input $u$ is the rate of turn which is constrained such as $|u|\leq\dot{\psi}_{\text{max}}$.
+where the input $u$ is the turn-rate. This is generally constrained as per $|u|\leq\dot{\psi}_{\text{max}}$ \cite{optimal_path_target}\cite{optimal_path_trochoidal}.
 
-Earth-fixed goal states become non-stationary in a coordinate frame relative to the air. 
-This is used in \cite{optimal_path_target} to reformulate the problem as 
-finding a path which intersects a virtual target moving from $x_g$ with the same speed as the wind but in the opposite direction. 
+An important result used in \cite{optimal_path_target} is that earth-fixed goal states become non-stationary in a coordinate frame relative to the air. 
+This is used to reformulate the problem as 
+finding a path which intersects a virtual target moving from the ground-fix point $x_g$ with the same velocity as the wind but in the opposite direction. 
 It is shown that in most cases, the shortest path relative to the earth corresponds to an air-relative shortest path which can be found analytically.
 In some cases however, a non-optimal path relative to the air is required to 
 intercept the target. A general solution which uses root-finding techniques to cover both cases is also presented.
 
 The approach in \cite{optimal_path_trochoidal} is based on the observation from \cite{course_hdg_wind} that 
-constant rate of turn paths in the air-relative frame correspond to \textit{trochoidal} paths in the inertial frame. A trochoid is the path followed by a fix point on a circle which rolls along a line.
+constant turn-rate paths in the air-relative frame correspond to \textit{trochoidal} paths in the inertial frame. A trochoid is the path followed by a fix point on a circle which rolls along a line.
 They further show that there exists an analytical solution to compute some of the optimal-path candidates, but to find 
 all possible optimal paths a non-polynomial equation has to be solved on a two dimensional grid which is computationally expensive.
 
 \subsection{Landing approaches}
 The problem of autonomously landing fixed-wing \acp{uav} in different settings has been studied by several authors. 
 In many of these works, the problem is defined as landing the \ac{uav} on a runway. A survey of different landing techniques is given in \cite{survey_landing}.
-In \cite{emergency_landing} a framework is proposed for emergency landing of fixed-wing \acp{uav} during thrust-lost and uniform wind. The motion planner in this work is based on the 
-trochoidal paths discussed in \cite{optimal_path_trochoidal}. The problem of landing fixed-wing \acp{uav} on a moving ground vehicle is studied in \eg\ \cite{landing_on_vehicle}.
+In \cite{emergency_landing} a framework is proposed for emergency landing of fixed-wing \acp{uav} during thrust-loss and uniform wind. The motion planner in this work is based on the 
+trochoidal paths discussed in \cite{optimal_path_trochoidal}. The problem of landing fixed-wing \acp{uav} on a moving ground vehicle is studied in, \eg\, \cite{landing_on_vehicle}.
+
+\section{Outline}
+Chapter \ref{cha:fixed_wing_uav} introduces general concepts regarding fixed-wing \acp{uav} and wind, as well as the kinematic models and controllers studied in this thesis.
+Chapter \ref{cha:motion_planning} gives an overview of motion planning theory. In Chapter \ref{cha:motion_planning_fw}
+a motion planning method for fixed-wing \acp{uav} flying in wind is proposed.
+Chapter \ref{cha:landing} describes the landing sequence of a fixed-wing \ac{uav} and how landing parameters can be calculated while fulfilling a set of given constraints. 
+Chapter \ref{cha:results} presents the implementation of the proposed method on a real \ac{uav} platform, as well as experimental 
+results from both simulated and real flight experiments. Finally, these results are discussed and summarized in Chapter \ref{cha:discussion}.

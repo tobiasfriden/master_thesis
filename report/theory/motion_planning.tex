@@ -1,15 +1,15 @@
 \chapter{Motion planning theory}\label{cha:motion_planning}
-\section{General definitions and terminology}
+\section{Definitions and terminology}
 Motion planning is defined as the task of finding a
 path from a starting state to a goal state which fulfills a given set of constraints, while minimizing or maximizing some 
 performance measure.
 These constraints might include differential constraints of the system and obstacle avoidance among others.
 Common performance measures include minimal time or minimal energy required.
-We begin by introducing general definitions and terminology that are used to
-describe motion planning in this thesis. A standard reference for motion planning is given in 
+To introduce this chapter general definitions and terminology that are used to
+describe motion planning in this thesis are introduced. A thorough description of motion planning theory is found in 
 \cite{planning_algorithms}.
 \subsection{Graph terminology}
-We first introduce the mathematical concept of graphs, following the definitions in \cite{graph_theory}.
+First the mathematical concept of graphs is introduced, following the definitions in \cite{graph_theory}.
 
 \begin{definition}[Graph]
     A \textit{graph} is defined as a set $\mathcal{G}=\langle\mathcal{V},\mathcal{E}\rangle$ 
@@ -28,7 +28,7 @@ We first introduce the mathematical concept of graphs, following the definitions
 \end{definition}
 
 \begin{definition}[Walk]
-    A \textit{walk} in a weighted and possibly directed graph is defined as a set of vertices
+    A \textit{walk} in a weighted and possibly directed graph is defined as an ordered set of vertices
     $\mathcal{V}_p\subseteq\mathcal{V}$ and edges $\mathcal{E}_p\subseteq\mathcal{E}$ where the vertices in 
     $\mathcal{V}_p$ are connected by the edges in $\mathcal{E}_p$.
 \end{definition}
@@ -42,11 +42,11 @@ We first introduce the mathematical concept of graphs, following the definitions
 \end{definition}
 
 \subsection{Motion planning terminology}
-We further define some common terms used in motion planning.
+Some common terms used in motion planning are also defined.
 
 \begin{definition}[State and action spaces]
-    We define the \textit{state space} $\states$ and \textit{action space}
-    $\actions$ as the set of obtainable states $x$ and available actions $u$ for the
+    The \textit{state space} $\states$ and \textit{action space}
+    $\actions$ are defined as the set of obtainable states $x$ and available actions $u$ for the
     studied system.
     $\states$ can be further divided into
     \begin{equation}
@@ -67,41 +67,42 @@ We further define some common terms used in motion planning.
     which takes the system from a specified initial state $x(t_0)=x_0$ to a 
     goal state $x(t_n)=x_g$ while fulfilling
     \begin{equation}
-        x(t_{i+1})=x(t_i) + \int_{t_i}^{t_{i+1}} f(x, u) dt
+        x(t_{i+1})=x(t_i) + \int_{t_i}^{t_{i+1}} f(x(t), u(t)) dt
     \end{equation}
-    where $f(x, u)$ is called the \textit{transition function} \cite{planning_algorithms}.
+    where $f(x(t), u(t))$ is called the \textit{transition function} \cite{planning_algorithms}. The time dependencies of $x$ and $u$ will henceforth be 
+    omitted for brevity.
 \end{definition}
 
 \subsection{Differential constraints}
-Differential constraints restrict the set of possible actions and states that 
+The transition function $f(x, u)$ introduces differential constraints which restrict the set of possible actions and states that 
 the system can obtain. An important class of systems under differential constraints 
 are \textit{non-holonomic} systems.
 
 \begin{definition}[Non-holonomic system]
     In a \textit{non-holonomic} system, the current state $x(t)$ is dependent 
-    on the order in which the actions $u(t_i),\quad t_i<t$ are performed.
+    on the order in which the actions $u(t_i),\quad t_i<t$ were performed.
 \end{definition}
 
 A formal definition, and extensive discussion of non-holonomic systems, is given 
 in \cite[Chapter~15]{planning_algorithms}. Systems only capable of motion in a direction 
 dependent on the current state, such as cars and fixed-wing \acp{uav} belong to this class of systems.
 
-\section{Sampling based motion planning}
-Both $\states$ and $\actions$ are generally continuous, and need to be discretized 
-in some way. This means that the resulting path will only be \textit{resolution complete}, \ie\  
-the solution will depend on the sampling resolution $s$. In sampling based
+\section{Sampling-based motion planning}
+Both $\states$ and $\actions$ are continuous, and generally need to be discretized 
+before motion planning techniques can be applied. These discretized subsets are henceforth denoted $\states_s$ and $\inputs$. This means that the resulting path will only be \textit{resolution complete}, \ie\  
+the solution will depend on the sampling resolution. In sampling-based
 motion planning a \textit{reachability graph} is commonly used \cite{planning_algorithms}.
 
 \begin{definition}[Reachability graph]\label{def:reach_graph}
-    Given a starting state $x_0(t_0)\in\states_s$, we define the \textit{reachable set} 
-    $R(x_0, \actions_d)$ as the set of states which are reached by applying any action $u\in\actions_s$.
-    By incrementally calculating the reachable set for each $x\in R(x_0, \actions_s)$ we create the \textit{reachability tree} $\mathcal{T}_r(x_0, \actions_d)$.
+    Given a starting state $x_0(t_0)\in\states_s$, the \textit{reachable set} 
+    $R(x_0, \inputs)$ is defined as the set of states which are reached by applying any action $u\in\actions_s$.
+    By incrementally calculating the reachable set for each $x\in R(x_0, \actions_s)$ a \textit{reachability tree} $\mathcal{T}_r(x_0, \inputs)$ is created.
     The reachability tree is a directed graph where each vertex consists of a state $x$ which is reachable from $x_0$ by applying some action sequence 
-    $\{u_1,\hdots,u_n\}\in\actions_d$. By pruning any duplicate states from $\mathcal{T}_r$ we finally reach the \textit{reachability graph} $\mathcal{G}_r(x_0, \actions_d)$
+    $\{u_1,\hdots,u_n\}\in\inputs$. By pruning any duplicate states from $\mathcal{T}_r$ it is finally transformed to the \textit{reachability graph} $\mathcal{G}_r(x_0, \inputs)$
 \end{definition}
 
 \subsection{Forward simulation}
-The next state in $G_r$ given a specified input action $u$ is obtained by 
+The next state in $\mathcal{G}_r$ given a specified input action $u$ is obtained by 
 integrating the transition function $f(x, u)$ on $[0, \Delta t]$. In practice this 
 integral is calculated using some numerical approximation method. A common choice is the 
 fourth-order \textit{Runge-Kutta integration method}, which is defined in \cite{planning_algorithms} as
@@ -116,15 +117,15 @@ where
     w_3 &= f(x(0) + \frac{1}{2}\Delta t w_2, u) \\
     w_3 &= f(x(0) + \Delta t w_3, u)
 \end{split}
+.
 \end{align}
 
 \subsection{Motion primitives}\label{sec:motion_prim}
-Often it is neither feasible nor desirable to sample from all possible actions in $\actions_d$.
+Often it is neither feasible nor desirable to sample from all possible actions in $\inputs$.
 A common method is to instead create a set of \textit{motion primitives} $\mathcal{P}$ which consists of 
 sequences of actions that take the system from desired initial and final states \cite{state_lattice_planning}.
 
-\textit{Maneuver-based} motion primitive generation is introduced in \cite{Bergman_lic} as
-the method of generating $\mathcal{P}$ based on a fixed set of maneuvers. One such 
+\textit{Maneuver-based} motion primitive generation is introduced in \cite{Bergman_lic} as the method of generating $\mathcal{P}$ based on a fixed set of maneuvers. One such 
 maneuver is \textit{heading change}, which is defined as taking the system from an initial heading $\psi_0$ to a final heading $\psi_g$.
 This primitive set can be generated by solving the optimal control problem
 \begin{subequations}
@@ -137,36 +138,46 @@ This primitive set can be generated by solving the optimal control problem
     & & & u(t)\in\actions & t\in[0,T]
     \end{alignat}
 \end{subequations}
-Where $\Delta\psi=\psi_g-\psi_0$ and the performance metrics $\Phi(x(T), T)$ and $l(x(t),u(t))$ are chosen such that a desired property, such as 
+where $\Delta\psi=\psi_g-\psi_0$ and the performance metrics $\Phi(x(T), T)$ and $l(x(t),u(t))$ are chosen such that a desired property, such as 
 required energy or time is minimized. The motion primitive set $\mathcal{P}$ then consists of the 
 solutions of \eqref{eq:opt_problem_mp} for different values of $\Delta\psi$.
+
 \section{Graph search methods}
 The problem of finding the minimum cost path between two vertices in a graph $\mathcal{G}$
-is well studied, and there are numerous algorithms for solving it. These algorithms regularly require that 
-$C(e)\geq0 \forall e\in\mathcal{E}$. By using such algorithms together with the concept of 
+is well studied, and there are numerous algorithms for solving it. These algorithms require that 
+$C(e)\geq0,\quad \forall e\in\mathcal{E}$. By using such algorithms together with the concept of 
 reachability graphs defined in \eqref{def:reach_graph} resolution-optimal motion plans can be calculated \cite{Bergman_lic}. 
 
 \subsection{A-star search}\label{sec:a-star}
 The $A^*$ algorithm was introduced in \cite{astar} and is widely used to find the shortest path in graphs.
-Two important components of this algorithm is the \textit{cost-to-come} $g(x)$ and \textit{cost-to-go} or \textit{heuristic} $h(x,x_g)$. $g(x)$ is defined as 
+Two important components of this algorithm is the \textit{cost-to-come} $g(x)$ and \textit{cost-to-go} $h(x,x_g)$. The cost to come is defined as 
 the cost of the shortest path from the starting state $x_0$ to $x$, and $h(x, x_g)$ as the cost of the shortest path from $x$ to the goal $x_g$.
-Thus for any state $x$ the total cost for a path through this state to the goal is given as $g(x)+h(x,x_g)$.
+Thus for any state $x$ the total cost for a path through this state to the goal is given as $g(x)+h(x,x_g)$. The function $h(x, x_g)$ is often denoted the \textit{heuristic}.
 A perfect heuristic would be the actual cost from each initial state to the goal state. 
-Since this is generally not known an approximate heuristic $\tilde{h}(x, x_g)$ often has to be used. A necessary 
-condition for optimality of the resulting path is that $\tilde{h}(x, x_g)$ is \textit{admissible}, as defined below.
+Since this is generally not known an approximate heuristic $\tilde{h}(x, x_g)$ has to be used. Two necessary 
+condition for optimality of the resulting path is that $\tilde{h}(x, x_g)$ is \textit{admissible} and \textit{consistent}, as defined below.
 
 \begin{definition}[Admissible heuristic]
     A heuristic function $\tilde{h}(x, \tilde{x})$ is \textit{admissible} if
     \begin{equation}
         \tilde{h}(x, \tilde{x})\leq h(x, \tilde{x}) \quad\forall x
     \end{equation}
-    where $h(x, x_g)$ is the true cost-to-go from $x$ to $\tilde{x}$.    
+    where $h(x, \tilde{x})$ is the true cost-to-go from $x$ to $\tilde{x}$.    
+\end{definition}
+
+\begin{definition}[Consistent heuristic]
+    A heuristic function $\tilde{h}(x, \tilde{x})$ is \textit{consistent} if
+    \begin{equation}
+        \tilde{h}(x, \tilde{x})\leq h(x, \hat{x}) + \tilde{h}(\hat{x}, \tilde{x})
+    \end{equation}
+    where $h(x, \tilde{x})$ is the true cost-to-go from $x$ to $\tilde{x}$, 
+    for all $(x,\hat{x},\tilde{x})\in\states$.
 \end{definition}
 
 An outline of motion planning with $A^*$ is presented in Algorithm \ref{alg:astar}.
 The function $\text{EXPAND}(x, \mathcal{P})$ returns all states reached from $x$ by applying motion primitives in $\mathcal{P}$ and the associated cost of each primitive. The function $\text{POP}(\mathcal{O})$ returns the state in
 the open set with the lowest estimated total cost, 
-and \\$\text{CURRENT\_COST}(x,\mathcal{O})$  returns the estimated cost currently stored for $x$. 
+and \\$\text{CURRENT\_COST}(x,\mathcal{O})$  returns the estimated total cost currently stored for $x$. 
 
 
 \begin{algorithm}
@@ -176,15 +187,15 @@ and \\$\text{CURRENT\_COST}(x,\mathcal{O})$  returns the estimated cost currentl
             \State $\mathcal{O}\gets\text{EXPAND}(x_s, \mathcal{P})$
             \While{$\mathcal{O}\neq \emptyset$}
                 \State $(x,g(x))\gets \text{POP}(\mathcal{O})$
-                \If{$x==x_{f}$} \Comment{Goal found}
+                \If{$x==x_g$} \Comment{Goal found}
                     \State \textbf{return} $g(x)$
                 \EndIf
-                \ForAll{$(\tilde{x},c')\in\text{EXPAND}(x,\mathcal{P})$}
+                \ForAll{$(\tilde{x},\tilde{c})\in\text{EXPAND}(x,\mathcal{P})$}
                     \If{$\tilde{x}\in\xfree$ \textbf{and} $\tilde{x}\notin \mathcal{C}$}
-                        \State $c_{tot}=g(x) + c' + \tilde{h}(\tilde{x}, x_{g})$ \Comment Estimate total cost
+                        \State $c_{\text{tot}}=g(x) + \tilde{c} + \tilde{h}(\tilde{x}, x_{g})$ \Comment Estimate total cost
                         \State $c\gets\text{CURRENT\_COST}(\tilde{x}, \mathcal{O})$
-                        \If{$\tilde{x}\notin \mathcal{O}$ \textbf{or} $c > c_{tot}$}
-                            \State $\mathcal{O}\gets\mathcal{O}\bigcup\{(\tilde{x},c_{tot})\}$\Comment Update total cost estimate
+                        \If{$\tilde{x}\notin \mathcal{O}$ \textbf{or} $c > c_{\text{tot}}$}
+                            \State $\mathcal{O}\gets\mathcal{O}\bigcup\{(\tilde{x},c_{\text{tot}})\}$\Comment Update total cost estimate
                         \EndIf
                     \EndIf
                 \EndFor
@@ -196,8 +207,8 @@ and \\$\text{CURRENT\_COST}(x,\mathcal{O})$  returns the estimated cost currentl
 \end{algorithm}
 
 \subsection{Hybrid A-star}\label{sec:hybrid-a-star}
-A disadvantage of the original $A^*$ formulation in motion planning is only allowing states to take on discrete values $x_s\in\states_s$. This is extended in \cite{hybrid_astar} to the Hybrid $A^*$ formulation,
-allowing continuous states. To discretize the state-space it is divided into cells, and states in the same cell are considered equal. The difference from the classic $A^*$ formulation is illustrated in 
+A disadvantage of the original $A^*$ formulation is that it only allows states to take on the discretized values $x_s\in\states_s$. This is extended in \cite{hybrid_astar} to the Hybrid $A^*$ formulation,
+which allows continuous states. To discretize the state-space it is divided into cells, and states in the same cell are considered equal. The difference from the classic $A^*$ formulation is illustrated in 
 Figure \ref{fig:hybrid_vs_regular}.
 
 \begin{figure}
@@ -238,23 +249,24 @@ Figure \ref{fig:hybrid_vs_regular}.
 
 The Hybrid $A^*$ algorithm also includes the concept of \textit{analytic expansions}, \ie\ the
 model of the system is simulated from the current state $x$ to the goal $x_g$ at each expansion step. If this simulated path is feasible,
-\ie\  doesn't collide with obstacles, a solution is considered found. This was shown to decrease execution time of the algorithm,
-and it also allows the goal state to be exactly reached instead of reaching the closest discrete state.
+\ie\  doesn't collide with obstacles, a solution is considered found. This was shown empirically to decrease execution time of the algorithm,
+and it also allows the goal state to be reached exactly instead of reaching the closest discrete state.
 
-A disadvantage of the sampling method used in Hybrid $A^*$ is that removing all states but one in each cell implies 
-that all theoretical optimality guarantees are lost. The algorithm is therefore rather motivated by its practical usability, and extensive use of the algorithm shows that 
+A disadvantage of the sampling method used in Hybrid $A^*$ is that removing all states but one in each cell also removes all theoretical optimality guarantees of the solution. The algorithm is therefore rather motivated by its practical usability, and extensive use of the algorithm shows that 
 the solution often lies in a close neighborhood of the optimal solution. Both in the original and later works this issue is handled 
 by improving the initial solution using numerical optimization methods \cite{hybrid_astar} \cite{obstacle_optimization_hybrid}.
 
 \subsection{Non-holonomic heuristics}
-A common choice of heuristic function is simply the euclidean distance $\tilde{h}(x, x_g)=\|x_g-x\|$. However, in many cases for
+A common choice of heuristic function when the goal is to find minimum-length paths is the euclidean distance $\tilde{h}(x, x_g)=\|x_g-x\|$. This is guaranteed to be an admissible heuristic if a single fixed coordinate frame is used. However, in many cases for
 non-holonomic systems this measure greatly underestimates the actual cost-to-go, which leads to unnecessary node expansions and 
 increased computation time of the algorithm. It is therefore desirable to use another heuristic which takes the non-holonomic properties 
 of the system into account \cite{state_lattice_planning}.
+
 \subsubsection{Dubin's metric}
-Dubin's path was introduced in \cite{dubins} and provides an analytical solution for the
-shortest path between two states $(x_0,y_0,\psi_0)$ and $(x_g,y_g,\psi_g)$ with a constraint on maximal rate of turn $|\dot{\psi}|\leq\dot{\psi}_{\text{max}}$.
+The concept of Dubin's path, introduced in \cite{dubins}, provides an analytical solution for the
+shortest path between two states $(x_0,y_0,\psi_0)$ and $(x_g,y_g,\psi_g)$ with a constraint on maximal turn-rate $|\dot{\psi}|\leq\dot{\psi}_{\text{max}}$.
 The length of a Dubin's path has been widely used as a heuristic for non-holonomic systems only capable of forward motion, such as car-like robots and fixed-wing \acp{uav} \cite{2_phase_uav}.
+
 \subsubsection{Heuristic Look-Up Table}\label{sec:hlut}
 Another efficient method for non-holonomic systems is to pre-compute the optimal cost from a number of start states to 
 a number of goal states and store these in a \ac{hlut} \cite{hlut}. However, since the \ac{hlut} 
@@ -263,22 +275,22 @@ This results in a trade-off between \ac{hlut} size and algorithm efficiency, and
 is large should be prioritized.
 
 Given a set of motion primitives $\mathcal{P}$ the \ac{hlut} can be efficiently generated using Dijkstra's shortest path algorithm. 
-An outline of this method is given in Algorithm \ref{alg:hlut}, where $\states$ is the set of states for which we want to generate \ac{hlut} values, and the function definitions 
+An outline of this method is given in Algorithm \ref{alg:hlut}, where $\states$ is the set of states for which \ac{hlut} values are desired, and the function definitions 
 are equal to the ones in Algorithm \ref{alg:astar}.
 
 \begin{algorithm}
     \begin{algorithmic}
-        \Require Motion primitive set $\mathcal{P}$, valid states $\states$, initial state $x_0$, open set $\mathcal{O}$, closed set $\mathcal{C}$
+        \Require Motion primitive set $\mathcal{P}$, desired states $\states$, initial state $x_0$, open set $\mathcal{O}$, closed set $\mathcal{C}$
             \State $\mathcal{C}\gets \{x_0\}$
             \State $\mathcal{O}\gets\text{EXPAND}(x_0, \mathcal{P})$
             \While{$\mathcal{O}\neq \emptyset$}
                 \State $(x,g(x))\gets \text{POP}(\mathcal{O})$
-                \ForAll{$(\tilde{x},c')\in\text{EXPAND}(x,\mathcal{P})$}
+                \ForAll{$(\tilde{x},\tilde{c})\in\text{EXPAND}(x,\mathcal{P})$}
                     \If{$\tilde{x}\in\states$ \textbf{and} $\tilde{x}\notin \mathcal{C}$}
-                        \State $c_{tot}=g(x) + c'$ \Comment Calculate cost-to-go
+                        \State $c_{\text{tot}}=g(x) + \tilde{c}$ \Comment Calculate cost-to-go
                         \State $c\gets\text{CURRENT\_COST}(\tilde{x}, \mathcal{O})$
-                        \If{$\tilde{x}\notin \mathcal{O}$ \textbf{or} $c > c_{tot}$}
-                            \State $\mathcal{O}\gets\mathcal{O}\bigcup\{(\tilde{x},c_{tot})\}$\Comment Update cost-to-go
+                        \If{$\tilde{x}\notin \mathcal{O}$ \textbf{or} $c > c_{\text{tot}}$}
+                            \State $\mathcal{O}\gets\mathcal{O}\bigcup\{(\tilde{x},c_{\text{tot}})\}$\Comment Update cost-to-go
                         \EndIf
                     \EndIf
                 \EndFor
@@ -291,7 +303,7 @@ are equal to the ones in Algorithm \ref{alg:astar}.
 \end{algorithm}
 
 \subsection{Inflated heuristics and sub-optimality guarantees}\label{sec:sub_optimal}
-If $\tilde{h}(x, \tilde{x})$ is an admissible heuristic and we instead use the heuristic $\epsilon \tilde{h}(x, \tilde{x})$ for some inflation factor $\epsilon>1$ during planning,
+If $\tilde{h}(x, \tilde{x})$ is an admissible heuristic and the heuristic $\epsilon\cdot\tilde{h}(x, \tilde{x})$, with some inflation factor $\epsilon>1$, is used during planning,
 the resulting path is not guaranteed to be optimal. However, an important result is that the sub-optimal path is guaranteed to be at most $\epsilon$ times 
 longer than the optimal one. This property is exploited in so-called anytime algorithms, since inflating the heuristic value often leads to much faster solutions which is 
 desirable in realtime implementations \cite{anytime_astar}. 

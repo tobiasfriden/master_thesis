@@ -8,7 +8,6 @@ A level-1 auxiliary file: theory/fixed_wing_uav.aux
 A level-1 auxiliary file: theory/motion_planning.aux
 A level-1 auxiliary file: theory/planning_wind.aux
 A level-1 auxiliary file: theory/optimal_landing.aux
-A level-1 auxiliary file: theory/implementation.aux
 A level-1 auxiliary file: theory/results.aux
 A level-1 auxiliary file: theory/discussion.aux
 Database file #1: IEEEfull.bib
@@ -43,12 +42,12 @@ Warning--entry type for "parrot" isn't style-file defined
 --line 832 of file myrefs.bib
 Warning--entry type for "pixracer" isn't style-file defined
 --line 839 of file myrefs.bib
-Warning--to sort, need author or key in jsbsim
-Warning--to sort, need author or key in parrot
-Warning--to sort, need author or key in pixracer
 Warning--to sort, need author or key in s2geo
 Warning--to sort, need author or key in mavlink
 Warning--to sort, need author or key in ros
+Warning--to sort, need author or key in jsbsim
+Warning--to sort, need author or key in parrot
+Warning--to sort, need author or key in pixracer
 Warning--empty publisher in graph_theory
 Warning--empty school in uav_dynamics_wind
 Warning--empty publisher in planning_algorithms
@@ -60,7 +59,7 @@ Warning--empty year in l1_controller
 Warning--empty journal in rascal
 You've used 46 entries,
             2773 wiz_defined-function locations,
-            1402 strings with 27228 characters,
+            1401 strings with 27203 characters,
 and the built_in function-call counts, 19303 in all, are:
 = -- 1750
 > -- 906

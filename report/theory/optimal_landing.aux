@@ -2,42 +2,43 @@
 \providecommand\hyper@newdestlabel[2]{}
 \citation{emergency_landing}
 \citation{landing_on_vehicle}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Robust landing sequences}{33}{chapter.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Robust landing sequences}{37}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{cha:landing}{{5}{33}{Robust landing sequences}{chapter.5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Problem formulation}{33}{section.5.1}\protected@file@percent }
+\newlabel{cha:landing}{{5}{37}{Robust landing sequences}{chapter.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Problem formulation}{37}{section.5.1}\protected@file@percent }
 \acronymused{uav}
 \acronymused{uav}
 \acronymused{uav}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Landing sequence definition\relax }}{33}{figure.caption.25}\protected@file@percent }
-\newlabel{fig:land}{{5.1}{33}{Landing sequence definition\relax }{figure.caption.25}{}}
 \acronymused{uav}
 \acronymused{uav}
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Landing sequence}{34}{section.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Landing sequence}{37}{section.5.2}\protected@file@percent }
 \acronymused{uav}
-\newlabel{eq:sink_rate}{{5.2}{34}{Landing sequence}{equation.5.2.2}{}}
-\acronymused{uav}
-\newlabel{eq:R_flare}{{5.4}{34}{Landing sequence}{equation.5.2.4}{}}
-\newlabel{eq:sink_constraint}{{5.5}{34}{Landing sequence}{equation.5.2.5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}Calculating a landing sequence}{34}{section.5.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Landing sequence problem definition. The goal is to find the approach point $ \boldsymbol  {p} _a$ and landing point $ \boldsymbol  {p} _l$ which lands the \ac {uav} in the specified landing area $\mathcal  {A}$. The \ac {uav} is not permitted to fly above obstacle regions in $\mathcal  {X}_{\text  {obst}}$.\relax }}{38}{figure.caption.30}\protected@file@percent }
 \acronymused{uav}
 \acronymused{uav}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Altitude profile of a fixed-wing landing sequence\relax }}{35}{figure.caption.26}\protected@file@percent }
-\newlabel{fig:land_alt}{{5.2}{35}{Altitude profile of a fixed-wing landing sequence\relax }{figure.caption.26}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}Determining the approach direction}{35}{subsection.5.3.1}\protected@file@percent }
+\newlabel{fig:land}{{5.1}{38}{Landing sequence problem definition. The goal is to find the approach point $\vec {p}_a$ and landing point $\vec {p}_l$ which lands the \ac {uav} in the specified landing area $\landing $. The \ac {uav} is not permitted to fly above obstacle regions in $\xobst $.\relax }{figure.caption.30}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Altitude profile of a fixed-wing landing sequence\relax }}{38}{figure.caption.31}\protected@file@percent }
+\newlabel{fig:land_alt}{{5.2}{38}{Altitude profile of a fixed-wing landing sequence\relax }{figure.caption.31}{}}
+\newlabel{eq:sink_rate}{{5.2}{38}{Landing sequence}{equation.5.2.2}{}}
 \acronymused{uav}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Variables determining a landing sequence\relax }}{36}{figure.caption.27}\protected@file@percent }
-\newlabel{fig:opt_landing}{{5.3}{36}{Variables determining a landing sequence\relax }{figure.caption.27}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}Determining the approach points}{36}{subsection.5.3.2}\protected@file@percent }
+\newlabel{eq:R_flare}{{5.4}{39}{Landing sequence}{equation.5.2.4}{}}
+\newlabel{eq:sink_constraint}{{5.5}{39}{Landing sequence}{equation.5.2.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Calculating a landing sequence}{39}{section.5.3}\protected@file@percent }
+\acronymused{uav}
+\acronymused{uav}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}Determining the approach direction}{39}{subsection.5.3.1}\protected@file@percent }
+\acronymused{uav}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Variables determining a landing sequence. Given an approach direction $\psi _l$, a line going through the center of the landing area $ \boldsymbol  {p} _c$ will cross the edges of $\mathcal  {A}$ in exactly two points, $ \boldsymbol  {p} _1$ and $ \boldsymbol  {p} _2$.\relax }}{40}{figure.caption.32}\protected@file@percent }
+\newlabel{fig:opt_landing}{{5.3}{40}{Variables determining a landing sequence. Given an approach direction $\psi _l$, a line going through the center of the landing area $\vec {p}_c$ will cross the edges of $\landing $ in exactly two points, $\vec {p}_1$ and $\vec {p}_2$.\relax }{figure.caption.32}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}Determining the approach points}{40}{subsection.5.3.2}\protected@file@percent }
 \citation{ipopt}
-\newlabel{eq:h_a_constraint}{{5.14}{37}{Determining the approach points}{equation.5.3.14}{}}
-\newlabel{eq:opt_problem_land}{{5.15}{37}{Determining the approach points}{equation.5.3.15}{}}
-\AC@undonewlabel{acro:ipopt}
-\newlabel{acro:ipopt}{{5.3.2}{37}{Determining the approach points}{equation.5.3.15g}{}}
+\citation{casadi}
+\newlabel{eq:h_a_constraint}{{5.14}{41}{Determining the approach points}{equation.5.3.14}{}}
+\newlabel{eq:opt_problem_land}{{5.15}{41}{Determining the approach points}{equation.5.3.15}{}}
 \acronymused{ipopt}
 \@setckpt{theory/optimal_landing}{
-\setcounter{page}{38}
+\setcounter{page}{42}
 \setcounter{equation}{15}
 \setcounter{enumi}{2}
 \setcounter{enumii}{0}
@@ -70,12 +71,12 @@
 \setcounter{caption@flags}{0}
 \setcounter{ContinuedFloat}{0}
 \setcounter{Item}{4}
-\setcounter{bookmark@seq@number}{61}
+\setcounter{bookmark@seq@number}{63}
 \setcounter{lofdepth}{1}
 \setcounter{lotdepth}{1}
 \setcounter{KVtest}{1}
 \setcounter{subfigure}{0}
-\setcounter{subfigure@save}{4}
+\setcounter{subfigure@save}{2}
 \setcounter{subtable}{0}
 \setcounter{subtable@save}{0}
 \setcounter{rtpapers@section}{0}
@@ -86,8 +87,8 @@
 \setcounter{@ppsavesec}{0}
 \setcounter{@ppsaveapp}{0}
 \setcounter{algorithm}{3}
-\setcounter{ALG@line}{20}
-\setcounter{ALG@rem}{20}
+\setcounter{ALG@line}{18}
+\setcounter{ALG@rem}{18}
 \setcounter{ALG@nested}{0}
 \setcounter{ALG@Lnr}{2}
 \setcounter{ALG@blocknr}{10}

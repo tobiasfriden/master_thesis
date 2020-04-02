@@ -14,7 +14,9 @@ int main(int argc, char** argv){
         std::cout << "generation time: " << diff.count() << std::endl;
         hlut.save_binary("../hlut/");
     } else {
+        
         hlut.load_binary("../hlut/");
+        std::cout << "hlut size: " << hlut.size() << std::endl;
         hlut.save_visual("../hlut_viz.txt", atof(argv[2]), atof(argv[3]));
     }
 

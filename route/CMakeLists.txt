@@ -109,3 +109,8 @@ add_executable(improve_viz improve_viz.cpp)
 target_link_libraries(improve_viz
     simulation
 )
+
+add_executable(mission mission.cpp)
+target_link_libraries(mission
+    simulation
+)

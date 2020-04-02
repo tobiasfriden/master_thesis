@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/mission.dir/mission.cpp.o  -o mission -Wl,-rpath,/code/build:/code/build/s2geometry libsimulation.so s2geometry/libs2.so -lssl -lcrypto -lpthread 

@@ -1,1 +1,19 @@
-If your thesis is written in English, the primary abstract would go here while the Swedish abstract would be optional.
+Fixed-wing \acp{uav} are today used in many different areas, from agriculture to search and 
+rescue operations. Through various research efforts, they are becoming more and more autonomous. However, the procedure of landing a fixed-wing \ac{uav} 
+remains a challenging task, which requires manual input from an experienced pilot. 
+
+This work proposes a novel method which autonomously performs such landings. The main focus is on 
+small and light-weight \acp{uav}, for which the wind acts as a major disturbance and has to be taken into account. 
+Robustness to other disturbances, such as variations in environmental factors or measurement errors, has also been prioritized during the development 
+of this method.
+
+The main contribution of this work consists of a framework in which der\-iva\-tive-free optimization is used to 
+calculate a set of waypoints, which are feasible to use in different wind speeds and directions, for a selected \ac{uav} model. 
+These waypoints are then combined online using motion planning techniques, to create a trajectory which safely brings the \ac{uav} to a 
+position where the landing descent can be initiated. To ensure a safe descent in a predefined area, another non-linear optimization problem is 
+formulated and solved. 
+
+Finally, the proposed method is implemented on a real \ac{uav} platform. A number of simulations in different wind conditions are performed, and data from 
+a real flight experiment is presented. The results indicate that the method successfully calculates feasible landing sequences in different scenarios, and 
+that it is applicable in a real-world landing.
+
