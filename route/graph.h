@@ -27,24 +27,28 @@ public:
         : _position{Vector2_d(north, east)},
           _waypoint{Vector2_d(north, east)},
           _heading{wrap_heading_360(heading)},
-          _bearing{wrap_heading_360(heading)} {};
+          _bearing{wrap_heading_360(heading)},
+          _roll{0} {};
 
     Coordinate(
         const Vector2_d waypoint,
         const Vector2_d position,
         double heading,
         double bearing,
+        double roll,
         double cost
     ) : _position{position},
         _heading{wrap_heading_360(heading)},
         _bearing{wrap_heading_360(bearing)},
         _waypoint{waypoint},
-        _cost{cost} {};
+        _cost{cost},
+        _roll{roll} {};
 
     Coordinate(const Coordinate& other)
       : _position{other._position},
         _heading{other._heading},
         _bearing{other._bearing}, 
+        _roll{other._roll},
         _waypoint{other._waypoint},
         _cost{other._cost} {
             std::copy(other._states.begin(), other._states.end(), std::back_inserter(_states));
@@ -79,6 +83,7 @@ public:
     const Vector2_d waypoint() const { return _waypoint; };
     double heading() const { return _heading; };
     double bearing() const { return _bearing; };
+    double roll() const { return _roll; };
     double cost() const { return _cost; };
     std::vector<Vector2_d>& states() { return _states; };
 
@@ -120,6 +125,7 @@ private:
     Vector2_d _waypoint;
     double _heading{0}; // UAV inertial frame heading
     double _bearing{0}; // UAV velocity vector direction
+    double _roll{0}; // UAV roll
     double _cost{0};
 
     std::vector<Vector2_d> _states;

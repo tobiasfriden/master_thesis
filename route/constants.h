@@ -19,8 +19,23 @@ namespace Constants{
     double airspeed(){
         return read_env("AIRSPEED");
     }
-    double yrate(){
-        return read_env("YRATE");
+    double roll_max(){
+        return read_env("ROLL_MAX");
+    }
+    double tau_s(){
+        return read_env("TAU_S");
+    }
+    double xi(){
+        return read_env("XI");
+    }
+    double ts(){
+        return read_env("TS");
+    }
+    double wp_r(){
+        return read_env("WP_R");
+    }
+    double roll_k(){
+        return read_env("ROLL_K");
     }
 
     // Optimization
@@ -36,11 +51,20 @@ namespace Constants{
     double hdg_w(){
         return read_env("HDG_W");
     }
+    double obst_w(){
+        return read_env("OBST_W");
+    }
+    double roll_rate_w(){
+        return read_env("ROLL_RATE_W");
+    }
 
     // Primitives
     static const int prim_hdg_size = 20;
     static const int prim_headings = 9;
     static const int prim_headings_safe = 8;
+
+    static const int prim_roll_size = 15;
+    static const int prim_rolls = 3;
 
     // Grid definition
     static const double cell_size = 10;
@@ -98,6 +122,15 @@ namespace Constants{
         double next_diff = std::abs(heading - next_idx*interval);
         int best_idx = diff < next_diff ? idx : next_idx;
         if(best_idx >= 360/interval) best_idx -= 360/interval;
+        return best_idx;
+    }
+
+    int roll_index(double roll, double interval){
+        int idx = int(std::floor(roll/interval));
+        int next_idx = idx + 1;
+        double diff = std::abs(roll - idx*interval);
+        double next_diff = std::abs(roll - next_idx*interval);
+        int best_idx = diff < next_diff ? idx : next_idx;
         return best_idx;
     }
 };

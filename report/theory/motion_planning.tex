@@ -257,7 +257,7 @@ the solution often lies in a close neighborhood of the optimal solution. Both in
 by improving the initial solution using numerical optimization methods \cite{hybrid_astar} \cite{obstacle_optimization_hybrid}.
 
 \subsection{Non-holonomic heuristics}
-A common choice of heuristic function when the goal is to find minimum-length paths is the euclidean distance $\tilde{h}(x, x_g)=\|x_g-x\|$. This is guaranteed to be an admissible heuristic if a single fixed coordinate frame is used. However, in many cases for
+A common choice of heuristic function when the goal is to find minimum-length paths is the Euclidean distance $\tilde{h}(x, x_g)=\|x_g-x\|$. This is guaranteed to be an admissible heuristic if a single fixed coordinate frame is used. However, in many cases for
 non-holonomic systems this measure greatly underestimates the actual cost-to-go, which leads to unnecessary node expansions and 
 increased computation time of the algorithm. It is therefore desirable to use another heuristic which takes the non-holonomic properties 
 of the system into account \cite{state_lattice_planning}.
@@ -270,7 +270,7 @@ The length of a Dubin's path has been widely used as a heuristic for non-holonom
 \subsubsection{Heuristic Look-Up Table}\label{sec:hlut}
 Another efficient method for non-holonomic systems is to pre-compute the optimal cost from a number of start states to 
 a number of goal states and store these in a \ac{hlut} \cite{hlut}. However, since the \ac{hlut} 
-must be finite in size, a fallback heuristic such as euclidean distance is used if the value of $h(x,\tilde{x})$ is not available for some $x$ and $\tilde{x}$.
+must be finite in size, a fallback heuristic such as Euclidean distance is used if the value of $h(x,\tilde{x})$ is not available for some $x$ and $\tilde{x}$.
 This results in a trade-off between \ac{hlut} size and algorithm efficiency, and states where the difference between $h(x,\tilde{x})$ and the fallback heuristic 
 is large should be prioritized.
 
@@ -306,4 +306,4 @@ are equal to the ones in Algorithm \ref{alg:astar}.
 If $\tilde{h}(x, \tilde{x})$ is an admissible heuristic and the heuristic $\epsilon\cdot\tilde{h}(x, \tilde{x})$, with some inflation factor $\epsilon>1$, is used during planning,
 the resulting path is not guaranteed to be optimal. However, an important result is that the sub-optimal path is guaranteed to be at most $\epsilon$ times 
 longer than the optimal one. This property is exploited in so-called anytime algorithms, since inflating the heuristic value often leads to much faster solutions which is 
-desirable in realtime implementations \cite{anytime_astar}. 
+desirable in real-time implementations \cite{anytime_astar}. 

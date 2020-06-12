@@ -9,7 +9,7 @@ std::vector<Coordinate> Coordinate::get_neighbours(
     std::vector<Coordinate> coordVector; 
     std::vector<Vector2_d> traj;
 
-    auto offsets = primitives.get_expansions(_bearing, sim.wind_dir());
+    auto offsets = primitives.get_expansions(_bearing, _roll, sim.wind_dir());
     Vector2_d start = _position;
     Vector2_d start_waypoint = _waypoint;
     double primitive_cost;
@@ -17,9 +17,9 @@ std::vector<Coordinate> Coordinate::get_neighbours(
     for(auto ofs: offsets){
         traj.clear();
         Vector2_d goal_waypoint = start_waypoint + Vector2_d(ofs[0], ofs[1]);
-        sim.reset(start.x(), start.y(), _heading);
+        sim.reset(start.x(), start.y(), _heading, _roll);
         primitive_cost = sim.simulate_waypoints(start_waypoint, goal_waypoint, traj, false);
-        Coordinate coord(goal_waypoint, sim.pos(), sim.yaw(), sim.path_bearing(), _cost + primitive_cost);
+        Coordinate coord(goal_waypoint, sim.pos(), sim.yaw(), sim.path_bearing(), sim.roll(), _cost + primitive_cost);
         coord.add_states(traj);
         coordVector.push_back(coord);
     }
@@ -34,7 +34,7 @@ std::vector<Coordinate> Coordinate::get_neighbours(
     std::vector<Coordinate> coordVector; 
     std::vector<Vector2_d> traj;
 
-    auto offsets = primitives.get_expansions(_bearing, sim.wind_dir());
+    auto offsets = primitives.get_expansions(_bearing, _roll, sim.wind_dir());
     Vector2_d start = _position;
     Vector2_d start_waypoint = _waypoint;
     double primitive_cost;
@@ -48,9 +48,9 @@ std::vector<Coordinate> Coordinate::get_neighbours(
             continue;
         }
         traj.clear();
-        sim.reset(start.x(), start.y(), _heading);
+        sim.reset(start.x(), start.y(), _heading, _roll);
         primitive_cost = sim.simulate_waypoints(start_waypoint, goal_waypoint, traj, false);
-        Coordinate coord(goal_waypoint, sim.pos(), sim.yaw(), sim.path_bearing(), _cost + primitive_cost);
+        Coordinate coord(goal_waypoint, sim.pos(), sim.yaw(), sim.path_bearing(), sim.roll(), _cost + primitive_cost);
         coord.add_states(traj);
         coordVector.push_back(coord);
     }
@@ -71,6 +71,7 @@ std::vector<Coordinate> Coordinate::get_mp_neighbours(const MotionPrimitiveSet& 
             goal,
             mp.heading(),
             mp.heading(),
+            0,
              _cost + mp.cost()
         );
         coord_vec.push_back(coord);
@@ -102,6 +103,7 @@ std::vector<Coordinate> Coordinate::get_mp_neighbours(
             goal,
             mp.heading(),
             mp.heading(),
+            0,
              _cost + mp.cost()
         );
         coord_vec.push_back(coord);
@@ -175,7 +177,7 @@ void ClosedSet::save(std::string path) {
     for(auto it = _nmap.begin(); it != _nmap.end(); it++){
         auto record = *it;
         auto coord = record.position();
-        out << coord.x() << " " << coord.y() << " " << record.heading() << std::endl;
+        out << coord.x() << " " << coord.y() << " " << record.heading() << " " << record.roll() << std::endl;
     }
     out.close();
 }

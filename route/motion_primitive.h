@@ -11,7 +11,7 @@ class MotionPrimitive {
 public:
     MotionPrimitive() {};
 
-    MotionPrimitive(int wind_dir) : wind_dir_{wind_dir} {};
+    MotionPrimitive(int init_roll, int wind_dir) : init_roll_{init_roll}, wind_dir_{wind_dir} {};
 
     MotionPrimitive(
         double north,
@@ -20,6 +20,7 @@ public:
         double wp_north,
         double wp_east,
         double cost,
+        int init_roll,
         int goal_hdg,
         int wind_dir
     ) : north_{north},
@@ -28,6 +29,7 @@ public:
         wp_north_{wp_north},
         wp_east_{wp_east},
         cost_{cost},
+        init_roll_{init_roll},
         goal_hdg_{goal_hdg},
         wind_dir_{wind_dir}
         {
@@ -41,6 +43,7 @@ public:
           wp_north_{other.wp_north()},
           wp_east_{other.wp_east()},
           cost_{other.cost()},
+          init_roll_{other.init_roll()},
           goal_hdg_{other.goal_hdg()},
           wind_dir_{other.wind_dir()} {
               if(heading_ < 0) heading_ += 360;
@@ -50,6 +53,7 @@ public:
         std::size_t seed=0;
         boost::hash_combine(seed, mp.goal_hdg());
         boost::hash_combine(seed, mp.wind_dir());
+        boost::hash_combine(seed, mp.init_roll());
         return seed;
     }
 
@@ -60,6 +64,7 @@ public:
            >> mp.wp_north_
            >> mp.wp_east_
            >> mp.cost_
+           >> mp.init_roll_
            >> mp.goal_hdg_
            >> mp.wind_dir_;
         return is;
@@ -72,6 +77,7 @@ public:
            << mp.wp_north_ << " "
            << mp.wp_east_ << " "
            << mp.cost_ << " "
+           << mp.init_roll_ << " "
            << mp.goal_hdg_ << " "
            << mp.wind_dir_ << std::endl;
     }
@@ -86,6 +92,7 @@ public:
     double wp_north() const { return wp_north_; };
     double wp_east() const { return wp_east_; };
     double cost() const { return cost_; };
+    int init_roll() const { return init_roll_; };
     int goal_hdg() const { return goal_hdg_; };
     int wind_dir() const { return wind_dir_; }
 
@@ -99,6 +106,7 @@ private:
     double wp_north_{0};
     double wp_east_{0};
     double cost_{0};
+    int init_roll_{0};
     int goal_hdg_{0};
     int wind_dir_{0};
 };
@@ -110,16 +118,17 @@ public:
     void generate(bool log=false);
     void save_to_file(std::string base_path);
     void load_from_file(std::string base_path);
-    void save_visual(std::string path, double wind_dir, double wind_scale);
+    void save_visual(std::string path, double init_roll, double wind_dir, double wind_scale);
 
     void save(const MotionPrimitive& mp);
     
     
-    std::vector<Vector2_d> get_expansions(double heading, int wind_dir) const;
+    std::vector<Vector2_d> get_expansions(double heading, double roll, int wind_dir) const;
     std::vector<MotionPrimitive> get_mp_expansions(double heading, int wind_dir) const;
 
 private:
     int closest_wind_dir(double heading_diff) const;
+    int closest_roll(double roll) const;
     bool lookup(MotionPrimitive& mp) const;
     Vector2_d offset_vector(double offset_heading, double d_north, double d_east) const;
 

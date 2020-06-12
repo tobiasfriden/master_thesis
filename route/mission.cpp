@@ -9,16 +9,15 @@
 using namespace mapbox::geojson;
 
 void simulate_mission(){
-    S2LatLng origin = S2LatLng::FromDegrees(57.485645,11.930835);
+    S2LatLng origin = offset(S2LatLng::FromDegrees(57.6432, 11.8630), Constants::start_offset(), 0);
 
     std::vector<Vector2_d> mission;
 
-    std::ifstream in("sol.txt");
+    std::ifstream in("plot_data/roll/sol.txt");
     std::stringstream buffer;
     buffer << in.rdbuf();
 
     geojson geo = parse(buffer.str());
-
     const auto& features = geo.get<feature_collection>();
 
     for(const auto& f: features){
@@ -26,14 +25,13 @@ void simulate_mission(){
         S2LatLng point = S2LatLng::FromDegrees(p.y, p.x);
         mission.push_back(get_distance_NE(origin, point));
     }
-    double init_heading = bearing_to(mission[0], mission[1]);
-    Vector2_d start = mission[1];
-    Simulator sim(14, 8.24, 117.785, 0.6);
-    sim.reset(start.x(), start.y(), init_heading);
-    std::vector<Vector2_d> sim_mission(mission.begin()+1, mission.end());
-    std::vector<Vector2_d> traj = sim.simulate_mission(sim_mission);
+    Simulator sim;
+    double init_heading = wind_correction_angle(0, Constants::airspeed(), Constants::wind_dir(), Constants::wind_spd());
+    std::cout << "wca: " << init_heading << std::endl;
+    sim.reset(0, 0, init_heading, 0);
+    std::vector<Vector2_d> traj = sim.simulate_mission(mission);
 
-    sim.save_trajectory(origin, traj, "simulated_mission.txt");
+    sim.save_trajectory(origin, traj, "plot_data/roll/sim.txt");
 }
 
 int main(){

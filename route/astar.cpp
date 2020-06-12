@@ -27,10 +27,10 @@ std::vector<Coordinate> astar(
     std::vector<Coordinate> path_vec;
     Vector2_d from(0, 0);
 
-    Coordinate start(from, from, 0, 0, 0);
+    Coordinate start(from, from, 0, 0, 0, 0);
     frontier.push(start, nullptr, 0);
 
-    Coordinate goal(to, to, goal_hdg, goal_hdg, 0);
+    Coordinate goal(to, to, goal_hdg, goal_hdg, 0, 0);
     double h;
     hlut.lookup_cost(start, goal, h);
     std::cout << "heuristic estimate: " << h << std::endl;
@@ -55,11 +55,12 @@ std::vector<Coordinate> astar(
             sim.reset(
                 current ->coord.position().x(),
                 current ->coord.position().y(),
-                current ->coord.heading()
+                current ->coord.heading(),
+                current ->coord.roll()
             );
             std::vector<Vector2_d> traj;
             double cost = sim.simulate_waypoints(current -> coord.waypoint(), goal.waypoint(), traj, false);
-            Coordinate coord(goal.waypoint(), sim.pos(), sim.yaw(), sim.path_bearing(), current -> coord.cost() + cost);
+            Coordinate coord(goal.waypoint(), sim.pos(), sim.yaw(), sim.path_bearing(), sim.roll(), current -> coord.cost() + cost);
             coord.add_states(traj);
             if(coord == goal){
                 goal_node = std::make_shared<Node>(coord);
@@ -126,7 +127,7 @@ std::vector<double> get_init_bearings(
     std::vector<double> bearing_vec;
     Coordinate coord = path_vec.front();
     bearing_vec.push_back(coord.bearing());
-    sim.reset(coord.position().x(), coord.position().y(), coord.heading());
+    sim.reset(coord.position().x(), coord.position().y(), coord.heading(), coord.roll());
 
     for(int i=1; i<path_vec.size(); i++){
         Coordinate next = path_vec[i];
@@ -151,7 +152,7 @@ Coordinate find_best_next_coord(
     Vector2_d start = coord.position();
     Vector2_d start_waypoint = coord.waypoint();
     for(int i=1; i < path_vec.size(); i++){
-        sim.reset(start.x(), start.y(), coord.heading());
+        sim.reset(start.x(), start.y(), coord.heading(), coord.roll());
         Coordinate next = path_vec[i];
         if(obst.in_collision(start_waypoint, next.waypoint())){
             continue;

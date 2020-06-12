@@ -22,6 +22,11 @@ bool Obstacles::in_collision(const Vector2_d& start, const Vector2_d& goal) cons
     return edge_q -> IsDistanceLessOrEqual(&target, _safety_dist);
 }
 
+double Obstacles::obstacle_dist(const Vector2_d& position) const {
+    S2ClosestEdgeQuery::PointTarget target(to_latlng(position).ToPoint());
+    return S2Earth::ToMeters(edge_q -> GetDistance(&target));
+}
+
 S2LatLng Obstacles::to_latlng(const Vector2_d& pos) const {
     return offset(_origin, pos.x(), pos.y());
 }

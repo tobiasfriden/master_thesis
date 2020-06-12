@@ -125,7 +125,7 @@ in \cite{sensor_fusion} as the rotation matrix
 \end{equation}  
 \end{definition}
 
-Note that this attitude representation is not uniquely defined for $\theta=\pm\pi/2$. However, this is not an issue since such angles 
+\noindent Note that this attitude representation is not uniquely defined for $\theta=\pm\pi/2$. However, this is not an issue since such angles 
 never occur in the situations studied in this thesis.
 \begin{figure}
     \centering
@@ -175,8 +175,7 @@ The wind field can be decomposed as
 \begin{equation}
     \windvec = \bar{\windvec} + \windvec_s
 \end{equation}
-where $\bar{\windvec}$ is the mean wind field and $\windvec_s$ is described by some stochastic process. The random component is not considered in this thesis, 
-,\ie\, it is assumed that $\windvec=\bar{\windvec}$.
+where $\bar{\windvec}$ is the mean wind field and $\windvec_s$ is described by some stochastic process. The random component is not considered in this thesis, \ie, it is assumed that $\windvec=\bar{\windvec}$.
 
 \section{Wind estimation}
 Wind field estimation techniques are important in order to handle the effects of winds on both planning and control of \acp{uav}.
@@ -252,7 +251,7 @@ along the $x$ axis in the body frame, the relationship between $\airspd$ and $V_
 \section{Trajectory following}
 To allow autonomous operation of an \ac{uav}, it needs to be equipped with a trajectory following controller.
 The goal of this controller is to follow a pre-defined trajectory, which is defined by a set of 
-linear or curved segments in the inertial frame. This goal can be formulated as calculating the control signal 
+line or curve segments in the inertial frame. This goal can be formulated as calculating the control signal 
 in each time-step which minimizes the \textit{cross-track error}
 \begin{equation}
     d(t)=\min\|\vec{p}_{I,\ac{uav}}(t)-\vec{p}_{I,\text{traj}}\|
@@ -506,7 +505,7 @@ in ArduPlane, but this work will be focused on
 \begin{equation}
     c_{\text{wp}}\in \{\text{Waypoint}, \text{Land}\}
 \end{equation}
-which are descriped below.
+which are described below.
 \subsubsection{Waypoint mode}
 In \textit{waypoint} mode the trajectory following controller is used
 to navigate along the line from $\vec{p}_0$ to $\vec{p}_1$. When $\vec{p}_1$ is reached, the flight mode

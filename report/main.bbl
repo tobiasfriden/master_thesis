@@ -6,16 +6,16 @@
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
 \bibitem[jsb(2019)]{jsbsim}
-Jsbsim - an open source, platform-independent, flight dynamics \& control
+{JSBSim} - an open source, platform-independent, flight dynamics \& control
   software library in c++, 2019.
 \newblock URL \url{http://jsbsim.org}.
 
 \bibitem[mav(2019)]{mavlink}
-Mavlink - micro air vehicle communication protocol, 2019.
+{MAVLink} - micro air vehicle communication protocol, 2019.
 \newblock URL \url{http://mavlink.io}.
 
 \bibitem[par(2019)]{parrot}
-Parrot disco fpv, 2019.
+Parrot disco {FPV}, 2019.
 \newblock URL \url{https://www.parrot.com/us/drones/parrot-disco-fpv}.
 
 \bibitem[pix(2019)]{pixracer}
@@ -24,11 +24,11 @@ Pixracer autpilot, 2019.
   \url{https://docs.px4.io/v1.9.0/en/flight_controller/pixracer.html}.
 
 \bibitem[ros(2019)]{ros}
-Ros - robotic operating system, 2019.
+{ROS} - robotic operating system, 2019.
 \newblock URL \url{http://ros.org}.
 
 \bibitem[s2g(2019)]{s2geo}
-S2geometry - computational geometry and spatial indexing on the sphere, 2019.
+{S2Geometry} - computational geometry and spatial indexing on the sphere, 2019.
 \newblock URL \url{https://s2geometry.io/}.
 
 \bibitem[Andersson et~al.(2019)Andersson, Gillis, Horn, Rawlings, and
@@ -64,8 +64,8 @@ Cornel-Alexandru Brezoescu.
 
 \bibitem[{Cho} et~al.(2011){Cho}, {Kim}, {Lee}, and {Kee}]{pitot}
 A.~{Cho}, J.~{Kim}, S.~{Lee}, and C.~{Kee}.
-\newblock Wind estimation and airspeed calibration using a uav with a
-  single-antenna gps receiver and pitot tube.
+\newblock Wind estimation and airspeed calibration using a {UAV} with a
+  single-antenna {GPS} receiver and pitot tube.
 \newblock \emph{IEEE Transactions on Aerospace and Electronic Systems},
   47\penalty0 (1):\penalty0 109--117, January 2011.
 \newblock ISSN 2371-9877.
@@ -96,14 +96,14 @@ L.~E. Dubins.
 
 \bibitem[Ermakov(2019)]{mavros}
 Vladimir Ermakov.
-\newblock Mavros - mavlink extendable communication node for ros with proxy for
-  ground control station, 2019.
+\newblock {MAVROS} - {MAVLink} extendable communication node for ros with proxy
+  for ground control station, 2019.
 \newblock URL \url{http://wiki.ros.org/mavros}.
 
 \bibitem[{Gautam} et~al.(2014){Gautam}, {Sujit}, and
   {Saripalli}]{survey_landing}
 A.~{Gautam}, P.~B. {Sujit}, and S.~{Saripalli}.
-\newblock A survey of autonomous landing techniques for uavs.
+\newblock A survey of autonomous landing techniques for {UAV}s.
 \newblock In \emph{2014 International Conference on Unmanned Aircraft Systems
   (ICUAS)}, pages 1210--1218, May 2014.
 \newblock \doi{10.1109/ICUAS.2014.6842377}.
@@ -125,7 +125,7 @@ P.~E. {Hart}, N.~J. {Nilsson}, and B.~{Raphael}.
 
 \bibitem[{Hwangbo} et~al.(2007){Hwangbo}, {Kuffner}, and {Kanade}]{2_phase_uav}
 M.~{Hwangbo}, J.~{Kuffner}, and T.~{Kanade}.
-\newblock Efficient two-phase 3d motion planning for small fixed-wing uavs.
+\newblock Efficient two-phase 3d motion planning for small fixed-wing {UAVs}.
 \newblock In \emph{Proceedings 2007 IEEE International Conference on Robotics
   and Automation}, pages 1035--1041, April 2007.
 \newblock \doi{10.1109/ROBOT.2007.363121}.
@@ -164,14 +164,14 @@ Steven~M. LaValle.
 
 \bibitem[{Le~Digabel}(2011)]{nomad}
 S.~{Le~Digabel}.
-\newblock Algorithm 909: {NOMAD}: Nonlinear optimization with the mads
+\newblock Algorithm 909: {NOMAD}: Nonlinear optimization with the {MADS}
   algorithm.
 \newblock \emph{{ACM} Transactions on Mathematical Software}, 37\penalty0
   (4):\penalty0 1--15, 2011.
 
 \bibitem[{Lee} and {Shim}(2014)]{rrt_uav}
 D.~{Lee} and D.~H. {Shim}.
-\newblock Rrt-based path planning for fixed-wing uavs with arrival time and
+\newblock {RRT}-based path planning for fixed-wing uavs with arrival time and
   approach direction constraints.
 \newblock In \emph{2014 International Conference on Unmanned Aircraft Systems
   (ICUAS)}, pages 317--328, May 2014.
@@ -179,7 +179,7 @@ D.~{Lee} and D.~H. {Shim}.
 
 \bibitem[Likhachev et~al.(2004)Likhachev, Gordon, and Thrun]{anytime_astar}
 Maxim Likhachev, Geoffrey~J Gordon, and Sebastian Thrun.
-\newblock Ara*: Anytime a* with provable bounds on sub-optimality.
+\newblock {ARA*}: Anytime a* with provable bounds on sub-optimality.
 \newblock In \emph{Advances in neural information processing systems}, pages
   767--774, 2004.
 
@@ -192,7 +192,7 @@ Timothy Mcgee, Stephen Spry, and J~Hedrick.
 
 \bibitem[open~source autopilot(2019{\natexlab{a}})]{ardupilot_auto}
 Ardupilot:~The open~source autopilot.
-\newblock Arduplane auto flight mode, 2019{\natexlab{a}}.
+\newblock Arduplane {AUTO} flight mode, 2019{\natexlab{a}}.
 \newblock URL \url{http://ardupilot.org/plane/docs/auto-mode.html}.
 
 \bibitem[open~source autopilot(2019{\natexlab{b}})]{ardupilot_land}
@@ -202,7 +202,7 @@ Ardupilot:~The open~source autopilot.
 
 \bibitem[open~source autopilot(2019{\natexlab{c}})]{ardupilot_sitl}
 Ardupilot:~The open~source autopilot.
-\newblock Ardupilot sitl advanced testing, 2019{\natexlab{c}}.
+\newblock Ardupilot {SITL} advanced testing, 2019{\natexlab{c}}.
 \newblock URL
   \url{http://ardupilot.org/dev/docs/using-sitl-for-ardupilot-testing.html}.
 
@@ -274,7 +274,7 @@ Laszlo Techy and Craig Woolsey.
 
 \bibitem[Vogeltanz and Ja{\v{s}}ek(2015)]{rascal}
 Tom{\'a}{\v{s}} Vogeltanz and Roman Ja{\v{s}}ek.
-\newblock Jsbsim library for flight dynamics modelling of a mini-uav.
+\newblock {JSBSim} library for flight dynamics modelling of a mini-{UAV}.
 \newblock 2015.
 
 \bibitem[Warren et~al.(2015)Warren, Mejias, Kok, Yang, Gonzalez, and

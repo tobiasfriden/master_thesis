@@ -90,17 +90,16 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
 
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -113,16 +112,17 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
 
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -196,19 +196,6 @@ mission/fast:
 .PHONY : mission/fast
 
 #=============================================================================
-# Target rules for targets named motion_primitive
-
-# Build rule for target.
-motion_primitive: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 motion_primitive
-.PHONY : motion_primitive
-
-# fast build rule for target.
-motion_primitive/fast:
-	$(MAKE) -f CMakeFiles/motion_primitive.dir/build.make CMakeFiles/motion_primitive.dir/build
-.PHONY : motion_primitive/fast
-
-#=============================================================================
 # Target rules for targets named simulation
 
 # Build rule for target.
@@ -235,6 +222,19 @@ opt/fast:
 .PHONY : opt/fast
 
 #=============================================================================
+# Target rules for targets named waypoint_opt
+
+# Build rule for target.
+waypoint_opt: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 waypoint_opt
+.PHONY : waypoint_opt
+
+# fast build rule for target.
+waypoint_opt/fast:
+	$(MAKE) -f CMakeFiles/waypoint_opt.dir/build.make CMakeFiles/waypoint_opt.dir/build
+.PHONY : waypoint_opt/fast
+
+#=============================================================================
 # Target rules for targets named hlut
 
 # Build rule for target.
@@ -246,6 +246,32 @@ hlut: cmake_check_build_system
 hlut/fast:
 	$(MAKE) -f CMakeFiles/hlut.dir/build.make CMakeFiles/hlut.dir/build
 .PHONY : hlut/fast
+
+#=============================================================================
+# Target rules for targets named motion_primitive
+
+# Build rule for target.
+motion_primitive: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 motion_primitive
+.PHONY : motion_primitive
+
+# fast build rule for target.
+motion_primitive/fast:
+	$(MAKE) -f CMakeFiles/motion_primitive.dir/build.make CMakeFiles/motion_primitive.dir/build
+.PHONY : motion_primitive/fast
+
+#=============================================================================
+# Target rules for targets named sim
+
+# Build rule for target.
+sim: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 sim
+.PHONY : sim
+
+# fast build rule for target.
+sim/fast:
+	$(MAKE) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/build
+.PHONY : sim/fast
 
 #=============================================================================
 # Target rules for targets named opt_test
@@ -741,6 +767,33 @@ opt_test.cpp.s:
 	$(MAKE) -f CMakeFiles/opt_test.dir/build.make CMakeFiles/opt_test.dir/opt_test.cpp.s
 .PHONY : opt_test.cpp.s
 
+sim.o: sim.cpp.o
+
+.PHONY : sim.o
+
+# target to build an object file
+sim.cpp.o:
+	$(MAKE) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/sim.cpp.o
+.PHONY : sim.cpp.o
+
+sim.i: sim.cpp.i
+
+.PHONY : sim.i
+
+# target to preprocess a source file
+sim.cpp.i:
+	$(MAKE) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/sim.cpp.i
+.PHONY : sim.cpp.i
+
+sim.s: sim.cpp.s
+
+.PHONY : sim.s
+
+# target to generate assembly for a file
+sim.cpp.s:
+	$(MAKE) -f CMakeFiles/sim.dir/build.make CMakeFiles/sim.dir/sim.cpp.s
+.PHONY : sim.cpp.s
+
 simulation.o: simulation.cpp.o
 
 .PHONY : simulation.o
@@ -768,6 +821,33 @@ simulation.cpp.s:
 	$(MAKE) -f CMakeFiles/simulation.dir/build.make CMakeFiles/simulation.dir/simulation.cpp.s
 .PHONY : simulation.cpp.s
 
+waypoint_opt.o: waypoint_opt.cpp.o
+
+.PHONY : waypoint_opt.o
+
+# target to build an object file
+waypoint_opt.cpp.o:
+	$(MAKE) -f CMakeFiles/waypoint_opt.dir/build.make CMakeFiles/waypoint_opt.dir/waypoint_opt.cpp.o
+.PHONY : waypoint_opt.cpp.o
+
+waypoint_opt.i: waypoint_opt.cpp.i
+
+.PHONY : waypoint_opt.i
+
+# target to preprocess a source file
+waypoint_opt.cpp.i:
+	$(MAKE) -f CMakeFiles/waypoint_opt.dir/build.make CMakeFiles/waypoint_opt.dir/waypoint_opt.cpp.i
+.PHONY : waypoint_opt.cpp.i
+
+waypoint_opt.s: waypoint_opt.cpp.s
+
+.PHONY : waypoint_opt.s
+
+# target to generate assembly for a file
+waypoint_opt.cpp.s:
+	$(MAKE) -f CMakeFiles/waypoint_opt.dir/build.make CMakeFiles/waypoint_opt.dir/waypoint_opt.cpp.s
+.PHONY : waypoint_opt.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -777,15 +857,18 @@ help:
 	@echo "... install/strip"
 	@echo "... install/local"
 	@echo "... list_install_components"
+	@echo "... rebuild_cache"
+	@echo "... edit_cache"
 	@echo "... install"
 	@echo "... obstacle"
 	@echo "... mp"
 	@echo "... mission"
-	@echo "... motion_primitive"
 	@echo "... simulation"
-	@echo "... edit_cache"
 	@echo "... opt"
+	@echo "... waypoint_opt"
 	@echo "... hlut"
+	@echo "... motion_primitive"
+	@echo "... sim"
 	@echo "... opt_test"
 	@echo "... astar"
 	@echo "... landing"
@@ -793,7 +876,6 @@ help:
 	@echo "... gen_hlut"
 	@echo "... route"
 	@echo "... improve_viz"
-	@echo "... rebuild_cache"
 	@echo "... s2testing"
 	@echo "... s2"
 	@echo "... term_index"
@@ -837,9 +919,15 @@ help:
 	@echo "... opt_test.o"
 	@echo "... opt_test.i"
 	@echo "... opt_test.s"
+	@echo "... sim.o"
+	@echo "... sim.i"
+	@echo "... sim.s"
 	@echo "... simulation.o"
 	@echo "... simulation.i"
 	@echo "... simulation.s"
+	@echo "... waypoint_opt.o"
+	@echo "... waypoint_opt.i"
+	@echo "... waypoint_opt.s"
 .PHONY : help
 
 

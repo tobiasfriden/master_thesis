@@ -13,6 +13,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../"
   "/nomad/src"
   "/nomad/ext/sgtelib/src"
+  "/usr/include/eigen3"
   "/s2geometry/src"
   "../mason_packages/headers/variant/1.1.4/include"
   "../mason_packages/headers/geometry/1.0.0/include"

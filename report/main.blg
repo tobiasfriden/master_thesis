@@ -2,6 +2,7 @@ This is BibTeX, Version 0.99d (TeX Live 2019)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: main.aux
 The style file: plainnat.bst
+A level-1 auxiliary file: tack.aux
 A level-1 auxiliary file: notation.aux
 A level-1 auxiliary file: theory/introduction.aux
 A level-1 auxiliary file: theory/fixed_wing_uav.aux
@@ -59,7 +60,7 @@ Warning--empty year in l1_controller
 Warning--empty journal in rascal
 You've used 46 entries,
             2773 wiz_defined-function locations,
-            1401 strings with 27203 characters,
+            1402 strings with 27247 characters,
 and the built_in function-call counts, 19303 in all, are:
 = -- 1750
 > -- 906

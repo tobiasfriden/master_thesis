@@ -72,7 +72,8 @@ int main(int argc, char** argv) {
         Constants::airspeed(),
         Constants::wind_spd(),
         wind_dir,
-        Constants::yrate()
+        Constants::roll_max(),
+        0
     );
     NOMAD::Mads mads(p, &se);
 
@@ -105,7 +106,7 @@ int main(int argc, char** argv) {
 
     Simulator sim;
     std::vector<Vector2_d> traj;
-    sim.reset(0, 0, 0);
+    sim.reset(0, 0, 0, 0);
     sim.simulate_waypoints(
         Vector2_d(0, 0),
         Vector2_d(atof(argv[3]), atof(argv[4])),

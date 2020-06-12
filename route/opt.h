@@ -13,8 +13,9 @@ public:
     SimEvaluator(const NOMAD::Parameters &p) : NOMAD::Evaluator(p) {};
     ~SimEvaluator() {};
 
-    void set_simulator_params(double airspeed, double wind_spd, double wind_dir, double yrate_max) {
-        sim = Simulator(airspeed, wind_spd, wind_dir, yrate_max);
+    void set_simulator_params(double airspeed, double wind_spd, double wind_dir, double roll_max, double init_roll_) {
+        sim = Simulator(airspeed, wind_spd, wind_dir, roll_max);
+        init_roll = init_roll_;
     }
 
     void set_goal(double goal_hdg_, double hdg_error_=5, double xtrack_error_=5) {
@@ -35,7 +36,7 @@ public:
 
     Vector3_d get_cost_and_error(double x_goal, double y_goal, double wind_scale){
         sim.set_wind(wind_scale*Constants::wind_spd(), sim.wind_dir());
-        sim.reset(0, 0, 0);
+        sim.reset(0, 0, 0, init_roll);
         Vector2_d start(0, 0);
         Vector2_d goal(x_goal, y_goal);
         double cost = sim.simulate_waypoints(
@@ -45,6 +46,11 @@ public:
         double xtrack_error = std::abs(sim.xtrack_error()) - Constants::xtrack_error();
         xtrack_error = std::max(xtrack_error, 0.0);
         cost += xtrack_error*Constants::xtrack_w();
+
+        for(auto rate : sim.roll_rates()){
+            cost += Constants::roll_rate_w()*std::pow(rate, 2)*sim.dt();
+        }
+
         return Vector3_d(cost, sim.path_bearing(), sim.xtrack_error());        
     }
 
@@ -98,6 +104,7 @@ private:
     double goal_hdg{0};
     double hdg_error{0};
     double xtrack_error{0};
+    double init_roll{0};
 
     bool log{false};
     std::ofstream out;

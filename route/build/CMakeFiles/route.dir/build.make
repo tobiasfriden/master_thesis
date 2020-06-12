@@ -94,12 +94,13 @@ route: libastar.so
 route: libhlut.so
 route: liblanding.so
 route: /usr/local/lib/libcasadi.so.3.6
+route: libwaypoint_opt.so
 route: libgraph.so
 route: libmotion_primitive.so
 route: libopt.so
-route: libsimulation.so
 route: /nomad/builds/release/lib/libnomad.so
 route: libobstacle.so
+route: libsimulation.so
 route: s2geometry/libs2.so
 route: /usr/lib/x86_64-linux-gnu/libssl.so
 route: /usr/lib/x86_64-linux-gnu/libcrypto.so

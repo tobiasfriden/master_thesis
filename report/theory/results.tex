@@ -188,8 +188,7 @@ execution time of the entire landing sequence calculation.
 \subsection{Discussion}
 The results from simulation experiments indicate that the method successfully generates feasible landing 
 sequences in different wind conditions. The distance between the planned and actual landing point is negligible relative to the total distance of the landing sequence.
-The relative magnitude of the error in entry altitude is larger, but the \ac{uav} still manages to enter $\landing$ above the specified $h_{\text{safe}}$ in most cases. 
-The error between calculated entry altitude and actual entry altitude seems quite constant, at least in the simulated evaluations summarized in Table \ref{tab:opt_land_param}. 
+The relative magnitude of the error in entry altitude is larger, but also seems quite constant, at least in the simulated evaluations summarized in Table \ref{tab:opt_land_param}. 
 This implies that the error could be mitigated by estimating this offset and adding it to the desired $h_{\text{safe}}$. The error could also be mitigated by scaling the second term in the objective of 
 Equation \eqref{eq:opt_problem_land} with some constant $\lambda_h>1$. The landing sequence generation is also quite fast, and a solution is found in well below 1 second in most cases.
 

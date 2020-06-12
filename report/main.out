@@ -1,86 +1,87 @@
 \BOOKMARK [0][]{theabsanchor-english.0}{Abstract}{}% 1
-\BOOKMARK [0][]{thetocanchor.0}{Contents}{}% 2
-\BOOKMARK [0][]{section*.3}{Notation}{}% 3
-\BOOKMARK [0][]{chapter.1}{1 Introduction}{}% 4
-\BOOKMARK [1][-]{section.1.1}{1.1 Background}{chapter.1}% 5
-\BOOKMARK [1][-]{section.1.2}{1.2 Scope}{chapter.1}% 6
-\BOOKMARK [2][-]{subsection.1.2.1}{1.2.1 Problem formulation}{section.1.2}% 7
-\BOOKMARK [2][-]{subsection.1.2.2}{1.2.2 Method}{section.1.2}% 8
-\BOOKMARK [2][-]{subsection.1.2.3}{1.2.3 Limitations}{section.1.2}% 9
-\BOOKMARK [1][-]{section.1.3}{1.3 Related work}{chapter.1}% 10
-\BOOKMARK [2][-]{subsection.1.3.1}{1.3.1 Motion planning}{section.1.3}% 11
-\BOOKMARK [2][-]{subsection.1.3.2}{1.3.2 Landing approaches}{section.1.3}% 12
-\BOOKMARK [1][-]{section.1.4}{1.4 Outline}{chapter.1}% 13
-\BOOKMARK [0][]{chapter.2}{2 Modeling and control of fixed-wing uavs in uniform wind}{}% 14
-\BOOKMARK [1][-]{section.2.1}{2.1 Definitions and terminology}{chapter.2}% 15
-\BOOKMARK [2][-]{subsection.2.1.1}{2.1.1 Coordinate reference frames}{section.2.1}% 16
-\BOOKMARK [2][-]{subsection.2.1.2}{2.1.2 Attitude representation}{section.2.1}% 17
-\BOOKMARK [2][-]{subsection.2.1.3}{2.1.3 Fixed-wing uav}{section.2.1}% 18
-\BOOKMARK [1][-]{section.2.2}{2.2 Wind field definition}{chapter.2}% 19
-\BOOKMARK [1][-]{section.2.3}{2.3 Wind estimation}{chapter.2}% 20
-\BOOKMARK [2][-]{subsection.2.3.1}{2.3.1 Direct computation of wind field}{section.2.3}% 21
-\BOOKMARK [2][-]{subsection.2.3.2}{2.3.2 Estimation using Extended Kalman Filter}{section.2.3}% 22
-\BOOKMARK [2][-]{subsection.2.3.3}{2.3.3 Airspeed measurement}{section.2.3}% 23
-\BOOKMARK [1][-]{section.2.4}{2.4 Trajectory following}{chapter.2}% 24
-\BOOKMARK [2][-]{subsection.2.4.1}{2.4.1 Kinematic model}{section.2.4}% 25
-\BOOKMARK [2][-]{subsection.2.4.2}{2.4.2 Straight path following in wind}{section.2.4}% 26
-\BOOKMARK [2][-]{subsection.2.4.3}{2.4.3 Relationship between course and heading}{section.2.4}% 27
-\BOOKMARK [1][-]{section.2.5}{2.5 ArduPlane autopilot}{chapter.2}% 28
-\BOOKMARK [2][-]{subsection.2.5.1}{2.5.1 Wind estimation}{section.2.5}% 29
-\BOOKMARK [2][-]{subsection.2.5.2}{2.5.2 Trajectory controller}{section.2.5}% 30
-\BOOKMARK [2][-]{subsection.2.5.3}{2.5.3 Mission representation and flight modes}{section.2.5}% 31
-\BOOKMARK [0][]{chapter.3}{3 Motion planning theory}{}% 32
-\BOOKMARK [1][-]{section.3.1}{3.1 Definitions and terminology}{chapter.3}% 33
-\BOOKMARK [2][-]{subsection.3.1.1}{3.1.1 Graph terminology}{section.3.1}% 34
-\BOOKMARK [2][-]{subsection.3.1.2}{3.1.2 Motion planning terminology}{section.3.1}% 35
-\BOOKMARK [2][-]{subsection.3.1.3}{3.1.3 Differential constraints}{section.3.1}% 36
-\BOOKMARK [1][-]{section.3.2}{3.2 Sampling-based motion planning}{chapter.3}% 37
-\BOOKMARK [2][-]{subsection.3.2.1}{3.2.1 Forward simulation}{section.3.2}% 38
-\BOOKMARK [2][-]{subsection.3.2.2}{3.2.2 Motion primitives}{section.3.2}% 39
-\BOOKMARK [1][-]{section.3.3}{3.3 Graph search methods}{chapter.3}% 40
-\BOOKMARK [2][-]{subsection.3.3.1}{3.3.1 A-star search}{section.3.3}% 41
-\BOOKMARK [2][-]{subsection.3.3.2}{3.3.2 Hybrid A-star}{section.3.3}% 42
-\BOOKMARK [2][-]{subsection.3.3.3}{3.3.3 Non-holonomic heuristics}{section.3.3}% 43
-\BOOKMARK [2][-]{subsection.3.3.4}{3.3.4 Inflated heuristics and sub-optimality guarantees}{section.3.3}% 44
-\BOOKMARK [0][]{chapter.4}{4 Motion planning using waypoint optimization}{}% 45
-\BOOKMARK [1][-]{section.4.1}{4.1 Waypoint sampling}{chapter.4}% 46
-\BOOKMARK [2][-]{subsection.4.1.1}{4.1.1 State and input set definition}{section.4.1}% 47
-\BOOKMARK [2][-]{subsection.4.1.2}{4.1.2 State transition function}{section.4.1}% 48
-\BOOKMARK [1][-]{section.4.2}{4.2 Input set generation}{chapter.4}% 49
-\BOOKMARK [2][-]{subsection.4.2.1}{4.2.1 Optimal control formulation}{section.4.2}% 50
-\BOOKMARK [2][-]{subsection.4.2.2}{4.2.2 Solving the optimal control problem}{section.4.2}% 51
-\BOOKMARK [2][-]{subsection.4.2.3}{4.2.3 Robustness during wind variations}{section.4.2}% 52
-\BOOKMARK [1][-]{section.4.3}{4.3 Improvement step}{chapter.4}% 53
-\BOOKMARK [1][-]{section.4.4}{4.4 Heuristic function}{chapter.4}% 54
-\BOOKMARK [2][-]{subsection.4.4.1}{4.4.1 Cost estimation for straight line-segments}{section.4.4}% 55
-\BOOKMARK [2][-]{subsection.4.4.2}{4.4.2 Cost estimation for arbitrary initial and final heading}{section.4.4}% 56
-\BOOKMARK [2][-]{subsection.4.4.3}{4.4.3 Wind variation effects on the heuristic}{section.4.4}% 57
-\BOOKMARK [0][]{chapter.5}{5 Robust landing sequences}{}% 58
-\BOOKMARK [1][-]{section.5.1}{5.1 Problem formulation}{chapter.5}% 59
-\BOOKMARK [1][-]{section.5.2}{5.2 Landing sequence}{chapter.5}% 60
-\BOOKMARK [1][-]{section.5.3}{5.3 Calculating a landing sequence}{chapter.5}% 61
-\BOOKMARK [2][-]{subsection.5.3.1}{5.3.1 Determining the approach direction}{section.5.3}% 62
-\BOOKMARK [2][-]{subsection.5.3.2}{5.3.2 Determining the approach points}{section.5.3}% 63
-\BOOKMARK [0][]{chapter.6}{6 Implementation and experiments}{}% 64
-\BOOKMARK [1][-]{section.6.1}{6.1 Implementation details}{chapter.6}% 65
-\BOOKMARK [2][-]{subsection.6.1.1}{6.1.1 Obstacle avoidance}{section.6.1}% 66
-\BOOKMARK [2][-]{subsection.6.1.2}{6.1.2 Input set generation}{section.6.1}% 67
-\BOOKMARK [2][-]{subsection.6.1.3}{6.1.3 State-space discretization}{section.6.1}% 68
-\BOOKMARK [2][-]{subsection.6.1.4}{6.1.4 State expansions}{section.6.1}% 69
-\BOOKMARK [2][-]{subsection.6.1.5}{6.1.5 Heuristic Lookup Table}{section.6.1}% 70
-\BOOKMARK [2][-]{subsection.6.1.6}{6.1.6 Waypoint controller}{section.6.1}% 71
-\BOOKMARK [2][-]{subsection.6.1.7}{6.1.7 Wind estimation}{section.6.1}% 72
-\BOOKMARK [1][-]{section.6.2}{6.2 Simulation experiments}{chapter.6}% 73
-\BOOKMARK [2][-]{subsection.6.2.1}{6.2.1 Experimental setup}{section.6.2}% 74
-\BOOKMARK [2][-]{subsection.6.2.2}{6.2.2 Results}{section.6.2}% 75
-\BOOKMARK [2][-]{subsection.6.2.3}{6.2.3 Discussion}{section.6.2}% 76
-\BOOKMARK [1][-]{section.6.3}{6.3 Real flight experiments}{chapter.6}% 77
-\BOOKMARK [2][-]{subsection.6.3.1}{6.3.1 Experimental setup}{section.6.3}% 78
-\BOOKMARK [2][-]{subsection.6.3.2}{6.3.2 Determining the starting state}{section.6.3}% 79
-\BOOKMARK [2][-]{subsection.6.3.3}{6.3.3 Results}{section.6.3}% 80
-\BOOKMARK [2][-]{subsection.6.3.4}{6.3.4 Discussion}{section.6.3}% 81
-\BOOKMARK [0][]{chapter.7}{7 Conclusions}{}% 82
-\BOOKMARK [1][-]{section.7.1}{7.1 Results}{chapter.7}% 83
-\BOOKMARK [1][-]{section.7.2}{7.2 Limitations of the method}{chapter.7}% 84
-\BOOKMARK [1][-]{section.7.3}{7.3 Future work}{chapter.7}% 85
-\BOOKMARK [0][]{appendix*.46}{Bibliography}{}% 86
+\BOOKMARK [0][]{theackanchor.0}{Acknowledgments}{}% 2
+\BOOKMARK [0][]{thetocanchor.0}{Contents}{}% 3
+\BOOKMARK [0][]{section*.5}{Notation}{}% 4
+\BOOKMARK [0][]{chapter.1}{1 Introduction}{}% 5
+\BOOKMARK [1][-]{section.1.1}{1.1 Background}{chapter.1}% 6
+\BOOKMARK [1][-]{section.1.2}{1.2 Scope}{chapter.1}% 7
+\BOOKMARK [2][-]{subsection.1.2.1}{1.2.1 Problem formulation}{section.1.2}% 8
+\BOOKMARK [2][-]{subsection.1.2.2}{1.2.2 Method}{section.1.2}% 9
+\BOOKMARK [2][-]{subsection.1.2.3}{1.2.3 Limitations}{section.1.2}% 10
+\BOOKMARK [1][-]{section.1.3}{1.3 Related work}{chapter.1}% 11
+\BOOKMARK [2][-]{subsection.1.3.1}{1.3.1 Motion planning}{section.1.3}% 12
+\BOOKMARK [2][-]{subsection.1.3.2}{1.3.2 Landing approaches}{section.1.3}% 13
+\BOOKMARK [1][-]{section.1.4}{1.4 Outline}{chapter.1}% 14
+\BOOKMARK [0][]{chapter.2}{2 Modeling and control of fixed-wing uavs in uniform wind}{}% 15
+\BOOKMARK [1][-]{section.2.1}{2.1 Definitions and terminology}{chapter.2}% 16
+\BOOKMARK [2][-]{subsection.2.1.1}{2.1.1 Coordinate reference frames}{section.2.1}% 17
+\BOOKMARK [2][-]{subsection.2.1.2}{2.1.2 Attitude representation}{section.2.1}% 18
+\BOOKMARK [2][-]{subsection.2.1.3}{2.1.3 Fixed-wing uav}{section.2.1}% 19
+\BOOKMARK [1][-]{section.2.2}{2.2 Wind field definition}{chapter.2}% 20
+\BOOKMARK [1][-]{section.2.3}{2.3 Wind estimation}{chapter.2}% 21
+\BOOKMARK [2][-]{subsection.2.3.1}{2.3.1 Direct computation of wind field}{section.2.3}% 22
+\BOOKMARK [2][-]{subsection.2.3.2}{2.3.2 Estimation using Extended Kalman Filter}{section.2.3}% 23
+\BOOKMARK [2][-]{subsection.2.3.3}{2.3.3 Airspeed measurement}{section.2.3}% 24
+\BOOKMARK [1][-]{section.2.4}{2.4 Trajectory following}{chapter.2}% 25
+\BOOKMARK [2][-]{subsection.2.4.1}{2.4.1 Kinematic model}{section.2.4}% 26
+\BOOKMARK [2][-]{subsection.2.4.2}{2.4.2 Straight path following in wind}{section.2.4}% 27
+\BOOKMARK [2][-]{subsection.2.4.3}{2.4.3 Relationship between course and heading}{section.2.4}% 28
+\BOOKMARK [1][-]{section.2.5}{2.5 ArduPlane autopilot}{chapter.2}% 29
+\BOOKMARK [2][-]{subsection.2.5.1}{2.5.1 Wind estimation}{section.2.5}% 30
+\BOOKMARK [2][-]{subsection.2.5.2}{2.5.2 Trajectory controller}{section.2.5}% 31
+\BOOKMARK [2][-]{subsection.2.5.3}{2.5.3 Mission representation and flight modes}{section.2.5}% 32
+\BOOKMARK [0][]{chapter.3}{3 Motion planning theory}{}% 33
+\BOOKMARK [1][-]{section.3.1}{3.1 Definitions and terminology}{chapter.3}% 34
+\BOOKMARK [2][-]{subsection.3.1.1}{3.1.1 Graph terminology}{section.3.1}% 35
+\BOOKMARK [2][-]{subsection.3.1.2}{3.1.2 Motion planning terminology}{section.3.1}% 36
+\BOOKMARK [2][-]{subsection.3.1.3}{3.1.3 Differential constraints}{section.3.1}% 37
+\BOOKMARK [1][-]{section.3.2}{3.2 Sampling-based motion planning}{chapter.3}% 38
+\BOOKMARK [2][-]{subsection.3.2.1}{3.2.1 Forward simulation}{section.3.2}% 39
+\BOOKMARK [2][-]{subsection.3.2.2}{3.2.2 Motion primitives}{section.3.2}% 40
+\BOOKMARK [1][-]{section.3.3}{3.3 Graph search methods}{chapter.3}% 41
+\BOOKMARK [2][-]{subsection.3.3.1}{3.3.1 A-star search}{section.3.3}% 42
+\BOOKMARK [2][-]{subsection.3.3.2}{3.3.2 Hybrid A-star}{section.3.3}% 43
+\BOOKMARK [2][-]{subsection.3.3.3}{3.3.3 Non-holonomic heuristics}{section.3.3}% 44
+\BOOKMARK [2][-]{subsection.3.3.4}{3.3.4 Inflated heuristics and sub-optimality guarantees}{section.3.3}% 45
+\BOOKMARK [0][]{chapter.4}{4 Motion planning using waypoint optimization}{}% 46
+\BOOKMARK [1][-]{section.4.1}{4.1 Waypoint sampling}{chapter.4}% 47
+\BOOKMARK [2][-]{subsection.4.1.1}{4.1.1 State and input set definition}{section.4.1}% 48
+\BOOKMARK [2][-]{subsection.4.1.2}{4.1.2 State transition function}{section.4.1}% 49
+\BOOKMARK [1][-]{section.4.2}{4.2 Input set generation}{chapter.4}% 50
+\BOOKMARK [2][-]{subsection.4.2.1}{4.2.1 Optimal control formulation}{section.4.2}% 51
+\BOOKMARK [2][-]{subsection.4.2.2}{4.2.2 Solving the optimal control problem}{section.4.2}% 52
+\BOOKMARK [2][-]{subsection.4.2.3}{4.2.3 Robustness during wind variations}{section.4.2}% 53
+\BOOKMARK [1][-]{section.4.3}{4.3 Improvement step}{chapter.4}% 54
+\BOOKMARK [1][-]{section.4.4}{4.4 Heuristic function}{chapter.4}% 55
+\BOOKMARK [2][-]{subsection.4.4.1}{4.4.1 Cost estimation for straight line-segments}{section.4.4}% 56
+\BOOKMARK [2][-]{subsection.4.4.2}{4.4.2 Cost estimation for arbitrary initial and final heading}{section.4.4}% 57
+\BOOKMARK [2][-]{subsection.4.4.3}{4.4.3 Wind variation effects on the heuristic}{section.4.4}% 58
+\BOOKMARK [0][]{chapter.5}{5 Robust landing sequences}{}% 59
+\BOOKMARK [1][-]{section.5.1}{5.1 Problem formulation}{chapter.5}% 60
+\BOOKMARK [1][-]{section.5.2}{5.2 Landing sequence}{chapter.5}% 61
+\BOOKMARK [1][-]{section.5.3}{5.3 Calculating a landing sequence}{chapter.5}% 62
+\BOOKMARK [2][-]{subsection.5.3.1}{5.3.1 Determining the approach direction}{section.5.3}% 63
+\BOOKMARK [2][-]{subsection.5.3.2}{5.3.2 Determining the approach points}{section.5.3}% 64
+\BOOKMARK [0][]{chapter.6}{6 Implementation and experiments}{}% 65
+\BOOKMARK [1][-]{section.6.1}{6.1 Implementation details}{chapter.6}% 66
+\BOOKMARK [2][-]{subsection.6.1.1}{6.1.1 Obstacle avoidance}{section.6.1}% 67
+\BOOKMARK [2][-]{subsection.6.1.2}{6.1.2 Input set generation}{section.6.1}% 68
+\BOOKMARK [2][-]{subsection.6.1.3}{6.1.3 State-space discretization}{section.6.1}% 69
+\BOOKMARK [2][-]{subsection.6.1.4}{6.1.4 State expansions}{section.6.1}% 70
+\BOOKMARK [2][-]{subsection.6.1.5}{6.1.5 Heuristic Lookup Table}{section.6.1}% 71
+\BOOKMARK [2][-]{subsection.6.1.6}{6.1.6 Waypoint controller}{section.6.1}% 72
+\BOOKMARK [2][-]{subsection.6.1.7}{6.1.7 Wind estimation}{section.6.1}% 73
+\BOOKMARK [1][-]{section.6.2}{6.2 Simulation experiments}{chapter.6}% 74
+\BOOKMARK [2][-]{subsection.6.2.1}{6.2.1 Experimental setup}{section.6.2}% 75
+\BOOKMARK [2][-]{subsection.6.2.2}{6.2.2 Results}{section.6.2}% 76
+\BOOKMARK [2][-]{subsection.6.2.3}{6.2.3 Discussion}{section.6.2}% 77
+\BOOKMARK [1][-]{section.6.3}{6.3 Real flight experiments}{chapter.6}% 78
+\BOOKMARK [2][-]{subsection.6.3.1}{6.3.1 Experimental setup}{section.6.3}% 79
+\BOOKMARK [2][-]{subsection.6.3.2}{6.3.2 Determining the starting state}{section.6.3}% 80
+\BOOKMARK [2][-]{subsection.6.3.3}{6.3.3 Results}{section.6.3}% 81
+\BOOKMARK [2][-]{subsection.6.3.4}{6.3.4 Discussion}{section.6.3}% 82
+\BOOKMARK [0][]{chapter.7}{7 Conclusions}{}% 83
+\BOOKMARK [1][-]{section.7.1}{7.1 Results}{chapter.7}% 84
+\BOOKMARK [1][-]{section.7.2}{7.2 Limitations of the method}{chapter.7}% 85
+\BOOKMARK [1][-]{section.7.3}{7.3 Future work}{chapter.7}% 86
+\BOOKMARK [0][]{appendix*.48}{Bibliography}{}% 87

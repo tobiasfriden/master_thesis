@@ -27,7 +27,7 @@ approach directions. Wind also plays an essential role, since landing in headwin
     \label{fig:land}          
 \end{figure}
 
-The problem of landing is thus defined as finding the inputs which lands the \ac{uav} as close to the center as possible in a pre-defined landing area $\landing$. The landing area is 
+The problem of landing is thus defined as finding the inputs which land the \ac{uav} as close to the center as possible in a pre-defined landing area $\landing$. The landing area is 
 defined as a rectangular region with walls of height $h_{\text{safe}}$, and to ensure safe landing the \ac{uav} must enter $\landing$ above this altitude. 
 There might also be obstacle regions $\xobst$ around the landing area where the \ac{uav} is not permitted to fly. The problem definition is illustrated in Figure \ref{fig:land}.
 
@@ -55,7 +55,7 @@ The landing sequence is divided into an approach phase and a flare phase, which 
     \caption{Altitude profile of a fixed-wing landing sequence}
     \label{fig:land_alt}
 \end{figure}
-During the approach phase, the autopilot commands an approach sink-rate
+\noindent During the approach phase, the autopilot commands an approach sink-rate
 \begin{equation}\label{eq:sink_rate}
     \dot{h}_{\text{cmd}}=\frac{h_0-\flarealt}{\|\vec{p}_a-\vec{p}_l\|-R_{\text{flare}}}V_l
 \end{equation}
@@ -192,4 +192,4 @@ The landing parameters can thus be calculated by solving the optimization proble
     \end{alignat}
 \end{subequations}
 
-This is a non-linear optimization problem with linear constraints. In this work, it was solved using the \acs{ipopt} solver \cite{ipopt}, which is implemented in the \textabbr{casadi} toolkit, a general toolkit for solving nonlinear optimization problems numerically \cite{casadi}.
+This is a nonlinear and nonconvex optimization problem with linear constraints. In this work, it was solved using the \acs{ipopt} solver \cite{ipopt}, which is implemented in the \textabbr{casadi} toolkit, a general toolkit for solving nonlinear optimization problems numerically \cite{casadi}.

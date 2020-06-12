@@ -91,11 +91,11 @@ sim_EXTERNAL_OBJECTS =
 sim: CMakeFiles/sim.dir/sim.cpp.o
 sim: CMakeFiles/sim.dir/build.make
 sim: libopt.so
+sim: /nomad/builds/release/lib/libnomad.so
 sim: libsimulation.so
 sim: s2geometry/libs2.so
 sim: /usr/lib/x86_64-linux-gnu/libssl.so
 sim: /usr/lib/x86_64-linux-gnu/libcrypto.so
-sim: /nomad/builds/release/lib/libnomad.so
 sim: CMakeFiles/sim.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable sim"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/sim.dir/link.txt --verbose=$(VERBOSE)

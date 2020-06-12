@@ -1,10 +1,18 @@
 #include "simulation.h"
 
-void Simulator::reset(double x, double y, double new_yaw){
+void Simulator::reset(double x, double y, double new_yaw, double roll){
     _pos = Vector2_d(x, y);
     _yaw = new_yaw;
+    _yaw_rate = 0;
+    _roll = roll;
+    _roll_rate = 0;
+    _lateral_spd = 0;
     _hdg_diff = 0;
     _path_bearing = 0;
+    _roll_rates.clear();
+    _rolls.clear();
+    _roll_cmds.clear();
+    _yaw_rates.clear();
 }
 
 void Simulator::set_wind(double wind_spd, double wind_dir){
@@ -25,7 +33,7 @@ double Simulator::simulate_waypoints(
     double cost = 0;
     while(!passed_point(_pos, prev_wp, next_wp)){
         trajectory.push_back(_pos);
-        if((next_wp-_pos).Norm() <= 1){
+        if((next_wp-_pos).Norm() <= _wp_r){
             break;
         }
         cost += step(prev_wp, next_wp).Norm();
@@ -43,7 +51,7 @@ double Simulator::simulate_waypoints(
     }
     double cost = 0;
     while(!passed_point(_pos, prev_wp, next_wp)){
-        if((next_wp-_pos).Norm() <= 1){
+        if((next_wp-_pos).Norm() <= _wp_r){
             break;
         }
         cost += step(prev_wp, next_wp).Norm();
@@ -53,7 +61,6 @@ double Simulator::simulate_waypoints(
 
 std::vector<Vector2_d> Simulator::simulate_mission(std::vector<Vector2_d> mission) {
     std::vector<Vector2_d> trajectory;
-    //reset(mission[0].x(), mission[0].y(), 0);
     auto it = mission.begin();
     Vector2_d prev_wp = *it;
     it++;
@@ -61,7 +68,7 @@ std::vector<Vector2_d> Simulator::simulate_mission(std::vector<Vector2_d> missio
     while(it != mission.end()) {
         Vector2_d next_wp = *it;
         while(!passed_point(_pos, prev_wp, next_wp)){
-            if((next_wp-_pos).Norm() <= 10){
+            if((next_wp-_pos).Norm() <= _wp_r){
                 break;
             }
             auto l = step(prev_wp, next_wp);
@@ -89,14 +96,49 @@ void Simulator::save_trajectory(S2LatLng const& origin, std::vector<Vector2_d> c
     out.close();
 }
 
+void Simulator::save_rolls(std::string path){
+    std::ofstream out;
+    out.open(path.c_str());
+    out << "TimeUS,RollRate,Roll,DesRoll" << std::endl;
+    for(int i=0; i<_roll_rates.size(); i++){
+        out << i*Constants::ts() << "," << _roll_rates[i] << "," << _rolls[i] << "," << _roll_cmds[i] << std::endl;
+    }
+    out.close();
+}
+
+void Simulator::update_roll(double roll_cmd){
+    roll_cmd = clamp(roll_cmd, -_roll_max, _roll_max);
+    double roll_new = _roll + _dt*_roll_rate;
+    double roll_rate_new = _roll_rate -_dt/std::pow(_tau_s, 2)*_roll - 2*_xi*_dt/_tau_s*_roll_rate + _dt/std::pow(_tau_s, 2)*roll_cmd;
+    _roll = roll_new;
+    _roll_rate = roll_rate_new;
+
+    double beta = std::atan(_lateral_spd/_airspeed);
+    double V_tau = std::pow(_airspeed, 2) + std::pow(_lateral_spd, 2);
+
+    _lateral_spd += _dt*(9.82*std::sin(to_rad(_roll)) - 1/std::cos(to_rad(_roll))*to_rad(_yaw_rate)*_airspeed + _roll_k*V_tau*beta*std::cos(beta));
+    _roll_rates.push_back(_roll_rate);
+    _rolls.push_back(_roll);
+    _roll_cmds.push_back(roll_cmd);
+}
+
 // Step simulation, update position/_yaw and return air relative derivative
 Vector2_d Simulator::step(Vector2_d const& prev_wp, Vector2_d const& next_wp){
     Vector2_d groundspeed = groundspeed_vector();
     Vector2_d pos_diff = groundspeed*_dt;
 
     double lat_acc = L1_acc(prev_wp, next_wp, groundspeed);
-    double yrate = clamp(lat_acc/_airspeed, -_yrate_max, _yrate_max);
-    double y_diff = to_deg(yrate*_dt);
+    if(use_roll_dynamics){
+        double roll_cmd = to_deg(std::atan(lat_acc/9.82));
+        update_roll(roll_cmd);
+        _yaw_rate = to_deg(9.82/_airspeed*std::tan(to_rad(_roll)));
+        _yaw_rates.push_back(_yaw_rate);
+    } else {
+        double yrate_max = 9.82/_airspeed*std::tan(to_rad(_roll_max));
+        _yaw_rate = to_deg(clamp(lat_acc/_airspeed, yrate_max, -yrate_max));
+    }
+
+    double y_diff = _yaw_rate*_dt;
 
     _pos += pos_diff;
     _yaw += y_diff;
@@ -159,7 +201,8 @@ double Simulator::L1_acc(Vector2_d const& prev_wp, Vector2_d const& next_wp, Vec
 // Calculate airspeed vector
 Vector2_d Simulator::airspeed_vector() {
     Vector2_d airspeed_vec(cosf(to_rad(_yaw)), sinf(to_rad(_yaw)));
-    return airspeed_vec*_airspeed;
+    Vector2_d lateral_vec(-sinf(to_rad(_yaw)), cosf(to_rad(_yaw)));
+    return airspeed_vec*_airspeed + lateral_vec*_lateral_spd;
 }
 
 // Calculate wind compensated groundspeed vector

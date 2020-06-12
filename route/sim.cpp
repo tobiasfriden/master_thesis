@@ -40,7 +40,7 @@ Vector2_i grid_search(int num_cells, int step, float wind_dir, float goal_hdg){
     Simulator sim;
     for(int i=-num_cells; i<=num_cells; i++){
         for(int j=1; j<=num_cells; j++){
-            sim.reset(0, 0, 0);
+            sim.reset(0, 0, 0, 0);
             goal = Vector2_d(i*step, j*step);
             cost = sim.simulate_waypoints(start, goal);
             cost += fabs(sim.path_bearing() - goal_hdg)*Constants::hdg_w();
@@ -70,12 +70,12 @@ Vector2_i grid_search(int num_cells, int step, float wind_dir, float goal_hdg){
 }
 
 int main(int argc, char** argv, char** envp){
-    int num_of_cells = atoi(argv[1]);
-    int step = atoi(argv[2]);
-    int wind_dir = atof(argv[3]);
-    int goal_hdg = atof(argv[4]);
-    Vector2_i best = grid_search(num_of_cells, step, wind_dir, goal_hdg);
-    std::cout << best << std::endl;
+    // int num_of_cells = atoi(argv[1]);
+    // int step = atoi(argv[2]);
+    // int wind_dir = atof(argv[3]);
+    // int goal_hdg = atof(argv[4]);
+    // Vector2_i best = grid_search(num_of_cells, step, wind_dir, goal_hdg);
+    // std::cout << best << std::endl;
     // Vector2_i best(100, 0);
     // std::cout << "before" << std::endl;
     // Simulator sim;
@@ -99,4 +99,21 @@ int main(int argc, char** argv, char** envp){
     // Vector2_f init = sim.simulate_const_yrate(atoi(argv[3]), 0.3841/4);
     // std::cout << "init x: " << init[0];
     // std::cout << "init y: " << init[1];
+
+    Simulator sim;
+
+    sim.reset(0, 0, 0, -45);
+    std::vector<Vector2_d> traj;
+    std::vector<Vector2_d> mission{
+        Vector2_d(0, 0),
+        Vector2_d(50, 150),
+        Vector2_d(75, -100)
+    };
+
+    traj = sim.simulate_mission(mission);
+    sim.save_trajectory(S2LatLng::FromDegrees(0, 0), traj, "../sim_roll_neg.txt");
+
+    sim.reset(0, 0, 0, 45);
+    traj = sim.simulate_mission(mission);
+    sim.save_trajectory(S2LatLng::FromDegrees(0, 0), traj, "../sim_roll_pos.txt");
 }

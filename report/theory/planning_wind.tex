@@ -23,7 +23,8 @@ The desired \ac{cog} to follow a straight line from $(0,0)$ to $(\Delta y_E, \De
 \begin{equation}
     \psi_u=\atan2(\Delta y_E,\Delta x_N).
 \end{equation}
-If roll dynamics are neglected, the commanded turn-rate is obtained by inserting the roll command from Equation \eqref{eq:roll_cmd} into Equation \eqref{eq:traj_model}, which gives 
+Assuming that the inner-loop roll controller is significantly faster than the trajectory-following controller, 
+the roll dynamics can be neglected. The commanded turn-rate is then obtained by inserting the roll command from Equation \eqref{eq:roll_cmd} into Equation \eqref{eq:traj_model}, which gives 
 \begin{equation}
     \dot{\psi}_{\text{cmd}}=\frac{a_{\text{cmd}}}{\airspd}
 \end{equation}
@@ -124,7 +125,7 @@ Methods commonly used to solve optimal control problems include \textit{multiple
 and \textit{direct collocation} \cite{multiple_shooting}. 
 However, the following properties of \eqref{eq:opt_problem_mp_uav} makes it hard to solve with such methods:
 \begin{enumerate}
-    \item The closed-loop system is highly non-linear, especially when including the saturation from Equation \eqref{eq:saturation}.
+    \item The closed-loop system is highly nonlinear, especially when including the saturation from Equation \eqref{eq:saturation}.
     \item In optimal control problems the input $u(t)$ can normally be chosen freely from $\actions$ for each time-step, while 
     in this formulation the input is forced to be a constant $u(t)=u$, $0<t<T$.
 \end{enumerate}
@@ -221,9 +222,9 @@ Since \eqref{eq:closed_loop} minimizes the cross-track error in each timestep, t
     L(\mathcal{M}_{k:l})\geq L(\mathcal{M}_{k,l})
 \end{equation}
 where $L(\cdot)$ denotes the length of the trajectory produced by simulating \eqref{eq:closed_loop} with a given waypoint sequence. If the same \ac{cog} and cross-track error 
-is achieved and there are no collissions with obstacles while using $\mathcal{M}_{k,l}$ the intermediate waypoints of $\mathcal{M}_{k:l}$ can be eliminated. This method is outlined in Algorithm \eqref{alg:imp} where 
+is achieved and there are no collisions with obstacles while using $\mathcal{M}_{k,l}$ the intermediate waypoints of $\mathcal{M}_{k:l}$ can be eliminated. This method is outlined in Algorithm \eqref{alg:imp} where 
 the function $\text{SIMULATE}(\mathcal{M},\xobst)$ returns the \ac{cog} and cross-track error achieved by simulating $\mathcal{M}$ and if there were any 
-collissions with $\xobst$. The result of applying the improvement step to a Hybrid $A^*$ solution is illustrated in Figure~\ref{fig:imp}.
+collisions with $\xobst$. The result of applying the improvement step to a Hybrid $A^*$ solution is illustrated in Figure~\ref{fig:imp}.
 
 \begin{algorithm}
     \begin{algorithmic}
@@ -339,5 +340,5 @@ heuristic function $h(x, \tilde{x})$ used during planning is the same but with $
 \end{equation}
 where the signs in the numerator and denominator are always equal. As mentioned in Section \ref{sec:sub_optimal} the heuristic is not admissible if 
 $\epsilon>1$ which is the case if $\tilde{\windspd}>\windspd$ when traveling in tailwind, or $\tilde{\windspd}<\windspd$ when traveling in headwind.
-In these cases, using this heuristic estimate is analouge to using an inflated heuristic with inflation factor $\epsilon$. Moreover, the effects of using an incorrect wind estimate will be more significant if the 
+In these cases, using this heuristic estimate is analogue to using an inflated heuristic with inflation factor $\epsilon$. Moreover, the effects of using an incorrect wind estimate will be more significant if the 
 magnitude of $\tilde{\windspd}$ is close to that of $\airspd$.

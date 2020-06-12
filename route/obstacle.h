@@ -19,6 +19,7 @@
 #include <s2/s2earth.h>
 #include <s2/third_party/absl/memory/memory.h>
 #include <s2/s2pointutil.h>
+#include <s2/s2earth.h>
 
 #include "geo_utils.h"
 
@@ -32,6 +33,8 @@ public:
 
     bool in_collision(const Vector2_d& coord) const;
     bool in_collision(const Vector2_d& start, const Vector2_d& goal) const;
+
+    double obstacle_dist(const Vector2_d& position) const;
 
 private:
     void build_index(std::string path);

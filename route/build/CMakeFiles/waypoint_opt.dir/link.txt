@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC   -shared -Wl,-soname,libwaypoint_opt.so -o libwaypoint_opt.so CMakeFiles/waypoint_opt.dir/waypoint_opt.cpp.o -Wl,-rpath,/code/build:/code/build/s2geometry:/nomad/builds/release/lib libgraph.so libobstacle.so libmotion_primitive.so libopt.so libsimulation.so s2geometry/libs2.so -lssl -lcrypto -lpthread /nomad/builds/release/lib/libnomad.so 

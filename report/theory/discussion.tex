@@ -5,7 +5,7 @@ The method automatically handles many of the challenging aspects when specifying
 direction and speed of the wind into account.
 
 The method consists of two main components, the \textit{landing sequence calculation} and \textit{motion planner}. Both these components mainly rely on optimization-based methods. 
-To calculate the parameters determining the landing sequence, \ie\ when the \ac{uav} descends to the ground, a non-linear optimization problem is 
+To calculate the parameters determining the landing sequence, \ie\ when the \ac{uav} descends to the ground, a nonlinear optimization problem is 
 formulated and solved numerically. The motion planner uses a set of precomputed waypoints together with sampling-based planning techniques to determine a plan which is feasible given the 
 \ac{uav} model and current wind conditions. To create the set of waypoints, an optimization problem is solved using derivative-free optimization.
 
@@ -19,7 +19,7 @@ However, most popular autopilots, such as Ardupilot, use this formulation \cite{
 
 Sampling methods contain inherent limitations, such as the 
 quality of the solution depending on the sampling resolution. In many cases, such as when generating a \ac{hlut}, there is also a tradeoff between resolution and storage capacity. In the case of a 2-dimensional \ac{hlut} as in this thesis, the \ac{hlut} size scales quadratically with the sampling resolution used. 
-However, calculating analytical solutions in realtime is often infeasible due to high computational costs.
+However, calculating analytical solutions in real-time is often infeasible due to high computational costs.
 
 A large limitation of the landing area definition in Chapter \ref{cha:landing} is the assumption that the terrain elevation is constant inside the landing area $\landing$. In 
 most real-world cases, such as landing in a slope, the terrain elevation varies. Including this factor in the landing sequence generation would enable landings in a much wider class of scenarios.

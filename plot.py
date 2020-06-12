@@ -188,7 +188,6 @@ def prim_main():
     ax.axis('equal')
 
     wind_dir = np.radians(0)
-    wind_dir = np.radians(0)
     plot_wind(ax, 0, 0, -160)
     test = ax.scatter([], [], color='red')
     legend_elements = [
@@ -311,11 +310,12 @@ def find_idx(local_path, point):
             best_idx = i
     return best_idx
 
-wind_dir = 118.5
+wind_dir = 0
+base_dir = 'route'
 #base_dir = 'route/plot_data/sim_eval/dir_{}'.format(wind_dir)
-base_dir = 'route/plot_data/real_eval'
-#origin = offset([57.6432, 11.8630], 400, 0)
-origin = [57.485744, 11.931237]
+#base_dir = 'route/plot_data/real_eval'
+origin = offset([57.6432, 11.8630], 400, 0)
+#origin = [57.485744, 11.931237]
 end_ofs = 1938
 
 def get_alt():
@@ -331,6 +331,26 @@ def get_alt():
             alt += [float(row['RelHomeAlt'])]
             ts += [(float(row["TimeUS"]) - init_ts)/1e6]
     return alt, ts
+
+def get_roll(filename):
+    rolls = []
+    roll_cmds = []
+    with open('{}/{}'.format(base_dir, filename)) as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        for row in csv_reader:
+            rolls += [float(row['Roll'])]
+            roll_cmds += [float(row['DesRoll'])]
+    return rolls, roll_cmds
+    
+def get_yaw(filename):
+    yaws = []
+    yaw_cmds = []
+    with open('{}/{}'.format(base_dir, filename)) as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        for row in csv_reader:
+            yaws += [float(row['Yaw'])]
+            yaw_cmds += [float(row['DesYaw'])]
+    return yaws, yaw_cmds
 
 def get_wind(init_idx = 0):
     wind_spd = []
@@ -438,7 +458,7 @@ def wind_main():
 
 def main():
     rc('text', usetex=True)
-    wps = get_solution_wps('{}/sol.txt'.format(base_dir))
+    wps = get_solution_wps('route/sol.txt'.format(base_dir))
     log = read_log('{}/log.csv'.format(base_dir))
     sim = read_sim('route/simulated_mission.txt')
     local_wps = local_points(origin, wps)
@@ -451,9 +471,86 @@ def main():
     _, ax = plt.subplots(1, 2, figsize=(12,5))
     sim_main(ax[0], local_wps, local_path, local_path_sim, start_ofs, end_ofs)
     
-    alt_profile_main(ax[1], land_ofs, end_ofs)
+    #alt_profile_main(ax[1], land_ofs, end_ofs)
     plt.show()
 
-if __name__ == '__main__':
-    main()
+wind_dir = 0
+base_dir = 'route/plot_data/roll'
+#base_dir = 'route/plot_data/sim_eval/dir_{}'.format(wind_dir)
+#base_dir = 'route/plot_data/real_eval'
+origin = offset([57.6432, 11.8630], 400, 0)
+#origin = [57.485744, 11.931237]
+end_ofs = 1938
+
+def main2():
+    rc('text', usetex=True)
+    wps = get_solution_wps('{}/sol_unfiltered.txt'.format(base_dir))
+    wps_filter = get_solution_wps('{}/sol_filtered.txt'.format(base_dir))
+    wps_imp = get_solution_wps('{}/sol.txt'.format(base_dir))
+    sim = read_sim('{}/sim_unfiltered.txt'.format(base_dir))
+    sim_filter = read_sim('{}/sim_filtered.txt'.format(base_dir))  
+    sim_imp = read_sim('{}/sim.txt'.format(base_dir)) 
     
+    local_wps = local_points(origin, wps)
+    local_wps_imp = local_points(origin, wps_imp)
+    local_wps_filter = local_points(origin, wps_filter)
+    local_sim = local_points(origin, sim)
+    local_sim_imp = local_points(origin, sim_imp)
+    local_sim_filter = local_points(origin, sim_filter)
+
+    _, ax = plt.subplots()
+    ax.scatter(local_wps[:, 1], local_wps[:, 0])
+    ax.scatter(local_wps_imp[:, 1], local_wps_imp[:, 0], color='green')
+    #ax.scatter(local_wps_filter[:, 1], local_wps_filter[:, 0], color='red')
+
+    ax.plot(local_sim[:, 1], local_sim[:, 0])
+    ax.plot(local_sim_imp[:, 1], local_sim_imp[:, 0], color='green')
+    #ax.plot(local_sim_filter[:, 1], local_sim_filter[:, 0], color='red')
+
+    x, y, w, h, r = read_landing(base_dir)
+    obst = read_obstacles(base_dir)
+
+    for i, o in enumerate(obst):
+        if i==0:
+            ax.add_patch(Polygon(o, alpha=0.5, facecolor='red', label='$\mathcal{X}_{obst}$'))
+        else:
+            ax.add_patch(Polygon(o, alpha=0.5, facecolor='red'))
+    ax.add_patch(Rectangle((y,x), w, h, r, alpha=0.5, color='green', label='$\mathcal{A}$'))
+    ax.axis('equal')   
+    plt.show()
+
+def roll_main():
+    roll, roll_cmd = get_roll('att.csv')
+    yaw, yaw_cmd = get_yaw('att.csv')
+    # roll_sim, roll_sim_cmd = get_roll('sim_att.csv')
+
+    _, ax = plt.subplots()
+    offset = 689
+    end = 689+250
+    ax.plot(roll[offset:end], color='green')
+    ax.plot(roll_cmd[offset:end], color='red')
+    ax.plot(yaw[offset:end], color='blue')
+    # ax2.plot(roll_sim, color='green')
+    # ax2.plot(roll_sim_cmd, color='red')
+    plt.show()
+
+def roll_sim_main():
+    wps = get_solution_wps('{}/sol.txt'.format(base_dir))
+    sim = read_sim('{}/sim.txt'.format(base_dir))
+    path = read_log('{}/log.csv'.format(base_dir))
+
+    local_wps = local_points(origin, wps)
+    local_sim = local_points(origin, sim)
+    local_path = local_points(origin, path)
+
+    _, ax = plt.subplots()
+    ax.scatter(local_wps[:, 1], local_wps[:, 0], color="blue")
+    ax.plot(local_sim[:, 1], local_sim[:, 0], color="red")
+    ax.plot(local_path[:, 1], local_path[:, 0], color="blue")
+
+    plt.show()
+
+
+
+if __name__ == '__main__':
+    roll_sim_main()

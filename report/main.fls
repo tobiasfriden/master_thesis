@@ -327,6 +327,8 @@ INPUT /usr/local/texlive/2019/texmf-dist/tex/generic/pgf/libraries/pgflibraryarr
 INPUT /usr/local/texlive/2019/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.tex
 INPUT /Users/tobiasfriden/Exjobb/code/report/main.aux
 INPUT /Users/tobiasfriden/Exjobb/code/report/main.aux
+INPUT /Users/tobiasfriden/Exjobb/code/report/tack.aux
+INPUT /Users/tobiasfriden/Exjobb/code/report/tack.aux
 INPUT /Users/tobiasfriden/Exjobb/code/report/notation.aux
 INPUT /Users/tobiasfriden/Exjobb/code/report/notation.aux
 INPUT /Users/tobiasfriden/Exjobb/code/report/theory/introduction.aux
@@ -579,6 +581,12 @@ INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/public/kpfonts/jkpkmsc8t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/kpfonts/jkpmsc8r.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/kpfonts/jkpmsce.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/kpfonts/jkpkmsc.tfm
+OUTPUT /Users/tobiasfriden/Exjobb/code/report/tack.aux
+INPUT /Users/tobiasfriden/Exjobb/code/report/tack.tex
+INPUT /Users/tobiasfriden/Exjobb/code/report/tack.tex
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/public/kpfonts/jkpmit8t.vf
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/kpfonts/jkpmit8r.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/kpfonts/jkpmite.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/kpfonts/jkpmn8t.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvb8t.tfm
 INPUT /Users/tobiasfriden/Exjobb/code/report/main.toc
@@ -649,9 +657,6 @@ INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvb8r.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/helvetic/phvb8t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/helvetic/phvb8r.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/kpfonts/jkpbsl8t.tfm
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/public/kpfonts/jkpmit8t.vf
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/kpfonts/jkpmit8r.tfm
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/kpfonts/jkpmite.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/public/kpfonts/jkpmn7t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/public/kpfonts/jkpbsl8t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/kpfonts/jkpbsl8r.tfm
@@ -798,6 +803,8 @@ INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/courier/pcrr8t.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/courier/pcrr8t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/courier/pcrr8r.tfm
 INPUT /Users/tobiasfriden/Exjobb/code/report/main.aux
+INPUT /Users/tobiasfriden/Exjobb/code/report/tack.aux
+INPUT /Users/tobiasfriden/Exjobb/code/report/tack.aux
 INPUT /Users/tobiasfriden/Exjobb/code/report/notation.aux
 INPUT /Users/tobiasfriden/Exjobb/code/report/notation.aux
 INPUT /Users/tobiasfriden/Exjobb/code/report/theory/introduction.aux

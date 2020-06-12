@@ -2,6 +2,8 @@ cmake_minimum_required (VERSION 2.6)
 project (Route)
 
 find_package(Boost REQUIRED)
+INCLUDE(FindPkgConfig)
+pkg_check_modules(EIGEN eigen3)
 include_directories(${BOOST_INCLUDE_DIRS})
 
 find_package(casadi REQUIRED)
@@ -18,6 +20,8 @@ include_directories(/code)
 
 include_directories(/nomad/src)
 include_directories(/nomad/ext/sgtelib/src)
+
+include_directories(${EIGEN_INCLUDE_DIRS})
 
 mason_use(variant VERSION 1.1.4 HEADER_ONLY)
 mason_use(geometry VERSION 1.0.0 HEADER_ONLY)
@@ -78,6 +82,14 @@ target_link_libraries(landing
     casadi
 )
 
+add_library(waypoint_opt waypoint_opt.cpp)
+target_link_libraries(waypoint_opt
+    obstacle
+    s2
+    graph
+    simulation
+)
+
 add_executable(gen_hlut gen_hlut.cpp)
 target_link_libraries(gen_hlut PUBLIC hlut)
 
@@ -92,6 +104,7 @@ target_link_libraries(route
     s2
     ${BOOST_LIBRARIES}
     casadi
+    waypoint_opt
 )
 target_add_mason_package(route variant)
 target_add_mason_package(route geometry)
@@ -113,4 +126,11 @@ target_link_libraries(improve_viz
 add_executable(mission mission.cpp)
 target_link_libraries(mission
     simulation
+)
+
+add_executable(sim sim.cpp)
+target_link_libraries(sim
+    simulation
+    opt
+    nomad
 )

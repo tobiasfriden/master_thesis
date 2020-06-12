@@ -101,7 +101,13 @@
         "*.ipp": "cpp",
         "valarray": "cpp",
         "__node_handle": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "__errc": "cpp",
+        "forward_list": "cpp",
+        "scoped_allocator": "cpp",
+        "shared_mutex": "cpp",
+        "rope": "cpp",
+        "slist": "cpp"
     },
     "git.ignoreLimitWarning": true,
     "C_Cpp.default.includePath": [
